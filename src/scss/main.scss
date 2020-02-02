@@ -1,0 +1,11 @@
+
+// Override and include Sierra Library 
+$enable-reset-defaults: false;      // Reset breaks Typography
+@import "~sierra-library/lib/index";
+
+// Finalize some theme styles
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+}

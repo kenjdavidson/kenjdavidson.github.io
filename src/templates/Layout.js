@@ -1,90 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useStaticQuery, graphql, Link } from 'gatsby';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useStaticQuery, graphql } from 'gatsby';
 
-const Header = ({ meta }) => (
-  <header>
-    <h1>{ meta.title }</h1>
-    <h3>{ meta.description }</h3>
-    <Navigation links={ meta.links }></Navigation>
-    <Social links={ meta.social }></Social>
-  </header>
+import "../scss/main.scss";
+
+import Toolbar from './Toolbar';
+import BrandLogo from '../components/BrandLogo';
+import Hamburger from './Hamburger';
+import Navigation from './Navigation';
+import Container from '../components/Container';
+import Copy from '../components/Copy';
+import SocialLinks from '../components/SocialLinks';
+import Flex from '../components/Flex';
+
+import '../utils/fragments';
+
+const StyledLayout = styled.div`
+  &.lock-scroll {
+    height: 100vh;
+    overflow: hidden;
+  }
+`;
+
+const StyledFooter = styled.footer`
+  margin-top: 3rem;
+  padding: 3rem 0;
+  text-align: center;
+
+  p {
+    margin: 0;
+    text-align: center;
+  }
+
+`;
+const Footer = ({siteMetadata}) => (
+  <StyledFooter>      
+    <Container>
+      <Flex>
+        <div>         
+          <SocialLinks links={siteMetadata.social}></SocialLinks>  
+        </div>      
+        <div>
+          <p><Copy>{siteMetadata.author.name}</Copy></p>
+          <p>Straight from Ontario Canada</p>
+          <p>Built with <a href="https://www.gatsbyjs.org/">Gatsby</a> &amp; published to <a href="https://pages.github.com/">Github Pages</a>.</p>
+        </div>
+      </Flex>
+    </Container>
+  </StyledFooter> 
 );
-const StyledHeader = styled(Header)``;
-
-const Navigation = ({ links }) => (
-  <nav className="main-nav">
-    <ul>
-      { links.map((link) => ( 
-        <Link to={ link.href }></Link>
-      ))}
-    </ul>
-  </nav>
-);
-
-const Social = ({ links }) => (
-  <nav className="social-nav">
-    <span>Social</span>
-    <ul>
-      { links.map((link) => {
-        const icon = link.icon.split(' ');
-        return (
-          <li key={ link.name }>
-            <FontAwesomeIcon icon="address-book" />
-          </li>
-        ); 
-      })}      
-    </ul>
-  </nav>
-);
-
-const Main = ({ children }) => (
-  <main>
-  { children }
-  </main>
-);
-const StyledMain = styled.main``;
-
-const Footer = () => (
-  <footer></footer>
-);
-const StyledFooter = styled.footer``;
-
-export { 
-  StyledHeader as Header,
-  StyledMain as Main,
-  StyledFooter as Footer
-};
 
 export default ({ children }) => {
   const data = useStaticQuery(graphql`
     query HeaderQuery {
       site {
-        siteMetadata {
-          title
-          description
-          siteUrl
-          links {
-            title
-            href
-          }
-          social {
-            name
-            account
-            profile
-            icon
-          }
-        }
+        ...siteMetadata
       }
     }
   `);
-  console.log(data.site.siteMetadata);
+
+  const sitemeta = data.site.siteMetadata;
+  const [navShowing, setNavShowing] = useState(false);
+
   return (
-    <>
-      <Header meta={ data.site.siteMetadata }></Header>
-      <Main>{ children }</Main>
-      <Footer></Footer>
-    </>
-  )
+    <StyledLayout className={ navShowing ? 'lock-scroll' : ''}>
+      <Toolbar>
+        <BrandLogo onClick={() => setNavShowing(false)}></BrandLogo>
+        <Hamburger isActive={navShowing} onClick={ () => setNavShowing(!navShowing)}></Hamburger>
+      </Toolbar>
+      { (navShowing) ? (
+        <Navigation onClick={() => setNavShowing(false)}></Navigation>
+      ) : undefined}      
+      { children }
+      <Footer siteMetadata={sitemeta}></Footer>
+    </StyledLayout>
+  );
 };

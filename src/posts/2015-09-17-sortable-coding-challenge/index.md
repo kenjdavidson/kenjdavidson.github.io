@@ -1,12 +1,15 @@
 ---
+type: Blog
 title: Sortable Coding Challenge
+summary: My first attempt at a programming challenge after deciding to switch roles.
 categories: [Blog]
 tags: [Java, Employment]
 ---
 
 When I was attempting to make the switch from application support/implementation to a completely development based role - which was shockingly harder than I had planned - I started coming across a number of coding challenge requirements on company sites.  I was directed to the [Sortable Challenge](https://sortable.com/coding-challenge/) by my cousin who was trying to convince me that Cambridge/Kitchener was the place to be (regardless of the crazy commute).  The only language I really had any experience with at the time was Java, which was good since that was one of the languages they were looking for on the original posting.
 
-**Edit**
+## Challenge Details
+
 Looking at the current (and original, since it hasn't changed much):
 
 > The goal is to match product listings from a 3rd party retailer, e.g. “Nikon D90 12.3MP Digital SLR Camera (Body Only)” against a set of known products, e.g. “Nikon D90”.  <br /><br />We’ll provide you with a set of products and a set of price listings matching some of those products. The task is to match each listing to the correct product. Precision is critical. We much prefer missed matches (lower recall) over incorrect matches, so try hard to avoid false positives. A single price listing may match at most one product.
@@ -30,7 +33,7 @@ In thinking about how it could have been made more aggressive, the only things I
 - Use the `announced-date` inconjunction with the `currency` to match timezones with descriptions?
 - My regex skills needing to be seriously improved?
 
-### Round Two
+## Round Two
 
 I may take another stab at this later, but for now I'll just suck up my failed attempt and move on.
 

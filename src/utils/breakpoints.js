@@ -1,16 +1,21 @@
 
 const breakpoints = {
-  mobileS: '320px',
-  mobileM: '375px',
-  mobileL: '425px',
-  tablet: '768px',
-  laptop: '1024px',
-  laptopL: '1440px',
-  desktop: '2560px'
+  mobileS: '320',
+  mobileM: '375',
+  mobileL: '425',
+  tablet: '768',
+  laptop: '1024',
+  laptopL: '1440',
+  desktop: '2560'
 };
 
-const device = Object.keys(size).reduce((acc, cur) => {
-  acc[cur] = `(min-width: ${size[cur]}px)`;
+const device = {};
+device.min = Object.keys(breakpoints).reduce((acc, cur) => {
+  acc[cur] = `(min-width: ${breakpoints[cur]}px)`;
+  return acc;
+}, {});
+device.max = Object.keys(breakpoints).reduce((acc, cur) => {
+  acc[cur] = `(max-width: ${breakpoints[cur]-1}px)`;
   return acc;
 }, {});
 

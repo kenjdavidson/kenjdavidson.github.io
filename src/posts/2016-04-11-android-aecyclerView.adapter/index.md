@@ -1,5 +1,7 @@
 ---
+type: Blog
 title: Android RecyclerView. Adapter implements Filterable
+summary: Walk through of how I added filter functionality to my Wingapedia app using RecyclerView.
 categories: [Blog]
 tags: [Java, Android]
 ---
@@ -39,15 +41,15 @@ public class FlavourFilter extends Filter {
 
 This is all well and good for Filters which only search by name and description, but what if we need to pass in and filter on more options within the item?  We need to either pass in:
 
-* The full object to perform testing based on all (or some) fields.
-* A byte array used to determine whether flags are on or off.
-* An object consisting of only the items we need to filter on.
+- The full object to perform testing based on all (or some) fields.
+- A byte array used to determine whether flags are on or off.
+- An object consisting of only the items we need to filter on.
 
 In this particular case I (update: sadly) decided that it would be a good idea to pass a JSON object from my `FilterFlavourView` (responsible for selecting different temperatures, toppings, spices, etc). The JSON object contains the items that I'm interested in:
 
-* `searchString` which is a text based lookup.
-* `temperatureFlag` which is the byte flags of temperatures selected.
-* `tagList` which is a list of flavour tags.
+- `searchString` which is a text based lookup.
+- `temperatureFlag` which is the byte flags of temperatures selected.
+- `tagList` which is a list of flavour tags.
 
 All of which are combined to filter the appropriate list.  The `performFiltering` method gets replaced with:
 
@@ -122,10 +124,10 @@ protected FilterResults performFiltering(CharSequence constraint) {
 
 The filtered list is now combined with the three lookups that were required: search text, temperature and flavour.
 
-### P.S ~ May 2017
+#### P.S ~ May 2017
 
 With a combination of All Star Wings going out of business (at least near me) and Google Play requiring a privacy policy (which I didn't have time nor interest in writing) **Wingapedia** has sadly been removed from the store.  
 
-### P.P.S ~ Jan 2018 
+#### P.P.S ~ Jan 2018 
 
 I've had some interest come up in bringing this app back online, although making it customizable for the food industry.  I'll probably look into bringing this back up using React Native or Flutter.

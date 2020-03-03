@@ -1,11 +1,83 @@
 
-// Override and include Sierra Library 
-$enable-reset-defaults: false;      // Reset breaks Typography
-@import "~sierra-library/lib/index";
+:root {
+  --max-width-laptop: 960px;
+  --max-width-desktop: 1024px;
+  --gutter: 1.25rem;
+}
+
+$kenjdavidson-light: (
+  base00: 'ffffff', // Shadow
+  base01: 'fafafa', // Background
+  base02: 'd8d8d8', // Tint 1
+  base03: 'b8b8b8', // Tint 2
+  base04: '585858', // Fore 2
+  base05: '383838', // Fore 1
+  base06: '282828', // Text
+  base07: '181818', // Header
+  base08: '1D3461', // Primary
+  base09: '1F487E', // Primary light
+  base0A: 'FB3640', // Accent
+  base0B: '605F5E', // Tertiary
+  base0C: '28a745', // Success
+  base0D: 'dc3545', // Error
+  base0E: 'ffc107', // Warning
+  base0F: '17a2b8', // Info
+);
+
+$kenjdavidson-dark: (
+  base07: 'ffffff',
+  base06: 'fafafa',
+  base05: 'd8d8d8',
+  base04: 'b8b8b8',
+  base03: '585858',
+  base02: '383838',
+  base01: '282828',
+  base00: '181818',  
+  base08: '1D3461',
+  base09: '1F487E',
+  base0A: 'FB3640',
+  base0B: '605F5E',
+  base0C: '28a745',
+  base0D: 'dc3545',
+  base0E: 'ffc107',
+  base0F: '17a2b8',
+);
+
+$base16schemes: (
+  ':root': $kenjdavidson-light,
+  '.dark': $kenjdavidson-dark
+);
+
+@import "~@kenjdavidson/base16-scss/dist/sass/base16scss";
+@import "blockquotes";
+@import "hamburger";
 
 // Finalize some theme styles
 html,
 body {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
+  background-color: var(--base01);
+}
+
+div.gatsby-highlight {
+  margin: 1rem 0;
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 89%;
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 100%;
+  }
+}
+
+@media (min-width: 2560px) {
+  html {
+    font-size: 125%;
+  }
 }

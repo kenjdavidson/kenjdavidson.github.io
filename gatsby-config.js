@@ -4,26 +4,52 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
+console.log(process.env.GITHUB_API_KEY);
+
 module.exports = {
   siteMetadata: {
-    title: "Ken J Davidson",
     siteUrl: "https://www.kenjdavidson.com",
-    description: "Husbanding, fathering, golfing and developing my way to retirement!",
-    links: [{
-      title: "Blog",
-      href: "/blog"
-    }],
+    title: "Husbanding, fathering, golfing and developing my way to retirement!",
+    author: {
+      name: 'Ken Davidson',
+      avatar: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
+      summary: "Husbanding, fathering, golfing and developing my way to retirement!"
+    },
     social: [{
       name: "github",
       account: "kenjdavidson",
-      profile: "https://www.github.com/kenjdavidson",
-      icon: "fab github"
+      href: "https://www.github.com/kenjdavidson",
+      icon: ["fab", "github"]
+    },{
+      name: "linkedin",
+      account: "kenjdavidson",
+      href: "https://www.linkedin.com/in/kenjdavidson",
+      icon: ["fab", "linkedin"]
+    },{
+      name: "instagram",
+      account: "kenjdavidson",
+      href: "https://www.instagram.com/kenjdavidson",
+      icon: ["fab", "instagram"]
+    },{
+      name: "stackoverflow",
+      account: "kenjdavidson",
+      href: "https://stackoverflow.com/users/4196620/kendavidson",
+      icon: ["fab", "stack-overflow"]
+    },{
+      name: "twitter",
+      account: "kenjdavidson",
+      href: "https://www.twitter.com/kenjdavidson",
+      icon: ["fab", "twitter"]
+    },{
+      name: "email",
+      account: "ken.j.davidson",
+      href: "mailto:ken.j.davidson@live.ca",
+      icon: ["fas", "envelope"]
     }]
   },
   plugins: [
+    "gatsby-plugin-react-helmet",   
     {
-      // https://www.gatsbyjs.org/packages/gatsby-source-filesystem/
-      // Read from any number of source folders into JSON nodes
       resolve: "gatsby-source-filesystem",  
       options: {
         name: "pages",
@@ -31,17 +57,19 @@ module.exports = {
       },
     },
     {
-      // ttps://www.gatsbyjs.org/packages/gatsby-source-filesystem/
-      // Read from any number of source folders into JSON nodes
       resolve: "gatsby-source-filesystem",  
       options: {
         name: "posts",
         path: `${__dirname}/src/posts`,
       },
-    },
-     // https://www.gatsbyjs.org/packages/gatsby-plugin-react-helmet/
-     // https://github.com/nfl/react-helmet
-    "gatsby-plugin-react-helmet",      
+    },   
+    {
+      resolve: "gatsby-source-filesystem",  
+      options: {
+        name: "timeline",
+        path: `${__dirname}/src/timeline`,
+      },
+    },    
     {
       // https://www.gatsbyjs.org/packages/gatsby-plugin-typography/
       // https://kyleamathews.github.io/typography.js/
@@ -50,11 +78,21 @@ module.exports = {
         pathToConfigModule: "src/utils/typography",
       },
     },
+    "gatsby-plugin-sharp",
     {
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark/?=
       resolve: "gatsby-transformer-remark",
       options: {
         plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              // It's important to specify the maxWidth (in pixels) of
+              // the content container as this plugin uses this as the
+              // base for generating different widths of each image.
+              maxWidth: 1024,
+            },
+          },
           {
             resolve: "gatsby-remark-prismjs",
             options: {
@@ -74,9 +112,8 @@ module.exports = {
           }
         ],
       }
-    },    
-    // https://www.gatsbyjs.org/packages/gatsby-plugin-sass/?=
+    },         
     "gatsby-plugin-sass",
-    "gatsby-plugin-styled-components",
+    "gatsby-plugin-styled-components",    
   ],
 }

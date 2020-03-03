@@ -1,6 +1,7 @@
 ---
+type: Blog
 title: Wordpress to Github Pages
-description: A walk through of my attempt to convert Wordpress to Github pages. 
+summary: Follow the process of me attempting to replace my Wordpress site with Jekyll on Github Pages.
 categories: [Blog]
 tags: [Github Pages, Jekyll]
 ---
@@ -16,7 +17,7 @@ allowed me to start paying a little more attention to other frameworks like Angu
 to cut out pay GoDaddy for hosting, that I wasn't really using, nothing like shelling out money for a site that hasn't
 been updated in half a decade.
 
-### Startup
+## Startup
 
 Whenever I work with a new technology I generally try to read as much as possible before actually starting, things like
 framework/language specifics, project best practices, gotchas, etc. are where I tend to start (as I think everyone
@@ -33,11 +34,11 @@ yet pleasing, theme.  It took a while to find one that actually worked, most of 
 and implement my site within it (not cool).  I finally found [Lagom](https://github.com/swanson/lagom) by 
 [Swanson](https://github.com/swanson) which I found appealing, simple and gave me the opportunity to customize to my liking. (check)
 
-### Create Project
+## Create Project
 
 First thing first, using the [Github Pages](https://pages.github.com/) documentation a new project was required, the name has to match `username.github.io`, easy enough - create a new repository  `kenjdavidson.github.com`.  
 
-### Remote Theme Setup
+## Remote Theme Setup
 
 Next I had to get the theme setup, again there's a ton of documentation on this around the net, the most difficult part was picking a 
 theme that I could stand.  I'm not too flashy, and love simple things (personally) when I came across Lagom it was the right choice. 
@@ -61,7 +62,7 @@ high on my list that it was worth working it out.
 
 (So I can't help ya there)
 
-### Overriding Lagom
+## Overriding Lagom
 
 Even though I loved Lagom, there were some changes that needed to be made.  It made sense to fork the project and start working on
 it on my own, not too soon after Mr. Swanson archived the project.  After forking just a couple updates to `_config.yml`:
@@ -97,12 +98,12 @@ leaving these in the `theme.yml`, or maybe having a fall back to the `_config.ym
 with `site.data.theme.name` but should probably have a fallback to `site.author` since it seems likely that other themes would use the
 same.
 
-### SCSS Conversion
+## SCSS Conversion
 
 Lagom uses [getskeleton.com](http://getskeleton.com) as it's CSS framework, which isn't based on SASS on it's own, but there were a number of SASS ports - after looking around I found that [https://github.com/atomicpages/skeleton-sass](https://github.com/atomicpages/skeleton-sass) was the most recently updated and seemed to be straight forward.  In keeping with the whole theme, it was important that the styles were always overridable.  For that reason the file `assets/css/all.css` should be copied and updated to the extending site. 
 
 I also converted Font Awesome to it's SASS implementation, instead of the direct include, just to provide for a little more overriding when required.
 
-### Continued
+## Continued
 
 I'm going to look to continue this topic after getting a little deeper in the process.

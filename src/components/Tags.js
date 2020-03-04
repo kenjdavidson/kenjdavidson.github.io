@@ -26,16 +26,16 @@ const Tag = styled.li`
   }
 `;
 
-const UnstyledList = styled.ul`
+const TagsList = styled.ul`
   list-style: none;
   margin: 0;
-  padding: 0px;
+  padding: 0;
 `;
 
 export default ({className, tags}) => (
-  <UnstyledList>
+  <TagsList className={className}>
     {tags.map(tag => (
       <Tag key={tag}>{tag}</Tag>
     ))}
-  </UnstyledList>
+  </TagsList>
 );

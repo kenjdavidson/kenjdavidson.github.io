@@ -40,6 +40,12 @@ export const article = graphql`
       publishYear: publishTime(formatString: "YYYY")
     }
     html
+    timeToRead
+    wordCount {
+      paragraphs
+      sentences
+      words
+    }
     headings {
       value
     }

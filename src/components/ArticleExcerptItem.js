@@ -7,12 +7,7 @@ import Tags from './Tags';
 import device from '../utils/breakpoints';
 
 const ExcerptTitle = styled.h3`
-  margin: 0.25rem 0 1rem 0;
-
-  @media ${device.min.tablet} {
-    margin: 0;
-    padding: 0;  
-  }
+  margin: 0.25em 0 0.5em 0;
 `;
 
 const ExcerptHeader = styled.header`
@@ -45,6 +40,10 @@ const ExcerptMain = styled.main`
 
 const ExcerptFooter = styled.footer`
   margin-top: 0.5em;
+
+  @media ${device.min.tablet} {
+    margin-top: 0;
+  }
 `;
 
 const ExcerptDate = styled.span`
@@ -69,6 +68,12 @@ const ExcerptCategory = styled.span`
   }
 `;
 
+const StyledTagList = styled(Tags)`
+  margin-top: 0.5em;
+`;
+
+const ReadTime = styled.span``;
+
 export default ({ className, post }) => (
   <Link to={ `/${post.fields.slug}`}>      
     <StyledExcerpt className={post.frontmatter.categories}>        
@@ -85,14 +90,17 @@ export default ({ className, post }) => (
           { post.frontmatter.categories }
         </ExcerptCategory>
       </ExcerptHeader>   
-      <ExcerptMain>
+      <ExcerptMain style={{flex:1}}>
         <ExcerptTitle>{post.frontmatter.title}</ExcerptTitle>
-        <ExcerptFooter>
         { post.frontmatter.tags 
-          ? <Tags tags={post.frontmatter.tags}></Tags>
+          ? <StyledTagList tags={post.frontmatter.tags}></StyledTagList>
           : undefined } 
-        </ExcerptFooter>
-      </ExcerptMain>       
+      </ExcerptMain>          
+      <ExcerptFooter>
+        <ReadTime>
+          { post.timeToRead } min read
+        </ReadTime>
+      </ExcerptFooter>     
     </StyledExcerpt>
   </Link>
 );

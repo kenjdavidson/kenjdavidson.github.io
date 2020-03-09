@@ -6,10 +6,7 @@ import device from '../utils/breakpoints';
 
 const StyledSection = styled(Section)`
   margin: 3em 0;
-
-  @media ${device.min.tablet} {
-    background-color: var(--base02);
-  }  
+  background-color: var(--base08); 
 `;
 
 const Image = styled.img`  
@@ -29,8 +26,6 @@ const Intro = styled.div`
   margin-top: -125px;
   padding: calc(var(--gutter) * 2);
   padding-top: calc(125px + var(--gutter));
-
-  background-color: var(--base02);
   text-align: center;
 
   h3 {

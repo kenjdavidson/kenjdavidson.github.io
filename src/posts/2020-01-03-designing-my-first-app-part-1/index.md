@@ -85,16 +85,16 @@ After checking out a bunch of great posts:
 - [https://medium.com/react-native-training/best-practices-for-creating-react-native-apps-part-1-66311c746df3](https://medium.com/react-native-training/best-practices-for-creating-react-native-apps-part-1-66311c746df3)
 - [https://www.innofied.com/top-10-react-native-best-practices-to-follow/](https://www.innofied.com/top-10-react-native-best-practices-to-follow/)
 
-Pretty much anything on Robin Wieruch's blog [https://www.robinwieruch.de/blog]
+Pretty much anything on Robin Wieruch's blog [https://www.robinwieruch.de/blog](https://www.robinwieruch.de/blog)
 a common theme came up - **React Redux** (just as an FYI, although I'd worked with JavaScript it was not my primary language and I had just started using AngularJS a couple years ago on some very basic projects - so yes, a lot of this is new to me at the time).   Most of the posts said that Redux was overkill for such a small project, and it did seem like overkill at the start, but if the goal was to eventually build the app out it was important to have a base that was capable of growth, rather than having to refactor the current code just to start adding more features.  In my mind spending more time upfront is always a better option.
 
 Next was how to get access to the services [typing clicks here] it seemed that the most popular method for making network request, keeping in mind the choice in Redux, was to use **Axios** as it provided the networking, the access to **Redux** stored sessions and a little more configuration that might be usable down the road. 
 
 Finally we needed to communicate with the hardware through Bluetooth classic.  They key here is the the **Classic** - which Android supports majestically, but Apple (un-shockingly) has their on proprietary nonsense called **MFi** that requires vendors to jump through a bunch of hoops in designing hardware.  Which is pretty mind boggling since BLE is available without much issue - what's so specially about classic? Except Apple being Apple.   Back to the library hunt - there were a number of libraries accessing Bluetooth classic on Android but literally zero on IOS.  Was my decision to choose React Native a terrible one?  Initially it looked like it, but after continuing to look around it seemed like there were no real libraries for use on IOS to communicate with Bluetooth classic anyhow - thankfully this meant that no matter what choice I made, I was going to need to write my own communication library.
 
-Thankfully our hardware vendors were super great with their knowledge and information which made the process easy.  Read more about my (react-native-bluetooth-classic)[https://kenjdavidson.github.io/react-native-bluetooth-classic] project in the next few parts of this series.
+Thankfully our hardware vendors were super great with their knowledge and information which made the process easy.  Read more about my [react-native-bluetooth-classic](https://kenjdavidson.github.io/react-native-bluetooth-classic) project in the next few parts of this series.
 
-Now that a few key decisions were made it was time to (getting started)[/2020-02-01-getting-started-with-sc-mobile].  Check out the second part of this article to walk through the process of:
-getting my environment setup and running
-building the initial application
-getting to a place where I could start actually working on the app
+Now that a few key decisions were made it was time to [getting started](/2020-02-01-getting-started-with-sc-mobile).  Check out the second part of this article to walk through the process of:
+- getting my environment setup and running
+- building the initial application
+- getting to a place where I could start actually working on the app

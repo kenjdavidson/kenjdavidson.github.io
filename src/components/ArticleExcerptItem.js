@@ -51,6 +51,7 @@ const ExcerptDate = styled.span`
   padding-right: 1rem;
   color: var(--base07);
   order: 2;
+  font-weight: initial;
 
   @media ${device.min.tablet} {
     order: 1;
@@ -62,6 +63,7 @@ const ExcerptCategory = styled.span`
   padding-right: 1rem;
   color: var(--base03);
   order 1;
+  font-weight: initial;
 
   @media ${device.min.tablet} {
     order: 2;
@@ -72,7 +74,9 @@ const StyledTagList = styled(Tags)`
   margin-top: 0.5em;
 `;
 
-const ReadTime = styled.span``;
+const ReadTime = styled.span`
+  font-weight: initial;
+`;
 
 export default ({ className, post }) => (
   <Link to={ `/${post.fields.slug}`}>      

@@ -52,8 +52,8 @@ export default ({ data }) => {
       <PageHeader meta={data.site.siteMetadata}>
         <div>
           <h3>I'm neither published nor awarded</h3> but I'm doing my best to get all my half written articles 
-          and documentated projects online.  Which is hard, since I'm not the biggest fan of writing but I realize
-          that in this industry any amount of shared knowledge is good.
+          and documentated projects online.  Which is trouble - since I'm both [some what] a perfectionist and a terrible
+          writer.
         </div>
       </PageHeader>    
       { archives.map((archive) => (      

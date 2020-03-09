@@ -81,14 +81,11 @@ blockquote {
       margin-right: 1em;
     }
 
-    span {
-      padding: 0 1em;
-    }
-
     p {
       display: inline-block;
+      padding: 1em;
     }
-    
+
     p:last-child::after {
       content: "\201D";
     }

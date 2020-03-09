@@ -10,6 +10,7 @@ const Tag = styled.li`
   color: var(--base07);
   border-radius: 2px 15px 15px 2px;
   position: relative;
+  font-weight: initial;
 
   &:after {
     content: ' ';

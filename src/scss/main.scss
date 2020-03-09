@@ -14,10 +14,10 @@ $kenjdavidson-light: (
   base05: '383838', // Fore 1
   base06: '282828', // Text
   base07: '181818', // Header
-  base08: '1D3461', // Primary
-  base09: '1F487E', // Primary light
-  base0A: 'FB3640', // Accent
-  base0B: '605F5E', // Tertiary
+  base08: '5CDB95', // Primary
+  base09: '379683', // Primary light
+  base0A: '05386B', // Accent
+  base0B: 'EDF5E1', // Tertiary
   base0C: '28a745', // Success
   base0D: 'dc3545', // Error
   base0E: 'ffc107', // Warning
@@ -48,7 +48,8 @@ $kenjdavidson-dark: (
 $base16schemes: (
   ':root': $kenjdavidson-light,
   '.dark': $kenjdavidson-dark,
-  ".gatsby-highlight": $base16-dark
+  ".gatsby-highlight": $base16-dark,
+  ":not(pre) > code[class*='language-']": $base16-dark,
 );
 
 @import "~@kenjdavidson/base16-scss/dist/sass/prismjs";

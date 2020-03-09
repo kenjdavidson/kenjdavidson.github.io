@@ -10,7 +10,7 @@ let theme = {
     },
     {
       name: 'Merriweather',
-      styles: ['300', '300i', '900', '900i']
+      styles: ['300', '300i', '700', '900']
     },
     {
       name: 'Mrs Saint Delafield',
@@ -24,23 +24,26 @@ let theme = {
   bodyFontFamily: ['Merriweather', 'serif'],
   bodyWeight: 400,
   bodyColor: 'var(--base06)',
+  boldWeight: 900,
   baseFontSize: '14px'
 };
 
 theme.overrideThemeStyles = ({ rhythm }, options) => ({
-  'b, strong': {
-    'font-weight': 'bold'
-  },
-
   'a': {
     position: 'relative',
     color: 'var(--base07)',  
+    'font-weight': '700',
     'text-decoration': 'none',
-    'background-image': 'linear-gradient(to bottom, rgba(var(--base08-rgb-r),var(--base08-rgb-g),var(--base08-rgb-b),0.33) 50%, transparent 50%)',
-    'background-position': '0 0.75rem',
+    'background-image': 'linear-gradient(to bottom, rgba(var(--base0A-rgb-r),var(--base0A-rgb-g),var(--base0A-rgb-b),0.75) 100%, transparent 0%)',
+    'background-position': '0 1em',
     'background-repeat': 'repeat-x',
     'background-size': '1rem 2rem',
   },
+
+  'a h*': {    
+    'background-position': '0 1rem',
+  },
+
 
   'span.site-branding': {
     fontFamily: options.scriptFontFamily.join(','),

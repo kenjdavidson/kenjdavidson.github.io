@@ -60,6 +60,39 @@ blockquote {
       content: "\201D";
     }
   }
+
+  &.cite {
+    display: inline;
+    font-family: "Georgia","serif";
+    font-style: italic;
+    border: 0px;
+    max-width: 70%;
+    margin: 3em auto;
+    background-color: transparent;
+
+    &::before {
+      content: "\201C";
+      font-size: 20pt;
+      position: absolute;
+      font-size: 7rem;
+      left: -20px;
+      top: 10px;
+      color: var(--base03);
+      margin-right: 1em;
+    }
+
+    span {
+      padding: 0 1em;
+    }
+
+    p {
+      display: inline-block;
+    }
+    
+    p:last-child::after {
+      content: "\201D";
+    }
+  }
 }
 
 @media (min-width: 1024px) {

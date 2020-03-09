@@ -43,12 +43,15 @@ $kenjdavidson-dark: (
   base0F: '17a2b8',
 );
 
+@import "~@kenjdavidson/base16-scss/dist/sass/schemes/base16";
+
 $base16schemes: (
   ':root': $kenjdavidson-light,
-  '.dark': $kenjdavidson-dark
+  '.dark': $kenjdavidson-dark,
+  ".gatsby-highlight": $base16-dark
 );
 
-@import "~@kenjdavidson/base16-scss/dist/sass/base16scss";
+@import "~@kenjdavidson/base16-scss/dist/sass/prismjs";
 @import "blockquotes";
 @import "hamburger";
 

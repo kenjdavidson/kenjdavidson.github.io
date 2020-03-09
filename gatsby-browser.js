@@ -5,7 +5,7 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 import Layout from "./src/templates/Layout"; 
 
-import "./src/scss/prismjs-github.css";
+//import "./src/scss/prismjs-github.css";
 
 library.add(fab, faEnvelope);
 

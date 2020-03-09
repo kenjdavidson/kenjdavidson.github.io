@@ -3,7 +3,17 @@ import styled from 'styled-components';
 
 import device from '../utils/breakpoints';
 
-const StyledContainer = styled.div`
+/**
+ * The Container component provides common alignment and max-width spacing based on the
+ * current device width.
+ */
+export default ({className, children}) => (
+  <WrappedContainer className={className}>
+    {children}
+  </WrappedContainer>
+);
+
+const WrappedContainer = styled.div`
   flex: 1;  
 
   padding: 1rem var(--gutter);
@@ -17,9 +27,3 @@ const StyledContainer = styled.div`
     max-width: var(--max-width-desktop);
   }
 `;
-
-export default ({className, children}) => (
-  <StyledContainer className={className}>
-    {children}
-  </StyledContainer>
-);

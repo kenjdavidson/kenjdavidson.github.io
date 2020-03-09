@@ -10,7 +10,7 @@ let theme = {
     },
     {
       name: 'Merriweather',
-      styles: ['300', '300i', '600', '600i']
+      styles: ['300', '300i', '900', '900i']
     },
     {
       name: 'Mrs Saint Delafield',
@@ -28,6 +28,10 @@ let theme = {
 };
 
 theme.overrideThemeStyles = ({ rhythm }, options) => ({
+  'b, strong': {
+    'font-weight': 'bold'
+  },
+
   'a': {
     position: 'relative',
     color: 'var(--base07)',  

@@ -48,7 +48,11 @@ module.exports = {
     }]
   },
   plugins: [
-    "gatsby-plugin-react-helmet",   
+    `gatsby-plugin-react-helmet`,   
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-styled-components`,  
+    `gatsby-transformer-sharp`,
     {
       resolve: "gatsby-source-filesystem",  
       options: {
@@ -69,6 +73,13 @@ module.exports = {
         name: "timeline",
         path: `${__dirname}/src/timeline`,
       },
+    }, 
+    {
+      resolve: "gatsby-source-filesystem",  
+      options: {
+        name: "images",
+        path: `${__dirname}/src/assets/images`,
+      },
     },    
     {
       // https://www.gatsbyjs.org/packages/gatsby-plugin-typography/
@@ -77,8 +88,7 @@ module.exports = {
       options: {
         pathToConfigModule: "src/utils/typography",
       },
-    },
-    "gatsby-plugin-sharp",
+    },    
     {
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark/?=
       resolve: "gatsby-transformer-remark",
@@ -112,8 +122,6 @@ module.exports = {
           }
         ],
       }
-    },         
-    "gatsby-plugin-sass",
-    "gatsby-plugin-styled-components",    
+    },           
   ],
 }

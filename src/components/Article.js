@@ -32,9 +32,21 @@ const StyledArticle = styled.article`
     padding: 0 var(--gutter);
   }
 
-  h2, h3 {
+  h2, h3, h4 {
     margin-top: 2em;
     margin-bottom: 1em;
+  }
+
+  span.gatsby-resp-image-wrapper {  
+    margin: 3em auto;    
+    box-shadow: 1px 1px 10px 1px var(--base07)
+  }
+
+  @media ${device.max.tablet} {
+    span.gatsby-resp-image-wrapper {  
+      margin-left: calc(var(--gutter) * -1) !important;
+      margin-right: calc(var(--gutter) * -1) !important;
+    }
   }
 
   @media ${device.min.laptop} {
@@ -43,6 +55,10 @@ const StyledArticle = styled.article`
 
     main > * {
       padding: 0 var(--gutter);
+    }
+
+    span.gatsby-resp-image-wrapper {  
+      box-shadow: 1px 1px 10px var(--base07);
     }
   }
 

@@ -8,6 +8,10 @@ import device from '../utils/breakpoints';
 
 const ExcerptTitle = styled.h3`
   margin: 0.25em 0 0.5em 0;
+
+  @media ${device.min.tablet} {
+    margin: initial;
+  }
 `;
 
 const ExcerptHeader = styled.header`
@@ -70,10 +74,6 @@ const ExcerptCategory = styled.span`
   }
 `;
 
-const StyledTagList = styled(Tags)`
-  margin-top: 0.5em;
-`;
-
 const ReadTime = styled.span`
   font-weight: initial;
 `;
@@ -97,7 +97,7 @@ export default ({ className, post }) => (
       <ExcerptMain style={{flex:1}}>
         <ExcerptTitle>{post.frontmatter.title}</ExcerptTitle>
         { post.frontmatter.tags 
-          ? <StyledTagList tags={post.frontmatter.tags}></StyledTagList>
+          ? <Tags tags={post.frontmatter.tags}></Tags>
           : undefined } 
       </ExcerptMain>          
       <ExcerptFooter>

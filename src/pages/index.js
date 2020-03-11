@@ -13,9 +13,9 @@ export default ({ data }) => (
   <>
     <PageHeader meta={data.site.siteMetadata}>
       <div>
-        <h1>Husbanding, Fathering, Gofling and Developing my way to retirement.</h1> 
-        Check out my <Link to="/about">personal interests</Link>, <Link to="/resume">professional experience</Link> or 
-        some of the <Link to="/writing">posts/projects</Link> I've [finally] published.
+        <h1>Husbanding, Fathering, Golfing and Developing my way to retirement.</h1> 
+        Besides providing me an online playground for my projects, you'll be able to find information on 
+        my <Link to="/resume">professional experience</Link> and <Link to="/about">personal interests</Link>.
       </div>
     </PageHeader>
     <LargeSection>

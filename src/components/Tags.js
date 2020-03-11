@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Tag = styled.li`
   display: inline-block;
   font-size: 0.8em;    
-  margin: 0 1em 0 0;  
+  margin: 8px 1em 0 0;  
   padding: 0.2rem 1.25rem 0.15rem 0.5rem;
   background-color: var(--base02);
   color: var(--base07);

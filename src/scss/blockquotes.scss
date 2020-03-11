@@ -1,12 +1,13 @@
 blockquote {
   position: relative;
-  margin: 3em calc(var(--gutter) * 1);
+  margin: 3em auto;
 
-  border: 1px solid var(--base03);
-  border-left-width: 8px;
-  border-radius: 3px;
+  border-left: 8px solid var(--base03);
   background-color: rgba(var(--base03-rgb-r),var(--base03-rgb-g),var(--base03-rgb-b),0.5);
   color: var(--base05);
+
+  max-width: 720px;
+  padding: 1em;
 
   &.success {
     color: var(--base0C);
@@ -37,7 +38,6 @@ blockquote {
     font-style: italic;
     border: 0px;
     width: 100%;
-    max-width: 70%;
     margin: 3em auto;
     background-color: transparent;
 
@@ -66,7 +66,6 @@ blockquote {
     font-family: "Georgia","serif";
     font-style: italic;
     border: 0px;
-    max-width: 70%;
     margin: 3em auto;
     background-color: transparent;
 
@@ -89,11 +88,5 @@ blockquote {
     p:last-child::after {
       content: "\201D";
     }
-  }
-}
-
-@media (min-width: 1024px) {
-  blockquote {
-    margin: 3em calc(var(--gutter) * 4);
   }
 }

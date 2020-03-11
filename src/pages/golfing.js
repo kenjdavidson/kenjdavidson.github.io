@@ -13,11 +13,12 @@ export default ({ data }) => (
   <>      
   <PageHeader meta={data.site.siteMetadata}>
     <div>
-      <h3>I LOVE GOLF!!</h3>  Sadly I haven't had time to get content to this page.  Keep checking back.
+      <h3>"They call it golf because all the other four letter words were taken."</h3>
+      <p>- Gary Player</p>
     </div>
   </PageHeader>   
   <Section>
-
+    Sit back while I work on my first Gatsy plugin to pull in data from <a href="https://golfcanada.ca/">Golf Canada</a>.
   </Section>
   </>
 );

@@ -29,6 +29,7 @@ const ExcerptHeader = styled.header`
 
 const ExcerptMain = styled.main`
   margin-bottom: 0.8rem;
+  font-weight: initial;
 `;
 
 const ExcerptFooter = styled.footer``;

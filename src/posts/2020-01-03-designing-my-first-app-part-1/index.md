@@ -1,7 +1,7 @@
 ---
 type: Blog
 categories: [Project]
-title: Designing Standardbred Mobile - Decision Making - Part 1
+title: Standardbred Mobile - Framework Selection Process - Part 1
 description: Walking through my development of Standardbred Mobile App from design to release.
 series: 
    name: Designing My First React Native App

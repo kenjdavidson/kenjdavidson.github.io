@@ -75,4 +75,4 @@ You'll be asked to enter the name `ACCESS_TOKEN` (required by the action) and th
 
 Once saved, you will be able to either push or pull request a file into your repository, which will kick off the job.  You can acces the logs within the `Actions` tab of your repository:
 
-![Publish Gatsby Workflow](./github-gatsby-publish.png)
+![Publish Gatsby Workflow](./github-gatsby-publish.PNG)

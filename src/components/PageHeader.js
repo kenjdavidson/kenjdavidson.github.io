@@ -15,10 +15,11 @@ const Image = styled.img`
   height: 250px;
   z-index: 10;
 
-  border: var(--gutter) solid var(--base00);
+  background-color: var(--base01);
+  border: var(--gutter) solid var(--base01);
   border-radius: 50%;  
 
-  margin-bottom: 0px;
+  margin-bottom: 0px;  
 `;
 
 const Intro = styled.div`

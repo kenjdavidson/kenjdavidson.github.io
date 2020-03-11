@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby";
 import styled from 'styled-components';
 
 import PageHeader from '../components/PageHeader';
-import { LargeSection, SectionHeader } from '../components/Section';
+import Section, { LargeSection, SectionHeader } from '../components/Section';
 import ArticleGrid from '../components/ArticleGrid';
 import Center from '../components/Center';
 
@@ -18,14 +18,20 @@ export default ({ data }) => (
         my <Link to="/resume">professional experience</Link> and <Link to="/about">personal interests</Link>.
       </div>
     </PageHeader>
-    <LargeSection>
+    <blockquote>
+      <p>
+        I'm slowly getting my Wordpress (and more recently Jekyll) pages and posts converted to Gatsby.  It's a process that has finally
+        been completed enough to be posted - but still require a substantial amount of changes.  Enjoy the process along with me, as I 
+        try to document both the decision making and technical choices.
+      </p>
+    </blockquote>
+    <Section>
       <SectionHeader>Recent</SectionHeader>
-      <ArticleGrid posts={ data.allMarkdownRemark.edges }></ArticleGrid>              
-      
+      <ArticleGrid posts={ data.allMarkdownRemark.edges }></ArticleGrid>                    
       <Center padding="2rem">
         <Link to="/writing">Read more</Link>      
       </Center>        
-    </LargeSection>    
+    </Section>    
   </>
 )
 

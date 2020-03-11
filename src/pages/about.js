@@ -20,15 +20,15 @@ export default ({ data }) => {
         <AboutTitle>Hey, I'm Ken</AboutTitle> 
         <Wrapper>                    
           <p>
-            A <strong>software developer</strong> based out of Ontario Canada.  I admittedly got into the development game pretty late in my <Link to="/resume#experience">career</Link> (most of my time spent on the front lines of support
-            and implementation) although my <Link to="/resume#education">educational background</Link> and goals have always been on the development side.  I've primarily worked with backend/client using Java - more recently I've been working in more of
-            a <i>full stack</i> role (even though I hate that term) using a number of Javascript frameworks - for more info check out some of my <Link to="/writing">articles</Link> or <Link to="/projects">projects</Link>.
+            A <strong>software developer</strong> based out of Ontario Canada.  I, admittedly, got into the development game pretty late in my <Link to="/resume#experience">career</Link> (the bulk of my time right out of uni was spent on the front lines of support
+            and implementation) although my <Link to="/resume#education">educational background</Link> and goals have always been on the development side.  The majority of my development work has been on backend and client side using Java/JavaFX; more recently I've been 
+            working in more of a <i>full stack</i> role (this term!) using a number of web and mobile Javascript frameworks.  For more info, check out my <Link to="/writing">articles</Link> or <Link to="/projects">projects</Link>.
           </p>
           <p>
             As proud as I am of my professional career, I'm even more proud of husbanding my wonderful wife, Sue, and fathering my (let's go with) rambunctious son, Carson.  I always knew that I wasn't completely
-            built for fatherhood, but the last {father} years have taught me a whole wack of new things about myself.  I've learned that what I originally thought patience was is no where near what is humanly possible, I've learned that no matter how many people
-            "know what their talking about" no one really knows what their talking about and most importantly I've learned that there is nothing I love more than (other than golf) being woken up early on the 
-            weekend to
+            built for fatherhood, but the last {father} years have taught me a whole wack of new things about myself.  I've learned that what I originally thought patience was is no where near what is humanly possible; I've learned that no matter how many people
+            "know what their talking about" no one really knows what they're talking about; and most importantly I've learned that there is nothing I love more (maybe golf) than being woken up early on 
+            a Saturday morning to
           </p>        
           <div style={{margin: '2em'}}>
           <blockquote className="cite">
@@ -36,12 +36,11 @@ export default ({ data }) => {
           </blockquote>     
           </div>
           <p>
-            which pretty much means just sit in the corner and watch him play with Transformers.
+            which pretty much means to sit downstairs in our "play room" letting Carson teach me how to play Transformers.  Like I haven't been playing Transformers for years, son!
           </p>
           <p>
-            When Sue's glorious enough to let me have some alone time (and the sun's out) theres a pretty good chances I'll be walking as many holes as possible at <a href="https://golfgranite.com/">Granite Ridge Golf Course</a>.  I can't say that I'm a 
-            great <Link to="/golfing">golfer</Link>, even saying OK might be a little bit of a stretch, but it's an addiction I don't want to shake.  When the sun's down or it's too cold for golf I'm generally at home watching whatever terrible
-            sci-fi I can find on Netflix or Amazon; while continuously reading about any flavour of the month framework that seems interesting.
+            When I finally get some time to myself, which I don't feel bad about saying, you'll find me either walkin as many holes as possible at my home course (<a href="https://golfgranite.com/">Granite Ridge Golf Course</a>), watching as much old
+            (and terrible) sci-fi available on Netflix or Amazon Prime,  or playing around with one of the many half finished projects that I have on the go.
           </p>
         </Wrapper>       
       </Section>  

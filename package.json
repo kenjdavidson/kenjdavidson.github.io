@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "kenjdavidson.github.io",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
-  "version": "0.1.0",
+  "description": "Personal site developed with Gatsby & Github Pages",
+  "version": "0.9.0",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",

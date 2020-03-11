@@ -54,23 +54,69 @@ First thing first I needed to decide upon the layout - this was pretty simple - 
 
 ### Relating Requirements to Gatsby 
 
-...
+[TODO]
 
 ### Converting from Jekyll to Gatsby
 
-...
+The conversion from Jekyll to Gatsby was pretty painless.  The build process is just as straight forward and the ability to consume markdown files provides a lot more customization that Jekyll had.  The one thing that is lacking though, or at least that I relied heavily on during my writing was the `{:.className #idValue}` macro that was available; for example:
 
-### Final(ish) Product
+```markdown
+{: .header-link}
+## Header with ClassName
 
-Which in the end gives us the current site:
+{: .error}
+> This is an error blockquote
 
-![Gatsbied](./gatsby-kenjdavidson.png)
+{: .table.table-condensed}
+| bootstrap | table |
+| --- | --- |
+| missing | styles | 
+```
+
+Which I had previously used throughout my pages and posts.   The only saving grace, is that I think I'll be able to take the opportunity to write my own `gatsby-transformer-remark` plugin to do so.
+
+## Publishing Gatsby to kenjdavidson.github.io
+
+One of the things that threw me for a loop was deployment, which is sad since it's pretty well documented.  One of the keys is that Github Pages requires that your `[username].github.io` site is based off the `master` branch.  This works great with Jekyll but for Gatsby you need the site to be at the root level.  To get this working I did the following:
+
+### Create a Gatsby branch for development
+
+I decided that I would make the primary branch of the repository `gatsby`, this is where all my changes / pull requests would be merged.  This would also allow me to publish the static files to `master` without any conflict or extra files. 
+
+- Open up Github > [Project] > Settings
+- Branches
+- Change `Default Branch` to **gatsby**
+
+![Change default branch](./default-branch.png)
+
+> Make sure that you update your `edit url` if you're linking back to your source files on your blog/article template(s).
+
+
+### Follow the gh-pages Documentation
+
+I read the documentation [https://www.gatsbyjs.org/docs/how-gatsby-works-with-github-pages/#deploying-to-a-github-pages-subdomain-at-githubio](https://www.gatsbyjs.org/docs/how-gatsby-works-with-github-pages/#deploying-to-a-github-pages-subdomain-at-githubio) but I obviously didn't read it that well! I missed the `master` part.
+
+Once my master branch was free to overwrite, I added the appropriate script:
+
+```json
+"scripts": {
+  "deploy": "gatsby clean && gatsby build && gh-pages -d public -b master"
+}
+```
+
+Then a quick little:
+
+```bash
+$ npm run deploy
+```
+
+and the site is published.
 
 ## On the Docket
 
 Just a quick rundown of some tasks that need to get done:
 
-- Release the new site to <a href="https://www.kenjdavidson.com">kenjdavidson.com</a>
+- ~~Release the new site to <a href="https://www.kenjdavidson.com">kenjdavidson.com</a>~~
 - Update with <a href="https://www.gatsbyjs.org/docs/seo/">SEO</a> and <a hre="https://www.gatsbyjs.org/docs/add-page-metadata/#using-react-helmet-and-gatsby-plugin-react-helmet">Helmet</a> plugins.
 - Create the Golf Canada source and transformer plugin to get my Golf info online
 - Convert the <a href="https://github.com/kenjdavidson/yahoo-fantasy-wordpress">Yahoo Wordpress</a> plugin to Gatsby

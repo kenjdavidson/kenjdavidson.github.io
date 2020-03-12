@@ -68,11 +68,11 @@ const StyledArticle = styled.article`
     max-width: var(--max-width-desktop);
   }
 `;
-export default ({ post }) => {
-  return (
+export default ({ post }) => (
+  <>
     <StyledArticle>
       <Title slug={post.fields.slug}>{post.frontmatter.title}</Title>
       <main dangerouslySetInnerHTML={{ __html: post.html }}></main>
     </StyledArticle>
-  );
-};
+  </>
+);

@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Section from './Section';
+
 import device from '../utils/breakpoints';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 
 const StyledSection = styled(Section)`
   margin: 3em 0;
@@ -73,13 +75,17 @@ const Hero = styled.div`
 `;
 
 
-export default ({ meta, children }) => (
-  <StyledSection>
-    <Hero>
-      <Image src={meta.author.avatar} alt={meta.author.name}></Image> 
-      <Intro>
-        {children}
-      </Intro>
-    </Hero>
-  </StyledSection>
-);
+export default ({ children }) => {
+  const meta = useSiteMetadata();
+  
+  return (
+    <StyledSection>
+      <Hero>
+        <Image src={meta.author.avatar} alt={meta.author.name}></Image> 
+        <Intro>
+          {children}
+        </Intro>
+      </Hero>
+    </StyledSection>
+  ); 
+};

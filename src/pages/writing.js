@@ -1,13 +1,14 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
 
 import PageHeader from '../components/PageHeader';
 import Flex from '../components/Flex';
 import Section, { SectionHeader } from '../components/Section';
 import ArticleExcerptItem from "../components/ArticleExcerptItem";
 
-import '../utils/fragments';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 
 const ArchiveSection = styled(Section)`
   margin-bottom: 0;
@@ -29,6 +30,8 @@ const Archive = ({ archive }) => (
 );
 
 export default ({ data }) => {
+  const meta = useSiteMetadata();
+
   let postsByYear = {};
 
   data.allMarkdownRemark.edges.forEach((node) => {
@@ -49,7 +52,10 @@ export default ({ data }) => {
 
   return (
     <>      
-      <PageHeader meta={data.site.siteMetadata}>
+      <Helmet>
+        <title>{ `${meta.title} | Writing` }</title>
+      </Helmet>
+      <PageHeader>
         <div>
           <h3>I'm neither published nor awarded</h3> but I am opinionated and spend a bunch of time playing around with new languages and
           frameworks - it's possible something I write might help someone skip the suffering that I've run into.  There's always a chance
@@ -65,9 +71,6 @@ export default ({ data }) => {
 
 export const query = graphql`
   query WritingQuery {
-    site {
-      ...siteMetadata
-    }
     allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}, sort: {fields: fields___publishTime, order: DESC}) {
       edges {
         node {

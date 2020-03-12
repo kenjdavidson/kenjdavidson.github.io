@@ -3,13 +3,14 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
-
-console.log(process.env.GITHUB_API_KEY);
-
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.kenjdavidson.com",
-    title: "Husbanding, fathering, golfing and developing my way to retirement!",
+    siteUrl: "https://www.kenjdavidson.com",  
+    title: "Ken Davidson",
+    summary: "Husbanding, fathering, golfing and developing my way to retirement!",
+    description: "Whether you're checking out my posts, following up on an application, or found me through a random Google - I'm glad to have you!",
+    image: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
+    twitterUsername: "kenjdavidson",
     author: {
       name: 'Ken Davidson',
       avatar: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
@@ -45,7 +46,16 @@ module.exports = {
       account: "ken.j.davidson",
       href: "mailto:ken.j.davidson@live.ca",
       icon: ["fas", "envelope"]
-    }]
+    }],
+    manifest: {
+      name: 'Ken J Davidson',
+      shortName: 'kend',
+      startUrl: '/',
+      backgroundColor: '#000',
+      themeColo: '#000',
+      display: 'standalone',
+      icon: 'src/static/web/icon.png'
+    }
   },
   plugins: [
     `gatsby-plugin-react-helmet`,   

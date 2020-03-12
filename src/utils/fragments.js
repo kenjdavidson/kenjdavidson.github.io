@@ -8,6 +8,10 @@ export const siteMetadata = graphql`
     siteMetadata {
       siteUrl
       title
+      summary
+      description
+      image
+      twitterUsername
       author {
         name
         avatar

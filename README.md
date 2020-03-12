@@ -1,29 +1,8 @@
-<style>
-  :root {
-    primary: #5cdb95;
-  }
-
-  .primary-bg {
-    background-color: var(--primary);
-  }
-
-  .avatar {
-    border-radius: 50%;
-    border: solid 1em white;
-    background-color: white;
-  }
-
-  .centered {
-    text-align: center;
-  }
-</style>
-<div class="primary-bg">
-  <p class="centered primary-bg">
-    <img src="https://avatars1.githubusercontent.com/u/6210735?s=250&amp;v=4" alt="Ken Davidson" class="avatar">
-  </p>  
-</div>
-<h1 class="centered">Front End Development Playground w/ <a href="https://gatsbyjs.org">Gatsby</a> && <a href="https://pages.github.com">Github Pages</a></h1>
-<p class="centered">
+<p style="text-align: center">
+  <img src="https://avatars1.githubusercontent.com/u/6210735?s=250&amp;v=4" alt="Ken Davidson" style="border-radius: 50%; border: solid 1em #5cdb95; background-color: #5cdb95;">
+</p>  
+<h1 style="text-align: center;">Front End Development Playground w/ <a href="https://gatsbyjs.org">Gatsby</a> && <a href="https://pages.github.com">Github Pages</a></h1>
+<p style="text-align: center;">
   <a href="https://kenjdavidson.com">kenjdavidson.com</a>
 <p>
 

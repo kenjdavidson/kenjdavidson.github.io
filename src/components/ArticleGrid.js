@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Container from './Container';
 import GridWrapper from './GridWrapper';
 import ArticleExcerpt from './ArticleExcerpt';
 

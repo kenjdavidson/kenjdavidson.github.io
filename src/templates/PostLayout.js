@@ -1,18 +1,22 @@
-import React from "react";
-import { graphql } from "gatsby";
+import React from 'react';
+import { graphql } from 'gatsby';
 
-import Container from '../components/Container';
+import SEO from '../components/SEO';
 import Article from '../components/Article';
 
-import '../utils/fragments';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 
 export default ({ data, pageContext }) => {
-  const post = data.markdownRemark;    
-  
+  const post = data.markdownRemark;
+  const meta = useSiteMetadata();
+
   return (
-    <Article
-      post={post}>
-    </Article>
+    <>
+      <SEO title={`${meta.title} | ${post.frontmatter.title}`}
+        description={`${post.frontmatter.summary}`}
+        type="article"></SEO>
+      <Article post={post}></Article>
+    </>
   );
 };
 

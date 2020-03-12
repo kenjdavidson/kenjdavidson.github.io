@@ -1,7 +1,7 @@
 <p style="text-align: center">
   <img src="https://avatars1.githubusercontent.com/u/6210735?s=250&amp;v=4" alt="Ken Davidson" style="border-radius: 50%; border: solid 1em #5cdb95; background-color: #5cdb95;">
 </p>  
-<h1 style="text-align: center;">Front End Development Playground w/ <a href="https://gatsbyjs.org">Gatsby</a> && <a href="https://pages.github.com">Github Pages</a></h1>
+<h2 style="text-align: center;">Front End Development Playground <br />w/ <a href="https://gatsbyjs.org">Gatsby</a> && <a href="https://pages.github.com">Github Pages</a></h2>
 <p style="text-align: center;">
   <a href="https://kenjdavidson.com">kenjdavidson.com</a>
 <p>

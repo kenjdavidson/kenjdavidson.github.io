@@ -10,19 +10,19 @@ const StyledTitle = styled.header`
 
   h1 {
     margin-top: 1rem;
-  } 
+  }
 `;
 const Title = ({ slug, children }) => (
   <StyledTitle>
     <Link to="/">Home</Link>&nbsp;/ <Link to="/writing">Writing</Link>&nbsp;/
-    <Link to={slug}><h1>{children}</h1></Link>
+    <Link to={slug}>
+      <h1>{children}</h1>
+    </Link>
   </StyledTitle>
 );
 
 const StyledFooter = styled.footer``;
-const Footer = ({children}) => (
-  <StyledFooter>{children}</StyledFooter>
-);
+const Footer = ({ children }) => <StyledFooter>{children}</StyledFooter>;
 
 const StyledArticle = styled.article`
   width: 100%;
@@ -32,18 +32,20 @@ const StyledArticle = styled.article`
     padding: 0 var(--gutter);
   }
 
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     margin-top: 2em;
     margin-bottom: 1em;
   }
 
-  span.gatsby-resp-image-wrapper {  
-    margin: 3em auto;    
-    box-shadow: 1px 1px 10px 1px var(--base07)
+  span.gatsby-resp-image-wrapper {
+    margin: 3em auto;
+    box-shadow: 1px 1px 10px 1px var(--base07);
   }
 
   @media ${device.max.tablet} {
-    span.gatsby-resp-image-wrapper {  
+    span.gatsby-resp-image-wrapper {
       margin-left: calc(var(--gutter) * -1) !important;
       margin-right: calc(var(--gutter) * -1) !important;
     }
@@ -57,20 +59,20 @@ const StyledArticle = styled.article`
       padding: 0 var(--gutter);
     }
 
-    span.gatsby-resp-image-wrapper {  
+    span.gatsby-resp-image-wrapper {
       box-shadow: 1px 1px 10px var(--base07);
     }
   }
 
   @media ${device.min.desktop} {
     max-width: var(--max-width-desktop);
-  } 
+  }
 `;
-export default ({post}) => {
+export default ({ post }) => {
   return (
-    <StyledArticle> 
-      <Title slug={post.fields.slug}>{post.frontmatter.title}</Title>        
-      <main dangerouslySetInnerHTML={{ __html: post.html }}></main> 
+    <StyledArticle>
+      <Title slug={post.fields.slug}>{post.frontmatter.title}</Title>
+      <main dangerouslySetInnerHTML={{ __html: post.html }}></main>
     </StyledArticle>
   );
 };

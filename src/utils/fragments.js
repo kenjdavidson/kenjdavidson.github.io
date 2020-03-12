@@ -1,5 +1,8 @@
-import { graphql } from "gatsby"
+import { graphql } from 'gatsby';
 
+/**
+ * Standard/common siteMetadata query fragment.
+ */
 export const siteMetadata = graphql`
   fragment siteMetadata on Site {
     siteMetadata {
@@ -9,7 +12,7 @@ export const siteMetadata = graphql`
         name
         avatar
         summary
-      }      
+      }
       social {
         account
         href
@@ -20,6 +23,9 @@ export const siteMetadata = graphql`
   }
 `;
 
+/**
+ * Standard/common article query fragment.
+ */
 export const article = graphql`
   fragment article on MarkdownRemark {
     frontmatter {
@@ -51,5 +57,3 @@ export const article = graphql`
     }
   }
 `;
-
-

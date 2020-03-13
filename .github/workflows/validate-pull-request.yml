@@ -1,5 +1,5 @@
 # Validates that the pull request branch will build
-name: validate-pull-gatsby
+name: validate-pull-request
 
 # Fires on pull-request to gatsby branc
 on:
@@ -22,14 +22,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" > ~/.npmrc
-      - uses: actions/setup-node@v1
+      - uses: kenjdavidson/gatsby-gh-pages-action@feature/build-only-config
         with:
-          node-version: '12.x'
-      - name: Install Node Dependencies
-        run: npm install
-      - name: Build Gatsby Site
-        uses: kenjdavidson/gatsby-cli-github-action@feature/pkg-manager-selection
-        env:
-          PKG_MANAGER: "npm"
-        with:
-          gatsby-arg: build
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          skip-publish: true

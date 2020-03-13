@@ -65,3 +65,4 @@ Trash talking is only useful when you are sure the other person has seen it. BBM
 ![Communication UML](./yahoo-chat-uml.png)
 
 This is implemented by using the message platform as an RPC server.  The requirement for this, is that each message contains a reply to key (so that we can be certain the consumer knows where the reply should go) and a message id (called a correlation id on RabbitMQ).  When the reply message comes back referencing the same correlation id as my initial trash talk message, I know that it’s been read.
+

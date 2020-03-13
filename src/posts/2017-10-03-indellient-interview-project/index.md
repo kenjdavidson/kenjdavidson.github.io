@@ -1,6 +1,6 @@
 ---
 type: Blog
-categories: Blog
+categories: [Blog]
 title: Indellient Software Analyst Interview Project
 summary: Perform an analysis / review of your favorite software for discussion during the interview.
 tags: [Interview, Software Analysis]

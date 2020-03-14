@@ -6,7 +6,6 @@ import device from '../utils/breakpoints';
 
 const StyledTitle = styled.header`
   margin: 3rem 0;
-  padding: 0 var(--gutter);
 
   h1 {
     margin-top: 1rem;
@@ -28,10 +27,6 @@ const StyledArticle = styled.article`
   width: 100%;
   min-height: 100vh;
 
-  main > *:not(img):not(.gatsby-highlight) {
-    padding: 0 var(--gutter);
-  }
-
   h2,
   h3,
   h4 {
@@ -45,7 +40,8 @@ const StyledArticle = styled.article`
   }
 
   @media ${device.max.tablet} {
-    span.gatsby-resp-image-wrapper {
+    span.gatsby-resp-image-wrapper,
+    div.gatsby-highlight {
       margin-left: calc(var(--gutter) * -1) !important;
       margin-right: calc(var(--gutter) * -1) !important;
     }
@@ -54,10 +50,6 @@ const StyledArticle = styled.article`
   @media ${device.min.laptop} {
     max-width: var(--max-width-laptop);
     margin: 0px auto;
-
-    main > * {
-      padding: 0 var(--gutter);
-    }
   }
 
   @media ${device.min.desktop} {

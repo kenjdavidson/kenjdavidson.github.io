@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import styled from 'styled-components';
 
 import SEO from '../components/SEO';
@@ -18,7 +18,7 @@ import useSiteMetadata from '../hooks/useSiteMetadata';
 const CompanyName = styled.span`
   text-transform: uppercase;
   padding-right: 1rem;
-  color: var(--base07);
+  color: var(--base04);
 `;
 
 const JobTitle = styled.h2``;

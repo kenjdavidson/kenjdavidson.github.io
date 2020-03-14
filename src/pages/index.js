@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby";
 import Helmet from 'react-helmet';
 
 import PageHeader from '../components/PageHeader';
-import Section, { LargeSection, SectionHeader } from '../components/Section';
+import Section, { SectionHeader } from '../components/Section';
 import ArticleGrid from '../components/ArticleGrid';
 import Center from '../components/Center';
 

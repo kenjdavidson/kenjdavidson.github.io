@@ -23,6 +23,6 @@ const HamburgerWrapper = styled.button`
   .hamburger-box .hamburger-inner,
   .hamburger-box .hamburger-inner::before,
   .hamburger-box .hamburger-inner::after {
-    background-color: var(--base07);
+    background-color: var(--base04);
   }
 `;

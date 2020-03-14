@@ -10,37 +10,19 @@ exports.createPosts = async ({ graphql, actions }) => {
             fields {
               slug
             }
-          }
-          next {
-            frontmatter {
-              title
-            }
-            fields {
-              slug
-            }
-          }
-          previous {
-            frontmatter {
-              title
-            }
-            fields {
-              slug
-            }
+            id
           }
         }
       }
     }
   `);
 
-  result.data.allMarkdownRemark.edges.forEach(({ node, next, previous }) => {
-    console.log(node.fields.slug);
+  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/PostLayout.js`),
       context: {
-        slug: node.fields.slug,
-        next,
-        previous
+        id: node.id,
       },
     })
   });

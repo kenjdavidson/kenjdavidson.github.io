@@ -7,7 +7,12 @@ blockquote {
   color: var(--base05);
 
   max-width: 720px;
-  padding: 1em;
+  padding: 0.5em 1em;
+
+  p {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
 
   &.success {
     color: var(--base0C);
@@ -37,7 +42,7 @@ blockquote {
     font-family: "Georgia","serif";
     font-style: italic;
     border: 0px;
-    width: 100%;
+    width: 80%;
     margin: 3em auto;
     background-color: transparent;
 
@@ -59,7 +64,7 @@ blockquote {
     p:last-child::after {
       content: "\201D";
     }
-  }
+  } // cite=""
 
   &.cite {
     display: inline;
@@ -88,5 +93,5 @@ blockquote {
     p:last-child::after {
       content: "\201D";
     }
-  }
+  } // .cite
 }

@@ -7,8 +7,8 @@ import device from '../utils/breakpoints';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 
 const StyledSection = styled(Section)`
-  margin: 3em 0;
-  background-color: var(--base08); 
+  margin: 3em 0;  
+  background-color: var(--base06); 
 `;
 
 const Image = styled.img`  
@@ -30,9 +30,18 @@ const Intro = styled.div`
   padding: calc(var(--gutter) * 2);
   padding-top: calc(125px + var(--gutter));
   text-align: center;
+  color: var(--base07);
 
-  h3 {
+  h1, h2, h3, h4 {
+    color: var(--base07);    
+  }
+
+  h2, h3, h4 {
     display: inline;
+  }
+
+  a {
+    color: var(--base07);    
   }
   
   @media ${device.min.tablet} {

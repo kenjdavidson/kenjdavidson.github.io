@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 /**
  * Standard/common siteMetadata query fragment.
  */
-export const siteMetadata = graphql`
+export const siteMetadataFragment = graphql`
   fragment siteMetadata on Site {
     siteMetadata {
       siteUrl
@@ -27,11 +27,13 @@ export const siteMetadata = graphql`
   }
 `;
 
+
 /**
  * Standard/common article query fragment.
  */
-export const article = graphql`
+export const articleFragment = graphql`
   fragment article on MarkdownRemark {
+    id
     frontmatter {
       categories
       subcategory
@@ -42,6 +44,7 @@ export const article = graphql`
     }
     timeToRead
     excerpt
+    html
     fields {
       slug
       birthTime(formatString: "MMM DD, YYYY")
@@ -49,7 +52,6 @@ export const article = graphql`
       publishTime: publishTime(formatString: "MMM DD, YYYY")
       publishYear: publishTime(formatString: "YYYY")
     }
-    html
     timeToRead
     wordCount {
       paragraphs

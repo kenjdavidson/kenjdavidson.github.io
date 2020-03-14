@@ -5,7 +5,7 @@ import { Link } from 'gatsby';
 import device from '../utils/breakpoints';
 
 const StyledBrand = styled(Link)`  
-  color: var(--base07);
+  color: var(--base04);
 
   font-size: 1.25em;
   font-family: 'Playfair Display', serif;

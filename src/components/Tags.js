@@ -7,7 +7,7 @@ const Tag = styled.li`
   margin: 8px 1em 0 0;  
   padding: 0.2rem 1.25rem 0.15rem 0.5rem;
   background-color: var(--base02);
-  color: var(--base07);
+  color: var(--base04);
   border-radius: 2px 15px 15px 2px;
   position: relative;
   font-weight: initial;

@@ -1,13 +1,26 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import styled from 'styled-components';
 
 import SEO from '../components/SEO';
+import Section, { SectionHeader } from '../components/Section';
 import Article from '../components/Article';
+import ArticleGrid from '../components/ArticleGrid';
 
 import useSiteMetadata from '../hooks/useSiteMetadata';
+import device from '../utils/breakpoints';
 
-export default ({ data, pageContext }) => {
-  const post = data.markdownRemark;
+const StyledArticlesGrid = styled(ArticleGrid)`
+  @media ${device.min.laptop} {
+    article:last-child {
+      display: none;
+    }
+  }
+`;
+
+export default ({ data }) => {
+  const post = data.allMarkdownRemark.edges[0].node;
+  const recent = data.recent.edges;
   const meta = useSiteMetadata();
 
   return (
@@ -15,15 +28,32 @@ export default ({ data, pageContext }) => {
       <SEO title={`${meta.title} | ${post.frontmatter.title}`}
         description={`${post.frontmatter.summary}`}
         type="article"></SEO>
-      <Article post={post}></Article>
+      <Section>
+        <Article post={post}></Article>
+      </Section>
+      <Section>
+        <SectionHeader>Recent</SectionHeader>
+        <StyledArticlesGrid posts={ recent }></StyledArticlesGrid>                           
+      </Section>  
     </>
   );
 };
 
 export const query = graphql`
-  query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      ...article
+  query($id: String!) {
+    allMarkdownRemark(filter: {id: {eq: $id} }) {
+      edges {
+        node {
+          ...article
+        }
+      }
+    }
+    recent: allMarkdownRemark(limit: 4, filter: {id: {ne: $id } } ) {
+      edges {
+        node {
+          ...article
+        }
+      }
     }
   }
 `;

@@ -9,7 +9,7 @@ const SEO = ({ title, description, image, slug, type }) => {
   const seo = {
     title: title || `${meta.title} | ${meta.summary}`,
     description: description || meta.summary,
-    image: image && image.indexOf('http') == -1 && `${meta.siteUrl}${image}` || meta.image,
+    image: (image && image.indexOf('http') === -1 && `${meta.siteUrl}${image}`) || meta.image,
     url: `${meta.siteUrl}${slug || "/"}`,
     type: type || "website"
   };

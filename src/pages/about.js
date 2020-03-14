@@ -13,13 +13,11 @@ export default ({ data }) => {
   const meta = useSiteMetadata();
 
   const now = new Date().getFullYear();
-  const dating = now - 2009;
-  const husband = now - 2013;
   const father = now - 2016;
 
   return (
     <>
-      <SEO title={`${meta.title} | Aboot`} slug="/about"></SEO>      
+      <SEO title={`${meta.title} | Aboot`} slug="/about"></SEO>
       <Section>
         <AboutImg fluid={data.kendavidson.childImageSharp.fluid} />
         <AboutTitle>Hey, I'm Ken</AboutTitle>
@@ -29,7 +27,7 @@ export default ({ data }) => {
             I, admittedly, got into the development game pretty late in my{' '}
             <Link to="/resume#experience">career</Link> (the bulk of my time
             right out of uni was spent on the front lines of support and
-            implementation) although my{' '}
+            implementation); although my{' '}
             <Link to="/resume#education">educational background</Link> and goals
             have always been on the development side. The majority of my
             development work has been on backend and client side using
@@ -42,14 +40,16 @@ export default ({ data }) => {
           <p>
             As proud as I am of my professional career, I'm even more proud of
             husbanding my wonderful wife, Sue, and fathering my (let's go with)
-            rambunctious son, Carson. I always knew that I wasn't completely
-            built for fatherhood, but the last {father} years have taught me a
-            whole wack of new things about myself. I've learned that what I
-            originally thought patience was is no where near what is humanly
-            possible; I've learned that no matter how many people "know what
-            their talking about" no one really knows what they're talking about;
-            and most importantly I've learned that there is nothing I love more
-            (maybe golf) than being woken up early on a Saturday morning to
+            rambunctious son, Carson. I was never sure whether I was built for
+            fatherhood, and I still think I walk a thin line, but the last{' '}
+            {father}
+            years have taught me a whole wack of new things about myself. I've
+            learned that what I originally thought patience was is no where near
+            what is humanly possible; I've learned that no matter how many
+            people "know what their talking about" no one really knows what
+            they're talking about; and most importantly I've learned that there
+            is nothing I love more (maybe golf) than being woken up early on a
+            Saturday morning to
           </p>
           <div style={{ margin: '2em' }}>
             <blockquote className="cite">

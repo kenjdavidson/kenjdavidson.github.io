@@ -53,7 +53,7 @@ const ExcerptFooter = styled.footer`
 const ExcerptDate = styled.span`
   text-transform: uppercase;
   padding-right: 1rem;
-  color: var(--base07);
+  color: var(--base04);
   order: 2;
   font-weight: initial;
 

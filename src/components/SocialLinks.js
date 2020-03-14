@@ -23,7 +23,7 @@ export default ({links}) => (
   <StyledUl>
     {links.map((link) => (
       <li key={link.name}>
-        <a href={link.href} target="_blank">
+        <a href={link.href} target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={link.icon}></FontAwesomeIcon>
         </a>
       </li>

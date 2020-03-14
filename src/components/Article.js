@@ -41,7 +41,7 @@ const StyledArticle = styled.article`
 
   span.gatsby-resp-image-wrapper {
     margin: 3em auto;
-    box-shadow: 1px 1px 10px 1px var(--base07);
+    box-shadow: 1px 1px 10px 1px var(--base05);
   }
 
   @media ${device.max.tablet} {
@@ -58,10 +58,6 @@ const StyledArticle = styled.article`
     main > * {
       padding: 0 var(--gutter);
     }
-
-    span.gatsby-resp-image-wrapper {
-      box-shadow: 1px 1px 10px var(--base07);
-    }
   }
 
   @media ${device.min.desktop} {
@@ -73,6 +69,7 @@ export default ({ post }) => (
     <StyledArticle>
       <Title slug={post.fields.slug}>{post.frontmatter.title}</Title>
       <main dangerouslySetInnerHTML={{ __html: post.html }}></main>
+      <Footer></Footer>
     </StyledArticle>
   </>
 );

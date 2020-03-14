@@ -23,7 +23,7 @@ const ExcerptHeader = styled.header`
   }
 
   .excerpt-subtype {
-    color: var(--base07);
+    color: var(--base04);
   }
 `;
 

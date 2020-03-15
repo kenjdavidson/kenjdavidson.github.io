@@ -6,9 +6,20 @@ summary: Get your Gatsby site published automatically on push or pull, without n
 tags: [Gatsby, Github Pages, Github Workflows]
 ---
 
-Now that I've got things rolling with my [Gatsby conversion](/writing/2020/03/01/here-comes-gatsby) and everything seems good working with Github Pages, it was time to automate the build/release process.  I'm definitely not perfect, which can easily be seen from my typos (I tend to type faster than I think), and as such, am always noticing small issues that I don't want to let sit.  Github provides inline editing and pull commits that allow quick changes - the trouble is once the changes are made, the publish doesn't automatically happen like it did with Jekyll.
+Now that I've got things rolling with my [Gatsby conversion](/writing/2020/03/01/here-comes-gatsby) and everything seems good working with Github Pages, it was time to automate the build/release process.  What a great chance to start playing with a little Github Actions (action?).   Right off the bat, my two priorties are to:
 
-Enter [Github Workflows](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-and-managing-workflow-files-and-runs) and [Gatsby Publish action](https://github.com/marketplace/actions/gatsby-publish).  With this combination, it's straight forward(ish) to setup and ensure that you can edit/build/publish your site from anywhere.
+1. Automate the build when publishing new content to the `gatsby` branch
+2. Perform a test build of any pull requests that come in.
+
+With these two things, I have the ability to make modifications on the fly directly from Github as well as start following a few best practices for new content.  Enter:
+
+### [Github Workflows](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-and-managing-workflow-files-and-runs) 
+
+Workflows provide the ability to configure any number of jobs, performed as reactions to common Gitub and API actions.  
+
+### [Gatsby Publish action](https://github.com/marketplace/actions/gatsby-publish).  
+
+While Googling around I found this little gem of a project that did exactly what I was looking for, with regards to publishing the `gatsby` branch to `master` on push.   With a couple [changes](https://github.com/enriikke/gatsby-gh-pages-action/pull/16) it's possible to perform only a build, by `skip-publish`ing the job.
 
 ## Github Workflow Config
 
@@ -16,7 +27,7 @@ The first step to setting up workflows is to create a configuration file, from y
 - click on `Actions` 
 - then `New Workflow`.  
 
-When I started I used the default `Node.js Workflow` but you can copy the following into the basic starter:
+### publish-gatsby.yml
 
 ```yml
 # Publish Gatsby
@@ -26,9 +37,8 @@ name: publish-gatsby
 # events but only for the master branch
 on:
   push:
-    branches: [ gatsby ]
-  pull_request:
-    branches: [ gatsby ]
+    branches:
+      - gatsby
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -43,8 +53,8 @@ jobs:
     # - Build gh-pages using action
     steps:
       - uses: actions/checkout@v1
-      - name: Authenticate with GitHub package registry // highlight-line
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" > ~/.npmrc // highlight-line
+      - name: Authenticate with GitHub package registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" > ~/.npmrc
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
           access-token: ${{ secrets.ACCESS_TOKEN }}
@@ -57,6 +67,41 @@ At a high level this file is:
 - Runs the gh-pages action
 
 > The highlighted lines are used to import the `@kenjdavidson/base16-scss` package which I have posted to Github Package Registry, if you don't have any package registry requirements, these lines can be removed from your configuration file.
+
+### validate-pull-request.yml
+
+```yml
+# Validates that the pull request branch will build
+name: validate-pull-request
+
+# Fires on pull-request to gatsby branc
+on:
+  pull_request:
+    branches: 
+      - gatsby
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner on which this job will run
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    # - Checkout gatsby branch
+    # - Update authentication for Github Package Registry @kenjdavidson/base16-scss
+    # - Build gh-pages using action
+    steps:
+      - uses: actions/checkout@v1
+      - name: Authenticate with GitHub package registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" > ~/.npmrc
+      - uses: kenjdavidson/gatsby-gh-pages-action@feature/build-only-config
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          skip-publish: true
+```
+
+configured with the same items as the original, except for the added `skip-publish: true` in order stop after a successful build.  Ensures that pull requests will at least compile properly when merging the pull request from Github.
 
 ### Project Secrets
 
@@ -73,6 +118,20 @@ You'll be asked to enter the name `ACCESS_TOKEN` (required by the action) and th
 
 ## Running the Workflow
 
-Once saved, you will be able to either push or pull request a file into your repository, which will kick off the job.  You can acces the logs within the `Actions` tab of your repository:
+As the actions are defined, you'll kick off one of the two actions by either:
 
-![Publish Gatsby Workflow](./github-gatsby-publish.PNG)
+### Pushing to Gatsby branch
+
+Each push will now fire a build and publish - great for editing/correcting those pesky issues directly on Github.
+
+**Note** - originally I had the publish workflow configured for `pull-reqeust` as well.  This caused the build to actually publish the `feature/branch` to production, instead of just ensuring the build. 
+
+![Publish Gatsby Workflow](./gatsby-publish.png)
+
+### Submitting a pull request
+
+**Note** - this screenshot is from an already merged pull request, I'll do my best to update the screenshot for the pull request related to this particular post.
+
+![Pull Request](./validate-pull-request.png)
+
+Once I get up and running with some actual React/Gatsby testing, I'll be able to take more advantage of these workflows. 

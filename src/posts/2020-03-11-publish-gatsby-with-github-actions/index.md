@@ -6,20 +6,20 @@ summary: Get your Gatsby site published automatically on push or pull, without n
 tags: [Gatsby, Github Pages, Github Workflows]
 ---
 
-Now that I've got things rolling with my [Gatsby conversion](/writing/2020/03/01/here-comes-gatsby) and everything seems good working with Github Pages, it was time to automate the build/release process.  What a great chance to start playing with a little Github Actions (action?).   Right off the bat, my two priorties are to:
+Now that I've got things rolling with my [Gatsby conversion](/writing/2020/03/01/here-comes-gatsby) and everything seems good working with Github Pages, it was time to automate the build/release process.  What a great chance to start playing with a little Github Actions (Yup, I know this stuff is old - but it's still new to me!).   Right off the bat, my two priorties are to:
 
 1. Automate the build when publishing new content to the `gatsby` branch
 2. Perform a test build of any pull requests that come in.
 
 With these two things, I have the ability to make modifications on the fly directly from Github as well as start following a few best practices for new content.  Enter:
 
-### [Github Workflows](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-and-managing-workflow-files-and-runs) 
+### Github Workflows
 
-Workflows provide the ability to configure any number of jobs, performed as reactions to common Gitub and API actions.  
+[Github Workflows](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-and-managing-workflow-files-and-runs) provide the ability to configure any number of jobs, performed as reactions to common Gitub and API actions.  
 
-### [Gatsby Publish action](https://github.com/marketplace/actions/gatsby-publish).  
+### Gatbsy GH Pages Action
 
-While Googling around I found this little gem of a project that did exactly what I was looking for, with regards to publishing the `gatsby` branch to `master` on push.   With a couple [changes](https://github.com/enriikke/gatsby-gh-pages-action/pull/16) it's possible to perform only a build, by `skip-publish`ing the job.
+While Googling around I found this little gem of a project, [Gatsby Publish action](https://github.com/marketplace/actions/gatsby-publish)  that did exactly what I was looking for; with regards to publishing the `gatsby` branch to `master` on push.   With a couple [changes](https://github.com/enriikke/gatsby-gh-pages-action/pull/16) it's possible to perform only a build, by `skip-publish`ing the job.
 
 ## Github Workflow Config
 
@@ -130,7 +130,7 @@ Each push will now fire a build and publish - great for editing/correcting those
 
 ### Submitting a pull request
 
-**Note** - this screenshot is from an already merged pull request, I'll do my best to update the screenshot for the pull request related to this particular post.
+I've submitted a pull request for this specific draft, which kicked off the `validate-pull-request` action:
 
 ![Pull Request](./validate-pull-request.png)
 

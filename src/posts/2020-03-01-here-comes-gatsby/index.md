@@ -117,7 +117,7 @@ and the site is published.
 Just a quick rundown of some tasks that need to get done:
 
 - ~~Release the new site to <a href="https://www.kenjdavidson.com">kenjdavidson.com</a>~~
-- Update with <a href="https://www.gatsbyjs.org/docs/seo/">SEO</a> and <a hre="https://www.gatsbyjs.org/docs/add-page-metadata/#using-react-helmet-and-gatsby-plugin-react-helmet">Helmet</a> plugins.
+- ~~Update with <a href="https://www.gatsbyjs.org/docs/seo/">SEO</a> and <a hre="https://www.gatsbyjs.org/docs/add-page-metadata/#using-react-helmet-and-gatsby-plugin-react-helmet">Helmet</a> plugins.~~
 - Create the Golf Canada source and transformer plugin to get my Golf info online
 - Convert the <a href="https://github.com/kenjdavidson/yahoo-fantasy-wordpress">Yahoo Wordpress</a> plugin to Gatsby
 - Get Dark/Light/Color themes working

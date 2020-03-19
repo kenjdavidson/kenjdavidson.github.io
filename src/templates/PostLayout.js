@@ -48,7 +48,7 @@ export const query = graphql`
         }
       }
     }
-    recent: allMarkdownRemark(limit: 4, filter: {id: {ne: $id } } ) {
+    recent: allMarkdownRemark(filter: {id: {ne: $id }, fileAbsolutePath: {regex: "/posts/"}}, limit: 4, sort: {fields: fields___publishTime, order: DESC}) {
       edges {
         node {
           ...article

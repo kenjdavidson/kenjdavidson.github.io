@@ -27,12 +27,7 @@ export default ({ data }) => {
       </PageHeader>
       <blockquote class="error">
         <p>
-          Everyone stay safe in these crazy **COVID-19** times!!  Stay home when you can or are feeling ill, if you get out for exercise or shopping respect others personal space, and just try to be patient!  This is going on, it's going to go on for a while, the only way we get through this is supporting each other (and the government, regardless of your beliefs).
-        </p>
-      </blockquote>
-      <blockquote>
-        <p>
-          I'm slowly getting my Wordpress (and more recently Jekyll) pages and posts converted to Gatsby.  It's a process that has finally been completed enough to be posted - but still require a substantial amount of changes.  Enjoy the process along with me, as I try to document both the decision making and technical choices.
+          Everyone stay safe in these crazy <strong>COVID-19</strong> times!!  Stay home when you can or are feeling ill, if you get out for exercise or shopping respect others personal space, and just try to be patient!  This is going on, it's going to go on for a while, the only way we get through this is supporting each other (and the government, regardless of your beliefs).
         </p>
       </blockquote>
       <Section>

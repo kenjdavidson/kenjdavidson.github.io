@@ -19,7 +19,7 @@ const StyledArticlesGrid = styled(ArticleGrid)`
 `;
 
 export default ({ data }) => {
-  const post = data.allMarkdownRemark.edges[0].node;
+  const post = data.allMdx.edges[0].node;
   const recent = data.recent.edges;
   const meta = useSiteMetadata();
 
@@ -41,14 +41,14 @@ export default ({ data }) => {
 
 export const query = graphql`
   query($id: String!) {
-    allMarkdownRemark(filter: {id: {eq: $id} }) {
+    allMdx(filter: {id: {eq: $id} }) {
       edges {
         node {
           ...article
         }
       }
     }
-    recent: allMarkdownRemark(filter: {id: {ne: $id }, fileAbsolutePath: {regex: "/posts/"}}, limit: 4, sort: {fields: fields___publishTime, order: DESC}) {
+    recent: allMdx(filter: {id: {ne: $id }, fileAbsolutePath: {regex: "/posts/"}}, limit: 4, sort: {fields: fields___publishTime, order: DESC}) {
       edges {
         node {
           ...article

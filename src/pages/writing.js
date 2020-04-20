@@ -34,7 +34,7 @@ export default ({ data }) => {
 
   let postsByYear = {};
 
-  data.allMarkdownRemark.edges.forEach((node) => {
+  data.allMdx.edges.forEach((node) => {
     let post = node.node;
 
     if (!postsByYear[post.fields.publishYear]) {
@@ -71,7 +71,7 @@ export default ({ data }) => {
 
 export const query = graphql`
   query WritingQuery {
-    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}, sort: {fields: fields___publishTime, order: DESC}) {
+    allMdx(filter: {fileAbsolutePath: {regex: "/posts/"}}, sort: {fields: fields___publishTime, order: DESC}) {
       edges {
         node {
           ...article

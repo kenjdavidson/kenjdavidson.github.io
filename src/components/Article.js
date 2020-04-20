@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import device from '../utils/breakpoints';
 
@@ -60,7 +61,7 @@ export default ({ post }) => (
   <>
     <StyledArticle>
       <Title slug={post.fields.slug}>{post.frontmatter.title}</Title>
-      <main dangerouslySetInnerHTML={{ __html: post.html }}></main>
+      <MDXRenderer>{post.body}</MDXRenderer>
       <Footer></Footer>
     </StyledArticle>
   </>

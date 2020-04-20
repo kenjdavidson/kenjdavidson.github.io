@@ -32,7 +32,7 @@ export default ({ data }) => {
       </blockquote>
       <Section>
         <SectionHeader>Recent</SectionHeader>
-        <ArticleGrid posts={ data.allMarkdownRemark.edges }></ArticleGrid>                    
+        <ArticleGrid posts={ data.allMdx.edges }></ArticleGrid>                    
         <Center padding="2rem">
           <Link to="/writing">Read more</Link>      
         </Center>        
@@ -43,7 +43,7 @@ export default ({ data }) => {
 
 export const query = graphql`
   query HomeQuery {
-    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}, limit: 6, sort: {fields: fields___publishTime, order: DESC}) {
+    allMdx(filter: {fileAbsolutePath: {regex: "/posts/"}}, limit: 6, sort: {fields: fields___publishTime, order: DESC}) {
       edges {
         node {
           ...article

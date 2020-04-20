@@ -111,9 +111,10 @@ module.exports = {
     },
     {
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark/?=
-      resolve: 'gatsby-transformer-remark',
+      resolve: 'gatsby-plugin-mdx',
       options: {
-        plugins: [
+        extensions: ['.mdx','.md'],
+        gatsbyRemarkPlugins: [
           'gatsby-remark-code-titles',
           {
             resolve: `gatsby-remark-images`,
@@ -147,9 +148,10 @@ module.exports = {
               },
               escapeEntities: {}
             }
-          },          
+          }          
         ]
       }
-    }
+    },
+    'gatsby-transform-mdx-posts'
   ]
 };

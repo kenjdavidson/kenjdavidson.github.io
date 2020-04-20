@@ -57,7 +57,7 @@ export default ({ data }) => {
                 <Flex>
                   <CompanyName>{ job.frontmatter.title }</CompanyName>
                   <JobTitle className="title">{ job.frontmatter.subtitle }</JobTitle>
-                  <div dangerouslySetInnerHTML={{ __html: job.html }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: job.body }}></div>
                 </Flex>                
               </StyledExcerpt>
             )
@@ -81,7 +81,7 @@ export default ({ data }) => {
                 <Flex>
                   <CompanyName>{ edu.frontmatter.title }</CompanyName>                
                   <JobTitle className="title">{ edu.frontmatter.subtitle }</JobTitle>
-                  <div dangerouslySetInnerHTML={{ __html: edu.html }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: edu.body }}></div>
                 </Flex>                
               </StyledExcerpt>    
             )
@@ -99,7 +99,7 @@ export const query = graphql`
     site {
       ...siteMetadata
     }
-    experience: allMarkdownRemark(filter: {frontmatter: {subcategory: {regex: "/Experience/"}}, fileAbsolutePath: {regex: "/timeline/"}}, sort: {fields: frontmatter___start___year, order: DESC}) {
+    experience: allMdx(filter: {frontmatter: {subcategory: {regex: "/Experience/"}}, fileAbsolutePath: {regex: "/timeline/"}}, sort: {fields: frontmatter___start___year, order: DESC}) {
       nodes {
         fileAbsolutePath
         frontmatter {
@@ -124,10 +124,10 @@ export const query = graphql`
           modifiedTime
           birthTime
         }
-        html
+        body
       }
     }
-    education: allMarkdownRemark(filter: {frontmatter: {subcategory: {regex: "/Education/"}}, fileAbsolutePath: {regex: "/timeline/"}}, sort: {fields: frontmatter___start___year, order: DESC}) {
+    education: allMdx(filter: {frontmatter: {subcategory: {regex: "/Education/"}}, fileAbsolutePath: {regex: "/timeline/"}}, sort: {fields: frontmatter___start___year, order: DESC}) {
       nodes {
         fileAbsolutePath
         frontmatter {
@@ -152,7 +152,7 @@ export const query = graphql`
           modifiedTime
           birthTime
         }
-        html
+        body
       }
     }
   }

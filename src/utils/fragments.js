@@ -32,7 +32,7 @@ export const siteMetadataFragment = graphql`
  * Standard/common article query fragment.
  */
 export const articleFragment = graphql`
-  fragment article on MarkdownRemark {
+  fragment article on Mdx {
     id
     frontmatter {
       categories
@@ -44,7 +44,7 @@ export const articleFragment = graphql`
     }
     timeToRead
     excerpt
-    html
+    body
     fields {
       slug
       birthTime(formatString: "MMM DD, YYYY")

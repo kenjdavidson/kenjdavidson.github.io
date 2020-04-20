@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import styled from 'styled-components';
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import SEO from '../components/SEO';
 import PageHeader from '../components/PageHeader';
@@ -57,7 +58,7 @@ export default ({ data }) => {
                 <Flex>
                   <CompanyName>{ job.frontmatter.title }</CompanyName>
                   <JobTitle className="title">{ job.frontmatter.subtitle }</JobTitle>
-                  <div dangerouslySetInnerHTML={{ __html: job.body }}></div>
+                  <MDXRenderer>{job.body}</MDXRenderer>
                 </Flex>                
               </StyledExcerpt>
             )
@@ -81,7 +82,7 @@ export default ({ data }) => {
                 <Flex>
                   <CompanyName>{ edu.frontmatter.title }</CompanyName>                
                   <JobTitle className="title">{ edu.frontmatter.subtitle }</JobTitle>
-                  <div dangerouslySetInnerHTML={{ __html: edu.body }}></div>
+                  <MDXRenderer>{edu.body}</MDXRenderer>
                 </Flex>                
               </StyledExcerpt>    
             )

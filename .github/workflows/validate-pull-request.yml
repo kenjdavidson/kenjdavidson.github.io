@@ -25,4 +25,4 @@ jobs:
       - uses: kenjdavidson/gatsby-gh-pages-action@issue/skip-publish-string
         with:
           access-token: ${{ secrets.ACCESS_TOKEN }}
-          skip-publish: false
+          skip-publish: true

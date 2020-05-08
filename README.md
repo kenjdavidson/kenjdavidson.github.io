@@ -19,3 +19,4 @@ The first step was getting the hell away from GoDaddy and Wordpress - and moving
 - should skip publish
 
 - Should skip publish string
+- should publish string

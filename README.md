@@ -10,3 +10,4 @@ The first step was getting the hell away from GoDaddy and Wordpress - and moving
 ## Including
 
 - gatsby-transform-mdx
+- gatsby-transform-sharp

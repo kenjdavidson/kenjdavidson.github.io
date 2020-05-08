@@ -25,4 +25,4 @@ jobs:
       - uses: kenjdavidson/gatsby-gh-pages-action@feature/build-only-config
         with:
           access-token: ${{ secrets.ACCESS_TOKEN }}
-          skip-publish: true
+          skip-publish: false

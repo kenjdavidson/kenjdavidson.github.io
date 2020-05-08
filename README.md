@@ -16,3 +16,4 @@ The first step was getting the hell away from GoDaddy and Wordpress - and moving
 - Another module
 - should publish with false
 - should publish with no entry
+- should skip publish

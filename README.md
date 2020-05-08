@@ -6,3 +6,5 @@ I'm getting into the front end development game a little late (ridiculously late
 ## Gatsby & Github - Oh my!
 
 The first step was getting the hell away from GoDaddy and Wordpress - and moving everything over to Gatsby.  There are a ton amazing developers and designers that have provided a wealth of resources - I'm hoping I can pick up on a portion of what they've made available during this process.
+
+## Including

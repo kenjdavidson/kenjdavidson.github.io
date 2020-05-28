@@ -46,6 +46,11 @@ const StyledArticle = styled.article`
       margin-left: calc(var(--gutter) * -1) !important;
       margin-right: calc(var(--gutter) * -1) !important;
     }
+
+    blockquote {
+      margin-left: calc(var(--gutter) * -1) !important;
+      margin-right: calc(var(--gutter) * -1) !important;
+    }
   }
 
   @media ${device.min.laptop} {

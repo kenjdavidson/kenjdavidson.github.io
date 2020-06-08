@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" > ~/.npmrc
-      - uses: kenjdavidson/gatsby-gh-pages-action@issue/skip-publish-string
+      - uses: enriikke/gatsby-gh-pages-action@v2
         with:
           access-token: ${{ secrets.ACCESS_TOKEN }}
           skip-publish: true

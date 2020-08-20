@@ -178,4 +178,4 @@ export default interface ScoreSummary {
 }
 ```
 
-and... we're good!! 
+and... we're good!! This is a slow process, since it's summer and I love being outside my off hours development takes a hit.  I'll look to continue this in the fall/winter when I get more time to fill with programming and writing.

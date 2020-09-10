@@ -1,7 +1,7 @@
 ---
 type: Blog
 categories: [Blog]
-title: No "exports" main resolved ... @babel/helper-compilation-targets/package.json
+title: No exports main resolved ... @babel/helper-compilation-targets/package.json
 summary: Node broke Gatsby and messed up my Github Actions 
 tags: [Gatsby, Node, Github Actions]
 ---

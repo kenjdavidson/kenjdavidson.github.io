@@ -52,7 +52,7 @@ Following the rabbit hole that is NodeJS documentation and tutorials, I found an
 
 After reviewing all the information provided there were a few assumptions that were made (probably wrong, but seemed valid):
 
-1. So essentially each phase of the event loop is the macrotask queue.  The primary phease is the poll  phase which accepts it's "jobs" (for lack of a better term) from a number of places:
+1. So essentially each phase of the event loop is the macrotask queue.  The primary phase is the poll  phase which accepts it's "jobs" (for lack of a better term) from a number of places:
 - Promises
 - Results of internal calls (fs, fetch, etc).  This is important because of #2.
 2. Each of the phases in and of itself is a microqueue - meaning that when a Promise is being run in the poll phase, if it creates any new Promise(s) they will be placed in the same poll microqueue (just at the end).  This let's the initial Promise complete wholely, but then starts the subsequent Promise(s) in the same turn processing of the queue.  From here:

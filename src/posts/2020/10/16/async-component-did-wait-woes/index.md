@@ -6,7 +6,7 @@ summary: A couple evenings down of trying to figure out componentDidMount being 
 tags: [React Native, Node, Javascript]
 ---
 
-First let me preface this by stating I'm not the biggest fan of Javascript.   Don't get me wrong, I don't hate it, I'm just used to doing things in a way that don't translate well to JS.   This is probably a case of 
+First let me preface this by stating I'm not the biggest fan of Javascript.   Don't get me wrong, I don't hate it, I'm just used to doing things in a ways that don't translate well to JS.   This is probably a case of 
 
 > You can't teach an old dog new tricks
 

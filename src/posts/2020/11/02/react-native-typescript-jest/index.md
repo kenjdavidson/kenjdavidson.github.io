@@ -267,3 +267,10 @@ Which doesn't even exist on the [Metro config](https://facebook.github.io/metro/
 
 But it's worth a shot!!
 
+### Edit Nov 03 2020
+
+After following the previous posts information, there are still errors that revolve around `lib/node_modules/react-native` being installed.  When attempting to run, it's still attempting to load the `react-native` from the `../node_modules` lib folder instead of from the `/example/node_modules/` folder causing all those wonderful duplicate React Native issues.
+
+So at this point, I can write my tests with `react` and `react-native` installed, then uninstall them when I want to start doing more live testing within the **BluetoothClassicExample** app.
+
+Since this seems to work for this post (and others) I'm starting to think that the issue is the introduction of Typescript during the build process.  But at this point I'd rather keep Typescript (and deal with the [un]installing) rather than go back to plain JavaScript or do the half way kludge of `babel-typescript` at this point.

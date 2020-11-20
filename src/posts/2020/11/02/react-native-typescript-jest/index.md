@@ -274,3 +274,24 @@ After following the previous posts information, there are still errors that revo
 So at this point, I can write my tests with `react` and `react-native` installed, then uninstall them when I want to start doing more live testing within the **BluetoothClassicExample** app.
 
 Since this seems to work for this post (and others) I'm starting to think that the issue is the introduction of Typescript during the build process.  But at this point I'd rather keep Typescript (and deal with the [un]installing) rather than go back to plain JavaScript or do the half way kludge of `babel-typescript` at this point.
+
+### Edit Nov 20 2020
+
+This edit was a little late, but things are finally working.  Using the same `metro-config` above, but changing the strcuture of the projects, I'm able to finally:
+
+- Run the development application
+- Have `react` and `react-native` devDependencies for testing
+
+using the following structure:
+
+```shell
+|- git
+  |- react-native-bluetooth-classic
+  |- react-native-bluetooth-classic-apps
+    |- BluetoothClassicExample
+```
+
+I know it might be a little much, but I chose the extra layer in case I needed to provide sample apps for things like: different versions, bug fixes, etc.   This also cleans up the `react-native-bluetooth-classic` project in that only tests are required.
+
+Now I just have to write them :(
+

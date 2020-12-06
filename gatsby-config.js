@@ -1,3 +1,5 @@
+const { createFilePath } = require('gatsby-source-filesystem');
+
 /**
  * Configure your Gatsby site with this file.
  *
@@ -110,7 +112,7 @@ module.exports = {
       }
     },
     {
-      // https://www.gatsbyjs.org/packages/gatsby-transformer-remark/?=
+      // https://www.gatsbyjs.org/packages/gatsby-transformer-remark
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx','.md'],
@@ -148,10 +150,9 @@ module.exports = {
               },
               escapeEntities: {}
             }
-          }          
+          }  
         ]
       }
-    },
-    'gatsby-transform-mdx-posts'
+    }
   ]
 };

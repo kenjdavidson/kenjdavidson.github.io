@@ -67,7 +67,7 @@ Again, more and more ways to do things, this obviously becomes better over time 
 
 No time like the present to get started - first I'll create the project structure, initialize  npm (yup, I know yarn is out there but baby steps) then git:
 
-```prompt
+```shell
 $ mkdir golf-canada-js && cd golf-canada-js
 $ npm init
 
@@ -97,7 +97,7 @@ Pretty much straight forward project creation.
 
 Next to install TypeScript and the extras that I've seen floating around, again I'm trying to keep things straight forward for this project.  I've decided to start with:
 
-```prompt
+```shell
 $ npm install --save-dev typescript ts-lint jest ts-jest @types/jest @types/node prettier
 $ ./node_modules/typescript/bin/tsc --init
 message TS6071: Successfully created a tsconfig.json file.
@@ -159,7 +159,7 @@ export default interface Club {
 
 And then attempt a compile:
 
-```prompt
+```shell
 $ npm run watch-ts
 [10:19:33 PM] Starting compilation in watch mode...
 [10:19:38 PM] Found 0 errors. Watching for file changes.

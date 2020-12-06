@@ -1,7 +1,0 @@
-{
-  "name": "gatsby-transform-mdx-posts",
-  "description": "Creates blog posts with frontmatter.type === 'Blog' from Mdx (md) files.",
-  "authors": "Ken Davidson",
-  "version": "1.0.0",
-  "dependencies": {}
-}

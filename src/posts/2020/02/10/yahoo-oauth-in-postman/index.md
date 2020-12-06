@@ -59,7 +59,7 @@ There is no built in functionality to refresh your token, but you can rerun **Ge
 
 The simplest request to make and test your connection is the `Users Resource with Games sub-resource` using the logged in user.
 
-```api
+```
 https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games
 ```
 

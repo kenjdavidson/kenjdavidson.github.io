@@ -3,11 +3,12 @@ type: Blog
 categories: [Project]
 title: Standardbred Mobile - Framework Selection Process - Part 1
 description: Walking through my development of Standardbred Mobile App from design to release.
-series: 
-   name: Designing My First React Native App
-   index: 1
 tags: [React Native, Android, IOS]
+series: Designing My First React Native App
+order: 1
 ---
+
+
 
 My company recently released an Android and IOS app for our members to scan microchip data from their horses.  Our US counterparts released the same type of app a few months before us, through a development shop which specializes in applications specific to this particular microchip - our choice at the time was (a) use the same shop to create essentially the same app for us, for a cost; or (b) design and develop the app in house.   I want to walk through the full decision making process from start to end - for  my own personal reference - and to possibly help anyone facing the same questions.  Just a few notes to being:
 
@@ -94,7 +95,8 @@ Finally we needed to communicate with the hardware through Bluetooth classic.  T
 
 Thankfully our hardware vendors were super great with their knowledge and information which made the process easy.  Read more about my [react-native-bluetooth-classic](https://kenjdavidson.github.io/react-native-bluetooth-classic) project in the next few parts of this series.
 
-Now that a few key decisions were made it was time to [getting started](/2020-02-01-getting-started-with-sc-mobile).  Check out the second part of this article to walk through the process of:
+Now that a few key decisions were made it was time to [get started](/2020-11-20-designing-my-first-app-part-2).  Check out the second part of this article to walk through the process of:
+
 - getting my environment setup and running
 - building the initial application
 - getting to a place where I could start actually working on the app

@@ -34,6 +34,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     if (names) {      
       createNodeField({ node, name: 'publishTime', value: publishTime });  
     }
+
+    //
   }
 };
 
@@ -46,7 +48,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const result = await graphql(`
     query {
-      allMdx(filter: {fileAbsolutePath: {regex: "/src/posts/"}}) {
+      allMdx(filter: {fileAbsolutePath: {regex: "/content/posts/"}}) {
         edges {
           node {
             fields {

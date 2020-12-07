@@ -62,23 +62,14 @@ const MenuLink = styled(Link)`
   }  
 `;
 
-export default ({ onClick }) => {
+export default ({ menus, onClick }) => {
   return (
     <Navigation onClick={onClick}>
       <NavContainer>
-       <Menu>
-          <MenuTitle>Work</MenuTitle>         
-          <MenuItem><MenuLink to="/resume">Resume</MenuLink></MenuItem>             
-        </Menu>        
-        <Menu>
-          <MenuTitle>Life</MenuTitle>
-          <MenuItem><MenuLink to="/about">About</MenuLink></MenuItem>
-          <MenuItem><MenuLink to="/golfing">Golfing</MenuLink></MenuItem>
-        </Menu>
-        <Menu>
-          <MenuTitle>Balance</MenuTitle>
-          <MenuItem><MenuLink to="/writing">Writing</MenuLink></MenuItem>          
-        </Menu>
+        {menus.map(menu => <Menu>
+          <MenuTitle>{menu.title}</MenuTitle>
+          { menu.links.map(item => <MenuItem><MenuLink to={item.url}>{item.title}</MenuLink></MenuItem>)}                   
+        </Menu>)}
       </NavContainer>
     </Navigation>
   );

@@ -102,58 +102,12 @@ export const query = graphql`
     }
     experience: allMdx(filter: {frontmatter: {subcategory: {regex: "/Experience/"}}, fileAbsolutePath: {regex: "/timeline/"}}, sort: {fields: frontmatter___start___year, order: DESC}) {
       nodes {
-        fileAbsolutePath
-        frontmatter {
-          categories
-          subcategory
-          subtitle
-          summary
-          tags
-          title
-          type
-          start {
-            month
-            year
-          }
-          end {
-            month
-            year
-          }
-        }
-        fields {
-          publishTime
-          modifiedTime
-          birthTime
-        }
-        body
+        ...timeline
       }
     }
     education: allMdx(filter: {frontmatter: {subcategory: {regex: "/Education/"}}, fileAbsolutePath: {regex: "/timeline/"}}, sort: {fields: frontmatter___start___year, order: DESC}) {
       nodes {
-        fileAbsolutePath
-        frontmatter {
-          categories
-          subcategory
-          subtitle
-          summary
-          tags
-          title
-          type
-          start {
-            month
-            year
-          }
-          end {
-            month
-            year
-          }
-        }
-        fields {
-          publishTime
-          modifiedTime
-          birthTime
-        }
-        body
+        ...timeline
       }
     }
   }

@@ -32,7 +32,7 @@ export default ({ children }) => {
           <Hamburger isActive={navShowing} onClick={ () => setNavShowing(!navShowing)}></Hamburger>
         </Toolbar>
         { (navShowing) ? (
-          <Navigation onClick={() => setNavShowing(false)}></Navigation>
+          <Navigation menus={meta.menu} onClick={() => setNavShowing(false)}></Navigation>
         ) : undefined}      
         { children }
         <LayoutFooter siteMetadata={meta}></LayoutFooter>

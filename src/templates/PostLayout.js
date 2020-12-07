@@ -4,11 +4,13 @@ import styled from 'styled-components';
 
 import SEO from '../components/SEO';
 import Section, { SectionHeader } from '../components/Section';
-import Article from '../components/Article';
+import Article, { ArticleTitle, ArticleFooter } from '../components/Article';
 import ArticleGrid from '../components/ArticleGrid';
+import Tags from "../components/Tags";
 
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import device from '../utils/breakpoints';
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
 const StyledArticlesGrid = styled(ArticleGrid)`
   @media ${device.min.laptop} {
@@ -16,6 +18,10 @@ const StyledArticlesGrid = styled(ArticleGrid)`
       display: none;
     }
   }
+`;
+
+const StyledTags = styled(Tags)`
+  margin-bottom: 3em
 `;
 
 export default ({ data }) => {
@@ -29,7 +35,12 @@ export default ({ data }) => {
         description={`${post.frontmatter.summary}`}
         type="article"></SEO>
       <Section>
-        <Article post={post}></Article>
+        <Article>
+          <ArticleTitle slug={post.fields.slug}>{post.frontmatter.title}</ArticleTitle>
+          <MDXRenderer>{post.body}</MDXRenderer>
+          <ArticleFooter>
+          </ArticleFooter>        
+        </Article>
       </Section>
       <Section>
         <SectionHeader>Recent</SectionHeader>

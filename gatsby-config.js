@@ -21,6 +21,39 @@ module.exports = {
       summary:
         'Husbanding, fathering, golfing and developing my way to retirement!'
     },
+    menu: [
+      {
+        title: 'Work',
+        links: [
+          {
+            title: 'Resume',
+            url: '/resume'
+          }
+        ]
+      },
+      {
+        title: 'Life',
+        links: [
+          {
+            title: 'About',
+            url: '/about'
+          },
+          {
+            title: 'Golfing',
+            url: '/golfing'
+          }
+        ]
+      },
+      {
+        title: 'Balance',
+        links: [
+          {
+            title: 'Writing',
+            url: '/writing'
+          }
+        ]
+      }
+    ],
     social: [
       {
         name: 'github',
@@ -115,7 +148,7 @@ module.exports = {
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark
       resolve: 'gatsby-plugin-mdx',
       options: {
-        extensions: ['.mdx','.md'],
+        extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
           'gatsby-remark-code-titles',
           {
@@ -133,7 +166,7 @@ module.exports = {
               className: `header-anchor`,
               isIconAfterHeader: true
             }
-          },          
+          },
           {
             resolve: 'gatsby-remark-prismjs',
             options: {
@@ -150,7 +183,7 @@ module.exports = {
               },
               escapeEntities: {}
             }
-          }  
+          }
         ]
       }
     }

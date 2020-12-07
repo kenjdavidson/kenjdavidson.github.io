@@ -17,6 +17,13 @@ export const siteMetadataFragment = graphql`
         avatar
         summary
       }
+      menu {
+        links {
+          url
+          title
+        }
+        title
+      }
       social {
         account
         href
@@ -26,7 +33,6 @@ export const siteMetadataFragment = graphql`
     }
   }
 `;
-
 
 /**
  * Standard/common article query fragment.
@@ -47,8 +53,6 @@ export const articleFragment = graphql`
     body
     fields {
       slug
-      birthTime(formatString: "MMM DD, YYYY")
-      modifiedTime(formatString: "MMM DD, YYYY")
       publishTime: publishTime(formatString: "MMM DD, YYYY")
       publishYear: publishTime(formatString: "YYYY")
     }
@@ -61,5 +65,32 @@ export const articleFragment = graphql`
     headings {
       value
     }
+  }
+`;
+
+export const timelineFragment = graphql`
+  fragment timeline on Mdx {
+    fileAbsolutePath
+    frontmatter {
+      categories
+      subcategory
+      subtitle
+      summary
+      tags
+      title
+      type
+      start {
+        month
+        year
+      }
+      end {
+        month
+        year
+      }
+    }
+    fields {
+      publishTime
+    }
+    body
   }
 `;

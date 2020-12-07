@@ -22,9 +22,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const slug = node.frontmatter.slug 
       ? node.frontmatter.slug 
       : `writing` + createFilePath({ node, getNode, basePath: `posts` });    
-    
-    createNodeField({ node, name: 'birthTime', value: fileNode.birthTime, });
-    createNodeField({ node, name: 'modifiedTime', value: fileNode.modifiedTime, });        
+        
     createNodeField({ node, name: 'slug', value: slug, });
 
     // Finally try to create the publish time, this is based off the filename

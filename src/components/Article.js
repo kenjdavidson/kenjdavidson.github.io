@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import device from '../utils/breakpoints';
 
@@ -12,7 +11,7 @@ const StyledTitle = styled.header`
     margin-top: 1rem;
   }
 `;
-const Title = ({ slug, children }) => (
+export const ArticleTitle = ({ slug, children }) => (
   <StyledTitle>
     <Link to="/">Home</Link>&nbsp;/ <Link to="/writing">Writing</Link>&nbsp;/
     <Link to={slug}>
@@ -22,9 +21,9 @@ const Title = ({ slug, children }) => (
 );
 
 const StyledFooter = styled.footer``;
-const Footer = ({ children }) => <StyledFooter>{children}</StyledFooter>;
+export const ArticleFooter = ({ children }) => <StyledFooter>{children}</StyledFooter>;
 
-const StyledArticle = styled.article`
+export const StyledArticle = styled.article`
   width: 100%;
   min-height: 100vh;
 
@@ -62,12 +61,5 @@ const StyledArticle = styled.article`
     max-width: var(--max-width-desktop);
   }
 `;
-export default ({ post }) => (
-  <>
-    <StyledArticle>
-      <Title slug={post.fields.slug}>{post.frontmatter.title}</Title>
-      <MDXRenderer>{post.body}</MDXRenderer>
-      <Footer></Footer>
-    </StyledArticle>
-  </>
-);
+
+export default StyledArticle;

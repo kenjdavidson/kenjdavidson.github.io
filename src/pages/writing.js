@@ -71,7 +71,7 @@ export default ({ data }) => {
 
 export const query = graphql`
   query WritingQuery {
-    allMdx(filter: {fileAbsolutePath: {regex: "/posts/"}}, sort: {fields: fields___publishTime, order: DESC}) {
+    allMdx(filter: {fileAbsolutePath: {regex: "/content/posts/"}}, sort: {fields: fields___publishTime, order: DESC}) {
       edges {
         node {
           ...article

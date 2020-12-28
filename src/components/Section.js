@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import Container from './Container';
+import { Container } from "./Container";
 
 const SectionHeader = styled.h1`
   position: relative;
   padding: 1rem 0;
 
   &::before {
-    content: ' ';
+    content: " ";
     position: absolute;
-    bottom: 0px; 
+    bottom: 0px;
     left: 0px;
     height: 0.25rem;
     width: 3rem;
@@ -21,9 +21,7 @@ const SectionHeader = styled.h1`
 const Section = ({ className, children }) => {
   return (
     <section className={className}>
-      <Container>
-        { children }    
-      </Container>
+      <Container>{children}</Container>
     </section>
   );
 };
@@ -40,11 +38,6 @@ const LargeSection = styled(Section)`
   padding: 3rem 0;
 `;
 
-export {
-  ViewHeightSection,
-  MinimalSection,
-  LargeSection,
-  SectionHeader
-}
+export { ViewHeightSection, MinimalSection, LargeSection, SectionHeader };
 
 export default Section;

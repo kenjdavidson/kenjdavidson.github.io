@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby';
+import { graphql } from "gatsby";
 
 /**
  * Standard/common siteMetadata query fragment.
@@ -26,8 +26,8 @@ export const siteMetadataFragment = graphql`
       }
       social {
         account
+        display
         href
-        icon
         name
       }
     }
@@ -45,7 +45,6 @@ export const articleFragment = graphql`
       subcategory
       tags
       title
-      subtitle
       summary
     }
     timeToRead
@@ -68,17 +67,48 @@ export const articleFragment = graphql`
   }
 `;
 
-export const timelineFragment = graphql`
-  fragment timeline on Mdx {
+export const experienceFragment = graphql`
+  fragment experience on Mdx {
     fileAbsolutePath
     frontmatter {
+      type
       categories
       subcategory
-      subtitle
-      summary
-      tags
-      title
+      company {
+        name
+        website
+        twitter
+      }
+      role
+      start {
+        month
+        year
+      }
+      end {
+        month
+        year
+      }
+    }
+    fields {
+      publishTime
+    }
+    body
+  }
+`;
+
+export const educationFragment = graphql`
+  fragment education on Mdx {
+    fileAbsolutePath
+    frontmatter {
       type
+      categories
+      subcategory
+      school {
+        name
+        website
+        twitter
+      }
+      degree
       start {
         month
         year

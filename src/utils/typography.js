@@ -1,38 +1,35 @@
-import Typography from 'typography';
-import kirkhamTheme from 'typography-theme-kirkham';
+import Typography from "typography";
+import kirkhamTheme from "typography-theme-kirkham";
 
 let theme = {
-  ...kirkhamTheme,
   googleFonts: [
     {
-      name: 'Playfair Display',
-      styles: ['400', '500', '700', '900']
+      name: "Playfair Display",
+      styles: ["400", "500", "700", "900"]
     },
     {
-      name: 'Merriweather',
-      styles: ['300', '300i', '400', '400i', '700',]
+      name: "Merriweather",
+      styles: ["300", "300i", "400", "400i", "700"]
     },
     {
-      name: 'Mrs Saint Delafield',
-      styles: ['400']
+      name: "Mrs Saint Delafield",
+      styles: ["400"]
     }
   ],
-  scriptFontFamily: ['Mrs Saint Delafield', 'cursive'],
-  headerFontFamily: ['Playfair Display', 'serif'],
-  headerWeight: 700,  
-  headerColor: 'var(--base05)',
-  bodyFontFamily: ['Merriweather', 'serif'],
+  scriptFontFamily: ["Mrs Saint Delafield", "cursive"],
+  headerFontFamily: ["Playfair Display", "serif"],
+  headerWeight: 700,
+  bodyFontFamily: ["Merriweather", "serif"],
   bodyWeight: 300,
-  bodyColor: 'var(--base05)',
-  boldWeight: 800,
-  baseFontSize: '14px',
+  boldWeight: 700,
+  baseFontSize: "14px"
 };
 
 theme.overrideThemeStyles = ({ rhythm }, options) => ({
-  'span.site-branding': {
-    fontFamily: options.scriptFontFamily.join(','),
-    fontSize: '3em',
-  },
+  "span.site-branding": {
+    fontFamily: options.scriptFontFamily.join(","),
+    fontSize: "3em"
+  }
 });
 
 const typography = new Typography(theme);

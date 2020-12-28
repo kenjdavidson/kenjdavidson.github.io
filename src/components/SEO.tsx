@@ -1,16 +1,24 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
-import PropTypes from "prop-types";
 
 import useSiteMetadata from '../hooks/useSiteMetadata';
 
-const SEO = ({ title, description, image, slug, type }) => {
+export interface SEOProps {
+  title: string;
+  description: string;
+  image?: string;
+  url?: string;
+  type?: string;
+}
+
+export const SEO: FunctionComponent<SEOProps> = ({ title, description, image, url, type }) => {
   const meta = useSiteMetadata();
+
   const seo = {
     title: title || `${meta.title} | ${meta.summary}`,
     description: description || meta.summary,
     image: (image && image.indexOf('http') === -1 && `${meta.siteUrl}${image}`) || meta.image,
-    url: `${meta.siteUrl}${slug || "/"}`,
+    url: `${meta.siteUrl}${url || "/"}`,
     type: type || "website"
   };
 
@@ -35,20 +43,4 @@ const SEO = ({ title, description, image, slug, type }) => {
       {seo.image && <meta name="twitter:image" content={seo.image} />}
     </Helmet>
   );
-};
-
-export default SEO;
-
-SEO.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  type: PropTypes.string,
-};
-
-SEO.defaultProps = {
-  title: null,
-  description: null,
-  image: null,
-  type: null,
 };

@@ -1,29 +1,31 @@
 import React from "react";
 import { graphql } from "gatsby";
+import { PageLayout } from "../components/PageLayout";
+import { Hero, HeroHeading, HeroParagraph } from "../components/Hero";
+import { Anchor, Box } from "grommet";
+import { Container } from "../components/Container";
 
-import PageHeader from '../components/PageHeader';
-import Section  from '../components/Section';
-import SEO from '../components/SEO';
-
-import useSiteMetadata from '../hooks/useSiteMetadata';
-
-export default ({ data }) => (
-  <>      
-  <SEO title={ `${useSiteMetadata().title} | Golfing` } 
-    description="Golf Canada Member Handicap and Scores"
-    slug="/golfing"></SEO>      
-  <PageHeader>
-    <div>
-      <h3>"They call it golf because all the other four letter words were taken."</h3>
-      <p>- Gary Player</p>
-    </div>
-  </PageHeader>   
-  <Section>
-    Sit back while I work on my first Gatsy plugin to pull in data from <a href="https://golfcanada.ca/">Golf Canada</a>.
-  </Section>
-  </>
+export default ({}) => (
+  <PageLayout
+    pageTitle="I'd rather be golfing..."
+    pageSummary="Golf profile and scores maintained by Golf Canada"
+    pageSlug="/golfing"
+  >
+    <Hero>
+      <Box>
+        <HeroHeading color="text">
+          "They call it golf because all the other four letter words were
+          taken."
+        </HeroHeading>
+        <HeroParagraph size="large">- Gary Player</HeroParagraph>
+      </Box>
+    </Hero>
+    <Container>
+      Sit back while I work on my first Gatsy plugin to pull in data from{" "}
+      <Anchor href="https://golfcanada.ca/">Golf Canada</Anchor>.
+    </Container>
+  </PageLayout>
 );
-
 
 export const query = graphql`
   query GolfQuery {

@@ -1,4 +1,5 @@
-const { createFilePath } = require('gatsby-source-filesystem');
+const { createFilePath } = require("gatsby-source-filesystem");
+const { Github } = require("grommet-icons");
 
 /**
  * Configure your Gatsby site with this file.
@@ -7,150 +8,152 @@ const { createFilePath } = require('gatsby-source-filesystem');
  */
 module.exports = {
   siteMetadata: {
-    siteUrl: 'https://www.kenjdavidson.com',
-    title: 'Ken Davidson',
+    siteUrl: "https://www.kenjdavidson.com",
+    title: "Ken Davidson",
     summary:
-      'Husbanding, fathering, golfing and developing my way to retirement!',
+      "Husbanding, fathering, golfing and developing my way to retirement!",
     description:
       "Whether you're checking out my posts, following up on an application, or found me through a random Google - I'm glad to have you!",
-    image: 'https://avatars1.githubusercontent.com/u/6210735?s=460&v=4',
-    twitterUsername: 'kenjdavidson',
+    image: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
+    twitterUsername: "kenjdavidson",
     author: {
-      name: 'Ken Davidson',
-      avatar: 'https://avatars1.githubusercontent.com/u/6210735?s=460&v=4',
+      name: "Ken Davidson",
+      avatar: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
       summary:
-        'Husbanding, fathering, golfing and developing my way to retirement!'
+        "Husbanding, fathering, golfing and developing my way to retirement!"
     },
     menu: [
       {
-        title: 'Work',
+        title: "Work",
         links: [
           {
-            title: 'Resume',
-            url: '/resume'
+            title: "Resume",
+            url: "/resume"
           }
         ]
       },
       {
-        title: 'Life',
+        title: "Life",
         links: [
           {
-            title: 'About',
-            url: '/about'
+            title: "About",
+            url: "/about"
           },
           {
-            title: 'Golfing',
-            url: '/golfing'
+            title: "Golfing",
+            url: "/golfing"
           }
         ]
       },
       {
-        title: 'Balance',
+        title: "Balance",
         links: [
           {
-            title: 'Writing',
-            url: '/writing'
+            title: "Writing",
+            url: "/writing"
           }
         ]
       }
     ],
     social: [
       {
-        name: 'github',
-        account: 'kenjdavidson',
-        href: 'https://www.github.com/kenjdavidson',
-        icon: ['fab', 'github']
+        name: "github",
+        display: "Github",
+        account: "kenjdavidson",
+        href: "https://www.github.com/kenjdavidson",
+        icon: Github
       },
       {
-        name: 'linkedin',
-        account: 'kenjdavidson',
-        href: 'https://www.linkedin.com/in/kenjdavidson',
-        icon: ['fab', 'linkedin']
+        name: "linkedin",
+        display: "LinkedIn",
+        account: "kenjdavidson",
+        href: "https://www.linkedin.com/in/kenjdavidson"
       },
       {
-        name: 'instagram',
-        account: 'kenjdavidson',
-        href: 'https://www.instagram.com/kenjdavidson',
-        icon: ['fab', 'instagram']
+        name: "instagram",
+        display: "Instagram",
+        account: "kenjdavidson",
+        href: "https://www.instagram.com/kenjdavidson"
       },
       {
-        name: 'stackoverflow',
-        account: 'kenjdavidson',
-        href: 'https://stackoverflow.com/users/4196620/kendavidson',
-        icon: ['fab', 'stack-overflow']
+        name: "stackoverflow",
+        display: "Stack Overflow",
+        account: "kenjdavidson",
+        href: "https://stackoverflow.com/users/4196620/kendavidson"
       },
       {
-        name: 'twitter',
-        account: 'kenjdavidson',
-        href: 'https://www.twitter.com/kenjdavidson',
-        icon: ['fab', 'twitter']
+        name: "twitter",
+        display: "Twitter",
+        account: "kenjdavidson",
+        href: "https://www.twitter.com/kenjdavidson"
       },
       {
-        name: 'email',
-        account: 'ken.j.davidson',
-        href: 'mailto:ken.j.davidson@live.ca',
-        icon: ['fas', 'envelope']
+        name: "email",
+        display: "Email",
+        account: "ken.j.davidson",
+        href: "mailto:ken.j.davidson@live.ca"
       }
     ],
     manifest: {
-      name: 'Ken J Davidson',
-      shortName: 'kend',
-      startUrl: '/',
-      backgroundColor: '#000',
-      themeColo: '#000',
-      display: 'standalone',
-      icon: 'src/static/web/icon.png'
+      name: "Ken J Davidson",
+      shortName: "kend",
+      startUrl: "/",
+      backgroundColor: "#000",
+      themeColo: "#000",
+      display: "standalone",
+      icon: "src/static/web/icon.png"
     }
   },
   plugins: [
+    `gatsby-plugin-typescript`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'pages',
+        name: "pages",
         path: `${__dirname}/src/pages`
       }
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'images',
+        name: "images",
         path: `${__dirname}/src/assets/images`
       }
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'posts',
+        name: "posts",
         path: `${__dirname}/content/posts`
       }
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'timeline',
+        name: "timeline",
         path: `${__dirname}/content/timeline`
       }
     },
-    {
-      // https://www.gatsbyjs.org/packages/gatsby-plugin-typography/
-      // https://kyleamathews.github.io/typography.js/
-      resolve: 'gatsby-plugin-typography',
-      options: {
-        pathToConfigModule: 'src/utils/typography'
-      }
-    },
+    // {
+    //   // https://www.gatsbyjs.org/packages/gatsby-plugin-typography/
+    //   // https://kyleamathews.github.io/typography.js/
+    //   resolve: "gatsby-plugin-typography",
+    //   options: {
+    //     pathToConfigModule: "src/utils/typography"
+    //   }
+    // },
     {
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark
-      resolve: 'gatsby-plugin-mdx',
+      resolve: "gatsby-plugin-mdx",
       options: {
-        extensions: ['.mdx', '.md'],
+        extensions: [".mdx", ".md"],
         gatsbyRemarkPlugins: [
-          'gatsby-remark-code-titles',
+          "gatsby-remark-code-titles",
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -168,17 +171,17 @@ module.exports = {
             }
           },
           {
-            resolve: 'gatsby-remark-prismjs',
+            resolve: "gatsby-remark-prismjs",
             options: {
-              classPrefix: 'language-',
-              inlineCodeMarker: '^', // inline language
+              classPrefix: "language-",
+              inlineCodeMarker: "^", // inline language
               aliases: {}, // sh: bash
               showLineNumbers: false, // ```javascript{numberLines: true}
               noInlineHighlight: false, // Inline styles
               languageExtensions: [],
               prompt: {
-                user: 'root',
-                host: 'localhost',
+                user: "root",
+                host: "localhost",
                 global: false
               },
               escapeEntities: {}

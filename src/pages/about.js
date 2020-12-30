@@ -6,7 +6,6 @@ import Img from "gatsby-image";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import device from "../utils/breakpoints";
 import { Heading, Paragraph } from "grommet";
-import { PageLayout } from "../components/PageLayout";
 import { Container } from "../components/Container";
 
 export default ({ data }) => {
@@ -16,10 +15,10 @@ export default ({ data }) => {
   const father = now - 2016;
 
   return (
-    <PageLayout
-      pageTitle="Ken Davidson"
-      pageSummary="Just a little more about me!"
-      pageSlug="/about"
+    <Box
+    // pageTitle="Ken Davidson"
+    // pageSummary="Just a little more about me!"
+    // pageSlug="/about"
     >
       <Container>
         <Paragraph fill>
@@ -132,7 +131,7 @@ export default ({ data }) => {
           </p>
         </Paragraph>
       </Container>
-    </PageLayout>
+    </Box>
   );
 };
 

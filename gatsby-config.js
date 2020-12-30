@@ -24,36 +24,25 @@ module.exports = {
     },
     menu: [
       {
-        title: "Work",
-        links: [
-          {
-            title: "Resume",
-            url: "/resume"
-          }
-        ]
+        title: "Home",
+        href: "/"
       },
       {
-        title: "Life",
-        links: [
-          {
-            title: "About",
-            url: "/about"
-          },
-          {
-            title: "Golfing",
-            url: "/golfing"
-          }
-        ]
+        title: "About Me",
+        href: "/about"
       },
       {
-        title: "Balance",
-        links: [
-          {
-            title: "Writing",
-            url: "/writing"
-          }
-        ]
-      }
+        title: "Resume",
+        href: "/resume"
+      },
+      {
+        title: "Writing",
+        href: "/writing"
+      },
+      {
+        title: "Golfing",
+        href: "/golfing"
+      },
     ],
     social: [
       {
@@ -90,7 +79,7 @@ module.exports = {
       {
         name: "email",
         display: "Email",
-        account: "ken.j.davidson",
+        account: "ken.j.davidson@live.ca",
         href: "mailto:ken.j.davidson@live.ca"
       }
     ],

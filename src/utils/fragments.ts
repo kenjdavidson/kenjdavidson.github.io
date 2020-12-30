@@ -18,10 +18,7 @@ export const siteMetadataFragment = graphql`
         summary
       }
       menu {
-        links {
-          url
-          title
-        }
+        href
         title
       }
       social {
@@ -34,9 +31,35 @@ export const siteMetadataFragment = graphql`
   }
 `;
 
-/**
- * Standard/common article query fragment.
- */
+export interface ArticleFrontmatter {
+  title: string;
+  summary: string;
+  categories: string[];
+  subcategory: string;
+  tags: string[];
+}
+
+export interface ArticleWordCount {
+  words: number;
+  sentences: number;
+  paragraphs: number;
+}
+
+export interface ArticleHeading {
+  value: string[];
+}
+
+export interface ArticleFragment {
+  id: String;
+  frontmatter: ArticleFrontmatter;
+  timeToRead: string;
+  excerpt: string;
+  body: string;
+  fields: any;
+  wordCount: ArticleWordCount;
+  headings: ArticleHeading;
+}
+
 export const articleFragment = graphql`
   fragment article on Mdx {
     id
@@ -55,7 +78,6 @@ export const articleFragment = graphql`
       publishTime: publishTime(formatString: "MMM DD, YYYY")
       publishYear: publishTime(formatString: "YYYY")
     }
-    timeToRead
     wordCount {
       paragraphs
       sentences

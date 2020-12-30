@@ -16,7 +16,7 @@ import { ThemeContext } from "styled-components";
 import { Paragraph } from "./grommet";
 import { useResponsiveText } from "../hooks/useResponsiveText";
 
-const HeroImageWrapper = styled(Box)`
+export const HeroImageWrapper = styled(Box)`
   overflow: hidden;
 `;
 

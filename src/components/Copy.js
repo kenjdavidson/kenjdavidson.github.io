@@ -5,7 +5,7 @@ export default ({ children }) => {
 
   return (
     <span>
-      Copyright &copy; {year} {children}
+      &copy; {year} {children}
     </span>
   );
 };

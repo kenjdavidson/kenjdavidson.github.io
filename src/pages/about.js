@@ -6,7 +6,6 @@ import Img from "gatsby-image";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import device from "../utils/breakpoints";
 import { Heading, Paragraph } from "grommet";
-import { Container } from "../components/Container";
 
 export default ({ data }) => {
   const meta = useSiteMetadata();

@@ -1,27 +1,20 @@
 import React, { FunctionComponent, useContext } from "react";
 import { graphql, Link } from "gatsby";
-import ArticleGrid from "../components/ArticleGrid";
-import Center from "../components/Center";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import "../utils/fragments.ts";
 import { Box, Heading, ResponsiveContext } from "grommet";
-import { AnchorLink, Paragraph } from "../components/grommet";
-import { Section } from "../components/SiteLayout";
+import { Anchor, Paragraph } from "../components/grommet";
+import { PageHeading, Section } from "../components/SiteLayout";
 
 const IndexPage: FunctionComponent = (props: any) => {
   const meta = useSiteMetadata();
-
-  const size = useContext(ResponsiveContext);
-  console.log(size);
 
   return (
     <Box
       // pageTitle={meta.title} pageSummary={meta.summary} pageSlug="/"
       pad="large"
     >
-      <Heading responsive size="large">
-        Hey, I'm Ken.
-      </Heading>
+      <PageHeading>Hey, I'm Ken.</PageHeading>
       <Heading responsive level="2" size="large"></Heading>
       <Section heading="Recent Posts">
         {/* <Paragraph>

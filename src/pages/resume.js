@@ -1,21 +1,17 @@
 import React from "react";
 import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-
-import { Hero, HeroParagraph } from "../components/Hero";
-import {
-  ExcerptHeader,
-  ExcerptDate
-} from "../components/ArticleExcerptItem";
-
-import { Box, Heading } from "grommet";
-import { Section } from "../components/SiteLayout";
-import { AnchorLink } from "../components/grommet";
+import { Box, Heading, Text } from "grommet";
+import { PageHeading, Section } from "../components/SiteLayout";
+import { Anchor, Paragraph } from "../components/grommet";
 import { Twitter, Link } from "grommet-icons";
 
 export default ({ data }) => {
   const year = new Date().getFullYear();
   const retirement = 2045 - year;
+
+  // Roll up companies (promotions)
+  const companies = {};
 
   return (
     <Box
@@ -24,7 +20,17 @@ export default ({ data }) => {
       // pageSlug="/resume"
       pad="large"
     >
+      <PageHeading>
+        Resume
+      </PageHeading>
+      <Paragraph>
+        <strong>Only 24 more years 'til retirement!</strong>{" "}
+        I've had a pretty good run so far; only a couple small bumps that I've turned into learning opportunities. I've been lucky enough to work in a number roles (support, development, design) across a number of industries (transit, manufacturing, horse racing).
+      </Paragraph>
       {data.experience.nodes.map(job => {
+        const displayCompany = !companies[job.frontmatter.company.name];
+        companies[job.frontmatter.company.name] = true;
+
         const endDate = !job.frontmatter.end
           ? "Present"
           : job.frontmatter.end.month + " " + job.frontmatter.end.year;
@@ -32,15 +38,14 @@ export default ({ data }) => {
           job.frontmatter.start.month + " " + job.frontmatter.start.year;
 
         return (
-          <Section heading={job.frontmatter.company.name}>
-            <Heading level="2" size="medium">
+          <Section heading={job.frontmatter.company.name}
+            key={`education-${job.frontmatter.company.name}-${job.frontmatter.role}`}>
+            <Heading level="2" size="medium" margin="none">
               {job.frontmatter.role}
             </Heading>
-            <ExcerptHeader>
-              <ExcerptDate>
-                {startDate} - {endDate}
-              </ExcerptDate>
-            </ExcerptHeader>
+            <Box>
+              {startDate} - {endDate}
+            </Box>
             <MDXRenderer>{job.body}</MDXRenderer>
           </Section>
         );
@@ -51,17 +56,14 @@ export default ({ data }) => {
           : edu.frontmatter.end.month + " " + edu.frontmatter.end.year;
 
         return (
-          <Section heading={edu.frontmatter.school.name}>
-            <Heading level="2" size="medium">
+          <Section heading={edu.frontmatter.school.name}
+            key={`education-${edu.frontmatter.school.name}-${edu.frontmatter.degree}`}>
+            <Heading level="2" size="medium" responsive margin="none">
               {edu.frontmatter.degree}
             </Heading>
-            <Box direction="row">
-              {edu.frontmatter.school.website && <AnchorLink icon={<Link size="medium" />}></AnchorLink>}
-              {edu.frontmatter.school.twitter && <AnchorLink icon={<Twitter size="medium" />}></AnchorLink>}
+            <Box direction="row" justify="start" align="center" gap="small">
+              {endDate && <Text>{endDate}</Text>}
             </Box>
-            <ExcerptHeader>
-              {edu.frontmatter.startDate && endDate && <ExcerptDate>{endDate}</ExcerptDate>}
-            </ExcerptHeader>
             <MDXRenderer>{edu.body}</MDXRenderer>
           </Section>
         );

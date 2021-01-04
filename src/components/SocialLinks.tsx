@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import { Box, BoxProps, Anchor, AnchorProps, defaultProps } from "grommet";
+import React, { FunctionComponent, useContext } from "react";
+import { Box, BoxProps, AnchorProps, ThemeContext } from "grommet";
 import {
   Github,
   Instagram,
@@ -9,30 +9,28 @@ import {
   Twitter
 } from "grommet-icons";
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { AnchorLink } from "./grommet";
+import { Anchor } from "./grommet";
 
-const CustomAnchor: FunctionComponent<AnchorProps> = ({ ...rest }) => {
-  return (
-    <AnchorLink
-      color={defaultProps.theme.global?.colors?.text}
-      {...rest}
-    ></AnchorLink>
-  );
+const SocialAnchor: FunctionComponent<AnchorProps> = ({ color, ...rest }) => {
+  return <Anchor color={color} {...rest}></Anchor>;
 };
 
 export interface SocialLinksProps extends BoxProps {
   vertical?: boolean;
   accounts?: boolean;
   iconSize?: string;
+  iconColor?: string;
 }
 
 const SocialLinks: FunctionComponent<SocialLinksProps> = ({
   vertical: verticalProp = false,
   accounts: accountsProp = false,
   iconSize,
+  iconColor,
   ...rest
 }) => {
   const meta = useSiteMetadata();
+  const theme: any = useContext(ThemeContext);
 
   // Need to provide the definition for siteMetadata
   const github = meta.social.find((s: any) => s.name == "github");
@@ -42,46 +40,51 @@ const SocialLinks: FunctionComponent<SocialLinksProps> = ({
   const email = meta.social.find((s: any) => s.name == "email");
 
   const direction = verticalProp ? "column" : "row";
-  const gap = verticalProp ? "small" : "medium";
+  const gap = verticalProp ? "small" : "small";
   const size = iconSize || "medium";
 
   return (
     <Box gap={gap} direction={direction} {...rest}>
       {github && (
-        <CustomAnchor
+        <SocialAnchor
           icon={<Github size={size} />}
+          color={iconColor || theme.global.colors.text}
           href={github.href}
           a11yTitle={`${github.account} at ${github.display}`}
           label={accountsProp ? `/${github.account}` : undefined}
         />
       )}
       {linkedin && (
-        <CustomAnchor
+        <SocialAnchor
           icon={<Linkedin size={size} />}
+          color={iconColor || theme.global?.colors?.text}
           href={linkedin.href}
           a11yTitle={`${linkedin.account} at ${linkedin.display}`}
           label={accountsProp ? `/${linkedin.account}` : undefined}
         />
       )}
       {stackoverflow && (
-        <CustomAnchor
+        <SocialAnchor
           icon={<StackOverflow size={size} />}
+          color={iconColor || theme.global?.colors?.text}
           href={stackoverflow.href}
           a11yTitle={`${stackoverflow.account} at ${stackoverflow.display}`}
           label={accountsProp ? `/${stackoverflow.account}` : undefined}
         />
       )}
       {instagram && (
-        <CustomAnchor
+        <SocialAnchor
           icon={<Instagram size={size} />}
+          color={iconColor || theme.global?.colors?.text}
           href={instagram.href}
           a11yTitle={`${instagram.account} at ${instagram.display}`}
           label={accountsProp ? `@${instagram.account}` : undefined}
         />
       )}
       {email && (
-        <CustomAnchor
+        <SocialAnchor
           icon={<MailOption size={size} />}
+          color={iconColor || theme.global?.colors?.text}
           href={email.href}
           a11yTitle={`${email.account} at ${email.display}`}
           label={accountsProp ? `${email.account}` : undefined}

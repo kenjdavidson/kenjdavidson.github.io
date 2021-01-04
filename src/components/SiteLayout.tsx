@@ -1,162 +1,205 @@
-import React, { FunctionComponent, useState, useContext } from "react";
-import styled from "styled-components";
+import React, {
+  FunctionComponent,
+  useState,
+  useContext,
+  CSSProperties
+} from "react";
+import styled, { css } from "styled-components";
 import {
   Grommet,
   GrommetProps,
-  Anchor,
   Box,
   Heading,
   Paragraph,
-  Text,
-  Grid,
   Main as GrommetMain,
-  Image,
-  Sidebar as GrommetSidebar,
-  base as baseTheme,
   BoxProps,
   Footer as GrommetFooter,
-  Nav
+  Nav,
+  Avatar,
+  Sidebar,
+  HeadingProps,
+  ThemeContext,
+  LayerProps,
+  Layer,
+  Button
 } from "grommet";
+import { normalizeColor } from "grommet/utils";
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { navigate } from "gatsby";
+import { useLocation } from "@reach/router";
 import SocialLinks from "./SocialLinks";
 import Copy from "./Copy";
-import theme from "../utils/themes";
-import { Container } from "./Container";
+import { common, coolAndFresh, strikingAndSimple } from "../utils/themes";
 import { MDXProvider } from "@mdx-js/react";
 import { MDXComponents } from "./grommet/MDXComponents/MDXComponents";
-import { HeroImageWrapper } from "./Hero";
 import { deepMerge } from "grommet/utils";
-import { ResponsiveContext } from "grommet";
-import { AnchorLink } from "./grommet/AnchorLink/AnchorLink";
+import { ResponsiveContext, AnchorProps } from "grommet";
+import { Anchor } from "./grommet/Anchor/Anchor";
+import themes from "../utils/themes";
+import { Menu } from "grommet-icons";
 
-/**
- * `SidebarContent` provides a standardized heading/menu for the site.  On large and medium screens
- * it is a 1/3 width `fixed` {@link Sidebar}.   On small screens it gets wrapped in a {@link Layer}
- * whose display is controlled by the {@link PageLayout}.
- */
-const Sidebar: FunctionComponent<BoxProps> = ({ children, ...rest }) => {
+const MenuLayer: FunctionComponent<LayerProps> = ({ children, ...rest }) => {
+  const size = useContext(ResponsiveContext);
+
   return (
-    <Box
-      background="brand"
-      justify="start"
-      align="end"
-      width={{ width: "calc(100vw / 3)" }}
-      pad="large"
-      style={{ position: "fixed", top: 0, height: "100vh" }}
+    <Layer
+      modal={"small" == size}
+      animation={"small" == size ? "fadeIn" : "none"}
+      position="right"
+      full="vertical"
+      {...rest}
     >
-      {children}
-    </Box>
+      <Box
+        fill="vertical"
+        background="background-front"
+        width={"small" == size ? "300px" : "calc(100vw / 3)"}
+      >
+        {children}
+      </Box>
+    </Layer>
   );
 };
 
-/**
- * `SidebarContent` controls the actual size of where sidebar content is allowed.  This is fully dependent
- * on the size of the screen.
- *
- * - `small` screens (768 default) this will be 100% of the outer container (effectively 100% of the width)
- * - `medium` (1536 default) is the max size of the entire page (including content).
- */
-const SidebarContent: FunctionComponent<BoxProps> = ({ children, ...rest }) => {
-  return <Box width={{ width: "100%", max: "512px" }}>{children}</Box>;
-};
-
-/**
- * Displays the header image or a default from site metadata.  Size is managed based on the
- * {@link ResponsiveContext} and window size.
- *
- * @param BoxProps - added/override properties passed to the header
- */
 const SidebarHeader: FunctionComponent<BoxProps> = ({ children, ...rest }) => {
   const meta = useSiteMetadata();
 
   return (
-    <Box align="center">
-      <Box
-        width="250px"
-        height="250px"
-        round="50%"
-        border={{ size: "large", color: "background" }}
-        overflow="hidden"
-      >
-        <Image
-          src={meta.author.avatar}
-          alt={meta.author.name}
-          a11yTitle={meta.author.name + " avatar"}
-          fit="cover"
-        />
-      </Box>
-      {children}
-    </Box>
+    <Avatar
+      src={meta.author.avatar}
+      a11yTitle={meta.author.name + " avatar"}
+      size="site"
+    />
   );
 };
 
-const Navigation: FunctionComponent<BoxProps> = ({ ...props }) => {
+interface NavigationItemProps extends AnchorProps {
+  background?: string;
+  className?: string;
+}
+
+const NavigationItem: FunctionComponent<NavigationItemProps> = ({
+  children,
+  href
+}) => {
+  const location = useLocation();
+  const theme = useContext(ThemeContext);
+  const active = href === location.pathname;
+  const style = {
+    //backgroundColor: active ? normalizeColor("background", theme) : "",
+    color: normalizeColor("text", theme)
+  };
+
+  return (
+    <Anchor href={href} style={style}>
+      {children}
+    </Anchor>
+  );
+};
+
+const Navigation: FunctionComponent<BoxProps> = ({}) => {
   const meta = useSiteMetadata();
 
   return (
     <Nav>
       {meta.menu.map((menuItem: any) => (
-        <AnchorLink href={menuItem.href}>{menuItem.title}</AnchorLink>
+        <NavigationItem
+          color="text"
+          size="xlarge"
+          href={menuItem.href}
+          key={`menu-item-${menuItem.title}`}
+        >
+          {menuItem.title}
+        </NavigationItem>
       ))}
     </Nav>
   );
 };
+interface ResponsiveBox extends BoxProps {
+  size: string;
+}
 
-/**
- * `Main` content provides a standardized location for content.  On large and medium screens
- * this is a 2/3 width scrollable area with a `1/2` margin to align with the {@link Sidebar}.
- */
-const Main = styled(GrommetMain)`
-  margin-left: calc(100vw / 3);
-`;
-
-const Footer = styled(GrommetFooter)`
-  margin-left: calc(100vw / 3);
-`;
-
-/**
- * Used in the `gatsby-browser` api `wrapPageElement` to ensure all pages have a consistent layout.
- *
- * @param GrommetProps - the {@link GrommetProps} passed through to `<Grommet/>`.  Currently `full`, `theme` and
- *  `themeMode` are overridden and controlled by the `PageLayout`
- */
-const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
-  const meta = useSiteMetadata();
-  const [, setNavShowing] = useState(false);
-  const [darkTheme] = useState(false);
-
-  const mergedTheme = deepMerge({}, baseTheme, theme);
-  console.log(mergedTheme);
+const ResponsiveMain: FunctionComponent<ResponsiveBox> = ({
+  size,
+  children,
+  ...rest
+}) => {
+  const margin = {
+    top: "none",
+    bottom: "large",
+    left: "small" === size ? "large" : "none",
+    right: "small" === size ? "large" : "calc(100vw / 3)"
+  };
 
   return (
-    <Grommet
-      {...rest}
-      full
-      theme={theme}
-      themeMode={darkTheme ? "dark" : "light"}
-    >
-      <Sidebar>
-        <SidebarContent>
-          <SidebarHeader />
-          <Navigation />
-        </SidebarContent>
-      </Sidebar>
-      <Main fill={undefined}>
+    <GrommetMain margin={margin} {...rest}>
+      {children}
+    </GrommetMain>
+  );
+};
+
+const ResponsiveFooter: FunctionComponent<ResponsiveBox> = ({
+  size,
+  children,
+  ...rest
+}) => {
+  const margin = {
+    top: "large",
+    bottom: "large",
+    left: "small" === size ? "large" : "none",
+    right: "small" === size ? "large" : "calc(100vw / 3)"
+  };
+  const pad = "none";
+
+  return (
+    <GrommetFooter pad={pad} margin={margin} {...rest}>
+      {children}
+    </GrommetFooter>
+  );
+};
+
+const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
+  const meta = useSiteMetadata();
+  const [showMenu, setShowMenu] = useState(true);
+  const [selectedTheme, setSelectedTheme] = useState(0);
+
+  const size = useContext(ResponsiveContext);
+  console.log(`Size in SiteLayout`, size);
+
+  return (
+    <>
+      {showMenu && (
+        <MenuLayer>
+          <Sidebar
+            margin="none"
+            pad="medium"
+            width={{ width: "100%", max: "300px" }}
+            header={<SidebarHeader />}
+            footer={
+              <>
+                <SocialLinks iconSize="18px" gap="xsmall" />
+                {/* <ThemeSelector
+                  themes={themes}
+                  selectedTheme={selectedTheme}
+                  onThemeSelected={setSelectedTheme}
+                /> */}
+              </>
+            }
+          >
+            <Navigation />
+          </Sidebar>
+        </MenuLayer>
+      )}
+      <ResponsiveMain size={size} fill={undefined}>
         <MDXProvider components={MDXComponents}>{children}</MDXProvider>
-      </Main>
-      <Footer
+      </ResponsiveMain>
+      <ResponsiveFooter
         pad="large"
         align="center"
         justify="start"
         gap="medium"
         direction="column"
+        size={size}
       >
-        <SocialLinks
-          wrap={true}
-          justify="center"
-          iconSize="medium"
-        ></SocialLinks>
+        <SocialLinks wrap={true} justify="center" iconSize="medium" />
         <Box justify="center" basis="2">
           <Paragraph margin="none" textAlign="center">
             Straight from Ontario Canada
@@ -170,14 +213,23 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
             <Anchor href="https://pages.github.com/">Github Pages</Anchor>.
           </Paragraph>
         </Box>
-      </Footer>
-    </Grommet>
+      </ResponsiveFooter>
+    </>
   );
 };
 
 export default SiteLayout;
 
-export interface SectionProps extends BoxProps {}
+export const PageHeading: FunctionComponent<HeadingProps> = ({
+  children,
+  ...rest
+}) => {
+  return (
+    <Heading {...rest} responsive size="large" margin="none">
+      {children}
+    </Heading>
+  );
+};
 
 /**
  * Container properties provides a `heading` and `footer` component.
@@ -201,7 +253,6 @@ export const Section: FunctionComponent<SectionProps> = ({
   ...rest
 }) => {
   const size = useContext(ResponsiveContext);
-  const padSize = "small" === size ? "medium" : "large";
 
   return (
     <Box
@@ -212,22 +263,23 @@ export const Section: FunctionComponent<SectionProps> = ({
     >
       {heading && (
         <>
-          <a id={heading.toLowerCase().replace(/[^A-Za-z0-9]*/, "-")} />
-          <Heading
-            size="large"
-            style={{ position: "absolute" }}
-            margin="none"
-            color="#18181833"
-          >
-            {heading}
-          </Heading>
+          <a id={heading.toLowerCase().replace(/[^A-Za-z0-9]*/, "-")}>
+            <Heading
+              size="large"
+              style={{ position: "absolute" }}
+              margin="none"
+              color={"section-heading"}
+            >
+              {heading}
+            </Heading>
+          </a>
         </>
       )}
       <Box
         fill
         className="inner-container"
         gap="xsmall"
-        margin={{ top: "medium" }}
+        margin={{ top: "large" }}
         {...rest}
       >
         {children}

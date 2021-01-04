@@ -27,10 +27,10 @@ module.exports = {
         title: "Home",
         href: "/"
       },
-      {
-        title: "About Me",
-        href: "/about"
-      },
+      // {
+      //   title: "About Me",
+      //   href: "/about"
+      // },
       {
         title: "Resume",
         href: "/resume"

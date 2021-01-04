@@ -2,9 +2,9 @@ import React, { FunctionComponent } from "react";
 import { graphql, navigate } from "gatsby";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import { ArticleFragment } from "../utils/fragments";
-import { Box, Heading } from "grommet";
+import { Box, Heading, Text } from "grommet";
 import { Book, Clock } from "grommet-icons";
-import { Section } from "../components/SiteLayout";
+import { Section, PageHeading } from "../components/SiteLayout";
 import { Paragraph } from "../components/grommet/Paragraph/Paragraph";
 
 interface WritingPageProps {
@@ -31,21 +31,27 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
   });
 
   let archives = Object.keys(articlesByYear).reverse();
-  console.log(archives);
-  console.log(articlesByYear);
 
   return (
     <Box pad="large">
+      <PageHeading>Writing</PageHeading>
+      <Paragraph>
+        <strong>I'm neither published nor awarded</strong> but I am opinionated
+        and spend a bunch of time playing around with new languages and
+        frameworks - it's possible something I write might help someone skip the
+        suffering that I've run into. There's always a chance a post on my
+        personal husbanding or fathering methods may appear!
+      </Paragraph>
+      <Paragraph>Enjoy...</Paragraph>
       {archives.map(year => (
-        <Section heading={year}>
+        <Section heading={year} key={`articles-${year}`}>
           {articlesByYear[year].map(article => (
-            <Box onClick={() => navigate(`/${article.fields.slug}`)}>
-              <Heading
-                level="2"
-                size="medium"
-                responsive
-                margin={{ bottom: "none" }}
-              >
+            <Box
+              onClick={() => navigate(`/${article.fields.slug}`)}
+              key={`article-${year}-${article.frontmatter.title}`}
+              margin={{ bottom: "large" }}
+            >
+              <Heading level="2" size="medium" responsive margin="none">
                 {article.frontmatter.title}
               </Heading>
               <Paragraph
@@ -66,18 +72,6 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
           ))}
         </Section>
       ))}
-      {/* <PageHeader>
-        <div>
-          <h3>I'm neither published nor awarded</h3> but I am opinionated and
-          spend a bunch of time playing around with new languages and frameworks
-          - it's possible something I write might help someone skip the
-          suffering that I've run into. There's always a chance a post on my
-          personal husbanding or fathering methods may appear!
-        </div>
-      </PageHeader>
-      {archives.map(archive => (
-        <Archive key={archive.year} archive={archive}></Archive>
-      ))} */}
     </Box>
   );
 };

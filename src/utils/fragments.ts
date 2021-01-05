@@ -89,6 +89,41 @@ export const articleFragment = graphql`
   }
 `;
 
+export interface TimelineFragment {
+  fileAbsolutePath: string;
+  frontmatter: TimelineFrontmatter;
+  fields: TimelineFields;
+  body: string;
+}
+
+export interface TimelineFrontmatter {
+  type: string;
+  categories: string[];
+  subcategory: string;
+  company?: Institution;
+  school?: Institution;
+  role?: string;
+  degree?: string;
+  start: {
+    month: string;
+    year: number;
+  };
+  end?: {
+    month: string;
+    year: number;
+  };
+}
+
+export interface TimelineFields {
+  publishTime: Date;
+}
+
+export interface Institution {
+  name: string;
+  website: string;
+  twitter: string;
+}
+
 export const experienceFragment = graphql`
   fragment experience on Mdx {
     fileAbsolutePath

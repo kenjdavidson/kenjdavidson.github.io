@@ -1,27 +1,26 @@
-import React, { FunctionComponent, useContext } from "react";
+import React, { } from "react";
 import { graphql } from "gatsby";
-import styled from "styled-components";
 
-import { SEO } from "../components/SEO";
-import Article, { ArticleTitle, ArticleFooter } from "../components/Article";
-import ArticleGrid from "../components/ArticleGrid";
-import Tags from "../components/Tags";
 
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import device from "../utils/breakpoints";
-import { MDXProvider } from "@mdx-js/react";
+import { Section } from "./SiteLayout";
+import { Box, Heading } from "grommet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import { MDXComponents } from "../components/grommet";
-import { Section } from "../components/SiteLayout";
 
-export default props => {
-  // const post = data.allMdx.edges[0].node;
-  // const recent = data.recent.edges;
-  // const meta = useSiteMetadata();
+export const PostLayout = ({
+  data
+}) => {
+  const post = data.allMdx.edges[0].node;
+  const recent = data.recent.edges;
+  const meta = useSiteMetadata();
 
   return (
-    <>
+    <Box pad="large">
       <Section heading="Article">
+        <Heading level="2" size="medium" margin="none">
+          {post.frontmatter.title}
+        </Heading>
+        <MDXRenderer>{post.body}</MDXRenderer>
         {/* //{" "}
         <Article>
           //{" "}
@@ -39,7 +38,7 @@ export default props => {
         {/* // <SectionHeader>Recent</SectionHeader>
         // <StyledArticlesGrid posts={recent}></StyledArticlesGrid> */}
       </Section>
-    </>
+    </Box>
   );
 };
 
@@ -65,3 +64,5 @@ export const query = graphql`
     }
   }
 `;
+
+export default PostLayout;

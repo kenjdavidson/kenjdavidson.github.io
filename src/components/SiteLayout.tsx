@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import styled, { css } from "styled-components";
 import {
+  Anchor as GrommetAnchor,
   Grommet,
   GrommetProps,
   Box,
@@ -27,7 +28,7 @@ import { normalizeColor } from "grommet/utils";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import { useLocation } from "@reach/router";
 import SocialLinks from "./SocialLinks";
-import Copy from "./Copy";
+import { Copyright } from "./Copyright";
 import { common, coolAndFresh, strikingAndSimple } from "../utils/themes";
 import { MDXProvider } from "@mdx-js/react";
 import { MDXComponents } from "./grommet/MDXComponents/MDXComponents";
@@ -35,29 +36,10 @@ import { deepMerge } from "grommet/utils";
 import { ResponsiveContext, AnchorProps } from "grommet";
 import { Anchor } from "./grommet/Anchor/Anchor";
 import themes from "../utils/themes";
-import { Menu } from "grommet-icons";
-
-const MenuLayer: FunctionComponent<LayerProps> = ({ children, ...rest }) => {
-  const size = useContext(ResponsiveContext);
-
-  return (
-    <Layer
-      modal={"small" == size}
-      animation={"small" == size ? "fadeIn" : "none"}
-      position="right"
-      full="vertical"
-      {...rest}
-    >
-      <Box
-        fill="vertical"
-        background="background-front"
-        width={"small" == size ? "300px" : "calc(100vw / 3)"}
-      >
-        {children}
-      </Box>
-    </Layer>
-  );
-};
+import { Close, Menu } from "grommet-icons";
+import { ThemeableGrommetContext } from "./grommet/ThemableGrommet";
+import { navigate, navigateTo } from "gatsby";
+import { GlobalStyle } from "./GlobalStyle";
 
 const SidebarHeader: FunctionComponent<BoxProps> = ({ children, ...rest }) => {
   const meta = useSiteMetadata();
@@ -76,39 +58,31 @@ interface NavigationItemProps extends AnchorProps {
   className?: string;
 }
 
-const NavigationItem: FunctionComponent<NavigationItemProps> = ({
-  children,
-  href
+interface NavigationProps extends BoxProps {
+  onNavigationChange: (href: string) => void;
+}
+const Navigation: FunctionComponent<NavigationProps> = ({
+  onNavigationChange,
+  ...props
 }) => {
-  const location = useLocation();
-  const theme = useContext(ThemeContext);
-  const active = href === location.pathname;
-  const style = {
-    //backgroundColor: active ? normalizeColor("background", theme) : "",
-    color: normalizeColor("text", theme)
-  };
-
-  return (
-    <Anchor href={href} style={style}>
-      {children}
-    </Anchor>
-  );
-};
-
-const Navigation: FunctionComponent<BoxProps> = ({}) => {
   const meta = useSiteMetadata();
+  const onClick = (href: string) => {
+    onNavigationChange(href);
+    navigate(href);
+  };
+  const location = useLocation();
 
   return (
     <Nav>
       {meta.menu.map((menuItem: any) => (
-        <NavigationItem
+        <GrommetAnchor
           color="text"
           size="xlarge"
-          href={menuItem.href}
+          onClick={() => onClick(menuItem.href)}
           key={`menu-item-${menuItem.title}`}
         >
           {menuItem.title}
-        </NavigationItem>
+        </GrommetAnchor>
       ))}
     </Nav>
   );
@@ -130,9 +104,9 @@ const ResponsiveMain: FunctionComponent<ResponsiveBox> = ({
   };
 
   return (
-    <GrommetMain margin={margin} {...rest}>
+    <Box margin={margin} {...rest}>
       {children}
-    </GrommetMain>
+    </Box>
   );
 };
 
@@ -143,7 +117,7 @@ const ResponsiveFooter: FunctionComponent<ResponsiveBox> = ({
 }) => {
   const margin = {
     top: "large",
-    bottom: "large",
+    bottom: "none",
     left: "small" === size ? "large" : "none",
     right: "small" === size ? "large" : "calc(100vw / 3)"
   };
@@ -158,35 +132,81 @@ const ResponsiveFooter: FunctionComponent<ResponsiveBox> = ({
 
 const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
   const meta = useSiteMetadata();
-  const [showMenu, setShowMenu] = useState(true);
-  const [selectedTheme, setSelectedTheme] = useState(0);
+  const [showMenu, setShowMenu] = useState(false);
+  const { themes, selectedTheme, setSelectedTheme } = useContext(
+    ThemeableGrommetContext
+  );
 
   const size = useContext(ResponsiveContext);
-  console.log(`Size in SiteLayout`, size);
+  const small = "small" == size;
 
   return (
     <>
-      {showMenu && (
-        <MenuLayer>
-          <Sidebar
-            margin="none"
-            pad="medium"
-            width={{ width: "100%", max: "300px" }}
-            header={<SidebarHeader />}
-            footer={
-              <>
-                <SocialLinks iconSize="18px" gap="xsmall" />
-                {/* <ThemeSelector
-                  themes={themes}
-                  selectedTheme={selectedTheme}
-                  onThemeSelected={setSelectedTheme}
-                /> */}
-              </>
-            }
+      <GlobalStyle
+        background={themes[selectedTheme].global.colors[`background-back`]}
+      />
+      {small && (
+        <Button
+          icon={showMenu ? <Close /> : <Menu />}
+          onClick={() => setShowMenu(!showMenu)}
+          style={{
+            position: "fixed",
+            right: "16px",
+            bottom: "16px",
+            zIndex: 2000
+          }}
+        />
+      )}
+      {(!small || showMenu) && (
+        <Layer
+          modal={small}
+          animation={small ? "slide" : "none"}
+          position="right"
+          full="vertical"
+          responsive={false}
+          onEsc={() => setShowMenu(false)}
+          onClickOutside={() => setShowMenu(false)}
+          {...rest}
+        >
+          <Box
+            fill="vertical"
+            background="background-front"
+            width={"small" == size ? "300px" : "calc(100vw / 3)"}
           >
-            <Navigation />
-          </Sidebar>
-        </MenuLayer>
+            <Sidebar
+              margin="none"
+              pad="large"
+              width={{ width: "100%", max: "300px" }}
+              header={<SidebarHeader />}
+              footer={
+                <Box gap="small">
+                  <SocialLinks iconSize="18px" gap="xsmall" />
+                  <Box direction="row" gap="xsmall">
+                    {themes.map((theme: any, index: number) => (
+                      <Box pad="small" key={`theme-selection-${index}`}>
+                        <Button onClick={() => setSelectedTheme(index)}>
+                          <Box
+                            width="18px"
+                            height="18px"
+                            background={theme.global.colors[`background-front`]}
+                            round="full"
+                            border={
+                              index == selectedTheme
+                                ? { size: "2px", color: "background-back" }
+                                : undefined
+                            }
+                          />
+                        </Button>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              }
+            >
+              <Navigation onNavigationChange={() => setShowMenu(false)} />
+            </Sidebar>
+          </Box>
+        </Layer>
       )}
       <ResponsiveMain size={size} fill={undefined}>
         <MDXProvider components={MDXComponents}>{children}</MDXProvider>
@@ -205,7 +225,7 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
             Straight from Ontario Canada
           </Paragraph>
           <Paragraph margin="none" textAlign="center">
-            <Copy>{meta.author.name}</Copy>
+            <Copyright>{meta.author.name}</Copyright>
           </Paragraph>
           <Paragraph margin="none" textAlign="center">
             Built with <Anchor href="https://www.gatsbyjs.org/">Gatsby</Anchor>{" "}
@@ -220,6 +240,11 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
 
 export default SiteLayout;
 
+/**
+ * A large Heading used to display a solid (opacity) heading.
+ *
+ * @param HeadingProps
+ */
 export const PageHeading: FunctionComponent<HeadingProps> = ({
   children,
   ...rest
@@ -232,7 +257,10 @@ export const PageHeading: FunctionComponent<HeadingProps> = ({
 };
 
 /**
- * Container properties provides a `heading` and `footer` component.
+ * SectionProps provide additional functionality to the BoxProps when used in the context of
+ * a {@link Section}.  The following props are available:
+ *
+ * - heading (optional) displays an xlarge light opacity heading
  */
 export interface SectionProps extends BoxProps {
   heading?: string;

@@ -1,36 +1,39 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { Box, Heading, Text } from "grommet";
 import { PageHeading, Section } from "../components/SiteLayout";
 import { Anchor, Paragraph } from "../components/grommet";
 import { Twitter, Link } from "grommet-icons";
+import { TimelineFragment } from "../utils/fragments";
 
-export default ({ data }) => {
+export interface ResumePageProps {
+  data: {
+    site: {};
+    experience: {
+      nodes: TimelineFragment[];
+    };
+    education: {
+      nodes: TimelineFragment[];
+    };
+  };
+}
+
+const ResumePage: FunctionComponent<ResumePageProps> = ({ data }) => {
   const year = new Date().getFullYear();
   const retirement = 2045 - year;
 
-  // Roll up companies (promotions)
-  const companies = {};
-
   return (
-    <Box
-      // pageTitle="Experience and Education"
-      // pageSummary="Things I've done for money and education"
-      // pageSlug="/resume"
-      pad="large"
-    >
-      <PageHeading>
-        Resume
-      </PageHeading>
+    <Box pad="large">
+      <PageHeading>Resume</PageHeading>
       <Paragraph>
-        <strong>Only 24 more years 'til retirement!</strong>{" "}
-        I've had a pretty good run so far; only a couple small bumps that I've turned into learning opportunities. I've been lucky enough to work in a number roles (support, development, design) across a number of industries (transit, manufacturing, horse racing).
+        <strong>Only 24 more years 'til retirement!</strong> I've had a pretty
+        good run so far; only a couple small bumps that I've turned into
+        learning opportunities. I've been lucky enough to work in a number roles
+        (support, development, design) across a number of industries (transit,
+        manufacturing, horse racing).
       </Paragraph>
-      {data.experience.nodes.map(job => {
-        const displayCompany = !companies[job.frontmatter.company.name];
-        companies[job.frontmatter.company.name] = true;
-
+      {data.experience.nodes.map((job: any) => {
         const endDate = !job.frontmatter.end
           ? "Present"
           : job.frontmatter.end.month + " " + job.frontmatter.end.year;
@@ -38,8 +41,10 @@ export default ({ data }) => {
           job.frontmatter.start.month + " " + job.frontmatter.start.year;
 
         return (
-          <Section heading={job.frontmatter.company.name}
-            key={`education-${job.frontmatter.company.name}-${job.frontmatter.role}`}>
+          <Section
+            heading={job.frontmatter.company.name}
+            key={`education-${job.frontmatter.company.name}-${job.frontmatter.role}`}
+          >
             <Heading level="2" size="medium" margin="none">
               {job.frontmatter.role}
             </Heading>
@@ -52,12 +57,14 @@ export default ({ data }) => {
       })}
       {data.education.nodes.map(edu => {
         const endDate = !edu.frontmatter.end
-          ? "Present"
+          ? "Ongoing"
           : edu.frontmatter.end.month + " " + edu.frontmatter.end.year;
 
         return (
-          <Section heading={edu.frontmatter.school.name}
-            key={`education-${edu.frontmatter.school.name}-${edu.frontmatter.degree}`}>
+          <Section
+            heading={edu.frontmatter.school?.name}
+            key={`education-${edu.frontmatter.school?.name}-${edu.frontmatter.degree}`}
+          >
             <Heading level="2" size="medium" responsive margin="none">
               {edu.frontmatter.degree}
             </Heading>
@@ -101,3 +108,5 @@ export const query = graphql`
     }
   }
 `;
+
+export default ResumePage;

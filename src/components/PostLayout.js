@@ -3,7 +3,7 @@ import { graphql } from "gatsby";
 
 
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { Section } from "./SiteLayout";
+import { PageHeading, Section } from "./SiteLayout";
 import { Box, Heading } from "grommet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
@@ -17,9 +17,9 @@ export const PostLayout = ({
   return (
     <Box pad="large">
       <Section heading="Article">
-        <Heading level="2" size="medium" margin="none">
+        <PageHeading>
           {post.frontmatter.title}
-        </Heading>
+        </PageHeading>
         <MDXRenderer>{post.body}</MDXRenderer>
         {/* //{" "}
         <Article>

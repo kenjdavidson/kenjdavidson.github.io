@@ -15,7 +15,7 @@ export const Anchor: FunctionComponent<AnchorProps> = ({
   children,
   ...rest
 }) => {
-  return href?.startsWith("/") ? (
+  return href?.startsWith("/") || href?.startsWith("#") ? (
     <GrommetAnchor onClick={() => navigate(href!)} {...rest}>
       {children}
     </GrommetAnchor>

@@ -1,8 +1,22 @@
-import { base as baseTheme, deepMerge } from "grommet/utils";
+import { base as baseTheme, generate, deepMerge } from "grommet/utils";
 
+// If we ever need to change this, we can regenerate using a different base (24)
+// and scale (6) value. 
+const baseSpacing = 24;
 
 export const common = {
   global: {
+    breakpoints: {
+      medium: {
+        value: baseSpacing * 50, // 1200
+      },
+      large: {
+        value: baseSpacing * 90,
+      },
+      xlarge: {
+        // Anything above large
+      }
+    },
     font: {
       family: `"Merriweather", serif`
     },
@@ -10,7 +24,10 @@ export const common = {
   },
   avatar: {
     size: {
-      site: "200px"
+      [`site-small`]: "150px",
+      [`site-medium`]: "98px",
+      [`site-large`]: "200px",
+      [`site-xlarge`]: "400px"
     }
   },
   heading: {
@@ -32,7 +49,7 @@ export const coolAndFresh = {
       brand: "#05386B",
       text: "#181818",
       icon: "#181818",
-      [`section-heading`]: "#37968344"
+      [`section-heading`]: "#05386B44"
     }
   }
 };
@@ -47,7 +64,7 @@ export const strikingAndSimple = {
       brand: "#66FCF1",
       text: "#C5C6C7",
       icon: "#C5C6C7",
-      [`section-heading`]: "#45A29E33"
+      [`section-heading`]: "#66FCF133"
     }
   }
 };
@@ -62,7 +79,7 @@ export const minimalYetWarm = {
       brand: "#E85A4F",
       text: "#181818",
       icon: "#181818",
-      [`section-heading`]: "#DE8D8A33"
+      [`section-heading`]: "#E85A4F33"
     }
   }
 };

@@ -5,7 +5,8 @@ import { ArticleFragment } from "../utils/fragments";
 import { Box, Heading, Text } from "grommet";
 import { Book, Clock } from "grommet-icons";
 import { Section, PageHeading } from "../components/SiteLayout";
-import { Paragraph } from "../components/grommet/Paragraph/Paragraph";
+import { Paragraph } from "../components/grommet/Paragraph";
+import { ArticleLongCard } from "../components/article/ArticleLongCard";
 
 interface WritingPageProps {
   data: {
@@ -46,29 +47,7 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
       {archives.map(year => (
         <Section heading={year} key={`articles-${year}`}>
           {articlesByYear[year].map(article => (
-            <Box
-              onClick={() => navigate(`/${article.fields.slug}`)}
-              key={`article-${year}-${article.frontmatter.title}`}
-              margin={{ bottom: "large" }}
-            >
-              <Heading level="2" size="medium" responsive margin="none">
-                {article.frontmatter.title}
-              </Heading>
-              <Paragraph
-                fill
-                margin={{ horizontal: "none", vertical: "small" }}
-              >
-                {article.frontmatter.summary}
-              </Paragraph>
-              <Box direction="row" fill gap="medium" align="center">
-                <Box direction="row" margin="none" align="center" gap="xsmall">
-                  <Book size="small" /> {article.fields.publishTime}
-                </Box>
-                <Box direction="row" margin="none" align="center" gap="xsmall">
-                  <Clock size="small" /> {article.timeToRead} min read
-                </Box>
-              </Box>
-            </Box>
+            <ArticleLongCard article={article} />
           ))}
         </Section>
       ))}

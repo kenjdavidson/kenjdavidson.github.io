@@ -31,28 +31,15 @@ import SocialLinks from "./SocialLinks";
 import { Copyright } from "./Copyright";
 import { common, coolAndFresh, strikingAndSimple } from "../utils/themes";
 import { MDXProvider } from "@mdx-js/react";
-import { MDXComponents } from "./grommet/MDXComponents/MDXComponents";
+import { MDXComponents } from "./grommet/MDXComponents";
 import { deepMerge } from "grommet/utils";
 import { ResponsiveContext, AnchorProps } from "grommet";
-import { Anchor } from "./grommet/Anchor/Anchor";
+import { Anchor } from "./grommet/Anchor";
 import themes from "../utils/themes";
 import { Close, Menu } from "grommet-icons";
 import { ThemeableGrommetContext } from "./grommet/ThemableGrommet";
 import { navigate, navigateTo } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
-
-const SidebarHeader: FunctionComponent<BoxProps> = ({ children, ...rest }) => {
-  const meta = useSiteMetadata();
-
-  return (
-    <Avatar
-      src={meta.author.avatar}
-      a11yTitle={meta.author.name + " avatar"}
-      size="site"
-    />
-  );
-};
-
 interface NavigationItemProps extends AnchorProps {
   background?: string;
   className?: string;
@@ -87,39 +74,76 @@ const Navigation: FunctionComponent<NavigationProps> = ({
     </Nav>
   );
 };
-interface ResponsiveBox extends BoxProps {
+
+/**
+ * Provides an extension to {@link BoxProp} allowing the sending of the current size
+ * of the screen on which we are currently being displayed.  This allows {@link Box}
+ * components to provide customized props without requiring the
+ * {@link ResponsiveContext} directly - this will be helpful if we need to override.
+ */
+interface ResponsiveBoxProps extends BoxProps {
   size: string;
 }
 
-const ResponsiveMain: FunctionComponent<ResponsiveBox> = ({
+/**
+ * Builds a main component, specifically for this {@link PageLayout} that provides
+ * appropriate spacing:
+ * - small removes all margins
+ * - medium up provides a 1/3 margin allowing the sidebar
+ *
+ * All content is wrapped within this component, and should therefore provide
+ * margin or padding as appropriate.  Inside this component is an inner {@link Box}
+ * which maxes out and is formated to the end.
+ *
+ * @param ResponsiveBoxProps
+ */
+const Container: FunctionComponent<ResponsiveBoxProps> = ({
   size,
   children,
   ...rest
 }) => {
   const margin = {
     top: "none",
-    bottom: "large",
-    left: "small" === size ? "large" : "none",
-    right: "small" === size ? "large" : "calc(100vw / 3)"
+    bottom: "none",
+    left: "none",
+    right: "small" === size ? "none" : "calc(100vw / 3)"
   };
 
+  const innerWidth = {
+    width: "100%",
+    max: "1024px"
+  };
   return (
-    <Box margin={margin} {...rest}>
-      {children}
+    <Box as="main" margin={margin} justify="start" align="end">
+      <Box width={innerWidth} {...rest}>
+        {children}
+      </Box>
     </Box>
   );
 };
 
-const ResponsiveFooter: FunctionComponent<ResponsiveBox> = ({
+/**
+ * Builds a main component, specifically for this {@link PageLayout} that provides
+ * appropriate spacing:
+ *
+ * - small removes all margins
+ * - medium up provides a 1/3 margin allowing the sidebar
+ *
+ * This probably isn't required, just force of habit; can probably be moved into the
+ * main content section instead of on it's own.  We'll see.
+ *
+ * @param ResponsiveBoxProps
+ */
+const ResponsiveFooter: FunctionComponent<ResponsiveBoxProps> = ({
   size,
   children,
   ...rest
 }) => {
   const margin = {
-    top: "large",
+    top: "none",
     bottom: "none",
-    left: "small" === size ? "large" : "none",
-    right: "small" === size ? "large" : "calc(100vw / 3)"
+    left: "none",
+    right: "small" === size ? "none" : "calc(100vw / 3)"
   };
   const pad = "none";
 
@@ -130,6 +154,23 @@ const ResponsiveFooter: FunctionComponent<ResponsiveBox> = ({
   );
 };
 
+/**
+ * The complete PageLayout.  Since all the components in this are specific to this exact
+ * layout (right sidebar with content) it makes no real sense to extract them or worry
+ * about creating multiple components.
+ *
+ * This method will allow customization of layouts:
+ *
+ * - right sidebar
+ * - left sidebar
+ * - top nav with heros
+ *
+ * for the different page types and content.  For example pages may be split between the
+ * right sidebar (home/lists/etc) while others would be suited for top/nav full
+ * (golf, articles, etc).
+ *
+ * @param GrommetProps
+ */
 const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
   const meta = useSiteMetadata();
   const [showMenu, setShowMenu] = useState(false);
@@ -139,6 +180,8 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
 
   const size = useContext(ResponsiveContext);
   const small = "small" == size;
+
+  console.log(`Window size: ${size}`);
 
   return (
     <>
@@ -177,7 +220,13 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
               margin="none"
               pad="large"
               width={{ width: "100%", max: "300px" }}
-              header={<SidebarHeader />}
+              header={
+                <Avatar
+                  src={meta.author.avatar}
+                  a11yTitle={"Hey, it's me " + meta.author.name}
+                  size={`site-${size}`}
+                />
+              }
               footer={
                 <Box gap="small">
                   <SocialLinks iconSize="18px" gap="xsmall" />
@@ -208,16 +257,15 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
           </Box>
         </Layer>
       )}
-      <ResponsiveMain size={size} fill={undefined}>
+      <Container size={size} fill={undefined}>
         <MDXProvider components={MDXComponents}>{children}</MDXProvider>
-      </ResponsiveMain>
-      <ResponsiveFooter
-        pad="large"
-        align="center"
-        justify="start"
-        gap="medium"
-        direction="column"
+      </Container>
+      <Container
         size={size}
+        fill={undefined}
+        as="footer"
+        align="center"
+        pad="large"
       >
         <SocialLinks wrap={true} justify="center" iconSize="medium" />
         <Box justify="center" basis="2">
@@ -233,7 +281,7 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
             <Anchor href="https://pages.github.com/">Github Pages</Anchor>.
           </Paragraph>
         </Box>
-      </ResponsiveFooter>
+      </Container>
     </>
   );
 };
@@ -250,7 +298,7 @@ export const PageHeading: FunctionComponent<HeadingProps> = ({
   ...rest
 }) => {
   return (
-    <Heading {...rest} responsive size="large" margin="none">
+    <Heading color="brand" {...rest} responsive size="large" margin="none">
       {children}
     </Heading>
   );
@@ -280,7 +328,10 @@ export const Section: FunctionComponent<SectionProps> = ({
   children,
   ...rest
 }) => {
-  const size = useContext(ResponsiveContext);
+  const width = {
+    width: "100%",
+    max: "1024px"
+  };
 
   return (
     <Box
@@ -288,6 +339,7 @@ export const Section: FunctionComponent<SectionProps> = ({
       background={background}
       pad={{ horizontal: "none", vertical: "medium" }}
       style={{ position: "relative" }}
+      width={width}
     >
       {heading && (
         <>

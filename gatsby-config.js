@@ -24,7 +24,7 @@ module.exports = {
     },
     menu: [
       {
-        title: "Home",
+        title: "About",
         href: "/"
       },
       // {

@@ -6,6 +6,7 @@ import { Heading } from "../grommet/Heading";
 import { Book, Clock } from "grommet-icons";
 import { ArticleFragment } from "../../utils/fragments";
 import { navigate } from "gatsby";
+import { ArticleFields } from "./ArticleFields";
 
 export interface ArticleLongCardProps extends BoxProps {
   article: ArticleFragment;
@@ -27,14 +28,7 @@ export const ArticleLongCard: FunctionComponent<ArticleLongCardProps> = ({
       <Paragraph fill margin={{ horizontal: "none", vertical: "small" }}>
         {article.frontmatter.summary}
       </Paragraph>
-      <Box direction="row" fill gap="medium" align="center">
-        <Box direction="row" margin="none" align="center" gap="xsmall">
-          <Book size="small" /> {article.fields.publishTime}
-        </Box>
-        <Box direction="row" margin="none" align="center" gap="xsmall">
-          <Clock size="small" /> {article.timeToRead} min read
-        </Box>
-      </Box>
+      <ArticleFields article={article} />
     </Box>
   );
 };

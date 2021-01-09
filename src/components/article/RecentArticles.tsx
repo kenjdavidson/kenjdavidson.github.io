@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { BoxProps, Box } from "grommet";
+import { ArticleLongCard } from "./ArticleLongCard";
+import { ArticleFragment } from "../../utils/fragments";
 
 export interface RecentArticlesProps extends BoxProps {
   articles?: number;
@@ -12,7 +14,7 @@ export const RecentArticles: FunctionComponent<RecentArticlesProps> = ({
   grid: gridProp = false,
   ...rest
 }) => {
-  const articles = useStaticQuery(
+  const data = useStaticQuery(
     graphql`
       query {
         allMdx(
@@ -29,5 +31,16 @@ export const RecentArticles: FunctionComponent<RecentArticlesProps> = ({
       }
     `
   );
-  return <Box></Box>;
+  const articles: any[] = data.allMdx.edges;
+  return (
+    <Box>
+      {articles.map((article, index) =>
+        index < articlesProp ? (
+          <ArticleLongCard article={article.node} />
+        ) : (
+          undefined
+        )
+      )}
+    </Box>
+  );
 };

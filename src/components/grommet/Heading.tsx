@@ -1,9 +1,16 @@
-import { HeadingProps } from "grommet";
-import React, { FunctionComponent } from "react";
+import { HeadingProps, ResponsiveContext } from "grommet";
+import React, { FunctionComponent, useContext } from "react";
 import { Heading as GrommetHeading } from "grommet";
 import styled from "styled-components";
 
-export const Heading = styled(GrommetHeading)`
+const sizeMapping: Record<string, string> = {
+  small: "medium",
+  medium: "medium",
+  large: "large",
+  xlarge: "xlarge"
+};
+
+const StyledHeading = styled(GrommetHeading)`
   a.header-anchor {
     padding: 0px 16px;
     display: none;
@@ -20,3 +27,31 @@ export const Heading = styled(GrommetHeading)`
     }
   }
 `;
+
+export const Heading: FunctionComponent<HeadingProps> = ({
+  size: sizeProp,
+  ...props
+}) => {
+  const size = sizeProp || useContext(ResponsiveContext);
+  const headingSize = sizeMapping[size] || "medium";
+  return <StyledHeading size={headingSize} {...props} />;
+};
+
+export const H1: FunctionComponent<HeadingProps> = props => (
+  <Heading level="1" {...props} />
+);
+export const H2: FunctionComponent<HeadingProps> = props => (
+  <Heading level="2" {...props} />
+);
+export const H3: FunctionComponent<HeadingProps> = props => (
+  <Heading level="3" {...props} />
+);
+export const H4: FunctionComponent<HeadingProps> = props => (
+  <Heading level="4" {...props} />
+);
+export const H5: FunctionComponent<HeadingProps> = props => (
+  <Heading level="5" {...props} />
+);
+export const H6: FunctionComponent<HeadingProps> = props => (
+  <Heading level="6" {...props} />
+);

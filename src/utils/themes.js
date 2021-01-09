@@ -49,7 +49,7 @@ export const coolAndFresh = {
       brand: "#05386B",
       text: "#181818",
       icon: "#181818",
-      [`section-heading`]: "#05386B44"
+      [`section-heading`]: "#05386B33"
     }
   }
 };

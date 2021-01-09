@@ -40,6 +40,7 @@ import { Close, Menu } from "grommet-icons";
 import { ThemeableGrommetContext } from "./grommet/ThemableGrommet";
 import { navigate, navigateTo } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
+import { H1 } from "./grommet/Heading";
 interface NavigationItemProps extends AnchorProps {
   background?: string;
   className?: string;
@@ -55,21 +56,21 @@ const Navigation: FunctionComponent<NavigationProps> = ({
   const meta = useSiteMetadata();
   const onClick = (href: string) => {
     onNavigationChange(href);
-    navigate(href);
   };
   const location = useLocation();
 
   return (
-    <Nav>
+    <Nav gap="small">
       {meta.menu.map((menuItem: any) => (
-        <GrommetAnchor
+        <Anchor
           color="text"
-          size="xlarge"
+          size="medium"
           onClick={() => onClick(menuItem.href)}
+          href={menuItem.href}
           key={`menu-item-${menuItem.title}`}
         >
           {menuItem.title}
-        </GrommetAnchor>
+        </Anchor>
       ))}
     </Nav>
   );
@@ -111,7 +112,7 @@ const Container: FunctionComponent<ResponsiveBoxProps> = ({
 
   const innerWidth = {
     width: "100%",
-    max: "1024px"
+    max: "xlarge" == size ? "calc(100vw / 5 * 3)" : "1024px"
   };
   return (
     <Box as="main" margin={margin} justify="start" align="end">
@@ -119,38 +120,6 @@ const Container: FunctionComponent<ResponsiveBoxProps> = ({
         {children}
       </Box>
     </Box>
-  );
-};
-
-/**
- * Builds a main component, specifically for this {@link PageLayout} that provides
- * appropriate spacing:
- *
- * - small removes all margins
- * - medium up provides a 1/3 margin allowing the sidebar
- *
- * This probably isn't required, just force of habit; can probably be moved into the
- * main content section instead of on it's own.  We'll see.
- *
- * @param ResponsiveBoxProps
- */
-const ResponsiveFooter: FunctionComponent<ResponsiveBoxProps> = ({
-  size,
-  children,
-  ...rest
-}) => {
-  const margin = {
-    top: "none",
-    bottom: "none",
-    left: "none",
-    right: "small" === size ? "none" : "calc(100vw / 3)"
-  };
-  const pad = "none";
-
-  return (
-    <GrommetFooter pad={pad} margin={margin} {...rest}>
-      {children}
-    </GrommetFooter>
   );
 };
 
@@ -228,7 +197,7 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
                 />
               }
               footer={
-                <Box gap="small">
+                <Box gap="none">
                   <SocialLinks iconSize="18px" gap="xsmall" />
                   <Box direction="row" gap="xsmall">
                     {themes.map((theme: any, index: number) => (
@@ -298,9 +267,9 @@ export const PageHeading: FunctionComponent<HeadingProps> = ({
   ...rest
 }) => {
   return (
-    <Heading color="brand" {...rest} responsive size="large" margin="none">
+    <H1 color="brand" size="large" {...rest} margin="none">
       {children}
-    </Heading>
+    </H1>
   );
 };
 
@@ -329,8 +298,7 @@ export const Section: FunctionComponent<SectionProps> = ({
   ...rest
 }) => {
   const width = {
-    width: "100%",
-    max: "1024px"
+    width: "100%"
   };
 
   return (

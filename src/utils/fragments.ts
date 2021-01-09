@@ -34,7 +34,7 @@ export const siteMetadataFragment = graphql`
 export interface ArticleFrontmatter {
   title: string;
   summary: string;
-  categories: string[];
+  category: string;
   subcategory: string;
   tags: string[];
 }
@@ -64,7 +64,7 @@ export const articleFragment = graphql`
   fragment article on Mdx {
     id
     frontmatter {
-      categories
+      category
       subcategory
       tags
       title
@@ -98,7 +98,7 @@ export interface TimelineFragment {
 
 export interface TimelineFrontmatter {
   type: string;
-  categories: string[];
+  category: string;
   subcategory: string;
   company?: Institution;
   school?: Institution;
@@ -129,7 +129,7 @@ export const experienceFragment = graphql`
     fileAbsolutePath
     frontmatter {
       type
-      categories
+      category
       subcategory
       company {
         name
@@ -158,7 +158,7 @@ export const educationFragment = graphql`
     fileAbsolutePath
     frontmatter {
       type
-      categories
+      category
       subcategory
       school {
         name

@@ -1,11 +1,14 @@
 import React, { } from "react";
 import { graphql } from "gatsby";
 
-
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import { PageHeading, Section } from "./SiteLayout";
 import { Box, Heading } from "grommet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
+import { RecentArticles } from "./article/RecentArticles";
+import { Anchor, Paragraph } from "./grommet";
+import { ArticleFields } from "./article/ArticleFields";
+import { ArticleFooter } from "./article/ArticleFooter";
 
 export const PostLayout = ({
   data
@@ -16,27 +19,22 @@ export const PostLayout = ({
 
   return (
     <Box pad="large">
-      <Section heading="Article">
-        <PageHeading>
+      <Paragraph>
+        <Anchor href="/">Home</Anchor> / <Anchor href="/writing">Writing</Anchor> /
+      </Paragraph>
+      <Section heading={post.frontmatter.category}>
+        <PageHeading size="medium">
           {post.frontmatter.title}
         </PageHeading>
+        <Paragraph>
+          <ArticleFields article={post} />
+        </Paragraph>
         <MDXRenderer>{post.body}</MDXRenderer>
-        {/* //{" "}
-        <Article>
-          //{" "}
-          <ArticleTitle slug={post.fields.slug}>
-            // {post.frontmatter.title}
-            //{" "}
-          </ArticleTitle>
-          // <MDXRenderer>{post.body}</MDXRenderer>
-          // <ArticleFooter></ArticleFooter>
-          //{" "}
-        </Article> */}
+        <ArticleFooter article={post} />
       </Section>
 
       <Section heading="Recent Posts">
-        {/* // <SectionHeader>Recent</SectionHeader>
-        // <StyledArticlesGrid posts={recent}></StyledArticlesGrid> */}
+        <RecentArticles articles={3} />
       </Section>
     </Box>
   );

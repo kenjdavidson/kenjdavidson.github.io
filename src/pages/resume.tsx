@@ -6,6 +6,7 @@ import { PageHeading, Section } from "../components/SiteLayout";
 import { Anchor, Paragraph } from "../components/grommet";
 import { Twitter, Link } from "grommet-icons";
 import { TimelineFragment } from "../utils/fragments";
+import { H2 } from "../components/grommet/Heading";
 
 export interface ResumePageProps {
   data: {
@@ -45,9 +46,9 @@ const ResumePage: FunctionComponent<ResumePageProps> = ({ data }) => {
             heading={job.frontmatter.company.name}
             key={`education-${job.frontmatter.company.name}-${job.frontmatter.role}`}
           >
-            <Heading level="2" size="medium" margin="none">
+            <H2 size="medium" margin="none">
               {job.frontmatter.role}
-            </Heading>
+            </H2>
             <Box>
               {startDate} - {endDate}
             </Box>
@@ -65,9 +66,9 @@ const ResumePage: FunctionComponent<ResumePageProps> = ({ data }) => {
             heading={edu.frontmatter.school?.name}
             key={`education-${edu.frontmatter.school?.name}-${edu.frontmatter.degree}`}
           >
-            <Heading level="2" size="medium" responsive margin="none">
+            <H2 size="medium" responsive margin="none">
               {edu.frontmatter.degree}
-            </Heading>
+            </H2>
             <Box direction="row" justify="start" align="center" gap="small">
               {endDate && <Text>{endDate}</Text>}
             </Box>

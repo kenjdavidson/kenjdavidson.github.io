@@ -9,7 +9,7 @@ import {
   Twitter
 } from "grommet-icons";
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { Anchor } from "./grommet";
+import { Anchor } from "./Grommet";
 
 const SocialAnchor: FunctionComponent<AnchorProps> = ({ color, ...rest }) => {
   return <Anchor color={color} {...rest}></Anchor>;

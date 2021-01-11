@@ -31,16 +31,16 @@ import SocialLinks from "./SocialLinks";
 import { Copyright } from "./Copyright";
 import { common, coolAndFresh, strikingAndSimple } from "../utils/themes";
 import { MDXProvider } from "@mdx-js/react";
-import { MDXComponents } from "./grommet/MDXComponents";
+import { MDXComponents } from "./Grommet/MDXComponents";
 import { deepMerge } from "grommet/utils";
 import { ResponsiveContext, AnchorProps } from "grommet";
-import { Anchor } from "./grommet/Anchor";
+import { Anchor } from "./Grommet/Anchor";
 import themes from "../utils/themes";
 import { Close, Menu } from "grommet-icons";
-import { ThemeableGrommetContext } from "./grommet/ThemableGrommet";
+import { ThemeableGrommetContext } from "./Grommet/ThemableGrommet";
 import { navigate, navigateTo } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
-import { H1 } from "./grommet/Heading";
+import { H1 } from "./Grommet/Heading";
 interface NavigationItemProps extends AnchorProps {
   background?: string;
   className?: string;
@@ -150,8 +150,6 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
   const size = useContext(ResponsiveContext);
   const small = "small" == size;
 
-  console.log(`Window size: ${size}`);
-
   return (
     <>
       <GlobalStyle
@@ -256,82 +254,3 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
 };
 
 export default SiteLayout;
-
-/**
- * A large Heading used to display a solid (opacity) heading.
- *
- * @param HeadingProps
- */
-export const PageHeading: FunctionComponent<HeadingProps> = ({
-  children,
-  ...rest
-}) => {
-  return (
-    <H1 color="brand" size="large" {...rest} margin="none">
-      {children}
-    </H1>
-  );
-};
-
-/**
- * SectionProps provide additional functionality to the BoxProps when used in the context of
- * a {@link Section}.  The following props are available:
- *
- * - heading (optional) displays an xlarge light opacity heading
- */
-export interface SectionProps extends BoxProps {
-  heading?: string;
-}
-
-/**
- * Provides a standardized wrapper for page content.   The outer {@link Box} provides a full width
- * (regardless of size) while the inner {@link Box} controls the max width of the content.  Padding
- * should be applied to the children, to ensure that things like {@link Image} and {@link Code}
- * can cozy up to the size of the screen on mobile.
- *
- * @param props - container props
- */
-export const Section: FunctionComponent<SectionProps> = ({
-  heading,
-  background,
-  children,
-  ...rest
-}) => {
-  const width = {
-    width: "100%"
-  };
-
-  return (
-    <Box
-      className="outer-container"
-      background={background}
-      pad={{ horizontal: "none", vertical: "medium" }}
-      style={{ position: "relative" }}
-      width={width}
-    >
-      {heading && (
-        <>
-          <a id={heading.toLowerCase().replace(/[^A-Za-z0-9]*/, "-")}>
-            <Heading
-              size="large"
-              style={{ position: "absolute" }}
-              margin="none"
-              color={"section-heading"}
-            >
-              {heading}
-            </Heading>
-          </a>
-        </>
-      )}
-      <Box
-        fill
-        className="inner-container"
-        gap="xsmall"
-        margin={{ top: "large" }}
-        {...rest}
-      >
-        {children}
-      </Box>
-    </Box>
-  );
-};

@@ -128,14 +128,6 @@ module.exports = {
         path: `${__dirname}/content/timeline`
       }
     },
-    // {
-    //   // https://www.gatsbyjs.org/packages/gatsby-plugin-typography/
-    //   // https://kyleamathews.github.io/typography.js/
-    //   resolve: "gatsby-plugin-typography",
-    //   options: {
-    //     pathToConfigModule: "src/utils/typography"
-    //   }
-    // },
     {
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark
       resolve: "gatsby-plugin-mdx",
@@ -143,13 +135,15 @@ module.exports = {
         extensions: [".mdx", ".md"],
         gatsbyRemarkPlugins: [
           "gatsby-remark-code-titles",
+          "gatsby-remark-unwrap-images",
           {
             resolve: `gatsby-remark-images`,
             options: {
-              // It's important to specify the maxWidth (in pixels) of
-              // the content container as this plugin uses this as the
-              // base for generating different widths of each image.
-              maxWidth: 720
+              maxWidth: 1024,
+              linkImagesToOriginal: false,
+              backgroundColor: `none`,
+              disableBgImageOnAlpha: true,
+              showCaptions: true
             }
           },
           {
@@ -163,9 +157,9 @@ module.exports = {
             resolve: "gatsby-remark-prismjs",
             options: {
               classPrefix: "language-",
-              inlineCodeMarker: "^", // inline language
-              aliases: {}, // sh: bash
-              showLineNumbers: false, // ```javascript{numberLines: true}
+              inlineCodeMarker: "^",    // inline language
+              aliases: {},              // sh: bash
+              showLineNumbers: false,   // ```javascript{numberLines: true}
               noInlineHighlight: false, // Inline styles
               languageExtensions: [],
               prompt: {
@@ -176,7 +170,7 @@ module.exports = {
               escapeEntities: {}
             }
           }
-        ]
+        ],
       }
     }
   ]

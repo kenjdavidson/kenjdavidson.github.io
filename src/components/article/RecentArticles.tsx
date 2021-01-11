@@ -1,42 +1,31 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { BoxProps, Box } from "grommet";
-import { ArticleLongCard } from "./ArticleLongCard";
-import { ArticleFragment } from "../../utils/fragments";
+import { ArticleLongCard } from "./FullCard";
+import useArticles, { Article } from "../../hooks/useArticles";
 
 export interface RecentArticlesProps extends BoxProps {
-  articles?: number;
-  grid?: boolean;
+  skipArticleId?: string;
+  showArticles?: number;
+  asGrid?: boolean;
 }
 
 export const RecentArticles: FunctionComponent<RecentArticlesProps> = ({
-  articles: articlesProp = 6,
-  grid: gridProp = false,
+  skipArticleId,
+  showArticles: articlesProp = 6,
+  asGrid: gridProp = false,
   ...rest
 }) => {
-  const data = useStaticQuery(
-    graphql`
-      query {
-        allMdx(
-          filter: { fileAbsolutePath: { regex: "/content/posts/" } }
-          sort: { fields: fields___publishTime, order: DESC }
-          limit: 6
-        ) {
-          edges {
-            node {
-              ...article
-            }
-          }
-        }
-      }
-    `
-  );
-  const articles: any[] = data.allMdx.edges;
+  const articles = useArticles(articlesProp + 1);
+  const filtered = articles
+    .filter(article => article.id !== skipArticleId)
+    .filter((a, index) => index < articlesProp);
+
   return (
     <Box>
-      {articles.map((article, index) =>
+      {filtered.map((article, index) =>
         index < articlesProp ? (
-          <ArticleLongCard article={article.node} />
+          <ArticleLongCard key={article.id} article={article} />
         ) : (
           undefined
         )

@@ -3,13 +3,6 @@ import React, { FunctionComponent, useContext } from "react";
 import { Heading as GrommetHeading } from "grommet";
 import styled from "styled-components";
 
-const sizeMapping: Record<string, string> = {
-  small: "medium",
-  medium: "medium",
-  large: "large",
-  xlarge: "xlarge"
-};
-
 const StyledHeading = styled(GrommetHeading)`
   a.header-anchor {
     padding: 0px 16px;
@@ -33,8 +26,7 @@ export const Heading: FunctionComponent<HeadingProps> = ({
   ...props
 }) => {
   const size = sizeProp || useContext(ResponsiveContext);
-  const headingSize = sizeMapping[size] || "medium";
-  return <StyledHeading size={headingSize} {...props} />;
+  return <StyledHeading {...props} />;
 };
 
 export const H1: FunctionComponent<HeadingProps> = props => (

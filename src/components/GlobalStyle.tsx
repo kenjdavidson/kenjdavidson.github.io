@@ -10,4 +10,8 @@ export const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     padding: 0;
     ${props => props.background && `background-color: ${props.background}`}
   }
+
+  .gatsby-resp-image-figcaption {
+    text-align: center;
+  }
 `;

@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useContext } from "react";
+
 import {
-  Paragraph as GParagraph,
+  Paragraph as GrommetParagraph,
   ParagraphProps,
   ResponsiveContext
 } from "grommet";
@@ -20,8 +21,8 @@ export const Paragraph: FunctionComponent<ParagraphProps> = ({
   const textSize = sizeMapping[size] || "medium";
 
   return (
-    <GParagraph fill size={textSize} {...rest}>
+    <GrommetParagraph fill size={textSize} {...rest}>
       {children}
-    </GParagraph>
+    </GrommetParagraph>
   );
 };

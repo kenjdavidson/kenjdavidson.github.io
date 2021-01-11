@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { graphql } from "gatsby";
 import { Box } from "grommet";
-import { Section } from "../components/SiteLayout";
-import { Paragraph } from "../components/grommet";
+import { Section } from "../components/Page";
+import { Paragraph } from "../components/Grommet";
 
 const GolfingPage: FunctionComponent = () => (
   <Box pad="large">

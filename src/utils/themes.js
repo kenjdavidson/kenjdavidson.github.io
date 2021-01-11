@@ -1,8 +1,22 @@
-import { base as baseTheme, generate, deepMerge } from "grommet/utils";
+import { base as baseTheme } from "grommet";
+import { deepMerge } from "grommet/utils";
 
-// If we ever need to change this, we can regenerate using a different base (24)
-// and scale (6) value. 
-const baseSpacing = 24;
+
+/**
+ * One of the major misses in the Grommet Theming is that it's easy to make minor changes to typography.  
+ * For example, I'm not a huge fan of the original Heading sizes, nor the method in which they are 
+ * "responsive".  It would have been cool if they were made available externally - or maybe added to
+ * `grommet-styles` project.
+ */
+const baseSpacing = 24, scale = 6;
+const baseFontSize = baseSpacing * 0.75; // 18
+const fontScale = baseSpacing / scale; // 4
+
+const fontSizing = factor => ({
+  size: `${baseFontSize + factor * fontScale}px`,
+  height: `${baseSpacing + factor * fontScale}px`,
+  maxWidth: `${baseSpacing * (baseFontSize + factor * fontScale)}px`,
+});
 
 export const common = {
   global: {
@@ -19,8 +33,7 @@ export const common = {
     },
     font: {
       family: `"Merriweather", serif`
-    },
-
+    }
   },
   avatar: {
     size: {
@@ -34,6 +47,44 @@ export const common = {
     font: {
       family: "Playfair Display",
       weight: 700
+    },
+    level: {
+      [`1`]: {
+        small: { ...fontSizing(8) },
+        medium: { ...fontSizing(12) },
+        large: { ...fontSizing(16) },
+        xlarge: { ...fontSizing(24) }
+      },
+      [`2`]: {
+        small: { ...fontSizing(4) },
+        medium: { ...fontSizing(6) },
+        large: { ...fontSizing(12) },
+        xlarge: { ...fontSizing(16) }
+      },
+      [`3`]: {
+        small: { ...fontSizing(2) },
+        medium: { ...fontSizing(3) },
+        large: { ...fontSizing(8) },
+        xlarge: { ...fontSizing(12) }
+      },
+      [`4`]: {
+        small: { ...fontSizing(1) },
+        medium: { ...fontSizing(2) },
+        large: { ...fontSizing(6) },
+        xlarge: { ...fontSizing(10) }
+      },
+      [`5`]: {
+        small: { ...fontSizing(0.5) },
+        medium: { ...fontSizing(1) },
+        large: { ...fontSizing(4) },
+        xlarge: { ...fontSizing(8) }
+      },
+      [`6`]: {
+        small: { ...fontSizing(0) },
+        medium: { ...fontSizing(0) },
+        large: { ...fontSizing(2) },
+        xlarge: { ...fontSizing(4) }
+      }
     },
     lineHeight: "1rem"
   }
@@ -49,7 +100,7 @@ export const coolAndFresh = {
       brand: "#05386B",
       text: "#181818",
       icon: "#181818",
-      [`section-heading`]: "#05386B33"
+      [`section-heading`]: "#05386B44"
     }
   }
 };
@@ -62,9 +113,9 @@ export const strikingAndSimple = {
       [`background-back`]: "#1F2833",
       [`background-front`]: "#0B0C10",
       brand: "#66FCF1",
-      text: "#C5C6C7",
-      icon: "#C5C6C7",
-      [`section-heading`]: "#66FCF133"
+      text: "#e7e7e7",
+      icon: "#e7e7e7",
+      [`section-heading`]: "#66FCF144"
     }
   }
 };
@@ -79,7 +130,7 @@ export const minimalYetWarm = {
       brand: "#E85A4F",
       text: "#181818",
       icon: "#181818",
-      [`section-heading`]: "#E85A4F33"
+      [`section-heading`]: "#E85A4F44"
     }
   }
 };

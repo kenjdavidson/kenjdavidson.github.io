@@ -2,20 +2,20 @@ import React, { FunctionComponent } from "react";
 import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { Box, Heading, Text } from "grommet";
-import { PageHeading, Section } from "../components/SiteLayout";
-import { Anchor, Paragraph } from "../components/grommet";
+import { PageHeading, Section } from "../components/Page";
+import { Anchor, Paragraph } from "../components/Grommet";
 import { Twitter, Link } from "grommet-icons";
-import { TimelineFragment } from "../utils/fragments";
-import { H2 } from "../components/grommet/Heading";
+import { H2 } from "../components/Grommet/Heading";
+import { Timeline } from "../graphql/graphqlTimeline";
 
 export interface ResumePageProps {
   data: {
     site: {};
     experience: {
-      nodes: TimelineFragment[];
+      nodes: Timeline[];
     };
     education: {
-      nodes: TimelineFragment[];
+      nodes: Timeline[];
     };
   };
 }

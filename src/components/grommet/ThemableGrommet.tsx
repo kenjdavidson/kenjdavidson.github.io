@@ -13,6 +13,7 @@ const THEME_KEY = "kenjdavidson:selected-theme";
 const StyledGrommet = styled(Grommet)`
   height: auto;
 `;
+
 export interface ThemeableGrommetProps {
   themes: any[];
   selectedTheme: number;

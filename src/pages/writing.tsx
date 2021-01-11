@@ -1,30 +1,21 @@
 import React, { FunctionComponent } from "react";
 import { graphql, navigate } from "gatsby";
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { ArticleFragment } from "../utils/fragments";
 import { Box, Heading, Text } from "grommet";
 import { Book, Clock } from "grommet-icons";
-import { Section, PageHeading } from "../components/SiteLayout";
-import { Paragraph } from "../components/grommet/Paragraph";
-import { ArticleLongCard } from "../components/article/ArticleLongCard";
+import { Section, PageHeading } from "../components/Page";
+import { Paragraph } from "../components/Grommet/Paragraph";
+import { ArticleLongCard } from "../components/Article/FullCard";
+import useArticles from "../hooks/useArticles";
+import { Article } from "../graphql/graphqlArticles";
 
-interface WritingPageProps {
-  data: {
-    allMdx: {
-      edges: {
-        node: ArticleFragment;
-      }[];
-    };
-  };
-}
-
-export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
+export const WritingPage: FunctionComponent = props => {
   const meta = useSiteMetadata();
+  const articles = useArticles();
 
-  const articlesByYear: Record<string, ArticleFragment[]> = {};
+  const articlesByYear: Record<string, Article[]> = {};
 
-  data.allMdx.edges.forEach(node => {
-    const article = node.node;
+  articles.forEach(article => {
     if (!articlesByYear[article.fields.publishYear]) {
       articlesByYear[article.fields.publishYear] = [];
     }
@@ -45,7 +36,7 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
       </Paragraph>
       <Paragraph>Enjoy...</Paragraph>
       {archives.map(year => (
-        <Section heading={year} key={`articles-${year}`}>
+        <Section heading={year} headingSize="large" key={`articles-${year}`}>
           {articlesByYear[year].map(article => (
             <ArticleLongCard article={article} />
           ))}
@@ -56,18 +47,3 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
 };
 
 export default WritingPage;
-
-export const query = graphql`
-  query WritingQuery {
-    allMdx(
-      filter: { fileAbsolutePath: { regex: "/content/posts/" } }
-      sort: { fields: fields___publishTime, order: DESC }
-    ) {
-      edges {
-        node {
-          ...article
-        }
-      }
-    }
-  }
-`;

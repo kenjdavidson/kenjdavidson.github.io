@@ -1,16 +1,13 @@
 import { Box } from "grommet";
 import { Book, Clock } from "grommet-icons";
 import React, { FunctionComponent } from "react";
-import { ArticleFragment } from "../../utils/fragments";
+import { Article } from "../../hooks/useArticles";
 
-export interface ArticleFieldProps {
-  article: ArticleFragment;
+export interface FieldsProp {
+  article: Article;
 }
 
-export const ArticleFields: FunctionComponent<ArticleFieldProps> = ({
-  article,
-  ...rest
-}) => {
+export const Fields: FunctionComponent<FieldsProp> = ({ article, ...rest }) => {
   return (
     <Box direction="row" fill gap="medium" align="center">
       <Box direction="row" margin="none" align="center" gap="xsmall">

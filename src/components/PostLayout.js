@@ -2,20 +2,17 @@ import React, { } from "react";
 import { graphql } from "gatsby";
 
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { PageHeading, Section } from "./SiteLayout";
+import { PageHeading, Section } from "./Page";
 import { Box, Heading } from "grommet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import { RecentArticles } from "./article/RecentArticles";
-import { Anchor, Paragraph } from "./grommet";
-import { ArticleFields } from "./article/ArticleFields";
-import { ArticleFooter } from "./article/ArticleFooter";
+import { RecentArticles } from "./Article/RecentArticles";
+import { Anchor, Paragraph } from "./Grommet";
+import { Fields, Footer } from "./Article";
 
 export const PostLayout = ({
   data
 }) => {
   const post = data.allMdx.edges[0].node;
-  const recent = data.recent.edges;
-  const meta = useSiteMetadata();
 
   return (
     <Box pad="large">
@@ -26,15 +23,13 @@ export const PostLayout = ({
         <PageHeading size="medium">
           {post.frontmatter.title}
         </PageHeading>
-        <Paragraph>
-          <ArticleFields article={post} />
-        </Paragraph>
+        <Fields article={post} />
         <MDXRenderer>{post.body}</MDXRenderer>
-        <ArticleFooter article={post} />
+        <Footer article={post} />
       </Section>
 
       <Section heading="Recent Posts">
-        <RecentArticles articles={3} />
+        <RecentArticles skipArticleId={post.id} showArticles={3} />
       </Section>
     </Box>
   );
@@ -45,18 +40,7 @@ export const query = graphql`
     allMdx(filter: { id: { eq: $id } }) {
       edges {
         node {
-          ...article
-        }
-      }
-    }
-    recent: allMdx(
-      filter: { id: { ne: $id }, fileAbsolutePath: { regex: "/posts/" } }
-      limit: 4
-      sort: { fields: fields___publishTime, order: DESC }
-    ) {
-      edges {
-        node {
-          ...article
+          ...articles
         }
       }
     }

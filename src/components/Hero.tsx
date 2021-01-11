@@ -13,7 +13,7 @@ import {
 import { Container } from "./Container";
 import styled, { css } from "styled-components";
 import { ThemeContext } from "styled-components";
-import { Paragraph } from "./grommet";
+import { Paragraph } from "./Grommet";
 import { useResponsiveText } from "../hooks/useResponsiveText";
 
 export const HeroImageWrapper = styled(Box)`

@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeableGrommet } from "./src/components/grommet/ThemableGrommet";
+import { ThemeableGrommet } from "./src/components/Grommet/ThemableGrommet";
 import SiteLayout from "./src/components/SiteLayout";
 
 import "./src/scss/main.scss";

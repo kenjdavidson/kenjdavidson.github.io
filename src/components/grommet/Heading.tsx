@@ -47,3 +47,4 @@ export const H5: FunctionComponent<HeadingProps> = props => (
 export const H6: FunctionComponent<HeadingProps> = props => (
   <Heading level="6" {...props} />
 );
+

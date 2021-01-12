@@ -38,7 +38,7 @@ export const WritingPage: FunctionComponent = props => {
       {archives.map(year => (
         <Section heading={year} headingSize="large" key={`articles-${year}`}>
           {articlesByYear[year].map(article => (
-            <ArticleLongCard article={article} />
+            <ArticleLongCard key={article.id} article={article} />
           ))}
         </Section>
       ))}

@@ -1,28 +1,28 @@
 import React, { FunctionComponent, useContext } from "react";
-
+import { withResponsiveSize, stepDown } from "./withResponsiveSize";
 import {
+  Markdown,
   Paragraph as GrommetParagraph,
-  ParagraphProps,
-  ResponsiveContext
+  ParagraphProps as GrommetParagraphProps
 } from "grommet";
 
-const sizeMapping: Record<string, string> = {
-  small: "small",
-  medium: "small",
-  large: "medium",
-  xlarge: "xxlarge"
-};
+export interface ParagraphProps extends GrommetParagraphProps {
+  markdown?: boolean;
+}
 
-export const Paragraph: FunctionComponent<ParagraphProps> = ({
+const CustomParagraph: FunctionComponent<ParagraphProps> = ({
+  markdown,
   children,
   ...rest
-}) => {
-  const size = useContext(ResponsiveContext);
-  const textSize = sizeMapping[size] || "medium";
-
-  return (
-    <GrommetParagraph fill size={textSize} {...rest}>
+}) =>
+  markdown ? (
+    <GrommetParagraph fill {...rest}>
+      <Markdown>{children}</Markdown>
+    </GrommetParagraph>
+  ) : (
+    <GrommetParagraph fill {...rest}>
       {children}
     </GrommetParagraph>
   );
-};
+
+export const Paragraph = withResponsiveSize(CustomParagraph, stepDown);

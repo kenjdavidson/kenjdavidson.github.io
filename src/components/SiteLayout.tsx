@@ -11,7 +11,6 @@ import {
   GrommetProps,
   Box,
   Heading,
-  Paragraph,
   Main as GrommetMain,
   BoxProps,
   Footer as GrommetFooter,
@@ -41,6 +40,7 @@ import { ThemeableGrommetContext } from "./Grommet/ThemableGrommet";
 import { navigate, navigateTo } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
 import { H1 } from "./Grommet/Heading";
+import { Paragraph } from "./Grommet";
 interface NavigationItemProps extends AnchorProps {
   background?: string;
   className?: string;
@@ -243,9 +243,9 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
             <Copyright>{meta.author.name}</Copyright>
           </Paragraph>
           <Paragraph margin="none" textAlign="center">
-            Built with <Anchor href="https://www.gatsbyjs.org/">Gatsby</Anchor>{" "}
-            &amp; published to{" "}
-            <Anchor href="https://pages.github.com/">Github Pages</Anchor>.
+            Built with <Anchor href="https://www.gatsbyjs.org/">Gatsby</Anchor>,
+            <Anchor href="https://pages.github.com/">Github Pages</Anchor> and{" "}
+            <Anchor href="/about/website">other fun things</Anchor>.
           </Paragraph>
         </Box>
       </Container>

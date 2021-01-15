@@ -89,7 +89,6 @@ const IndexPage: FunctionComponent = (props: any) => {
               their own game!
             </Paragraph>
           </SectionPart>
-          TODO: Move this section to MDX
         </Section>
       </Box>
     </>

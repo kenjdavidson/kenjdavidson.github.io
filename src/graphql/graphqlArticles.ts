@@ -1,7 +1,7 @@
 import { graphql } from "gatsby";
 
 export const fragment = graphql`
-  fragment articles on Mdx {
+  fragment Article on Mdx {
     id
     frontmatter {
       category
@@ -18,6 +18,7 @@ export const fragment = graphql`
       publishTime: publishTime(formatString: "MMM DD, YYYY")
       publishYear: publishTime(formatString: "YYYY")
     }
+    fileAbsolutePath
     wordCount {
       paragraphs
       sentences
@@ -39,6 +40,7 @@ export type Fields = {
   slug: string;
   publishTime: Date;
   publishYear: number;
+  seriesId?: string;
 };
 
 export type WordCount = {
@@ -54,14 +56,21 @@ export type ContentItem = {
 
 export type Article = {
   id: string;
+  fields: Fields;
+  fileAbsolutePath: string;
   frontmatter: Frontmatter;
   timeToRead: number;
   excerpt: string;
   body: string;
   html: string;
-  fields: Fields;
   wordCount: WordCount;
   tableOfContents: {
     items: ContentItem[];
+  };
+};
+
+export type ArticleQuery = {
+  edges: {
+    node: Article[];
   };
 };

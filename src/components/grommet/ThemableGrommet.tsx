@@ -5,7 +5,7 @@ import React, {
   useEffect
 } from "react";
 import { Grommet, GrommetProps } from "grommet";
-import themes from "../../utils/themes";
+import themes from "../../theme/themes";
 import styled from "styled-components";
 
 const THEME_KEY = "kenjdavidson:selected-theme";
@@ -47,6 +47,7 @@ export const ThemeableGrommet: FunctionComponent<GrommetProps> = ({
     }
   }, []);
 
+  console.log(themes[selectedTheme]);
   return (
     <ThemeableGrommetContext.Provider
       value={{

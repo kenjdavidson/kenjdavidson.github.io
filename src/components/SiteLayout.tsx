@@ -15,7 +15,6 @@ import {
   BoxProps,
   Footer as GrommetFooter,
   Nav,
-  Avatar,
   Sidebar,
   HeadingProps,
   ThemeContext,
@@ -28,19 +27,21 @@ import useSiteMetadata from "../hooks/useSiteMetadata";
 import { useLocation } from "@reach/router";
 import SocialLinks from "./SocialLinks";
 import { Copyright } from "./Copyright";
-import { common, coolAndFresh, strikingAndSimple } from "../utils/themes";
+import { common, coolAndFresh, strikingAndSimple } from "../theme/themes";
 import { MDXProvider } from "@mdx-js/react";
 import { MDXComponents } from "./Grommet/MDXComponents";
 import { deepMerge } from "grommet/utils";
 import { ResponsiveContext, AnchorProps } from "grommet";
 import { Anchor } from "./Grommet/Anchor";
-import themes from "../utils/themes";
-import { Close, Menu } from "grommet-icons";
+import themes from "../theme/themes";
+import { Blank, Close, Menu } from "grommet-icons";
 import { ThemeableGrommetContext } from "./Grommet/ThemableGrommet";
 import { navigate, navigateTo } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
 import { H1 } from "./Grommet/Heading";
 import { Paragraph } from "./Grommet";
+import { Avatar } from "./Avatar";
+import { ThemeLinks } from "./ThemeLinks";
 interface NavigationItemProps extends AnchorProps {
   background?: string;
   className?: string;
@@ -159,6 +160,7 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
         <Button
           icon={showMenu ? <Close /> : <Menu />}
           onClick={() => setShowMenu(!showMenu)}
+          focusIndicator={false}
           style={{
             position: "fixed",
             right: "16px",
@@ -187,35 +189,16 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
               margin="none"
               pad="large"
               width={{ width: "100%", max: "300px" }}
-              header={
-                <Avatar
-                  src={meta.author.avatar}
-                  a11yTitle={"Hey, it's me " + meta.author.name}
-                  size={`site-${size}`}
-                />
-              }
+              header={<Avatar />}
               footer={
                 <Box gap="none">
                   <SocialLinks iconSize="18px" gap="xsmall" />
-                  <Box direction="row" gap="xsmall">
-                    {themes.map((theme: any, index: number) => (
-                      <Box pad="small" key={`theme-selection-${index}`}>
-                        <Button onClick={() => setSelectedTheme(index)}>
-                          <Box
-                            width="18px"
-                            height="18px"
-                            background={theme.global.colors[`background-front`]}
-                            round="full"
-                            border={
-                              index == selectedTheme
-                                ? { size: "2px", color: "background-back" }
-                                : undefined
-                            }
-                          />
-                        </Button>
-                      </Box>
-                    ))}
-                  </Box>
+                  <ThemeLinks
+                    iconSize="18px"
+                    gap="xsmall"
+                    availableThemes={themes}
+                    selectThemeIndex={setSelectedTheme}
+                  />
                 </Box>
               }
             >

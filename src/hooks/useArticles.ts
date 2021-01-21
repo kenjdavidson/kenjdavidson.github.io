@@ -19,12 +19,12 @@ const useArticles: (count?: number, from?: number) => Article[] = (
   const { allMdx } = useStaticQuery<QueryResult>(graphql`
     query MyQuery {
       allMdx(
-        filter: { fileAbsolutePath: { regex: "/content/posts/" } }
+        filter: { fileAbsolutePath: { regex: "/content/writing/" } }
         sort: { fields: fields___publishTime, order: DESC }
       ) {
         edges {
           node {
-            ...articles
+            ...Article
           }
         }
       }
@@ -32,7 +32,6 @@ const useArticles: (count?: number, from?: number) => Article[] = (
   `);
 
   if (count && count > 0) {
-    console.log(`filtering ${from} with ${count}`);
     const lastIndex = from + count;
     allMdx.edges
       .map(node => node.node)

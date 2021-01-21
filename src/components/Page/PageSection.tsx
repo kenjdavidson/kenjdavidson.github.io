@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, CSSProperties } from "react";
 import { Box, BoxProps } from "grommet";
 import { Heading } from "../Grommet";
 import styled from "styled-components";
@@ -14,12 +14,16 @@ const SectionWrapper = styled(Box)`
 export interface SectionProps extends BoxProps {
   heading?: string;
   headingSize?: string;
+  headingPad?: string;
+  outerStyle?: CSSProperties;
 }
 
 export const Section: FunctionComponent<SectionProps> = ({
   heading,
   headingSize = "large",
+  headingPad = "large",
   background,
+  outerStyle,
   children,
   ...rest
 }) => {
@@ -33,6 +37,7 @@ export const Section: FunctionComponent<SectionProps> = ({
       background={background}
       pad={{ horizontal: "none", vertical: "medium" }}
       width={width}
+      style={outerStyle}
     >
       {heading && (
         <>
@@ -51,7 +56,7 @@ export const Section: FunctionComponent<SectionProps> = ({
         fill
         className="inner-container"
         gap="xsmall"
-        margin={{ top: headingSize }}
+        margin={{ top: headingPad }}
         {...rest}
       >
         {children}

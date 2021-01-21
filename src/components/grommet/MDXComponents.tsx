@@ -7,7 +7,16 @@ import { Text } from "./Text";
 import { HeadingProps } from "grommet";
 import { css } from "styled-components";
 
-const ListItem: FunctionComponent = props => <li><Text {...props}/></li>;
+const ListItem: FunctionComponent = props => (
+  <li>
+    <Text {...props} />
+  </li>
+);
+const Pre: FunctionComponent = ({ children, ...props }) => (
+  <Text>
+    <pre {...props}>{children}</pre>
+  </Text>
+);
 
 export const MDXComponents = {
   a: Anchor,
@@ -18,5 +27,6 @@ export const MDXComponents = {
   h5: H5,
   h6: H6,
   p: Paragraph,
-  li: ListItem
+  li: ListItem,
+  pre: Pre
 };

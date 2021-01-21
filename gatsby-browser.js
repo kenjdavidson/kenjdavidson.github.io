@@ -3,13 +3,12 @@ import { ThemeableGrommet } from "./src/components/Grommet/ThemableGrommet";
 import SiteLayout from "./src/components/SiteLayout";
 
 import "./src/scss/main.scss";
+import "./src/theme/prismjs-atom-dark.css";
 
-export const wrapPageElement = ({ element, rest }) => {
+export const wrapPageElement = ({ element, ...rest }) => {
   return (
     <ThemeableGrommet {...rest}>
-      <SiteLayout>
-        {element}
-      </SiteLayout>
+      <SiteLayout>{element}</SiteLayout>
     </ThemeableGrommet>
   );
 };

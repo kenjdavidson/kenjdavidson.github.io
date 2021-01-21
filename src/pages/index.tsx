@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useContext } from "react";
-import { graphql, Link } from "gatsby";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import {
   Box,
@@ -18,8 +17,6 @@ const IndexPage: FunctionComponent = (props: any) => {
   const meta = useSiteMetadata();
   const theme = useContext(ThemeContext);
 
-  console.log(theme);
-
   return (
     <>
       <Seo title="" description="" />
@@ -27,29 +24,27 @@ const IndexPage: FunctionComponent = (props: any) => {
         // pageTitle={meta.title} pageSummary={meta.summary} pageSlug="/"
         pad="large"
       >
-        <Section>
-          <PageHeading>Hey, I'm Ken.</PageHeading>
-          <Paragraph>
-            Thanks for swinging by! I'm just <strong>hubanding</strong>,{" "}
-            <strong>fathering</strong>, <strong>golfing</strong> and{" "}
-            <strong>developing</strong> my way to retirement. Besides being a
-            playground for my continual learning, you'll get a little of my{" "}
-            <Anchor href="/resume">professional</Anchor>
-            and <Anchor href="/">personal</Anchor> history.
-          </Paragraph>
-          <Paragraph>
-            This site is ever changing, but always open; if you run into issues
-            shoot me a message or{" "}
-            <Anchor href="https://www.github.com/kenjdavidson/kenjdavidson.github.io">
-              teach me a lesson{" "}
-            </Anchor>
-            . Have a good one!
-          </Paragraph>
-        </Section>
+        <PageHeading>Hey, I'm Ken.</PageHeading>
+        <Paragraph>
+          Thanks for swinging by! I'm just <strong>hubanding</strong>,{" "}
+          <strong>fathering</strong>, <strong>golfing</strong> and{" "}
+          <strong>developing</strong> my way to retirement. Besides being a
+          playground for my continual learning, you'll get a little of my{" "}
+          <Anchor href="/resume">professional</Anchor>
+          and <Anchor href="/">personal</Anchor> history.
+        </Paragraph>
+        <Paragraph>
+          This site is ever changing, but always open; if you run into issues
+          shoot me a message or{" "}
+          <Anchor href="https://www.github.com/kenjdavidson/kenjdavidson.github.io">
+            teach me a lesson{" "}
+          </Anchor>
+          . Have a good one!
+        </Paragraph>
         <Section heading="Recent Posts">
           <RecentArticles showArticles={3} />
           <Paragraph>
-            <Anchor href="/writing">Read More...</Anchor>
+            <Anchor href="/writing">Check out more articles...</Anchor>
           </Paragraph>
         </Section>
         <Section heading="Projects">
@@ -70,7 +65,7 @@ const IndexPage: FunctionComponent = (props: any) => {
               docs](https://www.kenjdavidson.com/react-native-bluetooth-classic)
             </Paragraph>
           </SectionPart>
-          <SectionPart heading="Git Golf (Suite)">
+          <SectionPart heading="Caddieasy (Suite)">
             <Paragraph markdown>
               I love golf; but recently I've been not loving
               [Garmin](https://www.garmin.com/en-CA/) which may have started

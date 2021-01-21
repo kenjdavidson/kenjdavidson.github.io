@@ -9,6 +9,7 @@ export const fragment = graphql`
       description
       image
       twitterUsername
+      editUrl
       author {
         name
         avatar
@@ -53,6 +54,7 @@ export type SiteMetadata = {
   description: string;
   image: string;
   twitterUsername: string;
+  editUrl: string;
   author: AuthorDetail;
   menu: MenuItem[];
   social: SocialItem[];

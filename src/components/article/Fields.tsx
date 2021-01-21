@@ -10,7 +10,7 @@ export interface FieldsProp {
 
 export const Fields: FunctionComponent<FieldsProp> = ({ article, ...rest }) => {
   return (
-    <Box direction="row" fill gap="medium" align="center">
+    <Box direction="row" fill gap="medium" align="center" {...rest}>
       <Box direction="row" margin="none" align="center" gap="xsmall">
         <Book size="small" /> <Text>{article.fields.publishTime}</Text>
       </Box>

@@ -1,7 +1,7 @@
 import React, { ComponentType, FunctionComponent, useContext } from "react";
-import { ResponsiveContext } from 'grommet';
+import { ResponsiveContext, ThemeContext } from "grommet";
 
-export const stepDown: Record<string,string> = {
+export const stepDown: Record<string, string> = {
   small: "small",
   medium: "small",
   large: "medium",
@@ -9,12 +9,12 @@ export const stepDown: Record<string,string> = {
 };
 
 export const withResponsiveSize = <P extends object>(
-  Component: ComponentType<P>, mappings?: Record<string,string>
-): FunctionComponent<P> => ({
-  ...props
-}) => {
+  Component: ComponentType<P>,
+  mappings?: Record<string, string>
+): FunctionComponent<P> => ({ ...props }) => {
   const size = useContext(ResponsiveContext);
-  const responsiveSize = mappings && mappings[size] || size;
+  const theme = useContext(ThemeContext);
+  const responsiveSize = (mappings && mappings[size]) || size;
 
-  return <Component size={responsiveSize} {...props}/>
-}
+  return <Component size={responsiveSize} theme={theme} {...props} />;
+};

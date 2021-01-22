@@ -7,7 +7,7 @@ export const PageHeading: FunctionComponent<HeadingProps> = ({
   ...rest
 }) => {
   return (
-    <H1 color="brand" size="large" {...rest} margin="none">
+    <H1 size="large" {...rest} margin="none">
       {children}
     </H1>
   );

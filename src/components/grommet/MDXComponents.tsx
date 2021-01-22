@@ -4,7 +4,7 @@ import { Paragraph } from "./Paragraph";
 import { Anchor } from "./Anchor";
 import { H1, H2, H3, H4, H5, H6 } from "./Heading";
 import { Text } from "./Text";
-import { HeadingProps } from "grommet";
+import { HeadingProps, Box } from "grommet";
 import { css } from "styled-components";
 
 const ListItem: FunctionComponent = props => (
@@ -28,5 +28,6 @@ export const MDXComponents = {
   h6: H6,
   p: Paragraph,
   li: ListItem,
-  pre: Pre
+  pre: Pre,
+  box: Box
 };

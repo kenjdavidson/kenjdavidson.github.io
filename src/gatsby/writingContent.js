@@ -32,6 +32,9 @@ module.exports.onCreateNode = async ({
   );
   reporter.verbose(`writingContent:onCreateNode publishTime=${publishTime}`);
   createNodeField({ node, name: "publishTime", value: publishTime });
+
+  reporter.verbose(`writingContent:onCreateNode publishYear=${match[1]}`);
+  createNodeField({ node, name: "publishYear", value: match[1] });
 };
 
 // For some annoying reason when this file is converted to Typescript the 
@@ -61,7 +64,7 @@ module.exports.createPages = async ({
   result.data.content.nodes.forEach((node) => {
     createPage({
       path: node.fields.slug,
-      component: path.resolve(`./src/components/PostLayout.js`),
+      component: path.resolve(`./src/components/PostLayout.tsx`),
       context: {
         id: node.id
       }

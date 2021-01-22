@@ -1,5 +1,5 @@
 export * from "./Fields";
 export * from "./Footer";
-export * from "./FullCard";
-export * from "./RecentArticles";
+export * from "./Card";
+export * from "./List";
 export * from "./Tags";

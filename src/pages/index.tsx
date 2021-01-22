@@ -1,22 +1,15 @@
 import React, { FunctionComponent, useContext } from "react";
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import {
-  Box,
-  Heading,
-  Markdown,
-  ResponsiveContext,
-  ThemeContext
-} from "grommet";
-import { Anchor, H2, Paragraph } from "../components/Grommet";
+import { Box, ThemeContext } from "grommet";
+import { Anchor, Paragraph } from "../components/Grommet";
 import { PageHeading, Section } from "../components/Page";
-import { RecentArticles } from "../components/Article/RecentArticles";
+import { List as ArticleList } from "../components/Article/List";
 import { Seo } from "../components/Seo";
 import { SectionPart } from "../components/Page/SectionPart";
+import { graphql } from "gatsby";
+import { Article } from "../graphql/graphqlArticles";
 
-const IndexPage: FunctionComponent = (props: any) => {
-  const meta = useSiteMetadata();
-  const theme = useContext(ThemeContext);
-
+const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo title="" description="" />
@@ -42,7 +35,7 @@ const IndexPage: FunctionComponent = (props: any) => {
           . Have a good one!
         </Paragraph>
         <Section heading="Recent Posts">
-          <RecentArticles showArticles={3} />
+          <ArticleList articles={data.recent.articles} />
           <Paragraph>
             <Anchor href="/writing">Check out more articles...</Anchor>
           </Paragraph>
@@ -67,8 +60,8 @@ const IndexPage: FunctionComponent = (props: any) => {
           </SectionPart>
           <SectionPart heading="Caddieasy (Suite)">
             <Paragraph markdown>
-              I love golf; but recently I've been not loving
-              [Garmin](https://www.garmin.com/en-CA/) which may have started
+              I love golf; but I've been falling out of love with my
+              [Garmin](https://www.garmin.com/en-CA/). Which may have started
               happening after Sue bought me my [Fitbit
               Ionic](https://www.fitbit.com/global/no/products/smartwatches/ionic).
               The one missing feature on the Fitbit is the lack of Golf app -
@@ -91,3 +84,25 @@ const IndexPage: FunctionComponent = (props: any) => {
 };
 
 export default IndexPage;
+
+interface IndexPageProps {
+  data: {
+    recent: {
+      articles: Article[];
+    };
+  };
+}
+
+export const query = graphql`
+  query IndexPageQuery {
+    recent: allMdx(
+      sort: { fields: fields___publishTime, order: DESC }
+      limit: 6
+      filter: { frontmatter: { type: { eq: "Post" } } }
+    ) {
+      articles: nodes {
+        ...Article
+      }
+    }
+  }
+`;

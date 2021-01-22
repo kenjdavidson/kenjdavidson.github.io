@@ -5,17 +5,14 @@ import { Box, Heading, Text } from "grommet";
 import { Book, Clock } from "grommet-icons";
 import { Section, PageHeading } from "../components/Page";
 import { Paragraph } from "../components/Grommet/Paragraph";
-import { ArticleLongCard } from "../components/Article/FullCard";
+import { List as ArticleList } from "../components/Article/List";
 import useArticles from "../hooks/useArticles";
 import { Article } from "../graphql/graphqlArticles";
 
-export const WritingPage: FunctionComponent = props => {
-  const meta = useSiteMetadata();
-  const articles = useArticles();
-
+export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
   const articlesByYear: Record<string, Article[]> = {};
 
-  articles.forEach(article => {
+  data.all.articles.forEach(article => {
     if (!articlesByYear[article.fields.publishYear]) {
       articlesByYear[article.fields.publishYear] = [];
     }
@@ -37,9 +34,7 @@ export const WritingPage: FunctionComponent = props => {
       <Paragraph>Enjoy...</Paragraph>
       {archives.map(year => (
         <Section heading={year} headingSize="large" key={`articles-${year}`}>
-          {articlesByYear[year].map(article => (
-            <ArticleLongCard key={article.id} article={article} />
-          ))}
+          <ArticleList articles={articlesByYear[year]} />
         </Section>
       ))}
     </Box>
@@ -47,3 +42,24 @@ export const WritingPage: FunctionComponent = props => {
 };
 
 export default WritingPage;
+
+interface WritingPageProps {
+  data: {
+    all: {
+      articles: Article[];
+    };
+  };
+}
+
+export const query = graphql`
+  query WritingPageQuery {
+    all: allMdx(
+      sort: { fields: fields___publishTime, order: DESC }
+      filter: { frontmatter: { type: { eq: "Post" } } }
+    ) {
+      articles: nodes {
+        ...Article
+      }
+    }
+  }
+`;

@@ -9,7 +9,7 @@ import {
 } from "grommet";
 import { Anchor, H2, Paragraph } from "../components/Grommet";
 import { PageHeading, Section } from "../components/Page";
-import { RecentArticles } from "../components/Article/RecentArticles";
+import { List } from "../components/Article/List";
 import { Seo } from "../components/Seo";
 import { SectionPart } from "../components/Page/SectionPart";
 

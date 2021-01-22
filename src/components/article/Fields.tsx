@@ -1,21 +1,31 @@
-import { Box } from "grommet";
-import { Book, Clock } from "grommet-icons";
+import { Box, BoxProps, TextProps } from "grommet";
+import { Book, Clock, IconProps } from "grommet-icons";
 import React, { FunctionComponent } from "react";
 import { Article } from "../../hooks/useArticles";
 import { Text } from "../Grommet";
 
-export interface FieldsProp {
+export interface FieldsProps {
   article: Article;
+  containerProps?: BoxProps;
+  iconProps?: IconProps;
+  tagProps?: TextProps;
 }
 
-export const Fields: FunctionComponent<FieldsProp> = ({ article, ...rest }) => {
+export const Fields: FunctionComponent<FieldsProps> = ({
+  article,
+  containerProps = {},
+  iconProps = {},
+  tagProps = {}
+}) => {
   return (
-    <Box direction="row" fill gap="medium" align="center" {...rest}>
+    <Box direction="row" fill gap="medium" align="center" {...containerProps}>
       <Box direction="row" margin="none" align="center" gap="xsmall">
-        <Book size="small" /> <Text>{article.fields.publishTime}</Text>
+        <Book size="small" {...iconProps} />{" "}
+        <Text {...tagProps}>{article.fields.publishTime}</Text>
       </Box>
       <Box direction="row" margin="none" align="center" gap="xsmall">
-        <Clock size="small" /> <Text>{article.timeToRead} min read</Text>
+        <Clock size="small" {...iconProps} />{" "}
+        <Text {...tagProps}>{article.timeToRead} min read</Text>
       </Box>
     </Box>
   );

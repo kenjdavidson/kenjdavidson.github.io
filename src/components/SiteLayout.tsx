@@ -66,7 +66,6 @@ const Navigation: FunctionComponent<NavigationProps> = ({
         <Anchor
           color="text"
           size="medium"
-          onClick={() => onClick(menuItem.href)}
           href={menuItem.href}
           key={`menu-item-${menuItem.title}`}
         >

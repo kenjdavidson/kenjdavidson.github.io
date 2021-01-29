@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 
 export interface SEOProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   image?: string;
   url?: string;
   type?: string;
@@ -20,8 +20,8 @@ export const Seo: FunctionComponent<SEOProps> = ({
   const meta = useSiteMetadata();
 
   const seo = {
-    title: title || `${meta.title} | ${meta.summary}`,
-    description: description || meta.summary,
+    title: title || meta.title,
+    description: description || meta.description,
     image:
       (image && image.indexOf("http") === -1 && `${meta.siteUrl}${image}`) ||
       meta.image,

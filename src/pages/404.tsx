@@ -12,10 +12,15 @@ import { PageHeading, Section } from "../components/Page";
 import { List } from "../components/Article/List";
 import { Seo } from "../components/Seo";
 import { SectionPart } from "../components/Page/SectionPart";
+import { graphql } from "gatsby";
+import Img from "gatsby-image";
+import { SiteMetadata } from "../graphql/graphqlSiteMetadata";
 
-const NotFoundPage: FunctionComponent = (props: any) => {
+const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
   const meta = useSiteMetadata();
   const theme = useContext(ThemeContext);
+
+  console.log(data);
 
   return (
     <Box pad="large">
@@ -24,13 +29,54 @@ const NotFoundPage: FunctionComponent = (props: any) => {
         description="Looks like we're in the junk together"
       />
       <Section heading="Whoops">
-        <PageHeading>Fore! Oh, Fore!</PageHeading>
-        <Paragraph>
-          I'm always not finding my ball, but there's no way you should be lost.
-        </Paragraph>
+        <PageHeading>I've made a huge mistake!</PageHeading>
+      </Section>
+      <Section headingPad="small">
+        <Box direction="row-responsive">
+          <Box basis="1/2">
+            <Paragraph>
+              Looks like one of us made a huge mistake! There's a fairly good
+              chance it's my fault; breaking things and all. But in the small
+            </Paragraph>
+            <Paragraph>
+              You're probably going to want to head back{" "}
+              <Anchor href="/">home</Anchor>, check out one of my{" "}
+              <Anchor href="/writing">articles</Anchor> or if you're in the area
+              join me for a round of <Anchor href="/golfing">golf</Anchor>.
+            </Paragraph>
+            <Paragraph>
+              I really hope in real life the footer isn't duplicated!
+            </Paragraph>
+          </Box>
+          <Box basis="1/2" align="center">
+            <Img fixed={data.error.childImageSharp.fixed} />
+          </Box>
+        </Box>
       </Section>
     </Box>
   );
 };
 
 export default NotFoundPage;
+
+interface NotFoundPageProps {
+  data: {
+    site: SiteMetadata;
+    error: any;
+  };
+}
+
+export const query = graphql`
+  query NotFoundQuery {
+    error: file(relativePath: { eq: "error.png" }) {
+      childImageSharp {
+        fixed(width: 400) {
+          ...GatsbyImageSharpFixed
+        }
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`;

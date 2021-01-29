@@ -5,7 +5,6 @@ export const fragment = graphql`
     siteMetadata {
       siteUrl
       title
-      summary
       description
       image
       twitterUsername
@@ -13,7 +12,7 @@ export const fragment = graphql`
       author {
         name
         avatar
-        summary
+        description
       }
       menu {
         href
@@ -44,13 +43,12 @@ export type SocialItem = {
 export type AuthorDetail = {
   name: string;
   avatar: string;
-  summary: string;
+  description: string;
 };
 
 export type SiteMetadata = {
   siteUrl: string;
   title: string;
-  summary: string;
   description: string;
   image: string;
   twitterUsername: string;

@@ -12,11 +12,8 @@ import { Article } from "../graphql/graphqlArticles";
 const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
-      <Seo title="" description="" />
-      <Box
-        // pageTitle={meta.title} pageSummary={meta.summary} pageSlug="/"
-        pad="large"
-      >
+      <Seo />
+      <Box pad="large">
         <PageHeading>Hey, I'm Ken.</PageHeading>
         <Paragraph>
           Thanks for swinging by! I'm just <strong>hubanding</strong>,{" "}
@@ -84,7 +81,6 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
 };
 
 export default IndexPage;
-
 interface IndexPageProps {
   data: {
     recent: {
@@ -98,7 +94,7 @@ export const query = graphql`
     recent: allMdx(
       sort: { fields: fields___publishTime, order: DESC }
       limit: 6
-      filter: { frontmatter: { type: { eq: "Post" } } }
+      filter: { frontmatter: { type: { eq: "Post" }, draft: { ne: true } } }
     ) {
       articles: nodes {
         ...Article

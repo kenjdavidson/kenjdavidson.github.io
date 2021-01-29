@@ -1,12 +1,9 @@
 import { graphql } from "gatsby";
 
 export const fragment = graphql`
-  fragment Article on Mdx {
+  fragment Page on Mdx {
     id
     frontmatter {
-      category
-      subcategory
-      tags
       title
       summary
     }
@@ -15,8 +12,6 @@ export const fragment = graphql`
     body
     fields {
       slug
-      publishTime: publishTime(formatString: "MMM DD, YYYY")
-      publishYear: publishTime(formatString: "YYYY")
     }
     fileAbsolutePath
     wordCount {
@@ -29,18 +24,13 @@ export const fragment = graphql`
 `;
 
 export type Frontmatter = {
-  category: string;
-  subcategory: string;
   title: string;
   summary: string;
-  tags?: string[];
+  featureImage: any; // Image Sharp
 };
 
 export type Fields = {
   slug: string;
-  publishTime: Date;
-  publishYear: number;
-  seriesId?: string;
 };
 
 export type WordCount = {
@@ -54,7 +44,7 @@ export type ContentItem = {
   url: string;
 };
 
-export type Article = {
+export type Page = {
   id: string;
   fields: Fields;
   fileAbsolutePath: string;
@@ -69,8 +59,39 @@ export type Article = {
   };
 };
 
-export type ArticleQuery = {
-  allMdx: {
-    articles: Article[];
+export const sectionFragment = graphql`
+  fragment PageSection on Mdx {
+    id
+    frontmatter {
+      title
+      summary
+      page
+      order
+    }
+    body
+  }
+`;
+
+export type SectionFrontmatter = {
+  type: string;
+  title: string;
+  summary: string;
+  page: string;
+  order: number;
+};
+
+export type Section = {
+  id: string;
+  frontmatter: SectionFrontmatter;
+  body: string;
+  html: string;
+};
+
+export type PageQuery = {
+  pagesMdx: {
+    pages: Page[];
+  };
+  sectionsMdx: {
+    sections: Section[];
   };
 };

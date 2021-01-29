@@ -1,45 +1,57 @@
-import React from "react";
+import React, { useContext } from "react";
 import { graphql } from "gatsby";
 import { PageHeading, Section } from "./Page";
-import { Box } from "grommet";
+import { Box, ResponsiveContext, BoxProps } from "grommet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { List as ArticleList } from "./Article/List";
 import { Anchor, Paragraph } from "./Grommet";
 import { Fields, Tags, Footer } from "./Article";
+import { Seo } from "./Seo";
+import { css } from "styled-components";
+import styled from "styled-components";
 
 export const PostLayout = ({ data }: any) => {
   const { post, next, previous } = data.posts.edges[0];
+  const size = useContext(ResponsiveContext);
 
   return (
-    <Box pad="large">
-      <Paragraph>
-        <Anchor href="/">Home</Anchor> /{" "}
-        <Anchor href="/writing">Writing</Anchor> /
-      </Paragraph>
-      <Section heading={post.frontmatter.category}>
-        <PageHeading>{post.frontmatter.title}</PageHeading>
-        <Box pad={{ vertical: "large" }} gap="small">
-          <Fields article={post} containerProps={{ justify: "center" }} />
-          {post.frontmatter.tags && (
-            <Tags
-              tags={post.frontmatter.tags}
-              containerProps={{ justify: "center" }}
-            ></Tags>
-          )}
-        </Box>
-        <MDXRenderer>{post.body}</MDXRenderer>
-      </Section>
-      <Section
-        headingSize="small"
-        outerStyle={{ borderTop: "1px solid var(--background-front)" }}
-      >
-        <Footer article={post} />
-      </Section>
+    <>
+      <Seo
+        title={post.frontmatter.title}
+        description={post.frontmatter.description}
+        image={post.frontmatter.featureImage}
+      />
+      <Box pad="large">
+        <Paragraph>
+          <Anchor href="/">Home</Anchor> /{" "}
+          <Anchor href="/writing">Writing</Anchor> /
+        </Paragraph>
+        <Section heading={post.frontmatter.category}>
+          <PageHeading>{post.frontmatter.title}</PageHeading>
+          <Box pad={{ vertical: "large" }} gap="small">
+            <Fields article={post} containerProps={{ justify: "center" }} />
+            {post.frontmatter.tags && (
+              <Tags
+                tags={post.frontmatter.tags}
+                containerProps={{ justify: "center" }}
+              ></Tags>
+            )}
+          </Box>
+          <MDXRenderer>{post.body}</MDXRenderer>
+        </Section>
+        <Section
+          headingSize="small"
+          headingPad="small"
+          outerStyle={{ borderTop: "1px solid var(--background-front)" }}
+        >
+          <Footer article={post} />
+        </Section>
 
-      <Section heading="Recent Posts">
-        <ArticleList articles={data.recent.articles} />
-      </Section>
-    </Box>
+        <Section heading="Recent Posts">
+          <ArticleList articles={data.recent.articles} />
+        </Section>
+      </Box>
+    </>
   );
 };
 
@@ -73,7 +85,10 @@ export const query = graphql`
     recent: allMdx(
       sort: { fields: fields___publishTime, order: DESC }
       limit: 3
-      filter: { frontmatter: { type: { eq: "Post" } }, id: { ne: $id } }
+      filter: {
+        frontmatter: { type: { eq: "Post" }, draft: { ne: true } }
+        id: { ne: $id }
+      }
     ) {
       articles: nodes {
         ...Article

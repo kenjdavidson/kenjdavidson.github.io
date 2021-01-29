@@ -27,16 +27,18 @@ export const Section: FunctionComponent<SectionProps> = ({
   children,
   ...rest
 }) => {
-  const width = {
+  const outerWidth = {
     width: "100%"
   };
+
+  const innerMargin = heading && { top: headingPad };
 
   return (
     <SectionWrapper
       className="outer-container"
       background={background}
       pad={{ horizontal: "none", vertical: "medium" }}
-      width={width}
+      width={outerWidth}
       style={outerStyle}
     >
       {heading && (
@@ -56,7 +58,7 @@ export const Section: FunctionComponent<SectionProps> = ({
         fill
         className="inner-container"
         gap="xsmall"
-        margin={{ top: headingPad }}
+        margin={innerMargin}
         {...rest}
       >
         {children}

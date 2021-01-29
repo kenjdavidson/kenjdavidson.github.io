@@ -1,7 +1,11 @@
 import path from "path";
 
-const PATH_REGEX = /^(\d{4})-(\d{2})-(\d{2})---(.*)$/;
-
+/**
+ * Applies fields and links to Mdx nodes which match the required
+ * convention for posts.
+ * 
+ * @param {GatsbyApiHelpers} helpers
+ */
 module.exports.onCreateNode = async ({
   node,
   getNode,
@@ -11,17 +15,18 @@ module.exports.onCreateNode = async ({
   createContentDigest
 }) => {
   const fileNode = node.parent && getNode(node.parent);
-  const match = fileNode && fileNode.relativeDirectory.match(PATH_REGEX);
+  const match = fileNode && fileNode.relativeDirectory.match(/^writing\/(\d{4})-(\d{2})-(\d{2})---(.*)$/);
 
   if ("Mdx" !== node.internal.type || !fileNode || !match) {
     return; // invalid type or node
   }
 
+  reporter.verbose(`Applying post fields: ${fileNode.relativeDirectory}`);
   const { createNode, createNodeField } = actions;
 
   // Create slug field
   const slug = `writing/${match[1]}/${match[2]}/${match[3]}/${match[4]}`;
-  reporter.verbose(`writingContent:onCreateNode slug=${slug}`);
+  reporter.verbose(`writingContent: onCreateNode slug = ${slug}`);
   createNodeField({ node, name: "slug", value: slug });
 
   // Create publish time
@@ -30,10 +35,10 @@ module.exports.onCreateNode = async ({
     Number.parseInt(match[2]),
     Number.parseInt(match[3])
   );
-  reporter.verbose(`writingContent:onCreateNode publishTime=${publishTime}`);
+  reporter.verbose(`writingContent: onCreateNode publishTime = ${publishTime}`);
   createNodeField({ node, name: "publishTime", value: publishTime });
 
-  reporter.verbose(`writingContent:onCreateNode publishYear=${match[1]}`);
+  reporter.verbose(`writingContent: onCreateNode publishYear = ${match[1]}`);
   createNodeField({ node, name: "publishYear", value: match[1] });
 };
 
@@ -48,26 +53,30 @@ module.exports.createPages = async ({
   reporter
 }) => {
   const result = await graphql(`
-    query WritingContent {
-      content: allMdx(filter: {fileAbsolutePath: {regex: "/content/writing/"}}) {
-        nodes {
-          fields {
-            slug
-          }
-          id
-        }
+  query WritingContent {
+    content: allMdx(filter: { fileAbsolutePath: { regex: "/content/writing/" }, frontmatter: { draft: { ne: true } } }) {
+      nodes {
+        fields {
+          slug
+        } 
+        id
       }
     }
-  `.trim());
+  }
+`.trim());
 
   const { createPage } = actions;
   result.data.content.nodes.forEach((node) => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/components/PostLayout.tsx`),
-      context: {
-        id: node.id
-      }
-    });
+    if (node.fields && node.fields.slug) {
+      createPage({
+        path: node.fields.slug,
+        component: path.resolve(`./src/components/PostLayout.tsx`),
+        context: {
+          id: node.id
+        }
+      });
+    } else {
+      reporter.error(`Post s${node.frontmatter.title} does contain slug`);
+    }
   });
 };

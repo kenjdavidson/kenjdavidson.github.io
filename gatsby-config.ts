@@ -12,8 +12,6 @@ export default {
   siteMetadata: {
     siteUrl: "https://www.kenjdavidson.com",
     title: "Ken Davidson",
-    summary:
-      "Husbanding, fathering, golfing and developing my way to retirement!",
     description:
       "Whether you're checking out my posts, following up on an application, or found me through a random Google - I'm glad to have you!",
     image: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
@@ -21,7 +19,7 @@ export default {
     author: {
       name: "Ken Davidson",
       avatar: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
-      summary:
+      description:
         "Husbanding, fathering, golfing and developing my way to retirement!"
     },
     editUrl:
@@ -118,13 +116,6 @@ export default {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "pages",
-        path: `${__dirname}/src/pages`
-      }
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
         name: "images",
         path: `${__dirname}/src/assets/images`
       }
@@ -132,15 +123,8 @@ export default {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "posts",
-        path: `${__dirname}/content/writing`
-      }
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "timeline",
-        path: `${__dirname}/content/timeline`
+        name: "content",
+        path: `${__dirname}/content`
       }
     },
     {

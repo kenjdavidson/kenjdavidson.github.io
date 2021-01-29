@@ -28,7 +28,7 @@ export const PageLayout = ({ data }: PageQueryProps) => {
         <PageHeading>{page.frontmatter.title}</PageHeading>
         <MDXRenderer>{page.body}</MDXRenderer>
         {sections.map(section => (
-          <Section headingPad="none">
+          <Section key={`section-${section.id}`} headingPad="none">
             <H2>{section.frontmatter.title}</H2>
             <MDXRenderer>{section.body}</MDXRenderer>
           </Section>

@@ -13,8 +13,14 @@ export const Tags: FunctionComponent<TagsProp> = ({ tags, containerProps }) => {
   return (
     <Box direction="row" fill gap="medium" align="center" {...containerProps}>
       {tags.map(tag => (
-        <Box direction="row" margin="none" align="center" gap="xsmall">
-          <TagIcon size="small" /> <Tag key={`tag-${tag}`} tag={tag}></Tag>
+        <Box
+          key={`tag-${tag}`}
+          direction="row"
+          margin="none"
+          align="center"
+          gap="xsmall"
+        >
+          <TagIcon size="small" /> <Tag tag={tag}></Tag>
         </Box>
       ))}
     </Box>

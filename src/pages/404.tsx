@@ -8,10 +8,10 @@ import {
   ThemeContext
 } from "grommet";
 import { Anchor, H2, Paragraph } from "../components/Grommet";
-import { PageHeading, Section } from "../components/Page";
+import { PageHeading, Section } from "../components/page";
 import { List } from "../components/Article/List";
 import { Seo } from "../components/Seo";
-import { SectionPart } from "../components/Page/SectionPart";
+import { SectionPart } from "../components/page/SectionPart";
 import { graphql } from "gatsby";
 import Img from "gatsby-image";
 import { SiteMetadata } from "../graphql/graphqlSiteMetadata";

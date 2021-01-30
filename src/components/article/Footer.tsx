@@ -2,7 +2,7 @@ import { Box } from "grommet";
 import { Facebook, Github, Linkedin, Mail } from "grommet-icons";
 import React, { FunctionComponent } from "react";
 import { Article } from "../../hooks/useArticles";
-import { Anchor, Text } from "../Grommet";
+import { Anchor, Text } from "../grommet";
 import useSiteMetadata from "../../hooks/useSiteMetadata";
 import useEditUrl from "../../hooks/useEditUrl";
 import {

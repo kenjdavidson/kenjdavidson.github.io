@@ -2,10 +2,10 @@ import React, { FunctionComponent } from "react";
 import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { Box, Heading, Text } from "grommet";
-import { PageHeading, Section } from "../components/Page";
+import { PageHeading, Section } from "../components/page";
 import { Anchor, Paragraph } from "../components/Grommet";
 import { Twitter, Link } from "grommet-icons";
-import { H2 } from "../components/Grommet/Heading";
+import { H2 } from "../components/grommet";
 import { Timeline } from "../graphql/graphqlTimeline";
 import { Seo } from "../components/Seo";
 

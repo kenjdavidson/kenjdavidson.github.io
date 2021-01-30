@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { graphql } from "gatsby";
-import { PageHeading, Section } from "./Page";
+import { PageHeading, Section } from "./page";
 import { Box, ResponsiveContext, BoxProps } from "grommet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { List as ArticleList } from "./Article/List";

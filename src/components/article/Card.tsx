@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { Box, BoxProps } from "grommet";
-import { Paragraph } from "../Grommet/Paragraph";
-import { Heading } from "../Grommet/Heading";
+import { Heading, Paragraph } from "../grommet";
 import { navigate } from "gatsby";
 import { Fields } from "./Fields";
 import { Article } from "../../graphql/graphqlArticles";
-import { Anchor } from "../Grommet";
+import { Anchor } from "../grommet";
 import styled from "styled-components";
 
 const ArticleLink = styled(Anchor)`

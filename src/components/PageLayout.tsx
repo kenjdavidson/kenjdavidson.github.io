@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { graphql } from "gatsby";
-import { PageHeading, Section } from "./Page";
+import { PageHeading, Section } from "./page";
 import { Box, ResponsiveContext, BoxProps } from "grommet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { List as ArticleList } from "./Article/List";
-import { Anchor, Paragraph } from "./Grommet";
+import { Anchor, Paragraph } from "./grommet";
 import { Fields, Tags, Footer } from "./Article";
 import { Seo } from "./Seo";
 import { css } from "styled-components";
 import styled from "styled-components";
 import { PageQuery } from "../graphql/graphqlPages";
-import { H2, H1 } from "./Grommet/Heading";
+import { H2, H1 } from "./grommet";
 
 export const PageLayout = ({ data }: PageQueryProps) => {
   const page = data.pagesMdx.pages[0];

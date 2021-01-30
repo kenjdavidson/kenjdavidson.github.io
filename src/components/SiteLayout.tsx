@@ -29,14 +29,19 @@ import SocialLinks from "./SocialLinks";
 import { Copyright } from "./Copyright";
 import { common, coolAndFresh, strikingAndSimple } from "../theme/themes";
 import { MDXProvider } from "@mdx-js/react";
-import { Anchor, H1, MDXComponents, ThemeableGrommetContext } from "./grommet";
+import {
+  Anchor,
+  H1,
+  MDXComponents,
+  Paragraph,
+  ThemeableGrommetContext
+} from "./grommet";
 import { deepMerge } from "grommet/utils";
 import { ResponsiveContext, AnchorProps } from "grommet";
 import themes from "../theme/themes";
 import { Blank, Close, Menu } from "grommet-icons";
 import { navigate, navigateTo } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
-import { Paragraph } from "./Grommet";
 import { Avatar } from "./Avatar";
 import { ThemeLinks } from "./ThemeLinks";
 interface NavigationItemProps extends AnchorProps {

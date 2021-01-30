@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { graphql } from "gatsby";
 import { Box } from "grommet";
 import { Section } from "../components/page";
-import { Paragraph } from "../components/Grommet";
+import { Paragraph } from "../components/grommet";
 import { PageHeading } from "../components/page/PageHeading";
 
 const GolfingPage: FunctionComponent = () => (

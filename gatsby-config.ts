@@ -6,9 +6,6 @@ import { Github } from "grommet-icons";
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 export default {
-  flags: {
-    DEV_SSR: false
-  },
   siteMetadata: {
     siteUrl: "https://www.kenjdavidson.com",
     title: "Ken Davidson",

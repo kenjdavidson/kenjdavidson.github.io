@@ -34,13 +34,14 @@ import {
   H1,
   MDXComponents,
   Paragraph,
+  Text,
   ThemeableGrommetContext
 } from "./grommet";
 import { deepMerge } from "grommet/utils";
 import { ResponsiveContext, AnchorProps } from "grommet";
 import themes from "../theme/themes";
 import { Blank, Close, Menu } from "grommet-icons";
-import { navigate, navigateTo } from "gatsby";
+import { Link, navigate, navigateTo } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
 import { Avatar } from "./Avatar";
 import { ThemeLinks } from "./ThemeLinks";
@@ -65,13 +66,10 @@ const Navigation: FunctionComponent<NavigationProps> = ({
   return (
     <Nav gap="small">
       {meta.menu.map((menuItem: any) => (
-        <Anchor
-          color="text"
-          size="medium"
-          href={menuItem.href}
-          key={`menu-item-${menuItem.title}`}
-        >
-          {menuItem.title}
+        <Anchor href={menuItem.href} key={`menu-item-${menuItem.title}`}>
+          <Text size="medium" weight="bold" color="brand">
+            {menuItem.title}
+          </Text>
         </Anchor>
       ))}
     </Nav>

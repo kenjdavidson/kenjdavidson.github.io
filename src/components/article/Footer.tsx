@@ -1,7 +1,6 @@
 import { Box } from "grommet";
 import { Facebook, Github, Linkedin, Mail } from "grommet-icons";
 import React, { FunctionComponent } from "react";
-import { Article } from "../../hooks/useArticles";
 import { Anchor, Text } from "../grommet";
 import useSiteMetadata from "../../hooks/useSiteMetadata";
 import useEditUrl from "../../hooks/useEditUrl";
@@ -10,6 +9,7 @@ import {
   FacebookShareButton,
   LinkedinShareButton
 } from "react-share";
+import { Article } from "../../hooks/useArticles";
 
 export interface FooterProps {
   article: Article;

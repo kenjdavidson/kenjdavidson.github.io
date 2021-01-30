@@ -1,7 +1,6 @@
 import { Box, BoxProps, TextProps } from "grommet";
 import { Book, Clock, IconProps } from "grommet-icons";
 import React, { FunctionComponent } from "react";
-import { Article } from "../../hooks/useArticles";
 import { Text } from "../grommet";
 
 export interface FieldsProps {

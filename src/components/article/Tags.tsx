@@ -1,7 +1,6 @@
 import { Box, BoxProps } from "grommet";
 import { Tag as TagIcon } from "grommet-icons";
 import React, { FunctionComponent } from "react";
-import { Article } from "../../hooks/useArticles";
 import { Text } from "../grommet";
 
 export interface TagsProp {

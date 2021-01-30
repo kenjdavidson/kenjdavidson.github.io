@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useContext } from "react";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 import { Box, ThemeContext } from "grommet";
-import { Anchor, Paragraph } from "../components/Grommet";
+import { Anchor, Paragraph } from "../components/grommet";
 import { PageHeading, Section } from "../components/page";
-import { List as ArticleList } from "../components/Article/List";
+import { List as ArticleList } from "../components/article";
 import { Seo } from "../components/Seo";
 import { SectionPart } from "../components/page/SectionPart";
 import { graphql } from "gatsby";

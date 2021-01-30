@@ -3,7 +3,7 @@ import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { Box, Heading, Text } from "grommet";
 import { PageHeading, Section } from "../components/page";
-import { Anchor, Paragraph } from "../components/Grommet";
+import { Anchor, Paragraph } from "../components/grommet";
 import { Twitter, Link } from "grommet-icons";
 import { H2 } from "../components/grommet";
 import { Timeline } from "../graphql/graphqlTimeline";

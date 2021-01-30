@@ -5,7 +5,7 @@ import { Box, Heading, Text } from "grommet";
 import { Book, Clock } from "grommet-icons";
 import { Section, PageHeading } from "../components/page";
 import { Paragraph } from "../components/grommet";
-import { List as ArticleList } from "../components/Article/List";
+import { List as ArticleList } from "../components/article";
 import useArticles from "../hooks/useArticles";
 import { Article } from "../graphql/graphqlArticles";
 import { Seo } from "../components/Seo";

@@ -7,9 +7,9 @@ import {
   ResponsiveContext,
   ThemeContext
 } from "grommet";
-import { Anchor, H2, Paragraph } from "../components/Grommet";
+import { Anchor, H2, Paragraph } from "../components/grommet";
 import { PageHeading, Section } from "../components/page";
-import { List } from "../components/Article/List";
+import { List } from "../components/article";
 import { Seo } from "../components/Seo";
 import { SectionPart } from "../components/page/SectionPart";
 import { graphql } from "gatsby";

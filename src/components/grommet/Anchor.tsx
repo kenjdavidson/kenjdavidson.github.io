@@ -29,7 +29,7 @@ export const Anchor: FunctionComponent<AnchorProps> = ({
     </GrommetAnchor>
   ) : (
     <StyledLink to={href}>
-      <Text color="brand" weight="bold" {...rest}>
+      <Text color="brand" weight="bold" {...rest} style={style}>
         {children}
       </Text>
     </StyledLink>

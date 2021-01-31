@@ -27,7 +27,7 @@ export const Card: FunctionComponent<CardProps> = ({
   tagsProps = {}
 }) => {
   return (
-    <ArticleLink href={`/${article.fields.slug}`} color="text">
+    <ArticleLink href={`/${article.fields.slug}`} color="text" weight="normal">
       <Box margin={{ bottom: "large" }} {...cardProps}>
         <Heading level="2" responsive margin="none">
           {article.frontmatter.title}

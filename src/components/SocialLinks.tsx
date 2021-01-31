@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from "react";
-import { Box, BoxProps, AnchorProps, ThemeContext } from "grommet";
+import { Box, BoxProps, ThemeContext } from "grommet";
 import {
   Github,
   Instagram,
@@ -9,10 +9,10 @@ import {
   Twitter
 } from "grommet-icons";
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { Anchor } from "./grommet";
+import { Anchor, AnchorProps } from "./grommet";
 
-const SocialAnchor: FunctionComponent<AnchorProps> = ({ color, ...rest }) => {
-  return <Anchor color={color} {...rest}></Anchor>;
+const SocialAnchor: FunctionComponent<AnchorProps> = ({ ...rest }) => {
+  return <Anchor {...rest}></Anchor>;
 };
 
 export interface SocialLinksProps extends BoxProps {

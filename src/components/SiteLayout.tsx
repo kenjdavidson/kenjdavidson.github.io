@@ -66,11 +66,16 @@ const Navigation: FunctionComponent<NavigationProps> = ({
   return (
     <Nav gap="small">
       {meta.menu.map((menuItem: any) => (
-        <Anchor href={menuItem.href} key={`menu-item-${menuItem.title}`}>
-          <Text size="medium" weight="bold" color="brand">
+        <Link
+          to={menuItem.href}
+          key={`menu-item-${menuItem.title}`}
+          onClick={() => onClick(menuItem.href)}
+          style={{ textDecoration: "none" }}
+        >
+          <Text weight="bold" color="brand">
             {menuItem.title}
           </Text>
-        </Anchor>
+        </Link>
       ))}
     </Nav>
   );

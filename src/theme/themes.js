@@ -35,6 +35,9 @@ export const common = {
       family: `"Merriweather", serif`
     }
   },
+  anchor: {
+    color: "brand"
+  },
   avatar: {
     size: {
       [`site-small`]: "92px",
@@ -122,7 +125,7 @@ export const strikingAndSimple = {
       brand: "#66FCF1",
       text: "#e7e7e7",
       icon: "#e7e7e7",
-      [`section-heading`]: "#66FCF144"
+      [`section-heading`]: "#66FCF144",
     }
   }
 };

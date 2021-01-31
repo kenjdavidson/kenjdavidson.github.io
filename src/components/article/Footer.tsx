@@ -23,7 +23,7 @@ export const Footer: FunctionComponent<FooterProps> = ({
   ...rest
 }) => {
   const meta = useSiteMetadata();
-  const url = `https://kenjdavidson.com${location.pathname}`;
+  const url = `https://kenjdavidson.com/${article.fields.slug}`;
 
   return (
     <Box

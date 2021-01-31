@@ -126,7 +126,7 @@ const Container: FunctionComponent<ResponsiveBoxProps> = ({
  */
 const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
   const meta = useSiteMetadata();
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   const { themes, selectedTheme, setSelectedTheme } = useContext(
     ThemeableGrommetContext
   );
@@ -134,25 +134,32 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
   const size = useContext(ResponsiveContext);
   const small = "small" == size;
 
+  console.log(`Small: ${small} or showMenu: ${showMenu}`);
+
   return (
     <>
       <GlobalStyle
         background={themes[selectedTheme].global.colors[`background-back`]}
       />
       {small && (
-        <Button
-          icon={showMenu ? <Close /> : <Menu />}
-          onClick={() => setShowMenu(!showMenu)}
-          focusIndicator={false}
+        <Box
+          round="full"
+          background="background-front"
           style={{
             position: "fixed",
             right: "16px",
             bottom: "16px",
             zIndex: 2000
           }}
-        />
+        >
+          <Button
+            icon={showMenu ? <Close color="fab" /> : <Menu color="fab" />}
+            onClick={() => setShowMenu(!showMenu)}
+            focusIndicator={false}
+          />
+        </Box>
       )}
-      {(!small || showMenu) && (
+      {(!small || (small && showMenu)) && (
         <Layer
           modal={small}
           animation={small ? "slide" : "none"}

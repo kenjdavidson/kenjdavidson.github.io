@@ -110,7 +110,8 @@ export const coolAndFresh = {
       brand: "#05386B",
       text: "#181818",
       icon: "#181818",
-      [`section-heading`]: "#05386B44"
+      [`section-heading`]: "#05386B44",
+      fab: "#ffffff"
     }
   }
 };
@@ -126,6 +127,7 @@ export const strikingAndSimple = {
       text: "#e7e7e7",
       icon: "#e7e7e7",
       [`section-heading`]: "#66FCF144",
+      fab: "text"
     }
   }
 };
@@ -140,7 +142,8 @@ export const minimalYetWarm = {
       brand: "#E85A4F",
       text: "#181818",
       icon: "#181818",
-      [`section-heading`]: "#E85A4F44"
+      [`section-heading`]: "#E85A4F44",
+      fab: "text"
     }
   }
 };

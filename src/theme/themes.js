@@ -37,9 +37,9 @@ export const common = {
   },
   avatar: {
     size: {
-      [`site-small`]: "150px",
+      [`site-small`]: "92px",
       [`site-medium`]: "98px",
-      [`site-large`]: "200px",
+      [`site-large`]: "256px",
       [`site-xlarge`]: "400px"
     }
   },

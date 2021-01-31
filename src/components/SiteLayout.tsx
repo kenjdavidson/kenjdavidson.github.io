@@ -1,67 +1,46 @@
-import React, {
-  FunctionComponent,
-  useState,
-  useContext,
-  CSSProperties
-} from "react";
-import styled, { css } from "styled-components";
+import React, { FunctionComponent, useState, useContext } from "react";
 import {
-  Anchor as GrommetAnchor,
-  Grommet,
   GrommetProps,
   Box,
-  Heading,
-  Main as GrommetMain,
   BoxProps,
-  Footer as GrommetFooter,
   Nav,
   Sidebar,
-  HeadingProps,
-  ThemeContext,
-  LayerProps,
   Layer,
   Button
 } from "grommet";
-import { normalizeColor } from "grommet/utils";
 import useSiteMetadata from "../hooks/useSiteMetadata";
-import { useLocation } from "@reach/router";
 import SocialLinks from "./SocialLinks";
 import { Copyright } from "./Copyright";
-import { common, coolAndFresh, strikingAndSimple } from "../theme/themes";
 import { MDXProvider } from "@mdx-js/react";
 import {
   Anchor,
-  H1,
   MDXComponents,
   Paragraph,
   Text,
   ThemeableGrommetContext
 } from "./grommet";
-import { deepMerge } from "grommet/utils";
 import { ResponsiveContext, AnchorProps } from "grommet";
-import themes from "../theme/themes";
-import { Blank, Close, Menu } from "grommet-icons";
-import { Link, navigate, navigateTo } from "gatsby";
+import { Close, Menu } from "grommet-icons";
+import { Link, navigate } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
-import { Avatar } from "./Avatar";
+import { ResponsiveAvatar as Avatar } from "./Avatar";
 import { ThemeLinks } from "./ThemeLinks";
-interface NavigationItemProps extends AnchorProps {
-  background?: string;
-  className?: string;
-}
 
 interface NavigationProps extends BoxProps {
   onNavigationChange: (href: string) => void;
 }
 const Navigation: FunctionComponent<NavigationProps> = ({
-  onNavigationChange,
-  ...props
+  onNavigationChange
 }) => {
   const meta = useSiteMetadata();
-  const onClick = (href: string) => {
+  const onClick = (event: React.MouseEvent, href: string) => {
+    event.preventDefault();
     onNavigationChange(href);
+
+    setTimeout(() => {
+      navigate(href);
+    }, 300);
   };
-  const location = useLocation();
 
   return (
     <Nav gap="small">
@@ -69,10 +48,10 @@ const Navigation: FunctionComponent<NavigationProps> = ({
         <Link
           to={menuItem.href}
           key={`menu-item-${menuItem.title}`}
-          onClick={() => onClick(menuItem.href)}
+          onClick={event => onClick(event, menuItem.href)}
           style={{ textDecoration: "none" }}
         >
-          <Text weight="bold" color="brand">
+          <Text weight="bold" color="text">
             {menuItem.title}
           </Text>
         </Link>
@@ -147,7 +126,7 @@ const Container: FunctionComponent<ResponsiveBoxProps> = ({
  */
 const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
   const meta = useSiteMetadata();
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   const { themes, selectedTheme, setSelectedTheme } = useContext(
     ThemeableGrommetContext
   );

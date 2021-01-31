@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import Image from "gatsby-image";
 import { BoxProps, Box } from "grommet";
 import { useAvatar } from "../hooks/useAvatar";
+import { withResponsiveWidth } from "./grommet/withResponsiveSize";
 
 export const Avatar: FunctionComponent<BoxProps> = props => {
   const avatar = useAvatar();
@@ -12,3 +13,5 @@ export const Avatar: FunctionComponent<BoxProps> = props => {
     </Box>
   );
 };
+
+export const ResponsiveAvatar = withResponsiveWidth(Avatar);

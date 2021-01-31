@@ -1,5 +1,5 @@
 import { Box } from "grommet";
-import { Facebook, Github, Linkedin, Mail } from "grommet-icons";
+import { Facebook, Github, Linkedin, Mail, Twitter } from "grommet-icons";
 import React, { FunctionComponent } from "react";
 import { Anchor, Text } from "../grommet";
 import useSiteMetadata from "../../hooks/useSiteMetadata";
@@ -7,12 +7,15 @@ import useEditUrl from "../../hooks/useEditUrl";
 import {
   EmailShareButton,
   FacebookShareButton,
-  LinkedinShareButton
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton
 } from "react-share";
 import { Article } from "../../hooks/useArticles";
 
 export interface FooterProps {
   article: Article;
+  location: string;
 }
 
 export const Footer: FunctionComponent<FooterProps> = ({
@@ -20,6 +23,7 @@ export const Footer: FunctionComponent<FooterProps> = ({
   ...rest
 }) => {
   const meta = useSiteMetadata();
+  const url = `https://kenjdavidson.com${location.pathname}`;
 
   return (
     <Box
@@ -30,15 +34,25 @@ export const Footer: FunctionComponent<FooterProps> = ({
     >
       <Box direction="row" gap="small" align="center">
         <Text>Share on</Text>
-        <EmailShareButton subject={`Article ${article.frontmatter.title}`}>
+        <EmailShareButton
+          url={url}
+          subject={`Article ${article.frontmatter.title}`}
+        >
           <Mail color="plain" />
         </EmailShareButton>
-        <FacebookShareButton>
+        <FacebookShareButton url={url} title={article.frontmatter.title}>
           <Facebook color="plain" />
         </FacebookShareButton>
-        <LinkedinShareButton>
+        <LinkedinShareButton
+          url={url}
+          title={article.frontmatter.title}
+          summary={article.frontmatter.summary}
+        >
           <Linkedin color="plain" />
         </LinkedinShareButton>
+        <TwitterShareButton url={url} title={article.frontmatter.title}>
+          <Twitter color="plain" />
+        </TwitterShareButton>
       </Box>
       <Box direction="row">
         <Text>Edit on</Text>

@@ -14,6 +14,9 @@ import { Copyright } from "./Copyright";
 import { MDXProvider } from "@mdx-js/react";
 import {
   Anchor,
+  H2,
+  H3,
+  H4,
   MDXComponents,
   Paragraph,
   Text,
@@ -29,6 +32,7 @@ import { ThemeLinks } from "./ThemeLinks";
 interface NavigationProps extends BoxProps {
   onNavigationChange: (href: string) => void;
 }
+
 const Navigation: FunctionComponent<NavigationProps> = ({
   onNavigationChange
 }) => {
@@ -45,16 +49,17 @@ const Navigation: FunctionComponent<NavigationProps> = ({
   return (
     <Nav gap="small">
       {meta.menu.map((menuItem: any) => (
-        <Link
-          to={menuItem.href}
-          key={`menu-item-${menuItem.title}`}
-          onClick={event => onClick(event, menuItem.href)}
-          style={{ textDecoration: "none" }}
-        >
-          <Text weight="bold" color="text">
-            {menuItem.title}
-          </Text>
-        </Link>
+        <Box key={`menu-item-${menuItem.title}`} animation="fadeIn">
+          <Link
+            to={menuItem.href}
+            onClick={event => onClick(event, menuItem.href)}
+            style={{ textDecoration: "none" }}
+          >
+            <H4 margin="none" color="text">
+              {menuItem.title}
+            </H4>
+          </Link>
+        </Box>
       ))}
     </Nav>
   );
@@ -134,8 +139,6 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
   const size = useContext(ResponsiveContext);
   const small = "small" == size;
 
-  console.log(`Small: ${small} or showMenu: ${showMenu}`);
-
   return (
     <>
       <GlobalStyle
@@ -168,20 +171,24 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
           responsive={false}
           onEsc={() => setShowMenu(false)}
           onClickOutside={() => setShowMenu(false)}
-          {...rest}
         >
           <Box
             fill="vertical"
             background="background-front"
             width={"small" == size ? "300px" : "calc(100vw / 3)"}
+            round={{
+              corner: "left",
+              size: "small"
+            }}
           >
             <Sidebar
               margin="none"
-              pad="large"
+              pad="none"
+              gap="small"
               width={{ width: "100%", max: "300px" }}
               header={<Avatar />}
               footer={
-                <Box gap="none">
+                <Box pad="medium" gap="none">
                   <SocialLinks iconSize="18px" gap="xsmall" />
                   <ThemeLinks
                     iconSize="18px"
@@ -192,7 +199,9 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
                 </Box>
               }
             >
-              <Navigation onNavigationChange={() => setShowMenu(false)} />
+              <Box pad="medium">
+                <Navigation onNavigationChange={() => setShowMenu(false)} />
+              </Box>
             </Sidebar>
           </Box>
         </Layer>
@@ -206,6 +215,7 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
         as="footer"
         align="center"
         pad="large"
+        gap="medium"
       >
         <SocialLinks wrap={true} justify="center" iconSize="medium" />
         <Box justify="center" basis="2">

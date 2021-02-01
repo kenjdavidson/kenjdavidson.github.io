@@ -5,11 +5,23 @@ import { BoxProps, Box } from "grommet";
 import { useAvatar } from "../hooks/useAvatar";
 import { withResponsiveWidth } from "./grommet/withResponsiveSize";
 
+// Double wrapped Image since Grommet doesn't allow for customizing
+// `round` alternate corners
 export const Avatar: FunctionComponent<BoxProps> = props => {
   const avatar = useAvatar();
   return (
-    <Box round="full" style={{ overflow: "hidden" }} {...props}>
-      <Image fluid={avatar.childImageSharp.fluid} />
+    <Box
+      round={{ corner: "top-left", size: "small" }}
+      style={{ overflow: "hidden" }}
+      {...props}
+    >
+      <Box
+        fill
+        round={{ corner: "bottom-right", size: "small" }}
+        style={{ overflow: "hidden" }}
+      >
+        <Image fluid={avatar.childImageSharp.fluid} />
+      </Box>
     </Box>
   );
 };

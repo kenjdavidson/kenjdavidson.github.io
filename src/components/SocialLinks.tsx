@@ -36,7 +36,8 @@ const SocialLinks: FunctionComponent<SocialLinksProps> = ({
   const github = meta.social.find((s: any) => s.name == "github");
   const linkedin = meta.social.find((s: any) => s.name == "linkedin");
   const stackoverflow = meta.social.find((s: any) => s.name == "stackoverflow");
-  const instagram = meta.social.find((s: any) => s.name == "instagram");
+  const instagram = undefined; // meta.social.find((s: any) => s.name == "instagram");
+  const twitter = undefined; //meta.social.find((s: any) => s.name == "twitter");
   const email = meta.social.find((s: any) => s.name == "email");
 
   const direction = verticalProp ? "column" : "row";
@@ -72,7 +73,7 @@ const SocialLinks: FunctionComponent<SocialLinksProps> = ({
           label={accountsProp ? `/${stackoverflow.account}` : undefined}
         />
       )}
-      {instagram && (
+      {/* {instagram && (
         <SocialAnchor
           icon={<Instagram size={size} />}
           color={iconColor || theme.global?.colors?.text}
@@ -81,12 +82,21 @@ const SocialLinks: FunctionComponent<SocialLinksProps> = ({
           label={accountsProp ? `@${instagram.account}` : undefined}
         />
       )}
+      {twitter && (
+        <SocialAnchor
+          icon={<Twitter size={size} />}
+          color={iconColor || theme.global?.colors?.text}
+          href={twitter.href}
+          a11yTitle={`${twitter.account} at ${twitter.display}`}
+          label={accountsProp ? `${twitter.account}` : undefined}
+        />
+      )} */}
       {email && (
         <SocialAnchor
           icon={<MailOption size={size} />}
           color={iconColor || theme.global?.colors?.text}
-          href={email.href}
-          a11yTitle={`${email.account} at ${email.display}`}
+          href={`mailto:${email.href}`}
+          a11yTitle={`${email?.account} at ${email.display}`}
           label={accountsProp ? `${email.account}` : undefined}
         />
       )}

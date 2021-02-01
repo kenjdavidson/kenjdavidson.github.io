@@ -22,7 +22,7 @@ export const Anchor: FunctionComponent<AnchorProps> = ({
   style,
   ...rest
 }) => {
-  const external = href?.startsWith("http");
+  const external = href?.match(/^[a-z]*:.*/i);
   return external ? (
     <GrommetAnchor href={href} {...rest} style={style}>
       {children}

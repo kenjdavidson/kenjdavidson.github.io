@@ -91,6 +91,9 @@ export const common = {
     },
     lineHeight: "1rem"
   },
+  layer: {
+    background: "transparent"
+  },
   paragraph: {
     small: { ...fontSizing(-1) },
     medium: { ...fontSizing(0.25) },

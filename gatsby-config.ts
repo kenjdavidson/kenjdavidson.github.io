@@ -60,7 +60,7 @@ export default {
       {
         name: "instagram",
         display: "Instagram",
-        account: "kenjdavidson",
+        account: "@kenjdavidson",
         href: "https://www.instagram.com/kenjdavidson"
       },
       {
@@ -72,14 +72,14 @@ export default {
       {
         name: "twitter",
         display: "Twitter",
-        account: "kenjdavidson",
+        account: "@kenjdavidson",
         href: "https://www.twitter.com/kenjdavidson"
       },
       {
         name: "email",
         display: "Email",
         account: "ken.j.davidson@live.ca",
-        href: "mailto:ken.j.davidson@live.ca"
+        href: "ken.j.davidson@live.ca"
       }
     ],
     manifest: {

@@ -91,6 +91,11 @@ export const common = {
     },
     lineHeight: "1rem"
   },
+  grommet: {
+    extend: {
+      width: "initial"
+    }
+  },
   layer: {
     background: "transparent"
   },

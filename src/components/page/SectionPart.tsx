@@ -12,7 +12,7 @@ export const SectionPart: FunctionComponent<SectionPartProps> = ({
   ...rest
 }) => {
   return (
-    <Box margin={{ bottom: "large" }} {...rest}>
+    <Box {...rest}>
       {heading && <H2 margin="none">{heading}</H2>}
       {children}
     </Box>

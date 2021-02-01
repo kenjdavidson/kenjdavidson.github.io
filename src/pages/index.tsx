@@ -37,8 +37,8 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
             <Anchor href="/writing">Check out more articles...</Anchor>
           </Paragraph>
         </Section>
-        <Section heading="Projects">
-          <SectionPart heading="React Native Bluetoth Classic">
+        <Section heading="Project">
+          <SectionPart heading="React Native Bluetooth Classic">
             <Paragraph markdown>
               While developing [Standardbred
               Canada](https://www.standardbredcanada.ca) mobile application I
@@ -55,6 +55,8 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
               docs](https://www.kenjdavidson.com/react-native-bluetooth-classic)
             </Paragraph>
           </SectionPart>
+        </Section>
+        <Section heading="Project">
           <SectionPart heading="Caddieasy (Suite)">
             <Paragraph markdown>
               I love golf; but I've been falling out of love with my

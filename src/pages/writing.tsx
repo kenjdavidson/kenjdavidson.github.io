@@ -6,7 +6,7 @@ import { Book, Clock } from "grommet-icons";
 import { Section, PageHeading } from "../components/page";
 import { Paragraph } from "../components/grommet";
 import { List as ArticleList } from "../components/article";
-import { Article } from "../graphql/graphqlArticles";
+import { Article } from "../graphql/articles";
 import { Seo } from "../components/Seo";
 
 export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {

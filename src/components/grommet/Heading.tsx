@@ -30,21 +30,21 @@ export const Heading: FunctionComponent<HeadingProps> = ({
 };
 
 export const H1: FunctionComponent<HeadingProps> = props => (
-  <Heading level="1" {...props} />
+  <Heading level="1" fill {...props} />
 );
 export const H2: FunctionComponent<HeadingProps> = props => (
-  <Heading level="2" {...props} />
+  <Heading level="2" fill {...props} />
 );
 export const H3: FunctionComponent<HeadingProps> = props => (
-  <Heading level="3" {...props} />
+  <Heading level="3" fill {...props} />
 );
 export const H4: FunctionComponent<HeadingProps> = props => (
-  <Heading level="4" {...props} />
+  <Heading level="4" fill {...props} />
 );
 export const H5: FunctionComponent<HeadingProps> = props => (
-  <Heading level="5" {...props} />
+  <Heading level="5" fill {...props} />
 );
 export const H6: FunctionComponent<HeadingProps> = props => (
-  <Heading level="6" {...props} />
+  <Heading level="6" fill {...props} />
 );
 

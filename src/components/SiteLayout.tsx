@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useContext } from "react";
+import React, { FunctionComponent, useState, useContext, ComponentType } from "react";
 import {
   GrommetProps,
   Box,
@@ -14,20 +14,24 @@ import { Copyright } from "./Copyright";
 import { MDXProvider } from "@mdx-js/react";
 import {
   Anchor,
-  H2,
-  H3,
   H4,
   MDXComponents,
   Paragraph,
-  Text,
   ThemeableGrommetContext
 } from "./grommet";
-import { ResponsiveContext, AnchorProps } from "grommet";
-import { Close, Menu } from "grommet-icons";
+import { Article, Blank, Close, Code, Home, Menu } from "grommet-icons";
 import { Link, navigate } from "gatsby";
 import { GlobalStyle } from "./GlobalStyle";
 import { ResponsiveAvatar as Avatar } from "./Avatar";
 import { ThemeLinks } from "./ThemeLinks";
+import { useMedia } from "react-media";
+import styled from 'styled-components';
+
+const NAV_ICONS: Record<string, ComponentType> = {
+  Home,
+  Code,
+  Article
+}
 
 interface NavigationProps extends BoxProps {
   onNavigationChange: (href: string) => void;
@@ -49,15 +53,24 @@ const Navigation: FunctionComponent<NavigationProps> = ({
   return (
     <Nav gap="small">
       {meta.menu.map((menuItem: any) => (
-        <Box key={`menu-item-${menuItem.title}`} animation="fadeIn">
+        <Box key={`menu-item-${menuItem.title}`}>
           <Link
             to={menuItem.href}
             onClick={event => onClick(event, menuItem.href)}
-            style={{ textDecoration: "none" }}
+            style={{ 
+              textDecoration: "none",
+            }}
+            activeClassName="active-page"
+            activeStyle={{
+              background: "rgba(1,1,1,0.1)"
+            }}
           >
-            <H4 margin="none" color="text">
-              {menuItem.title}
-            </H4>
+            <Box direction="row" gap="medium" align="center" pad={{ horizontal: "small", vertical: "xsmall" }}>
+              { NAV_ICONS[menuItem.icon] && React.createElement(NAV_ICONS[menuItem.icon]) || <Blank />} 
+              <H4 margin="none" color="text">                 
+                {menuItem.title}
+              </H4>
+            </Box>
           </Link>
         </Box>
       ))}
@@ -65,50 +78,40 @@ const Navigation: FunctionComponent<NavigationProps> = ({
   );
 };
 
-/**
- * Provides an extension to {@link BoxProp} allowing the sending of the current size
- * of the screen on which we are currently being displayed.  This allows {@link Box}
- * components to provide customized props without requiring the
- * {@link ResponsiveContext} directly - this will be helpful if we need to override.
- */
-interface ResponsiveBoxProps extends BoxProps {
-  size: string;
+interface RBoxProps extends BoxProps {
+  small: boolean;
 }
 
-/**
- * Builds a main component, specifically for this {@link PageLayout} that provides
- * appropriate spacing:
- * - small removes all margins
- * - medium up provides a 1/3 margin allowing the sidebar
- *
- * All content is wrapped within this component, and should therefore provide
- * margin or padding as appropriate.  Inside this component is an inner {@link Box}
- * which maxes out and is formated to the end.
- *
- * @param ResponsiveBoxProps
- */
-const Container: FunctionComponent<ResponsiveBoxProps> = ({
-  size,
-  children,
-  ...rest
-}) => {
-  const margin = {
-    top: "none",
-    bottom: "none",
-    left: "none",
-    right: "small" === size ? "none" : "calc(100vw / 3)"
-  };
+const Outer = styled(Box)<RBoxProps>`
+  margin: 0px;
 
-  const innerWidth = {
-    width: "100%",
-    max: "xlarge" == size ? "calc(100vw / 5 * 3)" : "1024px"
-  };
+  @media screen and (min-width: 769px) {
+    margin-right: calc(100vw / 3);
+  }
+`;
+
+const Inner = styled(Box)<RBoxProps>`
+  width: 100%;
+  max-width: 1024px;
+`;
+
+interface SectionProps {
+  small: boolean;
+  outerProps?: BoxProps;
+  innerProps?: BoxProps;
+}
+
+const Section: FunctionComponent<SectionProps> = ({
+  small,
+  outerProps,
+  innerProps,
+  children}) => {
   return (
-    <Box as="main" margin={margin} justify="start" align="end">
-      <Box width={innerWidth} {...rest}>
+    <Outer {...outerProps}>
+      <Inner {...innerProps}>
         {children}
-      </Box>
-    </Box>
+      </Inner>
+    </Outer>
   );
 };
 
@@ -129,15 +132,15 @@ const Container: FunctionComponent<ResponsiveBoxProps> = ({
  *
  * @param GrommetProps
  */
-const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
+const SiteLayout: FunctionComponent<GrommetProps> = ({ children }) => {
   const meta = useSiteMetadata();
   const [showMenu, setShowMenu] = useState(false);
   const { themes, selectedTheme, setSelectedTheme } = useContext(
     ThemeableGrommetContext
   );
 
-  const size = useContext(ResponsiveContext);
-  const small = "small" == size;
+  const breakpoint = themes[selectedTheme].global.breakpoints.small.value;
+  const small = useMedia({ query: `(max-width: ${breakpoint}px)` });
 
   return (
     <>
@@ -157,7 +160,13 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
         >
           <Button
             icon={showMenu ? <Close color="fab" /> : <Menu color="fab" />}
-            onClick={() => setShowMenu(!showMenu)}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              console.log(`Button clicked: ${showMenu}`);              
+              setShowMenu(!showMenu)
+              }
+            }
             focusIndicator={false}
           />
         </Box>
@@ -170,12 +179,17 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
           full="vertical"
           responsive={false}
           onEsc={() => setShowMenu(false)}
-          onClickOutside={() => setShowMenu(false)}
+          onClickOutside={(e) => {
+            e.stopPropagation();
+              e.preventDefault();
+            console.log(e);
+            setShowMenu(false);
+          }}
         >
           <Box
             fill="vertical"
             background="background-front"
-            width={"small" == size ? "300px" : "calc(100vw / 3)"}
+            width={small? "300px" : "calc(100vw / 3)"}
             round={{
               corner: "left",
               size: "small"
@@ -185,8 +199,8 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
               margin="none"
               pad="none"
               gap="small"
-              width={{ width: "100%", max: "300px" }}
-              header={<Avatar />}
+              width={{ width: "100%" }}
+              header={<Avatar width={{ width: "100%", max: "200px"}} margin="xsmall" />}
               footer={
                 <Box pad="medium" gap="none">
                   <SocialLinks iconSize="18px" gap="xsmall" />
@@ -199,26 +213,28 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
                 </Box>
               }
             >
-              <Box pad="medium">
+              <Box>
                 <Navigation onNavigationChange={() => setShowMenu(false)} />
               </Box>
             </Sidebar>
           </Box>
         </Layer>
       )}
-      <Container size={size} fill={undefined}>
+      <Section 
+        small={small}
+        outerProps={{
+          as: "main"
+        }}>
         <MDXProvider components={MDXComponents}>{children}</MDXProvider>
-      </Container>
-      <Container
-        size={size}
-        fill={undefined}
-        as="footer"
-        align="center"
-        pad="large"
-        gap="medium"
+      </Section>
+      <Section
+        small={small}
+        outerProps={{
+          as: "footer",
+        }}
       >
-        <SocialLinks wrap={true} justify="center" iconSize="medium" />
-        <Box justify="center" basis="2">
+        <Box align="center" pad={{ vertical: "medium" }}>
+          <SocialLinks wrap={true} justify="center" iconSize="medium" />
           <Paragraph margin="none" textAlign="center">
             Straight from Ontario Canada
           </Paragraph>
@@ -231,7 +247,7 @@ const SiteLayout: FunctionComponent<GrommetProps> = ({ children, ...rest }) => {
             <Anchor href="/about/website">other fun things</Anchor>.
           </Paragraph>
         </Box>
-      </Container>
+      </Section>
     </>
   );
 };

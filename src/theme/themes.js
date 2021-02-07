@@ -50,13 +50,13 @@ export const common = {
     font: {
       family: "Playfair Display"
     },
-    weight: 400,
+    weight: 600,
     level: {
       [`1`]: {
         small: { ...fontSizing(8) },
-        medium: { ...fontSizing(12) },
-        large: { ...fontSizing(16) },
-        xlarge: { ...fontSizing(24) }
+        medium: { ...fontSizing(10) },
+        large: { ...fontSizing(14) },
+        xlarge: { ...fontSizing(30) },
       },
       [`2`]: {
         small: { ...fontSizing(4) },
@@ -91,14 +91,26 @@ export const common = {
     },
     lineHeight: "1rem"
   },
+  grommet: {
+    extend: {
+      width: "initial"
+    }
+  },
   layer: {
     background: "transparent"
   },
   paragraph: {
     small: { ...fontSizing(-1) },
-    medium: { ...fontSizing(0.25) },
-    large: { ...fontSizing(4) },
-    xlarge: { ...fontSizing(6) },
+    medium: { ...fontSizing(-0.5) },
+    large: { ...fontSizing(0) },
+    xlarge: { ...fontSizing(4) },
+    xxlarge: { ...fontSizing(8) },
+  },
+  text: {
+    small: { ...fontSizing(-1) },
+    medium: { ...fontSizing(-0.5) },
+    large: { ...fontSizing(0) },
+    xlarge: { ...fontSizing(4) },
     xxlarge: { ...fontSizing(8) },
   }
 }

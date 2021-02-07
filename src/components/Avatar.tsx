@@ -3,7 +3,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import Image from "gatsby-image";
 import { BoxProps, Box } from "grommet";
 import { useAvatar } from "../hooks/useAvatar";
-import { withResponsiveWidth } from "./grommet/withResponsiveSize";
+import { withResponsiveWidth } from "./grommet/withResponsive";
 
 // Double wrapped Image since Grommet doesn't allow for customizing
 // `round` alternate corners

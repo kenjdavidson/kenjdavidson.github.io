@@ -7,7 +7,7 @@ import { List as ArticleList } from "../components/article";
 import { Seo } from "../components/Seo";
 import { SectionPart } from "../components/page/SectionPart";
 import { graphql } from "gatsby";
-import { Article } from "../graphql/graphqlArticles";
+import { Article } from "../graphql/articles";
 
 const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (

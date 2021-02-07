@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
-import { Article } from "../graphql/graphqlArticles";
+import { Article } from "../graphql/articles";
 
 type QueryResult = {
   allMdx: {
@@ -43,4 +43,4 @@ const useArticles: (count?: number, from?: number) => Article[] = (
 
 export default useArticles;
 
-export * from "../graphql/graphqlArticles";
+export * from "../graphql/articles";

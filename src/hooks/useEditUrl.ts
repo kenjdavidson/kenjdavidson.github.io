@@ -1,5 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby";
-import { SiteMetadata } from "../graphql/graphqlSiteMetadata";
+import { SiteMetadata } from "../graphql/siteMetadata";
 import useSiteMetadata from "./useSiteMetadata";
 
 const project = "kenjdavidson.gatsby.io";

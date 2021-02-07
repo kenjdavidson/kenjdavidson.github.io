@@ -15,16 +15,14 @@ import { Article } from "../../hooks/useArticles";
 
 export interface FooterProps {
   article: Article;
-  location: string;
+  shareUrl?: string;
 }
 
 export const Footer: FunctionComponent<FooterProps> = ({
   article,
+  shareUrl,
   ...rest
 }) => {
-  const meta = useSiteMetadata();
-  const url = `https://kenjdavidson.com/${article.fields.slug}`;
-
   return (
     <Box
       direction="row-responsive"
@@ -35,22 +33,22 @@ export const Footer: FunctionComponent<FooterProps> = ({
       <Box direction="row" gap="small" align="center">
         <Text>Share on</Text>
         <EmailShareButton
-          url={url}
+          url={shareUrl!}
           subject={`Article ${article.frontmatter.title}`}
         >
           <Mail color="plain" />
         </EmailShareButton>
-        <FacebookShareButton url={url} title={article.frontmatter.title}>
+        <FacebookShareButton url={shareUrl!} title={article.frontmatter.title}>
           <Facebook color="plain" />
         </FacebookShareButton>
         <LinkedinShareButton
-          url={url}
+          url={shareUrl!}
           title={article.frontmatter.title}
           summary={article.frontmatter.summary}
         >
           <Linkedin color="plain" />
         </LinkedinShareButton>
-        <TwitterShareButton url={url} title={article.frontmatter.title}>
+        <TwitterShareButton url={shareUrl!} title={article.frontmatter.title}>
           <Twitter color="plain" />
         </TwitterShareButton>
       </Box>

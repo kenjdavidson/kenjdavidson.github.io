@@ -9,9 +9,9 @@ import { ResponsiveContext, ThemeContext } from "grommet";
  */
 export const stepDown: Record<string, string> = {
   small: "small",
-  medium: "small",
-  large: "medium",
-  xlarge: "large"
+  medium: "medium",
+  large: "large",
+  xlarge: "xlarge"
 };
 
 /**
@@ -32,8 +32,8 @@ export const withResponsiveSize = <P extends object>(
   const size = useContext(ResponsiveContext);
   const theme = useContext(ThemeContext);
   const steps = Object.assign({}, stepDown, mappings);
-  const responsiveSize = steps[size] || size;
-
+  const responsiveSize = steps[size] || size;  
+  
   return <Component size={responsiveSize} theme={theme} {...props} />;
 };
 

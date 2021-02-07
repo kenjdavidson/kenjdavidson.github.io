@@ -2,20 +2,22 @@ import React, { FunctionComponent } from "react";
 import { Helmet } from "react-helmet";
 import useSiteMetadata from "../hooks/useSiteMetadata";
 
-export interface SEOProps {
+export interface SeoProps {
   title?: string;
   description?: string;
   image?: string;
   url?: string;
   type?: string;
+  schema?: any;
 }
 
-export const Seo: FunctionComponent<SEOProps> = ({
+export const Seo: FunctionComponent<SeoProps> = ({
   title,
   description,
   image,
   url,
-  type
+  type,
+  schema
 }) => {
   const meta = useSiteMetadata();
 
@@ -29,8 +31,12 @@ export const Seo: FunctionComponent<SEOProps> = ({
     type: type || "website"
   };
 
+  const schemaString = schema && JSON.stringify(schema);
+
   return (
-    <Helmet>
+    <Helmet
+      titleTemplate={"%s | kenjdavidson.com"}
+      >
       <title>{seo.title}</title>
 
       <meta name="description" content={seo.description} />

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from "react";
-import { withResponsiveSize, stepDown } from "./withResponsiveSize";
+import { withResponsiveSize, stepDown } from "./withResponsive";
 import {
   Markdown,
   Paragraph as GrommetParagraph,

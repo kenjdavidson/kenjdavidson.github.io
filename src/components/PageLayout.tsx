@@ -8,7 +8,7 @@ import { Anchor, Paragraph } from "./grommet";
 import { Seo } from "./Seo";
 import { css } from "styled-components";
 import styled from "styled-components";
-import { PageQuery } from "../graphql/graphqlPages";
+import { PageQuery } from "../graphql/pages";
 import { H2, H1 } from "./grommet";
 
 export const PageLayout = ({ data }: PageQueryProps) => {

@@ -17,6 +17,8 @@ export const fragment = graphql`
       menu {
         href
         title
+        icon
+        alt
       }
       social {
         account
@@ -31,6 +33,7 @@ export const fragment = graphql`
 export type MenuItem = {
   href: string;
   title: string;
+  icon: string;
 };
 
 export type SocialItem = {

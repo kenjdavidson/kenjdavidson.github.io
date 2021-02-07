@@ -3,7 +3,7 @@ import { Box, BoxProps } from "grommet";
 import { Heading, Paragraph } from "../grommet";
 import { navigate } from "gatsby";
 import { Fields } from "./Fields";
-import { Article } from "../../graphql/graphqlArticles";
+import { Article } from "../../graphql/articles";
 import { Anchor } from "../grommet";
 import styled from "styled-components";
 

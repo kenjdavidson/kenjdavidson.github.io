@@ -20,7 +20,7 @@ export interface SectionProps extends BoxProps {
 
 export const Section: FunctionComponent<SectionProps> = ({
   heading,
-  headingSize = "large",
+  headingSize = "xlarge",
   headingPad = "large",
   background,
   outerStyle,

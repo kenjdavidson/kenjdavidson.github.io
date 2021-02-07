@@ -6,7 +6,7 @@ import { PageHeading, Section } from "../components/page";
 import { Anchor, Paragraph } from "../components/grommet";
 import { Twitter, Link } from "grommet-icons";
 import { H2 } from "../components/grommet";
-import { Timeline } from "../graphql/graphqlTimeline";
+import { Timeline } from "../graphql/timeline";
 import { Seo } from "../components/Seo";
 
 export interface ResumePageProps {

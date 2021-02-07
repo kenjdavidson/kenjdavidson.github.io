@@ -8,7 +8,7 @@ import { Github } from "grommet-icons";
 export default {
   siteMetadata: {
     siteUrl: "https://www.kenjdavidson.com",
-    title: "Ken Davidson",
+    title: "Welcome to Ken Davidson's online playground!",
     description:
       "Whether you're checking out my posts, following up on an application, or found me through a random Google - I'm glad to have you!",
     image: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
@@ -23,24 +23,31 @@ export default {
       "https://github.com/kenjdavidson/kenjdavidson.github.io/edit/gatsby",
     menu: [
       {
+        icon: "Home",
         title: "Home",
-        href: "/"
+        href: "/",
+        alt: "The online home of Ken Davidson"
       },
       // {
       //   title: "About Me",
       //   href: "/about"
       // },
       {
-        title: "Resume",
-        href: "/resume"
+        icon: "Code",
+        title: "Experience",
+        href: "/resume",
+        alt: "I've done things.  Lots of things.  Check them out."
       },
       {
-        title: "Writing",
-        href: "/writing"
+        icon: "Article",
+        title: "Articles",
+        href: "/writing",
+        alt: "I don't write often, but when I do (no one notices)"
       },
       {
-        title: "Golfing",
-        href: "/golfing"
+        title: "Golf",
+        href: "/golfing",
+        alt: "Golf is my fir... third love!"
       }
     ],
     social: [
@@ -49,7 +56,7 @@ export default {
         display: "Github",
         account: "kenjdavidson",
         href: "https://www.github.com/kenjdavidson",
-        icon: Github
+        icon: "Github"
       },
       {
         name: "linkedin",

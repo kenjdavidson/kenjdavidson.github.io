@@ -9,7 +9,7 @@ import { Seo } from "./Seo";
 import { css } from "styled-components";
 import styled from "styled-components";
 
-export const PostLayout = ({ data }: any) => {
+export const PostLayout = ({ location, data }: any) => {
   const { post, next, previous } = data.posts.edges[0];
   const size = useContext(ResponsiveContext);
 
@@ -25,30 +25,31 @@ export const PostLayout = ({ data }: any) => {
           <Anchor href="/">Home</Anchor> /{" "}
           <Anchor href="/writing">Writing</Anchor> /
         </Paragraph>
-        <Section heading={post.frontmatter.category}>
-          <PageHeading>{post.frontmatter.title}</PageHeading>
-          <Box pad={{ vertical: "large" }} gap="small">
-            <Fields article={post} containerProps={{ justify: "center" }} />
-            {post.frontmatter.tags && (
-              <Tags
-                tags={post.frontmatter.tags}
-                containerProps={{ justify: "center" }}
-              ></Tags>
-            )}
-          </Box>
-          <MDXRenderer>{post.body}</MDXRenderer>
-        </Section>
-        <Section
-          headingSize="small"
-          headingPad="small"
-          outerStyle={{ borderTop: "1px solid var(--background-front)" }}
-        >
-          <Footer article={post} />
-        </Section>
-
-        <Section heading="Recent Posts">
-          <ArticleList articles={data.recent.articles} />
-        </Section>
+        <Box gap="large">
+          <Section heading={post.frontmatter.category}>
+            <PageHeading>{post.frontmatter.title}</PageHeading>
+            <Box pad={{ vertical: "large" }} gap="small">
+              <Fields article={post} containerProps={{ justify: "center" }} />
+              {post.frontmatter.tags && (
+                <Tags
+                  tags={post.frontmatter.tags}
+                  containerProps={{ justify: "center" }}
+                ></Tags>
+              )}
+            </Box>
+            <MDXRenderer>{post.body}</MDXRenderer>
+          </Section>
+          <Section
+            headingSize="small"
+            headingPad="small"
+            outerStyle={{ borderTop: "1px solid var(--background-front)" }}
+          >
+            <Footer article={post} shareUrl={location.href} />
+          </Section>
+          <Section heading="Recent Posts">
+            <ArticleList articles={data.recent.articles} />
+          </Section>
+        </Box>
       </Box>
     </>
   );

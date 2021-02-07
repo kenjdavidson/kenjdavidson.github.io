@@ -14,13 +14,11 @@ import { Seo } from "../components/Seo";
 import { SectionPart } from "../components/page/SectionPart";
 import { graphql } from "gatsby";
 import Img from "gatsby-image";
-import { SiteMetadata } from "../graphql/graphqlSiteMetadata";
+import { SiteMetadata } from "../graphql/siteMetadata";
 
 const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
   const meta = useSiteMetadata();
   const theme = useContext(ThemeContext);
-
-  console.log(data);
 
   return (
     <Box pad="large">

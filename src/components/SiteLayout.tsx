@@ -84,6 +84,8 @@ interface RBoxProps extends BoxProps {
 
 const Outer = styled(Box)<RBoxProps>`
   margin: 0px;
+  display: flex;
+  justify-content: flex-end;
 
   @media screen and (min-width: 769px) {
     margin-right: calc(100vw / 3);

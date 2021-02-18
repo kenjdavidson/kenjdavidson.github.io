@@ -17,3 +17,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   await writingNodes.createPages({ graphql, actions, reporter });
   await pageNodes.createPages({ graphql, actions, reporter });
 };
+
+module.exports.createSchemaCustomization = async (actions) => {
+  pageNodes.createSchemaCustomization && await pageNodes.createSchemaCustomization(actions);
+};
+
+exports.createResolvers = async (actions) => {
+  pageNodes.createResolvers && await pageNodes.createResolvers(actions);
+}

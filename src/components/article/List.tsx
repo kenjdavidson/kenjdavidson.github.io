@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { BoxProps, Box } from "grommet";
 import { Card } from "./Card";
-import { Article } from "../../hooks/useArticles";
+import { Article } from "../../graphql/articles";
 
 export interface ListProps {
   articles: Article[];
@@ -13,11 +13,11 @@ export interface ListProps {
 export const List: FunctionComponent<ListProps> = ({
   articles,
   containerProps = {},
-  articleProps = {}
+  articleProps = {},
 }) => {
   return (
     <Box {...containerProps}>
-      {articles.map(article => (
+      {articles.map((article) => (
         <Card
           key={`article-${article.id}`}
           article={article}

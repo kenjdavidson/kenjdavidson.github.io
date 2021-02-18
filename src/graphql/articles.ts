@@ -1,14 +1,20 @@
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
+import {
+  fragment as FeatureSharpFragment,
+  FeatureImageFile,
+} from './imageSharp';
 
 export const fragment = graphql`
   fragment Article on Mdx {
     id
     frontmatter {
       category
-      subcategory
       tags
       title
       summary
+      featureImage {
+        ...FeatureImageFile
+      }
     }
     timeToRead
     excerpt
@@ -26,14 +32,41 @@ export const fragment = graphql`
     }
     tableOfContents(maxDepth: 2)
   }
+  fragment ArticleSummary on Mdx {
+    id
+    frontmatter {
+      category
+      tags
+      title
+      summary
+      featureImage {
+        ...FeatureImageFile
+      }
+    }
+    timeToRead
+    excerpt
+    fields {
+      slug
+      publishTime: publishTime(formatString: "MMM DD, YYYY")
+      publishYear: publishTime(formatString: "YYYY")
+    }
+    fileAbsolutePath
+    wordCount {
+      paragraphs
+      sentences
+      words
+    }
+  }
 `;
 
 export type Frontmatter = {
   category: string;
   subcategory: string;
   title: string;
+  subtitle?: string;
   summary: string;
   tags?: string[];
+  featureImage: FeatureImageFile;
 };
 
 export type Fields = {

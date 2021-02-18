@@ -9,9 +9,9 @@ import {
   FacebookShareButton,
   LinkedinShareButton,
   TwitterIcon,
-  TwitterShareButton
+  TwitterShareButton,
 } from "react-share";
-import { Article } from "../../hooks/useArticles";
+import { Article } from "../../graphql/articles";
 
 export interface FooterProps {
   article: Article;

@@ -1,0 +1,135 @@
+//@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400');
+//@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,300;1,700');
+
+// @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400;1,700&family=Parisienne&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,500;1,300;1,500&family=Dancing+Script&display=swap');
+
+// Import Ant Design styles by less entry
+@import '~antd/lib/style/themes/default.less';
+@import '~antd/dist/antd.less';
+@import './mixins.less';
+.cssVars();
+
+// Typography
+// ---
+@font-family: 'Bitter';
+@font-weight: 300;
+@font-weight-bold: 600;
+@font-size-base: 1rem;
+@heading-1-size: ceil(@font-size-base * 3.14);
+@heading-2-size: ceil(@font-size-base * 2.14);
+@heading-3-size: ceil(@font-size-base * 1.71);
+@heading-4-size: ceil(@font-size-base * 1.42);
+@heading-5-size: ceil(@font-size-base * 1.14);
+
+@script-font-family: 'Dancing Script', cursive;
+
+// Colors
+// ---
+//@primary-color: #ad2102;
+@primary-color: #9b2915;
+@accent-1: #e9b44c;
+@accent-2: #e4d6a7;
+
+// Layout
+// ---
+@primary-container-width: 1123px;
+@primary-container-padding-sm: 16px;
+@primary-container-padding-md: 12px;
+@primary-container-padding-lg: 8px;
+@divider-orientation-margin: 8px;
+
+.primary-container-width {
+  width: 100%;
+  min-width: initial; // Separators are 100%
+  max-width: @primary-container-width;
+  margin: auto;
+}
+
+.primary-container-padding(@verticalPad: 0) {
+  padding: @verticalPad 0;
+
+  @media screen and (max-width: @screen-lg-max) {
+    padding: @verticalPad @primary-container-padding-md;
+  }
+
+  @media screen and (max-width: @screen-md-max) {
+    padding: @verticalPad @primary-container-padding-sm;
+  }
+}
+
+// Root and HTML Styles
+html {
+  .fluid-typography-rem(@screen-xs, @screen-xxl, 14px, 24px);
+}
+
+body {
+  background-color: @layout-header-background;
+  font-weight: @font-weight;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Merriweather', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-weight: @font-weight-bold;
+}
+
+strong {
+  font-weight: @font-weight-bold;
+}
+
+.cursive {
+  font-family: @script-font-family;
+}
+
+.ant-breadcrumb {
+  .primary-container-width();
+  .primary-container-padding(1em);
+}
+
+// .inverse changes the colour scheme for an individual section
+// i.e. <Footer> or some other customizable sections.  This should
+// eventually provide differnet levels of inversion, but for now
+// one is good
+.inverse {
+  background-color: color(@layout-header-background, 5);
+
+  *:not(a) {
+    color: @text-color-dark !important;
+  }
+
+  .ant-divider {
+    border-color: @text-color-dark;
+  }
+}
+
+// .inverse-primary
+.inverse-accent {
+  background-color: @accent-1;
+
+  *:not(a) {
+    color: @text-color !important;
+  }
+
+  .ant-divider {
+    border-color: @text-color;
+  }
+}
+
+// Override the 16px margin bottom that causes the icons not to be
+// aligned vertical center.
+.footer-social-list .ant-list-item.footer-social-list-item {
+  margin-bottom: 0px;
+}
+
+@import '../components/header/header.less';
+@import '../components/footer/footer.less';
+@import '../components/section/section.less';

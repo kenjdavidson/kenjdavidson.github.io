@@ -2,10 +2,10 @@ import React, {
   FunctionComponent,
   createContext,
   useState,
-  useEffect
+  useEffect,
 } from "react";
 import { Grommet, GrommetProps } from "grommet";
-import themes from "../../theme/themes";
+import themes from "../../styles/themes";
 import styled from "styled-components";
 
 const THEME_KEY = "kenjdavidson:selected-theme";
@@ -29,7 +29,7 @@ export interface ThemeableGrommetProps {
 export const ThemeableGrommetContext = createContext<ThemeableGrommetProps>({
   themes: themes,
   selectedTheme: 0,
-  setSelectedTheme: index => console.log(themes[index])
+  setSelectedTheme: (index) => console.log(themes[index]),
 });
 
 /**
@@ -70,7 +70,7 @@ export const ThemeableGrommet: FunctionComponent<GrommetProps> = ({
       value={{
         themes,
         selectedTheme,
-        setSelectedTheme: saveSelectedTheme
+        setSelectedTheme: saveSelectedTheme,
       }}
     >
       <StyledGrommet

@@ -1,21 +1,19 @@
 import React, { FunctionComponent } from "react";
 import { graphql } from "gatsby";
-import { Box } from "grommet";
-import { Section } from "../components/page";
-import { Paragraph } from "../components/grommet";
-import { PageHeading } from "../components/page/PageHeading";
+import { Section } from "../components/section/section";
+import { Row, Typography } from "antd";
 
 const GolfingPage: FunctionComponent = () => (
-  <Box pad="large">
-    <PageHeading>Golf Profile</PageHeading>
-    <Paragraph>
+  <Section>
+    <Typography.Title>Golf Canada</Typography.Title>
+    <Typography.Paragraph>
       Golf and I (much like a fair number of us) have a love/hate relationship.
-    </Paragraph>
-    <Paragraph>
+    </Typography.Paragraph>
+    <Typography.Paragraph>
       I'm hoping to get my Golf Canada gatsby source plugin up and running; I
       figure leaving a reminder here is a better push than not having it at all.
-    </Paragraph>
-  </Box>
+    </Typography.Paragraph>
+  </Section>
 );
 
 export default GolfingPage;

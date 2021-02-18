@@ -1,0 +1,32 @@
+@layout-footer-padding: 3em;
+
+.ant-layout-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 3em 0 1em 0;
+
+  & > .ant-row {
+    .primary-container-width();
+    .primary-container-padding();
+  }
+
+  .ant-typography:not(h*) { 
+    font-size: 0.9rem;
+  }
+
+  .ant-list {
+    a {
+      font-weight: @font-weight;
+
+      &:hover {
+        color: @primary-5;
+      }
+    }
+  }
+
+  .footer-row-social {
+    font-size: 1.05rem;
+  }
+}

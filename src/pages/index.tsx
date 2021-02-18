@@ -1,83 +1,64 @@
-import React, { FunctionComponent, useContext } from "react";
-import useSiteMetadata from "../hooks/useSiteMetadata";
-import { Box, ThemeContext } from "grommet";
-import { Anchor, Paragraph } from "../components/grommet";
-import { PageHeading, Section } from "../components/page";
-import { List as ArticleList } from "../components/article";
-import { Seo } from "../components/Seo";
-import { SectionPart } from "../components/page/SectionPart";
-import { graphql } from "gatsby";
-import { Article } from "../graphql/articles";
+import React, { FunctionComponent } from 'react';
+import { List as ArticleList } from '../components/article';
+import { Seo } from '../components/Seo';
+import { graphql } from 'gatsby';
+import { Article } from '../graphql/articles';
+import { Section } from '../components/section/section';
+import { Col, Typography, Row, List } from 'antd';
+import { Link } from '../components/Link';
+import { Project } from '../graphql/projects';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { Image } from '../components/image/Image';
+import { ArticleListItem } from '../components/article/ArticleListItem';
 
 const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo />
-      <Box pad="large">
-        <PageHeading>Hey, I'm Ken.</PageHeading>
-        <Paragraph>
-          Thanks for swinging by! I'm just <strong>hubanding</strong>,{" "}
-          <strong>fathering</strong>, <strong>golfing</strong> and{" "}
+      <Section className="inverse hero">
+        <Typography.Title>Hey, I'm Ken.</Typography.Title>
+        <Typography.Paragraph>
+          Thanks for swinging by! I'm just <strong>hubanding</strong>,{' '}
+          <strong>fathering</strong>, <strong>golfing</strong> and{' '}
           <strong>developing</strong> my way to retirement. Besides being a
-          playground for my continual learning, you'll get a little of my{" "}
-          <Anchor href="/resume">professional</Anchor>
-          and <Anchor href="/">personal</Anchor> history.
-        </Paragraph>
-        <Paragraph>
+          playground for my continual learning, you'll get a little of my{' '}
+          <Link href="/resume">professional</Link>
+          and <Link href="/">personal</Link> history.
+        </Typography.Paragraph>
+        <Typography.Paragraph>
           This site is ever changing, but always open; if you run into issues
-          shoot me a message or{" "}
-          <Anchor href="https://www.github.com/kenjdavidson/kenjdavidson.github.io">
-            teach me a lesson{" "}
-          </Anchor>
+          shoot me a message or{' '}
+          <Link href="https://www.github.com/kenjdavidson/kenjdavidson.github.io">
+            teach me a lesson{' '}
+          </Link>
           . Have a good one!
-        </Paragraph>
-        <Section heading="Recent Posts">
-          <ArticleList articles={data.recent.articles} />
-          <Paragraph>
-            <Anchor href="/writing">Check out more articles...</Anchor>
-          </Paragraph>
-        </Section>
-        <Section heading="Project">
-          <SectionPart heading="React Native Bluetooth Classic">
-            <Paragraph markdown>
-              While developing [Standardbred
-              Canada](https://www.standardbredcanada.ca) mobile application I
-              was required to write (well I guess I could have not used React
-              Native) a plugin that provided Bluetooth Classic functionality to
-              both Android and IOS. There were numerous plugins for Android, but
-              most of them fell back to BLE for their IOS implementations.
-              Starting with the great base of [React Native Bluetooth
-              Serial](https://github.com/rusel1989/react-native-bluetooth-serial)
-              I was able to get **External Accessory** up and running for IOS.
-            </Paragraph>
-            <Paragraph markdown>
-              Check out the [project
-              docs](https://www.kenjdavidson.com/react-native-bluetooth-classic)
-            </Paragraph>
-          </SectionPart>
-        </Section>
-        <Section heading="Project">
-          <SectionPart heading="Caddieasy (Suite)">
-            <Paragraph markdown>
-              I love golf; but I've been falling out of love with my
-              [Garmin](https://www.garmin.com/en-CA/). Which may have started
-              happening after Sue bought me my [Fitbit
-              Ionic](https://www.fitbit.com/global/no/products/smartwatches/ionic).
-              The one missing feature on the Fitbit is the lack of Golf app -
-              although looking around there are a couple. I tried to get in
-              contact with the author of [Smart Watch Golf
-              GPS](https://smartwatchgolfgps.com/) in order to contribute but
-              sadly never received any word back.
-            </Paragraph>
-            <Paragraph markdown>
-              That's when I decided that I might as well start my own project,
-              using Github, to provide myself (and I guess others) with a free
-              and easy way to share (and most importantly customize) courses for
-              their own game!
-            </Paragraph>
-          </SectionPart>
-        </Section>
-      </Box>
+        </Typography.Paragraph>
+      </Section>
+
+      <Section title="RECENT POSTS">
+        <List
+          dataSource={data.recentArticles.articles}
+          renderItem={(item) => <ArticleListItem article={item} />}
+        />
+      </Section>
+
+      <Section title="NOTABLE(ish) PROJECTS">
+        {data.recentProjects.projects.map((project) => (
+          <Row gutter={[16, 32]}>
+            <Col md={{ span: 12 }}>
+              {project.frontmatter.featureImage && (
+                <Image image={project.frontmatter.featureImage} />
+              )}
+            </Col>
+            <Col md={{ span: 12 }}>
+              <Typography.Title level={3}>
+                {project.frontmatter.title}
+              </Typography.Title>
+              <MDXRenderer>{project.body}</MDXRenderer>
+            </Col>
+          </Row>
+        ))}
+      </Section>
     </>
   );
 };
@@ -85,21 +66,35 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
 export default IndexPage;
 interface IndexPageProps {
   data: {
-    recent: {
+    recentArticles: {
       articles: Article[];
+    };
+    recentProjects: {
+      projects: Project[];
     };
   };
 }
 
 export const query = graphql`
   query IndexPageQuery {
-    recent: allMdx(
+    recentArticles: allMdx(
       sort: { fields: fields___publishTime, order: DESC }
-      limit: 6
+      limit: 8
       filter: { frontmatter: { type: { eq: "Post" }, draft: { ne: true } } }
     ) {
       articles: nodes {
-        ...Article
+        ...ArticleSummary
+      }
+    }
+    recentProjects: allMdx(
+      filter: {
+        fileAbsolutePath: { regex: "/projects/" }
+        frontmatter: { draft: { ne: true } }
+      }
+      sort: { fields: frontmatter___order }
+    ) {
+      projects: nodes {
+        ...Project
       }
     }
   }

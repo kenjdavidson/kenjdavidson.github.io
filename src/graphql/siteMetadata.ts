@@ -25,6 +25,7 @@ export const fragment = graphql`
         display
         href
         name
+        icon
       }
     }
   }
@@ -41,6 +42,7 @@ export type SocialItem = {
   display: string;
   href: string;
   name: string;
+  icon: string;
 };
 
 export type AuthorDetail = {

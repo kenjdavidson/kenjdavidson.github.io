@@ -1,11 +1,5 @@
 import path from "path";
 
-/**
- * Applies fields and links to Mdx nodes which match the required
- * convention for posts.
- * 
- * @param {GatsbyApiHelpers} helpers
- */
 module.exports.onCreateNode = async ({
   node,
   getNode,

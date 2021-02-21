@@ -31,6 +31,10 @@ export const fragment = graphql`
       words
     }
     tableOfContents(maxDepth: 2)
+    headings {
+      value
+      depth
+    }
   }
   fragment ArticleSummary on Mdx {
     id
@@ -100,6 +104,12 @@ export type Article = {
   tableOfContents: {
     items: ContentItem[];
   };
+  headings: Heading[];
+};
+
+export type Heading = {
+  value: string;
+  depth: number;
 };
 
 export type ArticleQuery = {

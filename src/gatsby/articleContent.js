@@ -64,7 +64,7 @@ module.exports.createPages = async ({
     if (node.fields && node.fields.slug) {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/components/PostLayout.tsx`),
+        component: path.resolve(`./src/templates/article.tsx`),
         context: {
           id: node.id
         }

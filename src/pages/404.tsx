@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from "react";
-import { Seo } from "../components/Seo";
-import { graphql } from "gatsby";
-import { SiteMetadata, MenuItem } from "../graphql/siteMetadata";
-import { Section } from "../components/section/section";
-import { Image, Typography, Row, Col } from "antd";
-import { Link } from "../components/Link";
+import React, { FunctionComponent } from 'react';
+import { Seo } from '../components/seo';
+import { graphql } from 'gatsby';
+import { SiteMetadata, MenuItem } from '../graphql/siteMetadata';
+import { Section } from '../components/section/section';
+import { Image, Typography, Row, Col } from 'antd';
+import { Link } from '../components/link';
 
 const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
   return (
@@ -21,10 +21,10 @@ const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
           src={data.error.childImageSharp.fluid.src}
           srcSet={data.error.childImageSharp.fluid.srcSet}
           style={{
-            maxWidth: "350px",
-            float: "right",
+            maxWidth: '350px',
+            float: 'right',
             shapeOutside: `url(${data.error.childImageSharp.fluid.src})`,
-            shapeMargin: "2em",
+            shapeMargin: '2em',
           }}
         />
         <Typography.Paragraph>

@@ -1,5 +1,5 @@
-import { graphql } from "gatsby";
-import { FeatureImageFile } from "./imageSharp";
+import { graphql } from 'gatsby';
+import { FeatureImageFile } from './imageSharp';
 
 export const fragment = graphql`
   fragment MdxPage on Mdx {
@@ -66,8 +66,5 @@ export type Section = {
 export type PageQuery = {
   pagesMdx: {
     pages: Page[];
-  };
-  sectionsMdx: {
-    sections: Section[];
   };
 };

@@ -5,29 +5,55 @@ import {
 import React, { FunctionComponent } from 'react';
 import { Section } from './section';
 import BreadcrumbSeparator from 'antd/lib/breadcrumb/BreadcrumbSeparator';
-import { Link } from '../Link';
+import { Link } from '../link';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
+import { HomeOutlined } from '@ant-design/icons';
 
-const capitalize = (str: string) =>
-  str.slice(0, 1).toUpperCase() + str.slice(1);
+const unslugify = (str: string) =>
+  str.slice(0, 1).toUpperCase() +
+  str.slice(1).replace(/[-_\s]{1}(\w)/g, (m) => m.toUpperCase());
+
+interface Crumb {
+  title: string;
+  href: string;
+}
 
 export interface BreadcrumbProps extends AntBreadcrumbProps {
   paths?: string | string[];
 }
 
 export const Breadcrumb: FunctionComponent<BreadcrumbProps> = ({
-  paths,
+  paths: pathsProp,
   ...rest
 }) => {
-  const splitPaths = Array.isArray(paths) ? paths : paths?.split('/');
-  console.log(`Paths: ${JSON.stringify(splitPaths)}`);
+  const splitPaths = Array.isArray(pathsProp)
+    ? pathsProp
+    : pathsProp?.split('/');
+
+  const paths: Crumb[] = [];
+  splitPaths?.forEach((split) => {
+    const href =
+      paths.length > 0
+        ? `${paths[paths.length - 1].href}/${split}`
+        : `/${split}`;
+    paths.push({
+      title: unslugify(split),
+      href,
+    });
+  });
+
   return (
     <AntBreadcrumb {...rest}>
-      <BreadcrumbSeparator />
-      {splitPaths &&
-        splitPaths.map((path) => (
+      Somthing
+      <BreadcrumbItem>
+        <Link href="/">
+          <HomeOutlined />
+        </Link>
+      </BreadcrumbItem>
+      {paths &&
+        paths.map((path) => (
           <BreadcrumbItem key={`page-breadcrumb-${path}`}>
-            <Link href={`/${path}`}>{capitalize(path)}</Link>
+            <Link href={`${path.href}`}>{path.title}</Link>
           </BreadcrumbItem>
         ))}
     </AntBreadcrumb>

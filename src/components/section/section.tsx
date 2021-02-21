@@ -1,49 +1,56 @@
-import React, { ComponentType, FunctionComponent, HTMLAttributes } from "react";
-import classNames from "classnames";
-import { Typography } from "antd";
+import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
+import classNames from 'classnames';
+import { Typography } from 'antd';
+import { TitleProps } from 'antd/lib/typography/Title';
 
-export interface SectionProps {
-  className?: string;
-  sectionProps?: HTMLAttributes<HTMLDivElement>;
-  contentProps?: HTMLAttributes<HTMLDivElement>;
-  verticalPad?: "md" | "sm";
-  size?: "hero" | undefined;
+export interface SectionProps extends HtmlHTMLAttributes<HTMLDivElement> {
+  verticalPad?: 'md' | 'sm';
+  size?: 'hero' | undefined;
   title?: string;
-  footer?: string;
 }
 
 export const Section: FunctionComponent<SectionProps> = ({
   children,
   className: customizeClassName,
-  contentProps,
   verticalPad,
-  sectionProps,
   size,
   title: titleProp,
-  footer: footerProp,
   ...rest
 }) => {
   const wrapperClasses = classNames([
-    `section`,
+    `content-section`,
     {
-      [`hero`]: size === "hero",
-      [`v-pad-small`]: verticalPad === "sm",
-      [`v-pad-medium`]: verticalPad === "md",
+      [`hero`]: size === 'hero',
+      [`v-pad-small`]: verticalPad === 'sm',
+      [`v-pad-medium`]: verticalPad === 'md',
     },
     customizeClassName,
   ]);
-  const innerClasses = classNames([`section-content`]);
 
   return (
-    <section className={wrapperClasses} {...sectionProps}>
-      {titleProp && (
-        <Typography.Title className="section-title" level={2}>
-          {titleProp}
-        </Typography.Title>
-      )}
-      <div className={innerClasses} {...contentProps}>
-        {children}
-      </div>
+    <section className={wrapperClasses} {...rest}>
+      {children}
     </section>
   );
+};
+
+export interface SectionTitleProps extends TitleProps {
+  verticalPad?: 'sm' | 'md';
+}
+
+export const SectionTitle: FunctionComponent<SectionTitleProps> = ({
+  className: customizeClassName,
+  verticalPad,
+  ...props
+}) => {
+  const wrapperClasses = classNames([
+    `section-title`,
+    {
+      [`v-pad-small`]: verticalPad === 'sm',
+      [`v-pad-medium`]: verticalPad === 'md',
+    },
+    customizeClassName,
+  ]);
+
+  return <Typography.Title className={wrapperClasses} level={2} {...props} />;
 };

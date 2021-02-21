@@ -1,8 +1,8 @@
-import { Layout, Typography, Row } from "antd";
-import React, { FunctionComponent } from "react";
-import { useLocation } from "@reach/router";
-import { SiteMetadata } from "../../graphql/siteMetadata";
-import { Link } from "../Link";
+import { Layout, Typography, Row } from 'antd';
+import React, { FunctionComponent } from 'react';
+import { useLocation } from '@reach/router';
+import { SiteMetadata } from '../../graphql/siteMetadata';
+import { Link } from '../link';
 
 export interface HeaderProps {
   meta: SiteMetadata;

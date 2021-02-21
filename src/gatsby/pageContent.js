@@ -1,5 +1,6 @@
 import path from "path";
 import { createFilePath } from "gatsby-source-filesystem";
+import { mdx } from "@mdx-js/react";
 
 // This needs some serious love.
 // I need to go through the correct ways in which to extend the Mdx nodes and create
@@ -81,7 +82,7 @@ module.exports.createPages = async ({
     if (node.fields && node.fields.slug) {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/template/page.tsx`),
+        component: path.resolve(`./src/templates/page.tsx`),
         context: {
           id: node.id
         }
@@ -127,11 +128,18 @@ exports.createResolvers = ({ createResolvers }) => {
           const filePath = source.fileAbsolutePath.substring(0, source.fileAbsolutePath.lastIndexOf('/'));
           const sections = context.nodeModel
             .getAllNodes({ type: "Mdx" })
-            .filter(mdx => mdx.frontmatter.type === "PageSection" && mdx.fileAbsolutePath.startsWith(filePath));
+            .filter(mdx => mdx.frontmatter.type === "PageSection" && mdx.fileAbsolutePath.startsWith(filePath))
+            .sort(comparator);
           return sections || [];
         },
       },
     },
   }
   createResolvers(resolvers)
+}
+
+function comparator(mdxA, mdxB) {
+  if (mdxA.frontmatter.order < mdxB.frontmatter.order) return -1;
+  if (mdxA.frontmatter.order > mdxB.frontmatter.order) return 1;
+  return 0;
 }

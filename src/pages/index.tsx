@@ -1,15 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import { List as ArticleList } from '../components/article';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
 import { Article } from '../graphql/articles';
-import { Section } from '../components/section/section';
+import { Section, SectionTitle } from '../components/section/section';
 import { Col, Typography, Row, List } from 'antd';
-import { Link } from '../components/Link';
+import { Link } from '../components/link';
 import { Project } from '../graphql/projects';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Image } from '../components/image/Image';
-import { ArticleListItem } from '../components/article/ArticleListItem';
+import { ArticleListItem } from '../components/article/articleListItem';
 
 const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
@@ -35,28 +34,32 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
         </Typography.Paragraph>
       </Section>
 
-      <Section title="RECENT POSTS">
+      <Section>
+        <SectionTitle verticalPad="md">RECENT POSTS</SectionTitle>
         <List
           dataSource={data.recentArticles.articles}
           renderItem={(item) => <ArticleListItem article={item} />}
         />
       </Section>
 
-      <Section title="NOTABLE(ish) PROJECTS">
+      <Section>
+        <SectionTitle verticalPad="md">NOTABLE(ish) PROJECTS</SectionTitle>
         {data.recentProjects.projects.map((project) => (
-          <Row gutter={[16, 32]}>
-            <Col md={{ span: 12 }}>
-              {project.frontmatter.featureImage && (
-                <Image image={project.frontmatter.featureImage} />
-              )}
-            </Col>
-            <Col md={{ span: 12 }}>
-              <Typography.Title level={3}>
-                {project.frontmatter.title}
-              </Typography.Title>
-              <MDXRenderer>{project.body}</MDXRenderer>
-            </Col>
-          </Row>
+          <article key={`project-row-${project.frontmatter.title}`}>
+            <Row gutter={[24, 32]}>
+              <Col md={{ span: 12 }}>
+                {project.frontmatter.featureImage && (
+                  <Image image={project.frontmatter.featureImage} />
+                )}
+              </Col>
+              <Col md={{ span: 12 }}>
+                <Typography.Title level={3}>
+                  {project.frontmatter.title}
+                </Typography.Title>
+                <MDXRenderer>{project.body}</MDXRenderer>
+              </Col>
+            </Row>
+          </article>
         ))}
       </Section>
     </>

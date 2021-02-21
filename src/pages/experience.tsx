@@ -1,14 +1,12 @@
-import React, { FunctionComponent } from "react";
-import { graphql } from "gatsby";
-import { MDXRenderer } from "gatsby-plugin-mdx";
-import { Box, Text } from "grommet";
-import { Paragraph } from "../components/grommet";
-import { Link } from "grommet-icons";
-import { H2 } from "../components/grommet";
-import { Timeline } from "../graphql/timeline";
-import { Seo } from "../components/Seo";
-import { Section } from "../components/section/section";
-import { Timeline as AntTimeline, Typography } from "antd";
+import React, { FunctionComponent } from 'react';
+import { graphql } from 'gatsby';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { Box, Text } from 'grommet';
+import { Link } from 'grommet-icons';
+import { Timeline } from '../graphql/timeline';
+import { Seo } from '../components/seo';
+import { Section } from '../components/section/section';
+import { Timeline as AntTimeline, Typography } from 'antd';
 
 export interface ResumePageProps {
   data: {

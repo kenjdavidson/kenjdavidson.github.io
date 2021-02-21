@@ -1,9 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { Seo } from '../components/Seo';
+import { Seo } from '../components/seo';
 import { PageQuery } from '../graphql/pages';
-import { H2 } from '../components/grommet';
 import { Section } from '../components/section/section';
 import { Layout, Typography } from 'antd';
 import { useLocation } from '@reach/router';
@@ -17,8 +16,6 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
 
   const meta = useSiteMetadata();
   const location = useLocation();
-
-  const paths = location.pathname.split('/').filter((p, i) => i > 0);
 
   const seo = {
     title: page.frontmatter.title,
@@ -34,9 +31,9 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
       <Layout>
         <Header meta={meta} />
         <Content>
-          {paths.length > 1 ? (
+          {location.pathname.split('/').length > 2 ? (
             <Section verticalPad="md">
-              <Breadcrumb paths={paths} />
+              <Breadcrumb paths={location.pathname} />
             </Section>
           ) : undefined}
           <Section>
@@ -46,7 +43,9 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
           {page.sections &&
             page.sections.map((section) => (
               <Section key={`section-${section.id}`}>
-                <H2>{section.frontmatter.title}</H2>
+                <Typography.Title level={2}>
+                  {section.frontmatter.title}
+                </Typography.Title>
                 <MDXRenderer>{section.body}</MDXRenderer>
               </Section>
             ))}

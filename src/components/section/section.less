@@ -1,7 +1,7 @@
 @section-hero-min-height: 85vh;
 @section-vertical-padding: 3em;
 
-.section {
+.content-section {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -18,29 +18,35 @@
   }
 
   &.v-pad-medium {
-    padding: 1.5em;
+    padding: 1em 0;
+  }
+
+  &.v-pad-large {
+    padding: 3em 0;
   }
 
   &.hero {
     min-height: @section-hero-min-height;
-    padding: 0 @section-vertical-padding * 2;
+    padding: @section-vertical-padding * 2 0;
     justify-content: center;
   }
 
-  .section-title {
+  > * {
     .primary-container-width();
-    .primary-container-padding(1rem);
-    font-size: 1.2rem;
-    color: @accent-1;
+    .primary-container-padding();
   }
 
-  .section-content {
-    .primary-container-width();
+  .section-title {
+    .primary-container-padding();
+    font-size: 1.2rem;
+    color: @accent-1;
 
-    > *:not(img),
-    > *:not(pre.code),
-    > *:not(blockquote) {
-      .primary-container-padding();
+    &.v-pad-sm {
+      .primary-container-padding(1em);
+    }
+
+    &.v-pad-md {
+      .primary-container-padding(2em);
     }
   }
 }

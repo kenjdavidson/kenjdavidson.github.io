@@ -19,37 +19,35 @@ interface Crumb {
 }
 
 export interface BreadcrumbProps extends AntBreadcrumbProps {
-  paths?: string | string[];
+  paths?: string[];
 }
 
 export const Breadcrumb: FunctionComponent<BreadcrumbProps> = ({
   paths: pathsProp,
   ...rest
 }) => {
-  const splitPaths = Array.isArray(pathsProp)
-    ? pathsProp
-    : pathsProp?.split('/');
-
   const paths: Crumb[] = [];
-  splitPaths?.forEach((split) => {
-    const href =
-      paths.length > 0
-        ? `${paths[paths.length - 1].href}/${split}`
-        : `/${split}`;
-    paths.push({
-      title: unslugify(split),
-      href,
+  pathsProp!
+    .filter((path) => path != '')
+    .forEach((path) => {
+      const href =
+        paths.length > 0
+          ? `${paths[paths.length - 1].href}/${path}`
+          : `/${path}`;
+      paths.push({
+        title: unslugify(path),
+        href,
+      });
     });
-  });
 
   return (
     <AntBreadcrumb {...rest}>
-      Somthing
       <BreadcrumbItem>
         <Link href="/">
           <HomeOutlined />
         </Link>
       </BreadcrumbItem>
+      <BreadcrumbSeparator />
       {paths &&
         paths.map((path) => (
           <BreadcrumbItem key={`page-breadcrumb-${path}`}>

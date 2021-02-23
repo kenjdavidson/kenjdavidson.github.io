@@ -29,11 +29,10 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
     <>
       <Seo {...seo} />
       <Layout>
-        <Header />
         <Content>
           {location.pathname.split('/').length > 2 ? (
             <Section verticalPad="md">
-              <Breadcrumb paths={location.pathname} />
+              <Breadcrumb paths={location.pathname.split('/')} />
             </Section>
           ) : undefined}
           <Section>

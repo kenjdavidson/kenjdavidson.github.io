@@ -5,12 +5,10 @@ import styled from 'styled-components';
 import { TitleProps } from 'antd/lib/typography/Title';
 
 const UnorderedList = styled.ul`
-  padding-left: 1em;
   margin-top: 1em;
   margin-bottom: 1em;
 `;
 const OrderedList = styled.ol`
-  padding-left: 1em;
   margin-top: 1em;
   margin-bottom: 1em;
 `;

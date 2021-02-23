@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 
-export const Navigation = ({ ...props }) => {
+export const Menu = ({ ...props }) => {
   return (
     <nav className="nav">
       <Link

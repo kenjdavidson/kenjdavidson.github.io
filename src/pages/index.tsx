@@ -15,24 +15,14 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo />
-      <Header />
-      <Section className="inverse hero">
+      <Section className="inverse hero medium">
         <Typography.Title>Hey, I'm Ken.</Typography.Title>
-        <Typography.Paragraph>
-          Thanks for swinging by! I'm just <strong>hubanding</strong>,{' '}
-          <strong>fathering</strong>, <strong>golfing</strong> and{' '}
-          <strong>developing</strong> my way to retirement. Besides being a
-          playground for my continual learning, you'll get a little of my{' '}
-          <Link href="/resume">professional</Link>
-          and <Link href="/">personal</Link> history.
-        </Typography.Paragraph>
-        <Typography.Paragraph>
-          This site is ever changing, but always open; if you run into issues
-          shoot me a message or{' '}
-          <Link href="https://www.github.com/kenjdavidson/kenjdavidson.github.io">
-            teach me a lesson{' '}
-          </Link>
-          . Have a good one!
+        <Typography.Paragraph style={{ fontSize: '1.5rem' }}>
+          Just <strong>hubanding</strong>, <strong>fathering</strong>,{' '}
+          <strong>golfing</strong> and <strong>developing</strong> my way to
+          retirement. Besides being a playground for my continual learning,
+          you'll get a little of my <Link href="/">personal</Link> and{' '}
+          <Link href="/resume">professional</Link> history.
         </Typography.Paragraph>
       </Section>
 

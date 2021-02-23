@@ -22,6 +22,7 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
       <GlobalStyle />
       <MDXProvider components={AntdMdxComponents}>
         <Layout>
+          <Header />
           <Layout.Content dir="vertical">{children}</Layout.Content>
           <Footer meta={meta} />
         </Layout>

@@ -25,14 +25,12 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
         title="Ken J Davidson Writing - It doesn't happen much"
         description="Not the most well written, nor the best content - but I've helped a few people and that's what is important."
       />
-      <Section className="inverse hero">
+      <Section className="inverse hero hero medium">
         <Typography.Title>Sometimes I do the Writing</Typography.Title>
-        <Typography.Paragraph>
-          <strong>I'm neither published nor awarded</strong> but I am
-          opinionated and spend a bunch of time playing around with new
-          languages and frameworks - it's possible something I write might help
-          someone skip the suffering that I've run into. There's always a chance
-          a post on my personal husbanding or fathering methods may appear!
+        <Typography.Paragraph style={{ fontSize: '1.5rem' }}>
+          I'm neither <strong>published</strong> nor <strong>awarded</strong>{' '}
+          but I am opinionated and spend a bunch of time playing around with new
+          languages and frameworks.
         </Typography.Paragraph>
       </Section>
       {archives.map((year) => (

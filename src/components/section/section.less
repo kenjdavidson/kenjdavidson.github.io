@@ -26,9 +26,17 @@
   }
 
   &.hero {
-    min-height: @section-hero-min-height;
-    padding: @section-vertical-padding * 2 0;
+    padding: @section-vertical-padding 0;
     justify-content: center;
+
+    &.medium {
+      padding: @section-vertical-padding * 2 0;
+    }
+
+    &.large {
+      padding: @section-vertical-padding * 2 0;
+      min-height: @section-hero-min-height;
+    }
   }
 
   > * {

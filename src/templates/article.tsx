@@ -1,11 +1,7 @@
-import { Breadcrumb, Layout, Typography } from 'antd';
-import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
-import BreadcrumbSeparator from 'antd/lib/breadcrumb/BreadcrumbSeparator';
+import { Layout, Typography } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
-import { Header } from '../components/header/header';
-import { Link } from '../components/link';
 import { Section, SectionTitle } from '../components/section/section';
 import { Seo } from '../components/seo';
 import useSiteMetadata from '../hooks/useSiteMetadata';
@@ -14,6 +10,7 @@ import styled from 'styled-components';
 import { ArticleMeta } from '../components/article';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { TableOfContents } from '../components/article/toc';
+import { Breadcrumb } from '../components/section/breadcrumb';
 
 const ArticleWrapper = styled.main`
   display: grid;
@@ -41,7 +38,6 @@ const ArticleWrapper = styled.main`
 export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
   data,
 }) => {
-  const meta = useSiteMetadata();
   const { article } = data.articles.edges[0];
 
   return (
@@ -55,18 +51,12 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
         }
       />
       <Layout>
-        <Header />
         <Content>
-          <Section verticalPad="md">
-            <Breadcrumb>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <Link href="/writing">Writing</Link>
-              </BreadcrumbItem>
-            </Breadcrumb>
-            <Typography.Title style={{ gridArea: 'header' }}>
-              {article.frontmatter.title}
-            </Typography.Title>
+          <Section className="v-pad-medium">
+            <Breadcrumb paths={['writing']} />
+          </Section>
+          <Section>
+            <Typography.Title>{article.frontmatter.title}</Typography.Title>
           </Section>
           <Section>
             <ArticleWrapper>

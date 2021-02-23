@@ -1,24 +1,27 @@
 @layout-header-color: @text-color-dark;
-@layout-header-height: 84px;  // 64px
-@layout-header-padding: 0;  // 0 50px;
+@layout-header-height: auto; // 64px
+@layout-header-padding: 1rem; // 0 50px;
+
+@nav-link-color: @text-color-dark;
+@nav-link-color-accent: @white;
 
 .ant-layout-header {
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: initial;
 
   & .ant-typography {
     margin: 0px;
   }
 
-  &-content {
+  > .ant-row {
     flex: 1;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
 
-    .primary-container-width(); 
+    .primary-container-width();
     .primary-container-padding();
   }
 }
-

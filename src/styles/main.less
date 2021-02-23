@@ -9,7 +9,7 @@
 // Import Ant Design styles by less entry
 @import '~antd/lib/style/themes/default.less';
 @import '~antd/dist/antd.less';
-@import './mixins.less';
+@import './base-theme.less';
 .cssVars();
 
 // Typography
@@ -18,11 +18,11 @@
 @font-weight: 300;
 @font-weight-bold: 600;
 @font-size-base: 1rem;
-@heading-1-size: ceil(@font-size-base * 3.14);
-@heading-2-size: ceil(@font-size-base * 2.14);
-@heading-3-size: ceil(@font-size-base * 1.71);
-@heading-4-size: ceil(@font-size-base * 1.42);
-@heading-5-size: ceil(@font-size-base * 1.14);
+@heading-1-size: 3.84rem;
+@heading-2-size: 2.5rem;
+@heading-3-size: 1.96rem;
+@heading-4-size: 1.5rem;
+@heading-5-size: 1.1rem;
 
 @script-font-family: 'Dancing Script', cursive;
 
@@ -33,30 +33,44 @@
 @accent-1: #e9b44c;
 @accent-2: #e4d6a7;
 
+@grey-0: @black;
+@grey-1: tint(@grey-0, 10%);
+@grey-2: tint(@grey-0, 20%);
+@grey-3: tint(@grey-0, 30%);
+@grey-4: tint(@grey-0, 40%);
+@grey-5: tint(@grey-0, 50%);
+@grey-6: tint(@grey-0, 60%);
+@grey-7: tint(@grey-0, 70%);
+@grey-8: tint(@grey-0, 80%);
+@grey-9: tint(@grey-0, 90%);
+@grey-10: tint(@grey-0, 100%);
+
 // Layout
 // ---
 @primary-container-width: 1123px;
-@primary-container-padding-sm: 16px;
-@primary-container-padding-md: 12px;
-@primary-container-padding-lg: 8px;
-@divider-orientation-margin: 8px;
+@primary-container-padding-sm: 3rem;
+@primary-container-padding-md: 5rem;
+@primary-container-padding-lg: 3rem;
+@divider-orientation-margin: 1rem;
 
 .primary-container-width {
   width: 100%;
   min-width: initial; // Separators are 100%
   max-width: @primary-container-width;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.primary-container-padding(@verticalPad: 0) {
-  padding: @verticalPad 0;
+.primary-container-padding(@vertical: 0) {
+  padding-top: @vertical;
+  padding-bottom: @vertical;
 
   @media screen and (max-width: @screen-lg-max) {
-    padding: @verticalPad @primary-container-padding-md;
+    padding: @vertical @primary-container-padding-md;
   }
 
   @media screen and (max-width: @screen-md-max) {
-    padding: @verticalPad @primary-container-padding-sm;
+    padding: @vertical @primary-container-padding-sm;
   }
 }
 
@@ -101,7 +115,7 @@ strong {
   background-color: color(@layout-header-background, 5);
 
   *:not(a) {
-    color: @text-color-dark !important;
+    color: @text-color-dark;
   }
 
   .ant-divider {
@@ -129,5 +143,7 @@ strong {
 }
 
 @import '../components/footer/footer.less';
+@import '../components/header/brand.less';
 @import '../components/header/header.less';
+@import '../components/header/navigation.less';
 @import '../components/section/section.less';

@@ -35,18 +35,26 @@
     .primary-container-width();
     .primary-container-padding();
   }
+}
 
-  .section-title {
-    .primary-container-padding();
-    font-size: 1.2rem;
-    color: @accent-1;
+.ant-typography.section-title {
+  font-size: 1.2rem;
+  color: @accent-1;
+  margin-top: 0;
+  margin-bottom: 0;
 
-    &.v-pad-sm {
-      .primary-container-padding(1em);
-    }
+  &.spacing-small {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 
-    &.v-pad-md {
-      .primary-container-padding(2em);
-    }
+  &.spacing-medium {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &.spacing-large {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
   }
 }

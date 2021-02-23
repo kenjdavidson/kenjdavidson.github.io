@@ -37,7 +37,7 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
       </Section>
       {archives.map((year) => (
         <Section key={`articles-${year}`}>
-          <SectionTitle verticalPad="md">{`${year} (${articlesByYear[year].length} Articles)`}</SectionTitle>
+          <SectionTitle spacing="md">{`${year} (${articlesByYear[year].length} Articles)`}</SectionTitle>
           <List
             dataSource={articlesByYear[year]}
             renderItem={(item) => <ArticleListItem article={item} />}

@@ -9,11 +9,13 @@ import { Project } from '../graphql/projects';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Image } from '../components/image/Image';
 import { ArticleListItem } from '../components/article/articleListItem';
+import { Header } from '../components/header/header';
 
 const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo />
+      <Header />
       <Section className="inverse hero">
         <Typography.Title>Hey, I'm Ken.</Typography.Title>
         <Typography.Paragraph>
@@ -35,7 +37,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
       </Section>
 
       <Section>
-        <SectionTitle verticalPad="md">RECENT POSTS</SectionTitle>
+        <SectionTitle spacing="md">Recent Posts</SectionTitle>
         <List
           dataSource={data.recentArticles.articles}
           renderItem={(item) => <ArticleListItem article={item} />}
@@ -43,7 +45,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
       </Section>
 
       <Section>
-        <SectionTitle verticalPad="md">NOTABLE(ish) PROJECTS</SectionTitle>
+        <SectionTitle spacing="md">Notable(ish) Projects</SectionTitle>
         {data.recentProjects.projects.map((project) => (
           <article key={`project-row-${project.frontmatter.title}`}>
             <Row gutter={[24, 32]}>

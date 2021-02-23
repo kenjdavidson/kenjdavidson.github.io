@@ -1,0 +1,32 @@
+#brand {
+  &:hover {
+    .brand-wrapper {
+      .brand-name {
+        color: white;
+        border-top: 2px solid @accent-1;
+      }
+    }
+  }
+
+  .brand-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    > * {
+      transition: all 0.3s;
+    }
+
+    .brand-image {
+      width: 75px;
+    }
+
+    .brand-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: @grey-8;
+      border-top: 2px solid @grey-8;
+    }
+  }
+}

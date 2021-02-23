@@ -7,6 +7,11 @@ import styled from 'styled-components';
 const TOCAside = styled.aside`
   a {
     display: block;
+    color: var(--text-color);
+
+    &:hover {
+      color: var(--primary-6);
+    }
 
     &.depth-3 {
       padding-left: 1em;

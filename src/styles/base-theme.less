@@ -1,3 +1,14 @@
+/**
+ * Base theme provides the common configuration used across the site.  This includes: 
+ * - Importing all component less files.  At this point I haven't truely decided whether 
+ *   I want to continue with Antd and Less (a bunch of added overhead) or just convert 
+ *   fully back to styled-components (or try out emotion)
+ * - Common styles such as globals (replace GlobalStyle), animations, etc.
+ * - Common mixins to be used throughout the Component less files
+ * - Base theme color variables - these are to be overwritten/extended in sub themes
+ * 
+ */
+
 .cssVars() {
   :root {
     --body-background: @body-background;
@@ -27,10 +38,13 @@
   font-size: @min-font;
 
   @media screen and (min-width: @min-screen) {
-      font-size: calc(@min-font ~'+ ((' unit(@max-font) ~'-' unit(@min-font) ~') / 2) * ((100vw - ' @min-screen ~') / (' unit(@max-screen) ~'-' unit(@min-screen) ~'))');
+    font-size: calc(
+      @min-font ~'+ ((' unit(@max-font) ~'-' unit(@min-font) ~') / 2) * ((100vw - '
+        @min-screen ~') / (' unit(@max-screen) ~'-' unit(@min-screen) ~'))'
+    );
   }
 
   @media screen and (min-width: @max-screen) {
-      font-size: @max-font;
+    font-size: @max-font;
   }
 }

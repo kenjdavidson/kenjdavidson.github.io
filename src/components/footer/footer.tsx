@@ -1,5 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import { Col, Divider, Image, Layout, List, Row, Typography } from 'antd';
+import {
+  Avatar,
+  Col,
+  Divider,
+  Image,
+  Layout,
+  List,
+  Row,
+  Typography,
+} from 'antd';
 import useSiteMetadata from '../../hooks/useSiteMetadata';
 import { useRecentArticles } from '../../hooks/useRecentArticles';
 import { useAvatar } from '../../hooks/useAvatar';
@@ -7,7 +16,8 @@ import { Link } from '../link';
 import { Copyright } from './copyright';
 import { SocialList } from '../social/socialList';
 import { SiteMetadata } from '../../graphql/siteMetadata';
-import { Section } from '../section/section';
+import { Section, SectionTitle } from '../section/section';
+import styled from 'styled-components';
 
 export interface FooterProps {
   meta: SiteMetadata;
@@ -24,7 +34,7 @@ export const Footer: FunctionComponent<FooterProps> = ({ meta, ...rest }) => {
         <div>
           <Row className="footer-row-content" gutter={[16, 16]}>
             <Col md={12} lg={8}>
-              <Typography.Title level={3}>Recent posts...</Typography.Title>
+              <SectionTitle>Recent posts...</SectionTitle>
               <List
                 dataSource={articles}
                 renderItem={(item) => {
@@ -43,9 +53,7 @@ export const Footer: FunctionComponent<FooterProps> = ({ meta, ...rest }) => {
               ></List>
             </Col>
             <Col md={12} lg={8}>
-              <Typography.Title level={3}>
-                In case you missed...
-              </Typography.Title>
+              <SectionTitle>In case you missed...</SectionTitle>
               <List
                 dataSource={[
                   {
@@ -81,22 +89,8 @@ export const Footer: FunctionComponent<FooterProps> = ({ meta, ...rest }) => {
               ></List>
             </Col>
             <Col md={24} lg={8}>
+              <SectionTitle>See ya...</SectionTitle>
               <Row gutter={{ md: 16 }}>
-                <Col md={12} lg={24}>
-                  <Image
-                    className="footer-avatar"
-                    alt={`Hey, it's me ${author.name} and Carson taking a walk`}
-                    src={avatar.childImageSharp.fluid.src}
-                    srcSet={avatar.childImageSharp.fluid.srcSet}
-                    preview={false}
-                    placeholder={
-                      <Image
-                        src={avatar.childImageSharp.fluid.tracedSVG}
-                        preview={false}
-                      />
-                    }
-                  ></Image>
-                </Col>
                 <Col md={12} lg={24}>
                   <Typography.Paragraph>
                     Thanks again for swinging by. If you weren't able to find
@@ -109,6 +103,28 @@ export const Footer: FunctionComponent<FooterProps> = ({ meta, ...rest }) => {
                     </Typography.Link>
                     . I won't be offended.
                   </Typography.Paragraph>
+                </Col>
+                <Col md={12} lg={24}>
+                  <Avatar
+                    size={128}
+                    src={avatar.childImageSharp.fluid.src}
+                    srcSet={avatar.childImageSharp.fluid.srcSet}
+                    alt="Just me and sauce taking a walk."
+                  />
+                  {/* <Image
+                    className="footer-avatar"
+                    alt={`Hey, it's me ${author.name} and Carson taking a walk`}
+                    src={avatar.childImageSharp.fluid.src}
+                    srcSet={avatar.childImageSharp.fluid.srcSet}
+                    preview={false}
+                    placeholder={
+                      <Image
+                        src={avatar.childImageSharp.fluid.tracedSVG}
+                        preview={false}
+                      />
+                    }
+                    style={{ maxWidth: '300px' }}
+                  ></Image> */}
                 </Col>
               </Row>
             </Col>
@@ -124,13 +140,9 @@ export const Footer: FunctionComponent<FooterProps> = ({ meta, ...rest }) => {
         </div>
       </Section>
       <Divider className="footer-divider" />
-      <Section verticalPad="sm">
+      <Section verticalPad="sm" id="copyright">
         <div>
-          <Row
-            gutter={[16, 16]}
-            justify="space-between"
-            className="footer-row-copyright"
-          >
+          <Row gutter={[16, 16]} justify="space-between">
             <Col>
               <Typography.Text>
                 Built with{' '}

@@ -6,7 +6,7 @@ import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
 import { Header } from '../components/header/header';
 import { Link } from '../components/link';
-import { Section } from '../components/section/section';
+import { Section, SectionTitle } from '../components/section/section';
 import { Seo } from '../components/seo';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import { Article } from '../graphql/articles';
@@ -28,7 +28,7 @@ const ArticleWrapper = styled.main`
   gap: 2rem;
 
   @media (min-width: 768px) {
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: minmax(0, 2fr) 1fr;
     grid-template-rows: minmax(0, auto) 1fr;
     grid-template-areas:
       'content toc'
@@ -55,7 +55,7 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
         }
       />
       <Layout>
-        <Header meta={meta} />
+        <Header />
         <Content>
           <Section verticalPad="md">
             <Breadcrumb>
@@ -71,9 +71,7 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
           <Section>
             <ArticleWrapper>
               <TableOfContents article={article} style={{ gridArea: 'toc' }}>
-                <Typography.Title level={2} className="section-title">
-                  CONTENT
-                </Typography.Title>
+                <SectionTitle spacing="none">Content</SectionTitle>
               </TableOfContents>
               <aside style={{ gridArea: 'meta' }}>
                 <ArticleMeta article={article} />

@@ -2,24 +2,23 @@ import { Layout, Typography, Row } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { useLocation } from '@reach/router';
 import { SiteMetadata } from '../../graphql/siteMetadata';
-import { Link } from '../link';
+import styled from 'styled-components';
+import useSiteMetadata from '../../hooks/useSiteMetadata';
+import { Brand } from './brand';
+import { Link } from 'gatsby';
+import { Navigation } from './navigation';
 
-export interface HeaderProps {
-  meta: SiteMetadata;
-}
+export interface HeaderProps {}
 
-export const Header: FunctionComponent<HeaderProps> = ({ meta, ...rest }) => {
+export const Header: FunctionComponent<HeaderProps> = ({ ...rest }) => {
   const location = useLocation();
-  const { author } = meta;
+  const meta = useSiteMetadata();
 
   return (
     <Layout.Header>
-      <Row className="ant-layout-header-content">
-        <Link href="/">
-          <Typography.Title className="cursive brand">
-            {author.name}
-          </Typography.Title>
-        </Link>
+      <Row>
+        <Brand meta={meta} />
+        <Navigation />
       </Row>
     </Layout.Header>
   );

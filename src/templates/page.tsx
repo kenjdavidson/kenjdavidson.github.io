@@ -29,7 +29,7 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
     <>
       <Seo {...seo} />
       <Layout>
-        <Header meta={meta} />
+        <Header />
         <Content>
           {location.pathname.split('/').length > 2 ? (
             <Section verticalPad="md">

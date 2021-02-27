@@ -1,4 +1,5 @@
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
+import { FixedObject, FluidObject } from 'gatsby-image';
 
 export const fragment = graphql`
   fragment FeatureImageFile on File {
@@ -40,16 +41,6 @@ export type FeatureImageFile = {
 };
 
 export type ImageSharp = {
-  fluid: ImageSharpData;
-  fixed: ImageSharpData;
-};
-
-export type ImageSharpData = {
-  src: string;
-  srcSet: string;
-  srcWebp: string;
-  srcSetWebp: string;
-  sizes: string;
-  tracedSvg: string;
-  base64: string;
+  fluid: FluidObject;
+  fixed: FixedObject;
 };

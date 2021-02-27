@@ -3,7 +3,6 @@ import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
 import { SiteMetadata, MenuItem } from '../graphql/siteMetadata';
 import { Section } from '../components/section/section';
-import { Image, Typography, Row, Col } from 'antd';
 import { Link } from '../components/link';
 
 const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
@@ -14,7 +13,7 @@ const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
         description="Looks like we're in the junk together"
       />
       <Section size="hero">
-        <Typography.Title>I've made a huge mistake!</Typography.Title>
+        <h1>I've made a huge mistake!</h1>
         <img
           className="image-404"
           alt={`I've made a huge mistake!`}
@@ -27,19 +26,17 @@ const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
             shapeMargin: '2em',
           }}
         />
-        <Typography.Paragraph>
+        <p>
           Looks like one of us made a huge mistake! There's a fairly good chance
           it was me - breaking things and all...
-        </Typography.Paragraph>
-        <Typography.Paragraph>
+        </p>
+        <p>
           But... in case it was a finger slip on your part, you're probably
-          going to want to head back <Link href="/">home</Link>, check out one
-          of my <Link href="/writing">articles</Link> or if you're in the area
-          join me for a round of <Link href="/golfing">golf</Link>.
-        </Typography.Paragraph>
-        <Typography.Paragraph>
-          I really hope in real life the footer isn't duplicated!
-        </Typography.Paragraph>
+          going to want to head back <Link to="/">home</Link>, check out one of
+          my <Link to="/writing">articles</Link> or if you're in the area join
+          me for a round of <Link to="/golfing">golf</Link>.
+        </p>
+        <p>I really hope in real life the footer isn't duplicated!</p>
       </Section>
     </>
   );

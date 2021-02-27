@@ -32,7 +32,7 @@ export const TableOfContents: FunctionComponent<TableOfContentsProps> = ({
 }) => (
   <TOCAside className="toc">
     {children}
-    <Link className="depth-1" href="#introduction">
+    <Link className="depth-1" to="#introduction">
       Introduction
     </Link>
     {article.headings
@@ -43,7 +43,7 @@ export const TableOfContents: FunctionComponent<TableOfContentsProps> = ({
           <Link
             key={`toc-${slug}`}
             className={`depth-${heading.depth}`}
-            href={`#${slug}`}
+            to={`#${slug}`}
           >
             {heading.value}
           </Link>

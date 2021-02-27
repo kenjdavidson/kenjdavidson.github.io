@@ -1,25 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby';
-import AntdLink, { LinkProps as AntdLinkProps } from 'antd/lib/typography/Link';
 
-export const Link: FunctionComponent<AntdLinkProps> = ({
-  href,
-  className,
-  ...rest
-}) => {
-  if (!href || href?.match(/^https?/i)) {
-    return (
-      <AntdLink
-        href={href}
-        className={className}
-        target="blank"
-        {...rest}
-      ></AntdLink>
-    );
+interface LinkProps
+  extends Omit<GatsbyLinkProps<Record<string, unknown>>, 'ref'> {}
+
+export const Link: FunctionComponent<LinkProps> = ({ to, ...rest }) => {
+  if (!to || to?.match(/^https?/i)) {
+    return <a href={to} target="blank" {...rest}></a>;
   }
 
-  const url =
-    !href.startsWith('/') && !href.startsWith('#') ? `/${href}` : href;
-
-  return <GatsbyLink to={url} className={className} {...rest}></GatsbyLink>;
+  const url = !to.startsWith('/') && !to.startsWith('#') ? `/${to}` : to;
+  return <GatsbyLink to={url} {...rest}></GatsbyLink>;
 };

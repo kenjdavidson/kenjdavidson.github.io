@@ -1,4 +1,3 @@
-import { Layout, Typography, Row } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { useLocation } from '@reach/router';
 import { SiteMetadata } from '../../graphql/siteMetadata';
@@ -15,11 +14,11 @@ export const Header: FunctionComponent<HeaderProps> = ({ ...rest }) => {
   const meta = useSiteMetadata();
 
   return (
-    <Layout.Header>
-      <Row>
+    <div>
+      <div>
         <Brand meta={meta} />
         <Menu />
-      </Row>
-    </Layout.Header>
+      </div>
+    </div>
   );
 };

@@ -1,12 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { Box, Text } from 'grommet';
-import { Link } from 'grommet-icons';
 import { Timeline } from '../graphql/timeline';
 import { Seo } from '../components/seo';
 import { Section } from '../components/section/section';
-import { Timeline as AntTimeline, Typography } from 'antd';
 
 export interface ResumePageProps {
   data: {
@@ -17,35 +13,31 @@ export interface ResumePageProps {
 }
 
 const ResumePage: FunctionComponent<ResumePageProps> = ({ data }) => {
-  const year = new Date().getFullYear();
-
   return (
     <>
       <Seo title="Ken J Davidson - Experience and Education" />
       <Section className="hero">
-        <Typography.Title>I've seen things!!</Typography.Title>
-        <Typography.Paragraph>
+        <h1>I've seen things!!</h1>
+        <p>
           I've had a pretty good run so far, both personally and professionally.
-        </Typography.Paragraph>
-        <Typography.Paragraph>
-          <Typography.Text strong>
-            Only 24 more years 'til retirement!
-          </Typography.Text>
-        </Typography.Paragraph>
+        </p>
+        <p>
+          <strong>Only 24 more years 'til retirement!</strong>
+        </p>
       </Section>
       <Section className="experience-timeline">
-        <AntTimeline mode="alternate">
+        {/* <AntTimeline mode="alternate">
           {data.experience.nodes.map((exp: Timeline) => (
             <AntTimeline.Item>
               {exp.frontmatter.subtitle && (
                 <Typography.Text>{exp.frontmatter.subtitle}</Typography.Text>
               )}
-              <Typography.Title level={3}>
+              <h3>
                 {exp.frontmatter.title}
               </Typography.Title>
             </AntTimeline.Item>
           ))}
-        </AntTimeline>
+        </AntTimeline> */}
       </Section>
       {/* {data.experience.nodes.map((job: any) => {
           const endDate = !job.frontmatter.end

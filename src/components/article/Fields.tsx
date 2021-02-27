@@ -1,5 +1,4 @@
 import { BookOutlined, ClockCircleOutlined } from '@ant-design/icons';
-import { Typography } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { Article } from '../../graphql/articles';
 
@@ -15,11 +14,11 @@ export const Fields: FunctionComponent<FieldsProps> = ({
     <div>
       <section>
         <BookOutlined />
-        <Typography.Text>{article.fields.publishTime}</Typography.Text>
+        <span>{article.fields.publishTime}</span>
       </section>
       <section>
         <ClockCircleOutlined />
-        <Typography.Text>{article.timeToRead} min read</Typography.Text>
+        <span>{article.timeToRead} min read</span>
       </section>
     </div>
   );

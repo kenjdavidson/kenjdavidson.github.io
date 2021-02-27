@@ -1,4 +1,3 @@
-import { Typography } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { Article } from '../../graphql/articles';
 import { Link } from '../link';
@@ -20,19 +19,12 @@ export const ArticleListItem: FunctionComponent<ArticleListItemProps> = ({
 
   return (
     <article className={classes}>
-      <Link href={article.fields.slug}>
-        <Typography.Title level={3}>
-          {article.frontmatter.title}
-        </Typography.Title>
+      <Link to={article.fields.slug}>
+        <h3>{article.frontmatter.title}</h3>
         {article.frontmatter.subtitle && (
-          <Typography.Title level={4}>
-            {article.frontmatter.subtitle}
-          </Typography.Title>
+          <h4>{article.frontmatter.subtitle}</h4>
         )}
-        <Typography.Paragraph ellipsis={{ rows: 3 }}>
-          {article.frontmatter.summary || article.excerpt}
-        </Typography.Paragraph>
-        <Typography.Paragraph>Continue Reading</Typography.Paragraph>
+        <p>{article.frontmatter.summary || article.excerpt}</p>
       </Link>
     </article>
   );

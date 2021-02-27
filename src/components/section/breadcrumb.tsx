@@ -1,12 +1,6 @@
-import {
-  Breadcrumb as AntBreadcrumb,
-  BreadcrumbProps as AntBreadcrumbProps,
-} from 'antd';
 import React, { FunctionComponent } from 'react';
 import { Section } from './section';
-import BreadcrumbSeparator from 'antd/lib/breadcrumb/BreadcrumbSeparator';
 import { Link } from '../link';
-import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import { HomeOutlined } from '@ant-design/icons';
 
 const unslugify = (str: string) =>
@@ -18,42 +12,46 @@ interface Crumb {
   href: string;
 }
 
-export interface BreadcrumbProps extends AntBreadcrumbProps {
+export interface BreadcrumbProps {
   paths?: string[];
+  crumbs?: Crumb[];
 }
 
 export const Breadcrumb: FunctionComponent<BreadcrumbProps> = ({
   paths: pathsProp,
+  crumbs: crumbs,
   ...rest
 }) => {
-  const paths: Crumb[] = [];
-  pathsProp!
-    .filter((path) => path != '')
-    .forEach((path) => {
-      const href =
-        paths.length > 0
-          ? `${paths[paths.length - 1].href}/${path}`
-          : `/${path}`;
-      paths.push({
-        title: unslugify(path),
-        href,
+  const paths: Crumb[] = crumbs || [];
+
+  if (!crumbs && pathsProp) {
+    pathsProp!
+      .filter((path) => path != '')
+      .forEach((path) => {
+        const href =
+          paths.length > 0
+            ? `${paths[paths.length - 1].href}/${path}`
+            : `/${path}`;
+        paths.push({
+          title: unslugify(path),
+          href,
+        });
       });
-    });
+  }
 
   return (
-    <AntBreadcrumb {...rest}>
-      <BreadcrumbItem>
-        <Link href="/">
+    <ul {...rest}>
+      <li>
+        <Link to="/">
           <HomeOutlined />
         </Link>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
+      </li>
       {paths &&
         paths.map((path) => (
-          <BreadcrumbItem key={`page-breadcrumb-${path}`}>
-            <Link href={`${path.href}`}>{path.title}</Link>
-          </BreadcrumbItem>
+          <li key={`page-breadcrumb-${path}`}>
+            <Link to={`${path.href}`}>{path.title}</Link>
+          </li>
         ))}
-    </AntBreadcrumb>
+    </ul>
   );
 };

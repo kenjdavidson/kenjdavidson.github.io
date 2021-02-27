@@ -1,39 +1,57 @@
-import { List, ListProps } from 'antd';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
 import { Link } from '../link';
 import { socialIcons } from './socialIcons';
+import styled from 'styled-components';
 
-export interface SocialListProps extends ListProps<any> {
-  gutter?: number;
+const StyledSocialList = styled.ul`
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+
+  li {
+    display: inline-block;
+    padding: 14px;
+
+    a {
+      display: block;
+      color: ${({ theme }) => theme.greys.grey30};
+    }
+
+    a:hover {
+      transform: scale(1.25);
+    }
+  }
+`;
+
+export interface SocialLink {
+  name: string;
+  display: string;
+  account: string;
+  href: string;
+  icon: string;
 }
 
-export const SocialList: FunctionComponent<SocialListProps> = ({
-  dataSource,
-  gutter,
-  grid: gridProp,
+export interface SocialLinksProps extends HtmlHTMLAttributes<HTMLUListElement> {
+  socialLinks: SocialLink[];
+}
+
+export const SocialList: FunctionComponent<SocialLinksProps> = ({
+  socialLinks,
   ...rest
 }) => {
-  const grid = gridProp || {
-    gutter: gutter || 16,
-    column: dataSource && dataSource.length,
-  };
-
   return (
-    <List
-      className="footer-social-list"
-      grid={grid}
-      dataSource={dataSource}
-      renderItem={(item) => {
-        const Icon: any = socialIcons[item.icon];
+    <StyledSocialList className="social-link-list" {...rest}>
+      {socialLinks.map((link) => {
+        const Icon: any = socialIcons[link.icon];
         return (
-          <List.Item className="footer-social-list-item">
-            <Link href={item.href}>
-              {Icon && <Icon style={{ fontSize: '2rem' }} />}
+          <li key={`social-${link.name}`} className="social-link-item">
+            {' '}
+            <Link to={link.href}>
+              {Icon && <Icon className="social-link-item-icon" />}
             </Link>
-          </List.Item>
+          </li>
         );
-      }}
-      bordered={false}
-    ></List>
+      })}
+    </StyledSocialList>
   );
 };

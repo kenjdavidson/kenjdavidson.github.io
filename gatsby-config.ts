@@ -1,5 +1,4 @@
-import { Github } from "grommet-icons";
-import { siteMetadata } from "./src/gatsby/siteMetadata";
+import { siteMetadata } from './src/gatsby/siteMetadata';
 
 /**
  * Configure your Gatsby site with this file.
@@ -36,27 +35,27 @@ export default {
       },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: "images",
+        name: 'images',
         path: `${__dirname}/src/assets/images`,
       },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: "content",
+        name: 'content',
         path: `${__dirname}/content`,
       },
     },
     {
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark
-      resolve: "gatsby-plugin-mdx",
+      resolve: 'gatsby-plugin-mdx',
       options: {
-        extensions: [".mdx", ".md"],
+        extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
-          "gatsby-remark-code-titles",
-          "gatsby-remark-unwrap-images",
+          'gatsby-remark-code-titles',
+          'gatsby-remark-unwrap-images',
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -67,24 +66,24 @@ export default {
             },
           },
           {
-            resolve: "gatsby-remark-autolink-headers", // PrismJS must be after
+            resolve: 'gatsby-remark-autolink-headers', // PrismJS must be after
             options: {
               className: `header-anchor`,
               isIconAfterHeader: true,
             },
           },
           {
-            resolve: "gatsby-remark-prismjs",
+            resolve: 'gatsby-remark-prismjs',
             options: {
-              classPrefix: "language-",
-              inlineCodeMarker: "^", // inline language
+              classPrefix: 'language-',
+              inlineCodeMarker: '^', // inline language
               aliases: {}, // sh: bash
               showLineNumbers: false, // ```javascript{numberLines: true}
               noInlineHighlight: false, // Inline styles
               languageExtensions: [],
               prompt: {
-                user: "root",
-                host: "localhost",
+                user: 'root',
+                host: 'localhost',
                 global: false,
               },
               escapeEntities: {},
@@ -96,15 +95,15 @@ export default {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: "Ken Davidson vs. The Web",
-        short_name: "K.J.D Online",
-        start_url: "/",
-        background_color: "#6b37bf",
-        theme_color: "#6b37bf",
+        name: 'Ken Davidson vs. The Web',
+        short_name: 'K.J.D Online',
+        start_url: '/',
+        background_color: '#6b37bf',
+        theme_color: '#6b37bf',
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
         // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
-        display: "standalone",
-        icon: "static/glorious.png", // This path is relative to the root of the site.
+        display: 'standalone',
+        icon: 'static/glorious.png', // This path is relative to the root of the site.
         // An optional attribute which provides support for CORS check.
         // If you do not provide a crossOrigin option, it will skip CORS for manifest.
         // Any invalid keyword or empty string defaults to `anonymous`

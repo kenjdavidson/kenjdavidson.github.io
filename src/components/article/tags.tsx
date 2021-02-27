@@ -1,5 +1,4 @@
 import { TagsOutlined } from '@ant-design/icons';
-import { List, Typography } from 'antd';
 import React, { FunctionComponent } from 'react';
 
 export interface TagsProp {
@@ -8,11 +7,11 @@ export interface TagsProp {
 
 export const Tags: FunctionComponent<TagsProp> = ({ tags, ...rest }) => {
   return (
-    <List
-      dataSource={tags}
-      itemLayout="horizontal"
-      renderItem={(tag) => <Tag tag={tag} />}
-    />
+    <ul>
+      {tags.map((tag) => (
+        <Tag key={tag} tag={tag} />
+      ))}
+    </ul>
   );
 };
 
@@ -24,7 +23,7 @@ export const Tag: FunctionComponent<TagProps> = ({ tag, ...rest }) => {
   return (
     <div>
       <TagsOutlined />
-      <Typography.Text>{tag}</Typography.Text>;
+      <span>{tag}</span>;
     </div>
   );
 };

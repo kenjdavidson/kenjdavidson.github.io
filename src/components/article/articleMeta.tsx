@@ -10,7 +10,6 @@ import {
 } from 'react-share';
 import { Article } from '../../graphql/articles';
 import { Tags } from './tags';
-import { Typography } from 'antd';
 import { Fields } from './fields';
 import { Link } from '../link';
 
@@ -31,11 +30,11 @@ export const ArticleMeta: FunctionComponent<ArticleMetaProps> = ({
         <Tags tags={article.frontmatter.tags!} />
       </section>
       <section>
-        <Typography.Text>Share on</Typography.Text>
+        <span>Share on</span>
       </section>
       <section>
-        <Typography.Text>Edit on</Typography.Text>
-        <Link href={useEditUrl(article.fileAbsolutePath)} />
+        <span>Edit on</span>
+        <Link to={useEditUrl(article.fileAbsolutePath)} />
       </section>
     </aside>
   );

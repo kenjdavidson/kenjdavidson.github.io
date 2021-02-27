@@ -1,43 +1,52 @@
-import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
+import React, {
+  FunctionComponent,
+  HTMLAttributes,
+  HtmlHTMLAttributes,
+} from 'react';
 import classNames from 'classnames';
-import { Typography } from 'antd';
-import { TitleProps } from 'antd/lib/typography/Title';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface SectionProps extends HtmlHTMLAttributes<HTMLDivElement> {
-  verticalPad?: 'md' | 'sm';
-  size?: 'hero' | undefined;
+  size?: 'none' | 'small' | 'medium' | 'large';
+  hero?: 'half' | 'full';
   title?: string;
 }
 
-export const Section: FunctionComponent<SectionProps> = ({
-  children,
-  className: customizeClassName,
-  verticalPad,
-  size,
-  title: titleProp,
-  ...rest
-}) => {
-  const wrapperClasses = classNames([
-    `content-section`,
-    {
-      [`hero`]: size === 'hero',
-      [`v-pad-small`]: verticalPad === 'sm',
-      [`v-pad-medium`]: verticalPad === 'md',
-    },
-    customizeClassName,
-  ]);
-
-  return (
-    <section className={wrapperClasses} {...rest}>
-      {children}
-    </section>
-  );
+const heroSizes = {
+  half: '50vh',
+  full: '100vh',
 };
 
-const StyledTitle = styled(Typography.Title)<SectionTitleProps>``;
+const paddingSizes = {
+  none: '0rem',
+  small: '0.5rem',
+  medium: '2rem',
+  large: '4rem',
+};
 
-export interface SectionTitleProps extends TitleProps {
+const StyledSection = styled.section<SectionProps>`
+  ${({ hero }) =>
+    hero &&
+    css`
+      min-height: ${heroSizes[hero]};
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    `}
+  ${({ size }) =>
+    size &&
+    css`
+      padding: ${paddingSizes[size]} 0;
+    `}
+`;
+
+export const Section: FunctionComponent<SectionProps> = ({ ...rest }) => {
+  return <StyledSection {...rest} />;
+};
+
+const StyledTitle = styled.h1`<SectionTitleProps>`;
+
+export interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {
   spacing?: 'none' | 'sm' | 'md' | 'lg';
 }
 
@@ -56,5 +65,5 @@ export const SectionTitle: FunctionComponent<SectionTitleProps> = ({
     customizeClassName,
   ]);
 
-  return <Typography.Title className={wrapperClasses} level={2} {...props} />;
+  return <h2 className={wrapperClasses} {...props} />;
 };

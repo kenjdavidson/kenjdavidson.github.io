@@ -1,18 +1,17 @@
-import React, { FunctionComponent } from "react";
-import { graphql } from "gatsby";
-import { Section } from "../components/section/section";
-import { Row, Typography } from "antd";
+import React, { FunctionComponent } from 'react';
+import { graphql } from 'gatsby';
+import { Section } from '../components/section/section';
 
 const GolfingPage: FunctionComponent = () => (
   <Section>
-    <Typography.Title>Golf Canada</Typography.Title>
-    <Typography.Paragraph>
+    <h1>Golf Canada</h1>
+    <p>
       Golf and I (much like a fair number of us) have a love/hate relationship.
-    </Typography.Paragraph>
-    <Typography.Paragraph>
+    </p>
+    <p>
       I'm hoping to get my Golf Canada gatsby source plugin up and running; I
       figure leaving a reminder here is a better push than not having it at all.
-    </Typography.Paragraph>
+    </p>
   </Section>
 );
 

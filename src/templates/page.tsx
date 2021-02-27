@@ -4,12 +4,10 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Seo } from '../components/seo';
 import { PageQuery } from '../graphql/pages';
 import { Section } from '../components/section/section';
-import { Layout, Typography } from 'antd';
 import { useLocation } from '@reach/router';
 import { Breadcrumb } from '../components/section/breadcrumb';
 import { Header } from '../components/header/header';
 import useSiteMetadata from '../hooks/useSiteMetadata';
-import { Content } from 'antd/lib/layout/layout';
 
 export const PageTemplate = ({ data }: PageQueryProps) => {
   const page = data.pagesMdx.pages[0];
@@ -28,28 +26,26 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
   return (
     <>
       <Seo {...seo} />
-      <Layout>
-        <Content>
+      <div>
+        <div>
           {location.pathname.split('/').length > 2 ? (
-            <Section verticalPad="md">
+            <Section size="medium">
               <Breadcrumb paths={location.pathname.split('/')} />
             </Section>
           ) : undefined}
           <Section>
-            <Typography.Title>{page.frontmatter.title}</Typography.Title>
+            <h1>{page.frontmatter.title}</h1>
             <MDXRenderer>{page.body}</MDXRenderer>
           </Section>
           {page.sections &&
             page.sections.map((section) => (
               <Section key={`section-${section.id}`}>
-                <Typography.Title level={2}>
-                  {section.frontmatter.title}
-                </Typography.Title>
+                <h2>{section.frontmatter.title}</h2>
                 <MDXRenderer>{section.body}</MDXRenderer>
               </Section>
             ))}
-        </Content>
-      </Layout>
+        </div>
+      </div>
     </>
   );
 };

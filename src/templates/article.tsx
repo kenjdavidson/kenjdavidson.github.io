@@ -1,5 +1,3 @@
-import { Layout, Typography } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
 import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
 import { Section, SectionTitle } from '../components/section/section';
@@ -11,6 +9,7 @@ import { ArticleMeta } from '../components/article';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { TableOfContents } from '../components/article/toc';
 import { Breadcrumb } from '../components/section/breadcrumb';
+import { Container } from '../components/layout/container';
 
 const ArticleWrapper = styled.main`
   display: grid;
@@ -24,7 +23,8 @@ const ArticleWrapper = styled.main`
   grid-gap: 0 3rem;
   gap: 2rem;
 
-  @media (min-width: 768px) {
+  @media screen and (min-width: ${({ theme }) =>
+      `${theme.breakpoints.large}px`}) {
     grid-template-columns: minmax(0, 2fr) 1fr;
     grid-template-rows: minmax(0, auto) 1fr;
     grid-template-areas:
@@ -32,6 +32,15 @@ const ArticleWrapper = styled.main`
       'content meta';
     grid-gap: 0 3rem;
     gap: 2rem;
+  }
+`;
+
+const StickyAside = styled.aside<{ top?: number }>`
+  @media screen and (min-width: ${({ theme }) =>
+      `${theme.breakpoints.large}px`}) {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: ${({ top }) => (top && `${top}px`) || 0};
   }
 `;
 
@@ -50,29 +59,30 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
           article.frontmatter.featureImage.childImageSharp.fixed.src
         }
       />
-      <Layout>
-        <Content>
-          <Section className="v-pad-medium">
-            <Breadcrumb paths={['writing']} />
-          </Section>
-          <Section>
-            <Typography.Title>{article.frontmatter.title}</Typography.Title>
-          </Section>
-          <Section>
-            <ArticleWrapper>
-              <TableOfContents article={article} style={{ gridArea: 'toc' }}>
+      <Section className="v-pad-medium">
+        <Container>
+          <Breadcrumb paths={['writing']} />
+        </Container>
+      </Section>
+      <Section>
+        <Container>
+          <h1>{article.frontmatter.title}</h1>
+        </Container>
+      </Section>
+      <Section>
+        <Container>
+          <ArticleWrapper>
+            <StickyAside top={48}>
+              <TableOfContents article={article}>
                 <SectionTitle spacing="none">Content</SectionTitle>
               </TableOfContents>
-              <aside style={{ gridArea: 'meta' }}>
-                <ArticleMeta article={article} />
-              </aside>
-              <article style={{ gridArea: 'content' }} id="introduction">
-                <MDXRenderer>{article.body}</MDXRenderer>
-              </article>
-            </ArticleWrapper>
-          </Section>
-        </Content>
-      </Layout>
+            </StickyAside>
+            <article style={{ gridArea: 'content' }} id="introduction">
+              <MDXRenderer>{article.body}</MDXRenderer>
+            </article>
+          </ArticleWrapper>
+        </Container>
+      </Section>
     </>
   );
 };

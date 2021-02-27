@@ -3,56 +3,68 @@ import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
 import { Article } from '../graphql/articles';
 import { Section, SectionTitle } from '../components/section/section';
-import { Col, Typography, Row, List } from 'antd';
 import { Link } from '../components/link';
 import { Project } from '../graphql/projects';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { Image } from '../components/image/Image';
 import { ArticleListItem } from '../components/article/articleListItem';
-import { Header } from '../components/header/header';
+import slugify from 'slugify';
+import Img, { FluidObject } from 'gatsby-image';
+import { Container } from '../components/layout/container';
 
 const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo />
-      <Section className="inverse hero medium">
-        <Typography.Title>Hey, I'm Ken.</Typography.Title>
-        <Typography.Paragraph style={{ fontSize: '1.5rem' }}>
-          Just <strong>hubanding</strong>, <strong>fathering</strong>,{' '}
-          <strong>golfing</strong> and <strong>developing</strong> my way to
-          retirement. Besides being a playground for my continual learning,
-          you'll get a little of my <Link href="/">personal</Link> and{' '}
-          <Link href="/resume">professional</Link> history.
-        </Typography.Paragraph>
+      <Section hero="half" size="medium">
+        <Container>
+          <h1>Hey, I'm Ken.</h1>
+          <p style={{ fontSize: '1.5rem' }}>
+            Just <strong>hubanding</strong>, <strong>fathering</strong>,{' '}
+            <strong>golfing</strong> and <strong>developing</strong> my way to
+            retirement. Besides being a playground for my continual learning,
+            you'll get a little of my <Link to="/">personal</Link> and{' '}
+            <Link to="/resume">professional</Link> history.
+          </p>
+        </Container>
       </Section>
 
       <Section>
-        <SectionTitle spacing="md">Recent Posts</SectionTitle>
-        <List
-          dataSource={data.recentArticles.articles}
-          renderItem={(item) => <ArticleListItem article={item} />}
-        />
+        <Container>
+          <SectionTitle spacing="md">Recent Posts</SectionTitle>
+          <ul>
+            {data.recentArticles.articles.map((article) => (
+              <ArticleListItem
+                key={`article-${slugify(article.frontmatter.title)}`}
+                article={article}
+              />
+            ))}
+          </ul>
+        </Container>
       </Section>
 
       <Section>
-        <SectionTitle spacing="md">Notable(ish) Projects</SectionTitle>
-        {data.recentProjects.projects.map((project) => (
-          <article key={`project-row-${project.frontmatter.title}`}>
-            <Row gutter={[24, 32]}>
-              <Col md={{ span: 12 }}>
-                {project.frontmatter.featureImage && (
-                  <Image image={project.frontmatter.featureImage} />
-                )}
-              </Col>
-              <Col md={{ span: 12 }}>
-                <Typography.Title level={3}>
-                  {project.frontmatter.title}
-                </Typography.Title>
-                <MDXRenderer>{project.body}</MDXRenderer>
-              </Col>
-            </Row>
-          </article>
-        ))}
+        <Container>
+          <SectionTitle spacing="md">Notable(ish) Projects</SectionTitle>
+          {data.recentProjects.projects.map((project) => (
+            <article key={`project-row-${project.frontmatter.title}`}>
+              <div>
+                <div>
+                  {project.frontmatter.featureImage && (
+                    <Img
+                      fluid={
+                        project.frontmatter.featureImage.childImageSharp.fluid
+                      }
+                    />
+                  )}
+                </div>
+                <div>
+                  <h3>{project.frontmatter.title}</h3>
+                  <MDXRenderer>{project.body}</MDXRenderer>
+                </div>
+              </div>
+            </article>
+          ))}
+        </Container>
       </Section>
     </>
   );

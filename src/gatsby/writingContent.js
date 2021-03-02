@@ -56,6 +56,9 @@ module.exports.createPages = async ({
   query WritingContent {
     content: allMdx(filter: { fileAbsolutePath: { regex: "/content/writing/" }, frontmatter: { draft: { ne: true } } }) {
       nodes {
+        frontmatter {
+          title
+        }
         fields {
           slug
         } 

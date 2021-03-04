@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import { Article } from '../graphql/articles';
 import { Seo } from '../components/seo';
-import { Section, SectionTitle } from '../components/section/section';
+import { Section, SectionTitle } from '../components/layout/section';
 import { ArticleListItem } from '../components/article/articleListItem';
 import slugify from 'slugify';
 

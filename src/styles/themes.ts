@@ -43,15 +43,16 @@ export const baseTheme: DefaultTheme = {
   container,
   greys,
   primary: {
-    background: 'hsl(147, 63%, 70%)',
+    background: '#17BB90',
+    text: 'F4FFFD',
+  },
+  inverse: {
+    background: '#F4FFFD',
     text: greys.grey20,
   },
-  secondary: {
-    background: 'white',
-    text: greys.grey20,
-  },
-  brand: 'darkblue',
-  accent1: 'orange',
+  brand: '#0D324D',
+  accent1: '#F9DC5C',
+  accent2: '#B0413E',
 };
 
 export type Theme = typeof baseTheme;

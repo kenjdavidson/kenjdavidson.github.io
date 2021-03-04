@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
-import { Section } from '../components/section/section';
+import { Section } from '../components/layout/section';
 
 const GolfingPage: FunctionComponent = () => (
   <Section>

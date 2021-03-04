@@ -9,7 +9,7 @@ import styled, { css } from 'styled-components';
 export interface SectionProps extends HtmlHTMLAttributes<HTMLDivElement> {
   size?: 'none' | 'small' | 'medium' | 'large';
   hero?: 'half' | 'full';
-  title?: string;
+  overrideWidth?: boolean;
 }
 
 const heroSizes = {
@@ -25,18 +25,32 @@ const paddingSizes = {
 };
 
 const StyledSection = styled.section<SectionProps>`
+  position: relative;
+
   ${({ hero }) =>
     hero &&
     css`
       min-height: ${heroSizes[hero]};
       display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      flex-direction: column;
+      justify-content: center;
     `}
   ${({ size }) =>
-    size &&
     css`
-      padding: ${paddingSizes[size]} 0;
+      padding-top: ${paddingSizes[size || 'small']};
+      padding-bottom: ${paddingSizes[size || 'small']};
+    `}
+  ${({ overrideWidth, theme }) =>
+    !overrideWidth &&
+    css`
+      padding-left: max(
+        1.5rem,
+        calc((100vw - ${theme.container.maxWidth}) / 2)
+      );
+      padding-right: max(
+        1.5rem,
+        calc((100vw - ${theme.container.maxWidth}) / 2)
+      );
     `}
 `;
 

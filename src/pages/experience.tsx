@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import { Timeline } from '../graphql/timeline';
 import { Seo } from '../components/seo';
-import { Section } from '../components/section/section';
+import { Section } from '../components/layout/section';
 
 export interface ResumePageProps {
   data: {

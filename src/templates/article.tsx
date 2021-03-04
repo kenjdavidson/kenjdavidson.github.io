@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
-import { Section, SectionTitle } from '../components/section/section';
+import { Section, SectionTitle } from '../components/layout/section';
 import { Seo } from '../components/seo';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import { Article } from '../graphql/articles';
@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { ArticleMeta } from '../components/article';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { TableOfContents } from '../components/article/toc';
-import { Breadcrumb } from '../components/section/breadcrumb';
+import { Breadcrumb } from '../components/layout/breadcrumb';
 import { Container } from '../components/layout/container';
 
 const ArticleWrapper = styled.main`

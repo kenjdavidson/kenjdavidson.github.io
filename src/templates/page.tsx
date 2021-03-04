@@ -3,9 +3,9 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Seo } from '../components/seo';
 import { PageQuery } from '../graphql/pages';
-import { Section } from '../components/section/section';
+import { Section } from '../components/layout/section';
 import { useLocation } from '@reach/router';
-import { Breadcrumb } from '../components/section/breadcrumb';
+import { Breadcrumb } from '../components/layout/breadcrumb';
 import { Header } from '../components/header/header';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 

@@ -1,42 +1,28 @@
 import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
 import useSiteMetadata from '../../hooks/useSiteMetadata';
 import { useRecentArticles } from '../../hooks/useRecentArticles';
-import { useAvatar } from '../../hooks/useAvatar';
 import { Link } from '../link';
 import { SocialList } from '../social/socialList';
 import styled from 'styled-components';
 import slugify from 'slugify';
 import { Container, Row, Col } from './container';
-import { Paragraph } from '../typography/paragraph';
 import { List, ListItem } from './list';
 import { graphql, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
 
 const StyledFooter = styled.footer`
-  background-color: ${({ theme }) => theme.secondary.background};
+  background-color: ${({ theme }) => theme.inverse.background};
+  color: ${({ theme }) => theme.inverse.text};
   margin-top: 10rem;
 `;
 
-const Heading = styled.h1`
-  color: ${({ theme }) => theme.secondary.background};
+const Heading = styled.h2`
+  color: ${({ theme }) => theme.inverse.background};
+  background-color: ${({ theme }) => theme.primary.background};
   font-weight: 400;
-  line-height: 3rem;
+  line-height: 0.66em;
+  padding-right: max(2rem, calc(((100vw - 1200px) / 2)));
+  padding-left: max(2rem, calc(((100vw - 1200px) / 2)));
   margin: 0px;
-  position: absolute;
-  align-self: flex-start;
-
-  font-size: 3rem;
-  top: -2.5rem;
-
-  @media screen and (min-width ${({ theme }) => theme.breakpoints.small}px) {
-    font-size: 4rem;
-    top: -2.75rem;
-  }
-
-  @media screen and (min-width ${({ theme }) => theme.breakpoints.medium}px) {
-    font-size: 4rem;
-    top: -2.75rem;
-  }
 `;
 
 const StyledContainer = styled(Container)`
@@ -89,23 +75,23 @@ export const Footer: FunctionComponent<
   const articles = useRecentArticles();
   const { author, social } = useSiteMetadata();
 
-  const { imout } = useStaticQuery(graphql`
-    query {
-      imout: file(relativePath: { eq: "images/im-out.png" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_tracedSVG
-          }
-        }
-      }
-    }
-  `);
-
   return (
     <StyledFooter>
+      <Heading>See Ya Later</Heading>
       <StyledContainer>
-        <Heading>See Ya Later</Heading>
         <Row>
+          <Col>
+            <p>
+              Thanks again for stopping by! Regardless of whether you found me
+              from an application, a search or the rabbit hole that is the
+              internet, I hope you found something of interest.
+            </p>
+            <p>
+              If not, shoot shoot me a{' '}
+              <a href="mailto:hello@kenjdavidson.com">message</a> and we can see
+              what I can do to help ya out.
+            </p>
+          </Col>
           <Col>
             <h3>Recent posts...</h3>
             <List>
@@ -117,42 +103,6 @@ export const Footer: FunctionComponent<
                 </ListItem>
               ))}
             </List>
-          </Col>
-          <Col>
-            <h3>In case you missed...</h3>
-            <List>
-              {[
-                {
-                  title: 'A terribly written biography',
-                  href: '/about',
-                },
-                {
-                  title: 'Fitness & dieting sucks',
-                  href: '/health',
-                },
-                {
-                  title: "I just can't seem to break 12 handicap",
-                  href: '/golf',
-                },
-                {
-                  title: 'People are way smarter than me',
-                  href: './backlinks',
-                },
-              ].map((item) => (
-                <ListItem>
-                  <Link to={item.href}>
-                    <span>{item.title}</span>
-                  </Link>
-                </ListItem>
-              ))}
-            </List>
-          </Col>
-          <Col>
-            <p style={{ fontSize: '1.25rem' }}>
-              Thanks again for swinging by. If you weren't able to find what you
-              were looking for, feel free to shoot me a message and I'll try to
-              get things updated.
-            </p>
           </Col>
         </Row>
         <Divider />

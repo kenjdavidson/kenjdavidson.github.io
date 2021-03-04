@@ -41,7 +41,7 @@ declare module 'styled-components' {
     greys: Greys;
 
     primary: Color;
-    secondary: Color;
+    inverse: Color;
 
     brand: string;
     accent1?: string;

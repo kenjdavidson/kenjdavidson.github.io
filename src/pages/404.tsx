@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
 import { SiteMetadata, MenuItem } from '../graphql/siteMetadata';
-import { Section } from '../components/section/section';
+import { Section } from '../components/layout/section';
 import { Link } from '../components/link';
 
 const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {

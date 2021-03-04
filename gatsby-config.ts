@@ -14,15 +14,7 @@ export default {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-plugin-less`,
-      options: {
-        lessOptions: {
-          javascriptEnabled: true,
-          //strictImport: false
-        },
-      },
-    },
+    `gatsby-transformer-yaml`,
     {
       // Described in gatsby-remark-mdx the plugin is required in both this and
       // the gatsbyRemarkPlugins
@@ -32,13 +24,6 @@ export default {
         linkImagesToOriginal: false,
         backgroundColor: `none`,
         disableBgImageOnAlpha: true,
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: `${__dirname}/src/assets/images`,
       },
     },
     {

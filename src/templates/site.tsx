@@ -5,45 +5,19 @@ import { Footer } from '../components/layout/footer';
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
 import { VortexReverse } from 'react-burgers';
-import {
-  GatsbyLinkProps,
-  Link,
-  navigate,
-  useStaticQuery,
-  graphql,
-} from 'gatsby';
-import GolfingPage from '../pages/golf';
-import Img from 'gatsby-image';
-import { TagsOutlined } from '@ant-design/icons';
-
-const GlobalStyle = createGlobalStyle`
-  html, body {
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    overflow: hidden;
-
-    font-family: 'Merriweather', serif;
-    color: ${({ theme }) => theme.primary.text};
-    font-size: 16px;
-    font-weight: 300;
-  }
-
-  a {
-    transition: all 0.3s;
-    color: ${({ theme }) => theme.greys.grey10}
-  }
-`;
+import { Link, navigate, useStaticQuery, graphql } from 'gatsby';
+import { GlobalStyle } from '../components/globalStyle';
 
 const Hamburger = styled(VortexReverse)`
   z-index: 1000;
 
   &.Burger {
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 0.5rem;
+    right: max(
+      0.5rem,
+      calc(((100vw - ${({ theme }) => theme.container.maxWidth}) / 2) + 1rem)
+    );
   }
 
   .BurgerInner {
@@ -113,14 +87,14 @@ const StyledNav = styled.nav`
   padding: 2rem;
   max-width: 50vw;
 
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
     font-size: 1.75rem;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.large}px) {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 `;
 
@@ -145,7 +119,7 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
 
   const { hi } = useStaticQuery(graphql`
     query {
-      hi: file(relativePath: { eq: "images/hi.png" }) {
+      hi: file(relativePath: { eq: "images/bitmoji-hi.png" }) {
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid_tracedSVG
@@ -182,7 +156,15 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
           >
             <StyledNav>
               <p>
-                So you're looking to learn stuff? You can{' '}
+                Lost? Head back{' '}
+                <StyledLink
+                  onClick={(e) => goto(e, '/')}
+                  to="/"
+                  activeClassName="active"
+                >
+                  home
+                </StyledLink>
+                ,
                 <StyledLink
                   onClick={(e) => goto(e, '/about')}
                   to="/about"

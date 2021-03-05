@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, MouseEvent } from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
-import { baseTheme } from '../styles/themes';
+import { baseTheme, fixed } from '../styles/themes';
 import { Footer } from '../components/layout/footer';
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
@@ -15,7 +15,7 @@ import { GlobalStyle } from '../components/globalStyle';
  *
  */
 const Hamburger = styled(VortexReverse)`
-  z-index: 1000;
+  z-index: 10001;
 
   &.Burger {
     position: fixed;
@@ -36,33 +36,13 @@ export interface SiteTemplateProps {
   children: React.ComponentType[];
 }
 
-const fixed = css`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
-`;
-
-/**
- * Wraps both the `NavDrawer` and `Content` providing common functionality and
- * animations (where required).
- */
-const NavWrapper = styled.div`
-  ${fixed}
-  overflow: hidden;
-  perspective: 800px;
-  z-index: 1;
-`;
-NavWrapper.displayName = 'Chest';
-
 /**
  * Primary navigation - this is currently implemented as a full screen panel
  * beneath the primary content panel.
  */
 const NavDrawer = styled.aside`
-  ${fixed}
-  z-index: 10;
+  ${fixed(0, 0, 0, 0)}
+  z-index: 0;
 
   ${({ style }) => `${style}`}
 `;
@@ -76,9 +56,8 @@ NavDrawer.displayName = 'Drawer';
  * for RTL displays, etc.
  */
 const Content = styled.section`
-  ${fixed}
-  z-index: 20;
-  overflow: auto;
+  position: relative;
+  z-index: 10000;
   transition: all 0.3s;
   transform-origin: 80%;
   background-color: ${({ theme }) => theme.primary.background};
@@ -89,14 +68,14 @@ const Content = styled.section`
     flex: 1;
   }
 
-  ${NavWrapper}.drawer-opened & {
-    transform: rotateY(-92deg) translatex(400px);
+  ${Hamburger}.active ~ & {
+    transform: translateX(-90%);
     box-shadow: -12px 0px 20px 9px #cccccc;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
-    ${NavWrapper}.drawer-opened & {
-      transform: rotateY(-80deg) translatex(200px);
+    ${Hamburger}.active ~ & {
+      transform: translateX(-90%);
     }
   }
 `;
@@ -181,60 +160,59 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
         />
       </Helmet>
       <ThemeProvider theme={baseTheme}>
+        <Hamburger
+          active={menuShowing}
+          onClick={() => showMenu(!menuShowing)}
+          className={menuShowing ? `active` : ``}
+        />
         <GlobalStyle />
-        <NavWrapper className={menuShowing ? `drawer-opened` : ``}>
-          <Hamburger
-            active={menuShowing}
-            onClick={() => showMenu(!menuShowing)}
-          />
-          <NavDrawer
-            style={{
-              background: `url(${hi.childImageSharp.fluid.src}) bottom left no-repeat`,
-            }}
-          >
-            <StyledNav>
-              <p>
-                Lost? Head back{' '}
-                <StyledLink
-                  onClick={(e) => goto(e, '/')}
-                  to="/"
-                  activeClassName="active"
-                >
-                  home
-                </StyledLink>
-                ,
-                <StyledLink
-                  onClick={(e) => goto(e, '/about')}
-                  to="/about"
-                  activeClassName="active"
-                >
-                  get to know me
-                </StyledLink>{' '}
-                a little, or browse some of my{' '}
-                <StyledLink
-                  onClick={(e) => goto(e, '/writing')}
-                  to="/writing"
-                  activeClassName="active"
-                >
-                  articles
-                </StyledLink>{' '}
-                or{' '}
-                <StyledLink
-                  onClick={(e) => goto(e, '/about#work')}
-                  to="/about#work"
-                  activeClassName="active"
-                >
-                  projects
-                </StyledLink>
-                .
-              </p>
-            </StyledNav>
-          </NavDrawer>
-          <Content>
-            <main>{children}</main>
-            <Footer />
-          </Content>
-        </NavWrapper>
+        <NavDrawer
+          style={{
+            background: `url(${hi.childImageSharp.fluid.src}) bottom left no-repeat`,
+          }}
+        >
+          <StyledNav>
+            <p>
+              Lost? Head back{' '}
+              <StyledLink
+                onClick={(e) => goto(e, '/')}
+                to="/"
+                activeClassName="active"
+              >
+                home
+              </StyledLink>
+              ,
+              <StyledLink
+                onClick={(e) => goto(e, '/about')}
+                to="/about"
+                activeClassName="active"
+              >
+                get to know me
+              </StyledLink>{' '}
+              a little, or browse some of my{' '}
+              <StyledLink
+                onClick={(e) => goto(e, '/writing')}
+                to="/writing"
+                activeClassName="active"
+              >
+                articles
+              </StyledLink>{' '}
+              or{' '}
+              <StyledLink
+                onClick={(e) => goto(e, '/about#work')}
+                to="/about#work"
+                activeClassName="active"
+              >
+                projects
+              </StyledLink>
+              .
+            </p>
+          </StyledNav>
+        </NavDrawer>
+        <Content>
+          <main>{children}</main>
+          <Footer />
+        </Content>
       </ThemeProvider>
     </>
   );

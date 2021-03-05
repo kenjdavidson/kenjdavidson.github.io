@@ -48,3 +48,17 @@ export const baseTheme: DefaultTheme = {
 };
 
 export type Theme = typeof baseTheme;
+
+export const fixed = (
+  top: number,
+  right: number,
+  bottom: number,
+  left: number
+) => (props: { theme: DefaultTheme }) => {
+  return `position: fixed;
+    top: ${top}px;
+    right: ${right}px;
+    bottom: ${bottom}px;
+    left: ${left}px;
+  `.trim();
+};

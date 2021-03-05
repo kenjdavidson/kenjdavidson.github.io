@@ -39,9 +39,24 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
           <p>
             I use this site to <Link to="/writing">document</Link> the successes
             (and failures) along my <Link to="/about#work">professional</Link>{' '}
-            and <Link to="/projects">extra curricular</Link> experiences. With
-            that said, I can guarentee it won't be pretty and we may run into
-            bugs; but you're more than welcome to follow along.
+            and <Link to="/projects">extra curricular</Link> development path.
+            I'm currently playing around (trying to love){' '}
+            <strong>JavaScript</strong>, <strong>TypeScript</strong>,
+            <strong>Gatsby</strong>, <strong>React</strong> and a couple things
+            that I should probably already love.
+          </p>
+          <p>
+            When I'm not sitting infront of a computer there's a pretty solid
+            chance that I'm{' '}
+            <Link to="/about#carson" style={{ fontStyle: 'italic' }}>
+              "playing other room"
+            </Link>{' '}
+            with my son or attempting to get a round in. I don't post much about
+            it, but my wife and son are always my top priority.
+          </p>
+          <p>
+            With that said, I can't guarantee that this site will be pretty (or
+            bug free) but you can accept it, welcome.
           </p>
         </OffsetHero>
       </Container>
@@ -90,6 +105,14 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
             </section>
           </article>
         ))}
+      </Container>
+
+      <Container size="large">
+        <SectionTitle level={2}>A lot of the Time I Golf</SectionTitle>
+        <p>When it's not snowing or cold!</p>
+        <p>
+          TODO - finish and publish Gatsby Golf Canada source/transform plugin.
+        </p>
       </Container>
     </>
   );

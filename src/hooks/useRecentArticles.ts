@@ -1,5 +1,5 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { Article } from "../graphql/articles";
+import { graphql, useStaticQuery } from 'gatsby';
+import { Article } from '../gatsby/articlesGraphQL';
 
 type QueryResult = {
   allMdx: {

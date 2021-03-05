@@ -1,5 +1,25 @@
 import path from "path";
+// For some annoying reason when this file is converted to Typescript the 
+// build fails while attempting to parse graphql from it.  I think for some
+// reason it believes it's a page that is exporting graphql and incorrectly
+// attempting to extract it.  Once this happens it's a shit show.
+// Future Kens problems.
 
+/**
+ * Implements the `onCreateNode` function of the Gatsby Node APIs.
+ * 
+ * {@link https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/#onCreateNode}
+ * 
+ * Only processes `mdx` files within the folders with the structure
+ * `/writing/{year}-{month}-{day}---{post name}.mdx`.  If a valid Node is found it is 
+ * processed by:
+ * 
+ * - creates the field `slug` based on the parsed name
+ * - creates the field `publishTime` based on the parsed date
+ * - creates the field `publishYear` just to access it directly
+ * 
+ * @param {*} helpers {@link https://www.gatsbyjs.com/docs/reference/config-files/node-api-helpers/}
+ */
 module.exports.onCreateNode = async ({
   node,
   getNode,
@@ -36,11 +56,22 @@ module.exports.onCreateNode = async ({
   createNodeField({ node, name: "publishYear", value: match[1] });
 };
 
-// For some annoying reason when this file is converted to Typescript the 
-// build fails while attempting to parse graphql from it.  I think for some
-// reason it believes it's a page that is exporting graphql and incorrectly
-// attempting to extract it.  Once this happens it's a shit show.
-// Future Kens problems.
+/**
+ * Implemnts the `createPages` Gatsby Node API.
+ * 
+ * {@link https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/#createPages}
+ * 
+ * Responsible for creating the actual article pages.  Currently this only creates the
+ * individual articles, but in the future it will be updated to create:
+ * 
+ * - Categories/Tags pages
+ * - Series pages
+ * - etc.
+ * 
+ * If a `slug` field is not found on the article, an error is logged (building continues).
+ * 
+ * @param {*} helpers {@link https://www.gatsbyjs.com/docs/reference/config-files/node-api-helpers/}
+ */
 module.exports.createPages = async ({
   graphql,
   actions,

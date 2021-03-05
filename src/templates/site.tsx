@@ -8,6 +8,12 @@ import { VortexReverse } from 'react-burgers';
 import { Link, navigate, useStaticQuery, graphql } from 'gatsby';
 import { GlobalStyle } from '../components/globalStyle';
 
+/**
+ * Provides the `Hamburger` implementation for the `SiteTemplate`.  This is currently
+ * using the `react-burgers` library - but eventually it will be replaced with a
+ * custom version.
+ *
+ */
 const Hamburger = styled(VortexReverse)`
   z-index: 1000;
 
@@ -38,22 +44,37 @@ const fixed = css`
   height: 100vh;
 `;
 
-const Chest = styled.div`
+/**
+ * Wraps both the `NavDrawer` and `Content` providing common functionality and
+ * animations (where required).
+ */
+const NavWrapper = styled.div`
   ${fixed}
   overflow: hidden;
   perspective: 800px;
   z-index: 1;
 `;
-Chest.displayName = 'Chest';
+NavWrapper.displayName = 'Chest';
 
-const Drawer = styled.aside`
+/**
+ * Primary navigation - this is currently implemented as a full screen panel
+ * beneath the primary content panel.
+ */
+const NavDrawer = styled.aside`
   ${fixed}
   z-index: 10;
 
   ${({ style }) => `${style}`}
 `;
-Drawer.displayName = 'Drawer';
+NavDrawer.displayName = 'Drawer';
 
+/**
+ * Primary content - layered on top of the navigation and animated with a
+ * fold out/in feature.
+ *
+ * TODO provide further customizations of the navigation animcation to account
+ * for RTL displays, etc.
+ */
 const Content = styled.section`
   ${fixed}
   z-index: 20;
@@ -68,19 +89,22 @@ const Content = styled.section`
     flex: 1;
   }
 
-  ${Chest}.drawer-opened & {
+  ${NavWrapper}.drawer-opened & {
     transform: rotateY(-92deg) translatex(400px);
     box-shadow: -12px 0px 20px 9px #cccccc;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
-    ${Chest}.drawer-opened & {
+    ${NavWrapper}.drawer-opened & {
       transform: rotateY(-80deg) translatex(200px);
     }
   }
 `;
 Content.displayName = 'Content';
 
+/**
+ * Provides the inner navigation.
+ */
 const StyledNav = styled.nav`
   display: flex;
   flex-direction: column;
@@ -98,18 +122,32 @@ const StyledNav = styled.nav`
   }
 `;
 
+/**
+ * Styled navigation link.
+ */
 const StyledLink = styled(Link)`
   position: relative;
   text-decoration: underline;
 `;
 
+/**
+ * Provides the `SiteTemplate` for use within the `gatsby-browser` and `gatsby-ssr`
+ * apis.
+ *
+ * It provides the:
+ * - primary site navigation
+ * - `styled-components` ThemeProvider and GlobalStyle
+ * - site footer
+ * - common `Helmet` additions
+ *
+ * @param props
+ */
 export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
   children,
 }) => {
   const [menuShowing, showMenu] = useState(false);
 
   const goto = (e: MouseEvent, to: string) => {
-    console.log(`Close menu and navigate to ${to}`);
     e.preventDefault();
     navigate(to);
     setTimeout(() => {
@@ -144,12 +182,12 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
       </Helmet>
       <ThemeProvider theme={baseTheme}>
         <GlobalStyle />
-        <Chest className={menuShowing ? `drawer-opened` : ``}>
+        <NavWrapper className={menuShowing ? `drawer-opened` : ``}>
           <Hamburger
             active={menuShowing}
             onClick={() => showMenu(!menuShowing)}
           />
-          <Drawer
+          <NavDrawer
             style={{
               background: `url(${hi.childImageSharp.fluid.src}) bottom left no-repeat`,
             }}
@@ -191,15 +229,16 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
                 .
               </p>
             </StyledNav>
-          </Drawer>
+          </NavDrawer>
           <Content>
             <main>{children}</main>
             <Footer />
           </Content>
-        </Chest>
+        </NavWrapper>
       </ThemeProvider>
     </>
   );
 };
+SiteTemplate.displayName = 'SiteTemplate';
 
 export default SiteTemplate;

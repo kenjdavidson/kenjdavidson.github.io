@@ -1,48 +1,65 @@
-import React, { HtmlHTMLAttributes } from 'react';
+import React, {
+  FunctionComponent,
+  HTMLAttributes,
+  HtmlHTMLAttributes,
+} from 'react';
+import classNames from 'classnames';
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
-  position: relative;
-  width: ${({ theme }) => theme.container.width};
-  min-width: ${({ theme }) => theme.container.minWidth};
-  max-width: ${({ theme }) => theme.container.maxWidth};
-  margin: 0 auto;
-  padding: 0 2em;
-`;
-Container.displayName = 'Container';
-
-export interface RowProps extends HtmlHTMLAttributes<HTMLDivElement> {
-  responsive?: boolean;
+export interface ContainerProps extends HtmlHTMLAttributes<HTMLDivElement> {
+  size?: 'none' | 'small' | 'medium' | 'large';
+  hero?: 'half' | 'full';
+  overrideWidth?: boolean;
 }
 
-export const Col = styled.div``;
-Col.displayName = 'Column';
+const heroSizes = {
+  half: '50vh',
+  full: '100vh',
+};
 
-export const Row = styled.div<RowProps>`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  padding: 1rem 0;
+const paddingSizes = {
+  none: '0rem',
+  small: '1rem',
+  medium: '2.5rem',
+  large: '5rem',
+};
 
-  > ${Col}:nth-of-type(n+2) {
-    margin: 0.5rem 0 0 0;
+const StyledSection = styled.section<ContainerProps>`
+  position: relative;
+
+  ${({ hero }) =>
+    hero &&
+    css`
+      min-height: ${heroSizes[hero]};
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    `}
+  ${({ overrideWidth, theme }) =>
+    !overrideWidth &&
+    css`
+      padding-left: max(
+        1.5rem,
+        calc((100vw - ${theme.container.maxWidth}) / 2)
+      );
+      padding-right: max(
+        1.5rem,
+        calc((100vw - ${theme.container.maxWidth}) / 2)
+      );
+    `}
   }
 
-  ${({ responsive }) => css`
     @media screen and (min-width: ${({ theme }) =>
-        theme.breakpoints.medium}px) {
-      flex-direction: row;
-      justify-content: space-evenly;
-
-      > ${Col} {
-        flex: 1 0;
-      }
-
-      > ${Col}:nth-of-type(n+2) {
-        margin: 0 0 0 0.5rem;
-      }
+      theme.breakpoints.medium}px) {
+    ${({ size }) =>
+      css`
+        padding-top: ${paddingSizes[size || 'small']};
+        padding-bottom: ${paddingSizes[size || 'small']};
+      `}
     }
-  `}
+  }
 `;
-Row.displayName = 'Row';
+
+export const Container: FunctionComponent<ContainerProps> = ({ ...rest }) => {
+  return <StyledSection {...rest} />;
+};

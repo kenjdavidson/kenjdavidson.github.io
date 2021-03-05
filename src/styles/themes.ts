@@ -1,18 +1,7 @@
 import { DefaultTheme, withTheme } from 'styled-components';
 import { Breakpoints, Greys, Width } from '../../@types/styled';
 
-const baseSpacing = 24;
-const scale = 6;
-const baseFontSize = baseSpacing * 0.75; // 18
-const fontScale = baseSpacing / scale; // 4
-
-const fontSizing = (factor: number) => ({
-  size: `${baseFontSize + factor * fontScale}px`,
-  height: `${baseSpacing + factor * fontScale}px`,
-  maxWidth: `${baseSpacing * (baseFontSize + factor * fontScale)}px`,
-});
-
-const breakpoints: Breakpoints = {
+export const breakpoints: Breakpoints = {
   small: 576,
   medium: 768,
   large: 992,
@@ -20,7 +9,7 @@ const breakpoints: Breakpoints = {
   xxlarge: 1600,
 };
 
-const greys: Greys = {
+export const greys: Greys = {
   grey0: 'hsl(0, 0%, 0%)',
   grey10: 'hsl(0, 0%, 10%)',
   grey20: 'hsl(0, 0%, 20%)',
@@ -34,7 +23,7 @@ const greys: Greys = {
   grey100: 'hsl(0, 0%, 100%)',
 };
 
-const container: Width = {
+export const container: Width = {
   maxWidth: `${breakpoints.xlarge}px`,
 };
 
@@ -45,14 +34,17 @@ export const baseTheme: DefaultTheme = {
   primary: {
     background: '#17BB90',
     text: 'F4FFFD',
+    accent1: '#F9DC5C',
+    accent2: '#0D324D',
+    accent3: '#B0413E',
   },
   inverse: {
     background: '#F4FFFD',
     text: greys.grey20,
+    accent1: '#F9DC5C',
+    accent2: '#0D324D',
+    accent3: '#B0413E',
   },
-  brand: '#0D324D',
-  accent1: '#F9DC5C',
-  accent2: '#B0413E',
 };
 
 export type Theme = typeof baseTheme;

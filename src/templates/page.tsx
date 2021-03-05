@@ -3,10 +3,9 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Seo } from '../components/seo';
 import { PageQuery } from '../graphql/pages';
-import { Section } from '../components/layout/section';
+import { Container } from '../components/layout/container';
 import { useLocation } from '@reach/router';
 import { Breadcrumb } from '../components/layout/breadcrumb';
-import { Header } from '../components/header/header';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 
 export const PageTemplate = ({ data }: PageQueryProps) => {
@@ -29,20 +28,20 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
       <div>
         <div>
           {location.pathname.split('/').length > 2 ? (
-            <Section size="medium">
+            <Container size="medium">
               <Breadcrumb paths={location.pathname.split('/')} />
-            </Section>
+            </Container>
           ) : undefined}
-          <Section>
+          <Container>
             <h1>{page.frontmatter.title}</h1>
             <MDXRenderer>{page.body}</MDXRenderer>
-          </Section>
+          </Container>
           {page.sections &&
             page.sections.map((section) => (
-              <Section key={`section-${section.id}`}>
+              <Container key={`section-${section.id}`}>
                 <h2>{section.frontmatter.title}</h2>
                 <MDXRenderer>{section.body}</MDXRenderer>
-              </Section>
+              </Container>
             ))}
         </div>
       </div>

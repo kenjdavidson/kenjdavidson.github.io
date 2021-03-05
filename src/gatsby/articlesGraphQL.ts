@@ -2,7 +2,7 @@ import { graphql } from 'gatsby';
 import {
   fragment as FeatureSharpFragment,
   FeatureImageFile,
-} from './imageSharp';
+} from '../graphql/imageSharp';
 
 export const fragment = graphql`
   fragment Article on Mdx {
@@ -70,7 +70,8 @@ export type Frontmatter = {
   subtitle?: string;
   summary: string;
   tags?: string[];
-  featureImage: FeatureImageFile;
+  featureImage?: FeatureImageFile;
+  featureImageAlt?: string;
 };
 
 export type Fields = {

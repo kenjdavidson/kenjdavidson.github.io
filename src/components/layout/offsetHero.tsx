@@ -1,10 +1,10 @@
 import React, { ComponentType } from 'react';
 import styled from 'styled-components';
-import { Section, SectionProps } from '../layout/section';
+import { Container, ContainerProps } from './container';
 import Img, { FluidObject } from 'gatsby-image';
-import { H1 } from '../typography/heading';
+import { Title } from '../heading';
 
-export interface HeroProps extends SectionProps {
+export interface Props extends ContainerProps {
   title: string;
   featureImage: FluidObject;
   featureImageAlt?: string;
@@ -19,7 +19,7 @@ const Hero = styled.section`
 `;
 Hero.displayName = 'OffsetImageHero';
 
-const Title = styled(H1)`
+const HeroTitle = styled(Title)`
   font-size: clamp(5rem, 0.75rem + 8vw, 8.768rem);
   margin-right: 1rem;
   max-width: 75%;
@@ -34,16 +34,25 @@ const Title = styled(H1)`
     text-align: right;
   }
 `;
-Title.displayName = 'OffsetImageHeroTitle';
+HeroTitle.displayName = 'OffsetImageHeroTitle';
 
 const FeatureImage = styled.section`
-  overflow: hidden;
+  position: relative;
   margin-top: -25%;
   z-index: 1;
 
+  &::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1rem solid #00000022;
+  }
+
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
     width: 45%;
-    border-radius: 1rem;
     position: absolute;
     margin-top: 0;
   }
@@ -68,7 +77,7 @@ const Article = styled.article`
 `;
 Article.displayName = 'OffsetImageHeroArticle';
 
-export const OffsetImageHero: React.FC<HeroProps> = ({
+export const OffsetHero: React.FC<Props> = ({
   title,
   featureImage,
   featureImageAlt,
@@ -77,7 +86,7 @@ export const OffsetImageHero: React.FC<HeroProps> = ({
 }) => {
   return (
     <Hero {...rest}>
-      <Title>{title}</Title>
+      <HeroTitle>{title}</HeroTitle>
       <FeatureImage>
         <Img fluid={featureImage} alt={featureImageAlt} />
       </FeatureImage>

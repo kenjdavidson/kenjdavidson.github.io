@@ -1,4 +1,4 @@
-const writingNodes = require("./src/gatsby/articleContent");
+const writingNodes = require("./src/gatsby/articlesNodeApi");
 const pageNodes = require("./src/gatsby/pageContent");
 
 exports.onCreateNode = async ({

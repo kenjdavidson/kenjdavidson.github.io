@@ -1,6 +1,6 @@
 import { BookOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import React, { FunctionComponent } from 'react';
-import { Article } from '../../graphql/articles';
+import { Article } from '../../gatsby/articlesGraphQL';
 
 export interface FieldsProps {
   article: Article;

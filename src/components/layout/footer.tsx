@@ -5,9 +5,10 @@ import { Link } from '../link';
 import { SocialList } from '../social/socialList';
 import styled from 'styled-components';
 import slugify from 'slugify';
-import { Container, Row, Col } from './container';
+import { Row, Col } from './grid';
 import { List, ListItem } from './list';
 import { graphql, useStaticQuery } from 'gatsby';
+import { Container } from './container';
 
 const StyledFooter = styled.footer`
   background-color: ${({ theme }) => theme.inverse.background};
@@ -96,7 +97,10 @@ export const Footer: FunctionComponent<
             <h3>Recent posts...</h3>
             <List>
               {articles.map((article) => (
-                <ListItem key={`article-${slugify(article.frontmatter.title)}`}>
+                <ListItem
+                  key={`article-${slugify(article.frontmatter.title)}`}
+                  spacing={{ top: 1, bottom: 1 }}
+                >
                   <Link to={article.fields.slug}>
                     <span>{article.frontmatter.title}</span>
                   </Link>

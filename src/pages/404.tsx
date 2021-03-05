@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
 import { SiteMetadata, MenuItem } from '../graphql/siteMetadata';
-import { Section } from '../components/layout/section';
+import { Container } from '../components/layout/container';
 import { Link } from '../components/link';
 
 const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
@@ -12,7 +12,7 @@ const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
         title="Fore, oh! Fore!"
         description="Looks like we're in the junk together"
       />
-      <Section size="hero">
+      <Container>
         <h1>I've made a huge mistake!</h1>
         <img
           className="image-404"
@@ -37,7 +37,7 @@ const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
           me for a round of <Link to="/golfing">golf</Link>.
         </p>
         <p>I really hope in real life the footer isn't duplicated!</p>
-      </Section>
+      </Container>
     </>
   );
 };

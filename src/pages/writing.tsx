@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
-import { Article } from '../graphql/articles';
+import { Article } from '../gatsby/articlesGraphQL';
 import { Seo } from '../components/seo';
-import { Section, SectionTitle } from '../components/layout/section';
+import { Container } from '../components/layout/container';
 import { ArticleListItem } from '../components/article/articleListItem';
 import slugify from 'slugify';
 
@@ -24,17 +24,17 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
         title="Ken J Davidson Writing - It doesn't happen much"
         description="Not the most well written, nor the best content - but I've helped a few people and that's what is important."
       />
-      <Section className="inverse hero hero medium">
+      <Container className="inverse hero hero medium">
         <h1>Sometimes I do the Writing</h1>
         <p style={{ fontSize: '1.5rem' }}>
           I'm neither <strong>published</strong> nor <strong>awarded</strong>{' '}
           but I am opinionated and spend a bunch of time playing around with new
           languages and frameworks.
         </p>
-      </Section>
+      </Container>
       {archives.map((year) => (
-        <Section key={`articles-${year}`}>
-          <SectionTitle spacing="md">{`${year} (${articlesByYear[year].length} Articles)`}</SectionTitle>
+        <Container key={`articles-${year}`}>
+          <h2>{`${year} (${articlesByYear[year].length} Articles)`}</h2>
           <ul>
             {articlesByYear[year].map((article) => (
               <ArticleListItem
@@ -43,7 +43,7 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
               />
             ))}
           </ul>
-        </Section>
+        </Container>
       ))}
     </>
   );

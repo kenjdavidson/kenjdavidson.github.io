@@ -1,15 +1,14 @@
 import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
-import { Section, SectionTitle } from '../components/layout/section';
+import { Container } from '../components/layout/container';
 import { Seo } from '../components/seo';
 import useSiteMetadata from '../hooks/useSiteMetadata';
-import { Article } from '../graphql/articles';
+import { Article } from '../gatsby/articlesGraphQL';
 import styled from 'styled-components';
 import { ArticleMeta } from '../components/article';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { TableOfContents } from '../components/article/toc';
 import { Breadcrumb } from '../components/layout/breadcrumb';
-import { Container } from '../components/layout/container';
 
 const ArticleWrapper = styled.main`
   display: grid;
@@ -59,22 +58,22 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
           article.frontmatter.featureImage.childImageSharp.fixed.src
         }
       />
-      <Section className="v-pad-medium">
+      <Container className="v-pad-medium">
         <Container>
           <Breadcrumb paths={['writing']} />
         </Container>
-      </Section>
-      <Section>
+      </Container>
+      <Container>
         <Container>
           <h1>{article.frontmatter.title}</h1>
         </Container>
-      </Section>
-      <Section>
+      </Container>
+      <Container>
         <Container>
           <ArticleWrapper>
             <StickyAside top={48}>
               <TableOfContents article={article}>
-                <SectionTitle spacing="none">Content</SectionTitle>
+                <h5>Content</h5>
               </TableOfContents>
             </StickyAside>
             <article style={{ gridArea: 'content' }} id="introduction">
@@ -82,7 +81,7 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
             </article>
           </ArticleWrapper>
         </Container>
-      </Section>
+      </Container>
     </>
   );
 };

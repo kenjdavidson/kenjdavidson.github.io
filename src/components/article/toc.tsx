@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, FunctionComponent } from 'react';
-import { Article } from '../../graphql/articles';
+import { Article } from '../../gatsby/articlesGraphQL';
 import { Link } from '../link';
 import slugify from 'slugify';
 import styled from 'styled-components';

@@ -6,21 +6,19 @@ export const fragment = graphql`
     absolutePath
     childImageSharp {
       id
-      fluid {
+      fluid(maxWidth: 800, quality: 100) {
         src
         srcSet
-        tracedSVG
         base64
-        srcSetWebp
-        srcWebp
+        tracedSVG
         sizes
       }
-      fixed {
+      fixed(quality: 100) {
+        src
+        srcSet
         base64
         tracedSVG
         aspectRatio
-        srcWebp
-        srcSetWebp
         originalName
       }
     }

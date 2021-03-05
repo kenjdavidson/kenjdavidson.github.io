@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Section } from './section';
+import { Container } from './container';
 import { Link } from '../link';
 import { HomeOutlined } from '@ant-design/icons';
 

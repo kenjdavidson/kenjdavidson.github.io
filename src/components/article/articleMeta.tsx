@@ -8,7 +8,7 @@ import {
   TwitterIcon,
   TwitterShareButton,
 } from 'react-share';
-import { Article } from '../../graphql/articles';
+import { Article } from '../../gatsby/articlesGraphQL';
 import { Tags } from './tags';
 import { Fields } from './fields';
 import { Link } from '../link';

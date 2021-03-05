@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Article } from '../../graphql/articles';
+import { Article } from '../../gatsby/articlesGraphQL';
 import { Link } from '../link';
 import classNames from 'classnames';
 import slugify from 'slugify';
@@ -20,10 +20,7 @@ export const ArticleListItem: FunctionComponent<ArticleListItemProps> = ({
   return (
     <article className={classes}>
       <Link to={article.fields.slug}>
-        <h3>{article.frontmatter.title}</h3>
-        {article.frontmatter.subtitle && (
-          <h4>{article.frontmatter.subtitle}</h4>
-        )}
+        <h6>{article.frontmatter.title}</h6>
         <p>{article.frontmatter.summary || article.excerpt}</p>
       </Link>
     </article>

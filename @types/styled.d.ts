@@ -32,6 +32,9 @@ interface Width {
 interface Color {
   background: string;
   text: string;
+  accent1: string;
+  accent2: string;
+  accent3: string;
 }
 
 declare module 'styled-components' {
@@ -42,9 +45,5 @@ declare module 'styled-components' {
 
     primary: Color;
     inverse: Color;
-
-    brand: string;
-    accent1?: string;
-    accent2?: string;
   }
 }

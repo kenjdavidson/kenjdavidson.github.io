@@ -1,4 +1,4 @@
-import { DefaultTheme, withTheme } from 'styled-components';
+import { DefaultTheme, css } from 'styled-components';
 import { Breakpoints, Greys, Width } from '../../@types/styled';
 
 export const breakpoints: Breakpoints = {
@@ -55,10 +55,26 @@ export const fixed = (
   bottom: number,
   left: number
 ) => (props: { theme: DefaultTheme }) => {
-  return `position: fixed;
+  return css`
+    position: fixed;
     top: ${top}px;
     right: ${right}px;
     bottom: ${bottom}px;
     left: ${left}px;
-  `.trim();
+  `;
+};
+
+export const absolute = (
+  top: number,
+  left: number,
+  width?: number,
+  height?: number
+) => (props: { theme: DefaultTheme }) => {
+  return css`
+    position: absolute;
+    top: ${top}px;
+    left: ${left}px;
+    ${width && `width: ${width}px`};
+    ${height && `height: ${height}px`};
+  `;
 };

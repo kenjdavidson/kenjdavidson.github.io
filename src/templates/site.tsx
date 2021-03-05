@@ -7,6 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 import { VortexReverse } from 'react-burgers';
 import { Link, navigate, useStaticQuery, graphql } from 'gatsby';
 import { GlobalStyle } from '../components/globalStyle';
+import { Navigation, Nav } from '../components/navigation';
 
 /**
  * Provides the `Hamburger` implementation for the `SiteTemplate`.  This is currently
@@ -37,18 +38,6 @@ export interface SiteTemplateProps {
 }
 
 /**
- * Primary navigation - this is currently implemented as a full screen panel
- * beneath the primary content panel.
- */
-const NavDrawer = styled.aside`
-  ${fixed(0, 0, 0, 0)}
-  z-index: 0;
-
-  ${({ style }) => `${style}`}
-`;
-NavDrawer.displayName = 'Drawer';
-
-/**
  * Primary content - layered on top of the navigation and animated with a
  * fold out/in feature.
  *
@@ -75,31 +64,11 @@ const Content = styled.section`
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
     ${Hamburger}.active ~ & {
-      transform: translateX(-90%);
+      transform: translateX(-50%);
     }
   }
 `;
 Content.displayName = 'Content';
-
-/**
- * Provides the inner navigation.
- */
-const StyledNav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  max-width: 50vw;
-
-  font-size: 1.5rem;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
-    font-size: 1.75rem;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.large}px) {
-    font-size: 2.5rem;
-  }
-`;
 
 /**
  * Styled navigation link.
@@ -134,18 +103,6 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
     }, 300);
   };
 
-  const { hi } = useStaticQuery(graphql`
-    query {
-      hi: file(relativePath: { eq: "images/bitmoji-hi.png" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_tracedSVG
-          }
-        }
-      }
-    }
-  `);
-
   return (
     <>
       <Helmet>
@@ -166,12 +123,8 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
           className={menuShowing ? `active` : ``}
         />
         <GlobalStyle />
-        <NavDrawer
-          style={{
-            background: `url(${hi.childImageSharp.fluid.src}) bottom left no-repeat`,
-          }}
-        >
-          <StyledNav>
+        <Navigation>
+          <Nav>
             <p>
               Lost? Head back{' '}
               <StyledLink
@@ -207,8 +160,8 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
               </StyledLink>
               .
             </p>
-          </StyledNav>
-        </NavDrawer>
+          </Nav>
+        </Navigation>
         <Content>
           <main>{children}</main>
           <Footer />

@@ -37,11 +37,11 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
             retirement!
           </h4>
           <p>
-            I use this site to <Link to="/writing">document</Link> the success
+            I use this site to <Link to="/writing">document</Link> the successes
             (and failures) along my <Link to="/about#work">professional</Link>{' '}
             and <Link to="/projects">extra curricular</Link> experiences. With
-            that said I can guarentee it won't be pretty and we may run into
-            bugs. But you're more than welcome to follow along.
+            that said, I can guarentee it won't be pretty and we may run into
+            bugs; but you're more than welcome to follow along.
           </p>
         </OffsetHero>
       </Container>

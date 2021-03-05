@@ -5,6 +5,12 @@ import { Seo } from '../components/seo';
 import { Container } from '../components/layout/container';
 import { ArticleListItem } from '../components/article/articleListItem';
 import slugify from 'slugify';
+import { Title } from '../components/heading';
+import styled from 'styled-components';
+
+const SectionTitle = styled(Title)`
+  margin-bottom: 2rem;
+`;
 
 export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
   const articlesByYear: Record<string, Article[]> = {};
@@ -33,8 +39,9 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
         </p>
       </Container>
       {archives.map((year) => (
-        <Container key={`articles-${year}`}>
-          <h2>{`${year} (${articlesByYear[year].length} Articles)`}</h2>
+        <Container key={`articles-${year}`} size="small">
+          <SectionTitle level={2}>{`${year}`}</SectionTitle>
+          <h2></h2>
           <ul>
             {articlesByYear[year].map((article) => (
               <ArticleListItem

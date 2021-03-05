@@ -33,7 +33,7 @@ export const baseTheme: DefaultTheme = {
   greys,
   primary: {
     background: '#17BB90',
-    text: 'F4FFFD',
+    text: greys.grey10,
     accent1: '#F9DC5C',
     accent2: '#0D324D',
     accent3: '#B0413E',

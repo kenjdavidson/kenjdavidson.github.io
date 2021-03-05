@@ -22,16 +22,15 @@ Hero.displayName = 'OffsetImageHero';
 const HeroTitle = styled(Title)`
   font-size: clamp(5rem, 0.75rem + 8vw, 8.768rem);
   margin-right: 1rem;
-  max-width: 75%;
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
+    text-align: right;
     margin-bottom: 1rem;
     max-width: 100%;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.large}px) {
-    margin-bottom: 3rem;
-    text-align: right;
+    margin-bottom: 2rem;
   }
 `;
 HeroTitle.displayName = 'OffsetImageHeroTitle';
@@ -51,7 +50,7 @@ const FeatureImage = styled.section`
     border: 1rem solid #00000022;
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     width: 45%;
     position: absolute;
     margin-top: 0;
@@ -62,17 +61,9 @@ FeatureImage.displayName = 'OffsetImageHeroImage';
 const Article = styled.article`
   z-index: 10;
 
-  background-color: ${({ theme }) => theme.primary.background};
-  padding: 1rem;
-  border-radius: 1rem;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
-    margin-left: 40%;
-    margin-right: 1rem;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.large}px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     margin-left: 50%;
+    margin-right: 1rem;
   }
 `;
 Article.displayName = 'OffsetImageHeroArticle';

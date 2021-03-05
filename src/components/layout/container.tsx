@@ -26,6 +26,7 @@ const paddingSizes = {
 
 const StyledSection = styled.section<ContainerProps>`
   position: relative;
+  ${({ size }) => `padding-top: ${paddingSizes[size || 'small']}`};
 
   ${({ hero }) =>
     hero &&
@@ -35,6 +36,7 @@ const StyledSection = styled.section<ContainerProps>`
       flex-direction: column;
       justify-content: center;
     `}
+
   ${({ overrideWidth, theme }) =>
     !overrideWidth &&
     css`
@@ -47,16 +49,13 @@ const StyledSection = styled.section<ContainerProps>`
         calc((100vw - ${theme.container.maxWidth}) / 2)
       );
     `}
-  }
 
-    @media screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.medium}px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
     ${({ size }) =>
       css`
         padding-top: ${paddingSizes[size || 'small']};
         padding-bottom: ${paddingSizes[size || 'small']};
       `}
-    }
   }
 `;
 

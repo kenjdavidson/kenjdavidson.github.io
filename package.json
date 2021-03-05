@@ -7,7 +7,7 @@
   "scripts": {
     "build": "gatsby build",
     "build:serve": "yarn build && yarn serve",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -H $HOSTNAME -p 8000",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "yarng develop",
     "serve": "gatsby serve",

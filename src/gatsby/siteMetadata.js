@@ -81,8 +81,8 @@ export const siteMetadata = {
     {
       name: "email",
       display: "Email",
-      account: "ken.j.davidson@live.ca",
-      href: "ken.j.davidson@live.ca",
+      account: "hello@kenjdavidson.com",
+      href: "mailto:hello@kenjdavidson.com",
       icon: "MailOutlined"
     }
   ],

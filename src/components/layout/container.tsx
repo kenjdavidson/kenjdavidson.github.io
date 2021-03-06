@@ -40,14 +40,8 @@ const StyledSection = styled.section<ContainerProps>`
   ${({ overrideWidth, theme }) =>
     !overrideWidth &&
     css`
-      padding-left: max(
-        1.5rem,
-        calc((100vw - ${theme.container.maxWidth}) / 2)
-      );
-      padding-right: max(
-        1.5rem,
-        calc((100vw - ${theme.container.maxWidth}) / 2)
-      );
+      padding-left: max(1.5rem, calc((100vw - ${theme.sizes.maxWidth}) / 2));
+      padding-right: max(1.5rem, calc((100vw - ${theme.sizes.maxWidth}) / 2));
     `}
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {

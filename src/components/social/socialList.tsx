@@ -1,6 +1,6 @@
 import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
 import { Link } from '../link';
-import { socialIcons } from './socialIcons';
+import { socialIcons } from '../social';
 import styled from 'styled-components';
 
 const StyledSocialList = styled.ul`
@@ -14,7 +14,7 @@ const StyledSocialList = styled.ul`
 
     a {
       display: block;
-      color: ${({ theme }) => theme.greys.grey30};
+      color: ${({ theme }) => theme.primary.grey7};
     }
 
     a:hover {

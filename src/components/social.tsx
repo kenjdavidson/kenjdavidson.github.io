@@ -1,5 +1,8 @@
-import React, { ComponentType } from "react";
-
+import React, {
+  ComponentType,
+  FunctionComponent,
+  HtmlHTMLAttributes,
+} from 'react';
 import Icon, {
   GithubOutlined,
   AliwangwangOutlined,
@@ -19,7 +22,12 @@ import Icon, {
   InstagramOutlined,
   RedditOutlined,
   MailOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
+import { SocialItem } from '../graphql/siteMetadata';
+import { Link, LinkProps } from './link';
+import styled from 'styled-components';
+import { Palette } from '../../@types/styled';
+import { BoxStyleable, FontStyleable } from '../styles/themes';
 
 const StackOverflowSvg = () => (
   <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
@@ -59,4 +67,34 @@ export const socialIcons: Record<string, ComponentType> = {
   RedditOutlined,
   MailOutlined,
   StackOverflow,
+};
+
+interface SocialLinkProps extends HtmlHTMLAttributes<HTMLAnchorElement> {
+  social: SocialItem;
+}
+
+const StyledLink = styled.a<BoxStyleable & FontStyleable>`
+  display: block;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s;
+
+  ${({ theme, color }) => color && `color: ${theme.primary[color]};`}
+  ${({ theme, size }) => size && `font-size: ${size};`}
+  ${({ padding }) => padding && `padding: ${padding};`}
+
+  &:hover {
+    transform: scale(1.5);
+  }
+`;
+
+export const SocialLink: FunctionComponent<
+  SocialLinkProps & BoxStyleable & FontStyleable
+> = ({ social, ...rest }) => {
+  const Icon: any = socialIcons[social.icon];
+  return (
+    <StyledLink href={social.href} {...rest}>
+      {(Icon && <Icon />) || <span>{social.account}</span>}
+    </StyledLink>
+  );
 };

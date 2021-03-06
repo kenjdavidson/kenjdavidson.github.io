@@ -1,28 +1,30 @@
 import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
-import useSiteMetadata from '../../hooks/useSiteMetadata';
-import { useRecentArticles } from '../../hooks/useRecentArticles';
-import { Link } from '../link';
-import { SocialList } from '../social/socialList';
+import useSiteMetadata from '../hooks/useSiteMetadata';
+import { useRecentArticles } from '../hooks/useRecentArticles';
+import { Link } from './link';
+import { SocialList } from './social/socialList';
 import styled from 'styled-components';
 import slugify from 'slugify';
-import { Row, Col } from './grid';
-import { List, ListItem } from './list';
+import { Row, Col } from './layout/grid';
+import { List, ListItem } from './layout/list';
 import { graphql, useStaticQuery } from 'gatsby';
-import { Container } from './container';
+import { Container } from './layout/container';
+import { Title } from './heading';
+import { paddingContain } from '../styles/themes';
+import { SocialLink } from './social';
 
 const StyledFooter = styled.footer`
-  background-color: ${({ theme }) => theme.inverse.background};
-  color: ${({ theme }) => theme.inverse.text};
+  background-color: ${({ theme }) => theme.primary.background};
+  color: ${({ theme }) => theme.primary.text};
   margin-top: 10rem;
 `;
 
-const Heading = styled.h2`
-  color: ${({ theme }) => theme.inverse.background};
-  background-color: ${({ theme }) => theme.primary.background};
+const Heading = styled(Title)`
+  color: ${({ theme }) => theme.primary.background};
+  background-color: ${({ theme }) => theme.inverse.background};
   font-weight: 400;
   line-height: 0.66em;
-  padding-right: max(2rem, calc(((100vw - 1200px) / 2)));
-  padding-left: max(2rem, calc(((100vw - 1200px) / 2)));
+  ${paddingContain}
   margin: 0px;
 `;
 
@@ -36,11 +38,14 @@ const StyledContainer = styled(Container)`
 const Divider = styled.div<{ height?: number }>`
   width: 100%;
   height: ${({ height }) => (height && `${height}px`) || '1px'};
-  background-color: ${({ theme }) => theme.greys.grey80};
+  background-color: ${({ theme }) => theme.inverse.grey8};
 `;
 
-const SocialRow = styled.section`
-  align-self: center;
+const SocialSection = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MetaRow = styled.section`
@@ -50,7 +55,7 @@ const MetaRow = styled.section`
   justify-content: center;
   padding: 1rem 0;
 
-  color: ${({ theme }) => theme.greys.grey50};
+  color: ${({ theme }) => theme.inverse.grey5};
   text-transform: uppercase;
   font-size: 0.75rem;
 
@@ -89,8 +94,8 @@ export const Footer: FunctionComponent<
             </p>
             <p>
               If not, shoot shoot me a{' '}
-              <a href="mailto:hello@kenjdavidson.com">message</a> and we can see
-              what I can do to help ya out.
+              <Link to="mailto:hello@kenjdavidson.com">message</Link> and we can
+              see what I can do to help ya out.
             </p>
           </Col>
           <Col>
@@ -110,9 +115,16 @@ export const Footer: FunctionComponent<
           </Col>
         </Row>
         <Divider />
-        <SocialRow>
-          <SocialList socialLinks={social} style={{ fontSize: '1.25rem' }} />
-        </SocialRow>
+        <SocialSection>
+          {social.map((s) => (
+            <SocialLink
+              social={s}
+              size="1.25rem"
+              color="grey7"
+              padding="1rem"
+            />
+          ))}
+        </SocialSection>
         <Divider />
         <MetaRow>
           <p>

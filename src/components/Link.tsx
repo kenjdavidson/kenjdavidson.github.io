@@ -1,44 +1,54 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby';
 import styled, {
   css,
   ThemedCssFunction,
   DefaultTheme,
 } from 'styled-components';
-interface LinkProps
-  extends Omit<GatsbyLinkProps<Record<string, unknown>>, 'ref'> {
-  transition?: string;
-  decorated?: string;
-  hover?: ThemedCssFunction<DefaultTheme>;
+import { LinkStyleable } from '../styles/themes';
+
+/**
+ * Extend `GatsbyLinkProps` omitting the `ref` as keeping it in there
+ * causes typing errors when passing spread `{...rest}` to the
+ * original `GatsbyLink`.
+ *
+ */
+export interface LinkProps {
+  aProps?: HtmlHTMLAttributes<HTMLAnchorElement>;
+  gProps?: Omit<GatsbyLinkProps<Record<string, unknown>>, 'ref'>;
 }
 
-const styles = css<LinkProps>`
+const styles = css<LinkStyleable>`
   transition: ${({ transition }) => transition || 'all 0.3s'};
   text-decoration: ${({ decorated }) => decorated || 'underline'};
-
-  ${({ hover }) => `&:hover {
-  ${hover}
-}`};
+  color: ${({ theme, color }) => theme.primary[color || 'text']};
 `;
 
-const StyledLink = styled.a<LinkProps>`
+const StyledLink = styled.a`
   ${styles}
 `;
 
-const StyledGatsbyLink = styled(GatsbyLink)<LinkProps>`
+const StyledGatsbyLink = styled(GatsbyLink)`
   ${styles}
 `;
 
-export const Link: FunctionComponent<LinkProps> = ({ to, ...rest }) => {
-  if (!to || to?.match(/^https?/i)) {
-    return <StyledLink href={to} target="blank" {...rest}></StyledLink>;
+export const Link: FunctionComponent<
+  LinkProps & GatsbyLinkProps<any> & LinkStyleable
+> = ({ to, onClick, children, aProps, gProps }) => {
+  const external = /^https?/i.test(to);
+
+  if (external) {
+    return (
+      <StyledLink href={to} onClick={onClick} target="blank" {...aProps}>
+        {children}
+      </StyledLink>
+    );
+  } else {
+    const url = !to.startsWith('/') && !to.startsWith('#') ? `/${to}` : to;
+    return (
+      <StyledGatsbyLink to={url} onClick={onClick} {...gProps}>
+        {children}
+      </StyledGatsbyLink>
+    );
   }
-
-  const url = !to.startsWith('/') && !to.startsWith('#') ? `/${to}` : to;
-  return <StyledGatsbyLink to={url} {...rest}></StyledGatsbyLink>;
 };
-
-export const scaleHover: (factor: number) => any = (factor) =>
-  css`
-    transform: scale(${factor});
-  `;

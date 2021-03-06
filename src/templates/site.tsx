@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, MouseEvent } from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
-import { baseTheme, fixed } from '../styles/themes';
-import { Footer } from '../components/layout/footer';
+import { baseTheme, fixed, invertTheme } from '../styles/themes';
+import { Footer } from '../components/footer';
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
 import { VortexReverse } from 'react-burgers';
@@ -23,7 +23,7 @@ const Hamburger = styled(VortexReverse)`
     top: 0.5rem;
     right: max(
       0.5rem,
-      calc(((100vw - ${({ theme }) => theme.container.maxWidth}) / 2) + 1rem)
+      calc(((100vw - ${({ theme }) => theme.sizes.maxWidth}) / 2) + 1rem)
     );
   }
 
@@ -164,7 +164,9 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
         </Navigation>
         <Content>
           <main>{children}</main>
-          <Footer />
+          <ThemeProvider theme={invertTheme}>
+            <Footer />
+          </ThemeProvider>
         </Content>
       </ThemeProvider>
     </>

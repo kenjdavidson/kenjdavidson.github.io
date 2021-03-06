@@ -9,14 +9,16 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-family: 'Merriweather', serif;
+    font-family: ${({ theme }) => theme.font.family};
     color: ${({ theme }) => theme.primary.text};
-    font-size: clamp(16px, calc(.7rem + .25vw), 20px);
-    font-weight: 300;
+    font-size: clamp(${({ theme }) =>
+      theme.font.size?.min}, calc(.7rem + .25vw), ${({ theme }) =>
+  theme.font.size?.max});
+    font-weight: ${({ theme }) => theme.font.weight};
   }
 
   body {
-
+    background: ${({ theme }) => theme.inverse.background};
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -48,8 +50,4 @@ export const GlobalStyle = createGlobalStyle`
     font-size: clamp(1.125rem, 0.75rem + 0.5vw, 1.25rem);    
   } 
 
-  a {
-    transition: all 0.3s;
-    color: ${({ theme }) => theme.greys.grey10};
-  }
 `;

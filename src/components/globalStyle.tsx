@@ -1,6 +1,6 @@
 import React from 'React';
 import { createGlobalStyle } from 'styled-components';
-import { Breadcrumb } from './layout/breadcrumb';
+import { Breadcrumb } from './breadcrumb';
 
 export const GlobalStyle = createGlobalStyle`
   html, body {

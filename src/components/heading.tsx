@@ -3,14 +3,14 @@ import { css } from 'styled-components';
 import styled from 'styled-components';
 import { Palette } from '../../@types/styled';
 
-export interface TitleProps extends HtmlHTMLAttributes<HTMLHeadingElement> {
+export interface HeadingProps extends HtmlHTMLAttributes<HTMLHeadingElement> {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   size?: string;
   accent?: boolean;
   color?: keyof Palette;
 }
 
-const colors = (props: TitleProps) => {
+const colors = (props: HeadingProps) => {
   if (props.accent)
     return css`
       color: ${({ theme }) => theme.primary.accent1};
@@ -22,12 +22,15 @@ const colors = (props: TitleProps) => {
   `;
 };
 
-const TitleBase: FunctionComponent<TitleProps> = ({ level = 1, ...rest }) => {
+const HeadingBase: FunctionComponent<HeadingProps> = ({
+  level = 1,
+  ...rest
+}) => {
   const Heading = `h${level}`;
   return <Heading {...rest} />;
 };
 
-export const Title = styled(TitleBase)`
+export const Heading = styled(HeadingBase)`
   ${colors}
   ${({ size }) => size && `font-size: ${size};`}
 `;

@@ -34,19 +34,30 @@ const StyledGatsbyLink = styled(GatsbyLink)`
 
 export const Link: FunctionComponent<
   LinkProps & GatsbyLinkProps<any> & LinkStyleable
-> = ({ to, onClick, children, aProps, gProps }) => {
+> = ({ to, onClick, children, aProps, gProps, className }) => {
   const external = /^https?/i.test(to);
 
   if (external) {
     return (
-      <StyledLink href={to} onClick={onClick} target="blank" {...aProps}>
+      <StyledLink
+        className={className}
+        href={to}
+        onClick={onClick}
+        target="blank"
+        {...aProps}
+      >
         {children}
       </StyledLink>
     );
   } else {
     const url = !to.startsWith('/') && !to.startsWith('#') ? `/${to}` : to;
     return (
-      <StyledGatsbyLink to={url} onClick={onClick} {...gProps}>
+      <StyledGatsbyLink
+        className={className}
+        to={url}
+        onClick={onClick}
+        {...gProps}
+      >
         {children}
       </StyledGatsbyLink>
     );

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { ArticleMeta } from '../components/article';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { TableOfContents } from '../components/article/toc';
-import { Breadcrumb } from '../components/layout/breadcrumb';
+import { Breadcrumb } from '../components/breadcrumb';
 
 const ArticleWrapper = styled.main`
   display: grid;

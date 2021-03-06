@@ -5,10 +5,10 @@ import { Seo } from '../components/seo';
 import { Container } from '../components/layout/container';
 import { ArticleListItem } from '../components/article/articleListItem';
 import slugify from 'slugify';
-import { Title } from '../components/heading';
+import { Heading } from '../components/heading';
 import styled from 'styled-components';
 
-const SectionTitle = styled(Title)`
+const SectionTitle = styled(Heading)`
   margin-bottom: 2rem;
 `;
 

@@ -1,7 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { Container } from './container';
-import { Link } from '../link';
+import { Container } from './layout/container';
+import { Link } from './link';
 import { HomeOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
+import { BoxStyleable } from '../styles/themes';
 
 const unslugify = (str: string) =>
   str.slice(0, 1).toUpperCase() +
@@ -16,6 +18,31 @@ export interface BreadcrumbProps {
   paths?: string[];
   crumbs?: Crumb[];
 }
+
+const StyledBreadcrumbs = styled.ul<BoxStyleable>`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const StyledBreadcrumb = styled.li<BoxStyleable>`
+  list-style: none;
+  display: inline-block;
+  color: ${({ theme }) => theme.primary.grey3};
+
+  & ~ &::before {
+    content: ' / ';
+  }
+
+  &:not(:last-child) a {
+    color: #00000066;
+  }
+
+  & a {
+    text-decoration: none;
+    padding: 0.5rem 0.5rem;
+  }
+`;
 
 export const Breadcrumb: FunctionComponent<BreadcrumbProps> = ({
   paths: pathsProp,
@@ -40,18 +67,18 @@ export const Breadcrumb: FunctionComponent<BreadcrumbProps> = ({
   }
 
   return (
-    <ul {...rest}>
-      <li>
+    <StyledBreadcrumbs {...rest}>
+      <StyledBreadcrumb>
         <Link to="/">
           <HomeOutlined />
         </Link>
-      </li>
+      </StyledBreadcrumb>
       {paths &&
         paths.map((path) => (
-          <li key={`page-breadcrumb-${path}`}>
+          <StyledBreadcrumb key={`page-breadcrumb-${path}`}>
             <Link to={`${path.href}`}>{path.title}</Link>
-          </li>
+          </StyledBreadcrumb>
         ))}
-    </ul>
+    </StyledBreadcrumbs>
   );
 };

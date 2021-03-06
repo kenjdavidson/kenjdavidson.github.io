@@ -1,8 +1,8 @@
 import React, { ComponentType } from 'react';
 import styled from 'styled-components';
-import { Container, ContainerProps } from './container';
+import { Container, ContainerProps } from './layout/container';
 import Img, { FluidObject } from 'gatsby-image';
-import { Title } from '../heading';
+import { Heading } from './heading';
 
 export interface Props extends ContainerProps {
   title: string;
@@ -10,18 +10,19 @@ export interface Props extends ContainerProps {
   featureImageAlt?: string;
 }
 
-const Hero = styled.section`
+const StyledSection = styled.section`
   position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
-Hero.displayName = 'OffsetImageHero';
+StyledSection.displayName = 'OffsetImageHeader';
 
-const HeroTitle = styled(Title)`
+const Title = styled(Heading)`
   font-size: clamp(5rem, 0.75rem + 8vw, 8.768rem);
   margin-right: 1rem;
+  z-index: 10;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     text-align: right;
@@ -33,12 +34,12 @@ const HeroTitle = styled(Title)`
     margin-bottom: 2rem;
   }
 `;
-HeroTitle.displayName = 'OffsetImageHeroTitle';
+Title.displayName = 'OffsetImageHeaderTitle';
 
 const FeatureImage = styled.section`
   position: relative;
   margin-top: -25%;
-  z-index: 1;
+  z-index: -1;
 
   &::after {
     position: absolute;
@@ -56,7 +57,7 @@ const FeatureImage = styled.section`
     margin-top: 0;
   }
 `;
-FeatureImage.displayName = 'OffsetImageHeroImage';
+FeatureImage.displayName = 'OffsetImageHeadingImage';
 
 const Article = styled.article`
   z-index: 10;
@@ -66,9 +67,9 @@ const Article = styled.article`
     margin-right: 1rem;
   }
 `;
-Article.displayName = 'OffsetImageHeroArticle';
+Article.displayName = 'OffsetImageHeadingArticle';
 
-export const OffsetHero: React.FC<Props> = ({
+export const OffsetImageHeader: React.FC<Props> = ({
   title,
   featureImage,
   featureImageAlt,
@@ -76,12 +77,12 @@ export const OffsetHero: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <Hero {...rest}>
-      <HeroTitle>{title}</HeroTitle>
+    <StyledSection {...rest}>
+      <Title>{title}</Title>
       <FeatureImage>
         <Img fluid={featureImage} alt={featureImageAlt} />
       </FeatureImage>
       <Article>{children}</Article>
-    </Hero>
+    </StyledSection>
   );
 };

@@ -5,8 +5,10 @@ import { Seo } from '../components/seo';
 import { PageQuery } from '../graphql/pages';
 import { Container } from '../components/layout/container';
 import { useLocation } from '@reach/router';
-import { Breadcrumb } from '../components/layout/breadcrumb';
+import { Breadcrumb } from '../components/breadcrumb';
 import useSiteMetadata from '../hooks/useSiteMetadata';
+import { invertTheme } from '../styles/themes';
+import { ThemeProvider } from 'styled-components';
 
 export const PageTemplate = ({ data }: PageQueryProps) => {
   const page = data.pagesMdx.pages[0];
@@ -26,16 +28,16 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
     <>
       <Seo {...seo} />
       <div>
-        <div>
-          {location.pathname.split('/').length > 2 ? (
-            <Container size="medium">
-              <Breadcrumb paths={location.pathname.split('/')} />
-            </Container>
-          ) : undefined}
-          <Container>
-            <h1>{page.frontmatter.title}</h1>
-            <MDXRenderer>{page.body}</MDXRenderer>
+        {location.pathname.split('/').length > 2 ? (
+          <Container size="medium">
+            <Breadcrumb paths={location.pathname.split('/')} />
           </Container>
+        ) : undefined}
+        <Container>
+          <h1>{page.frontmatter.title}</h1>
+          <MDXRenderer>{page.body}</MDXRenderer>
+        </Container>
+        <ThemeProvider theme={invertTheme}>
           {page.sections &&
             page.sections.map((section) => (
               <Container key={`section-${section.id}`}>
@@ -43,7 +45,7 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
                 <MDXRenderer>{section.body}</MDXRenderer>
               </Container>
             ))}
-        </div>
+        </ThemeProvider>
       </div>
     </>
   );

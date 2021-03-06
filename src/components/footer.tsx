@@ -2,14 +2,13 @@ import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import { useRecentArticles } from '../hooks/useRecentArticles';
 import { Link } from './link';
-import { SocialList } from './social/socialList';
 import styled from 'styled-components';
 import slugify from 'slugify';
 import { Row, Col } from './layout/grid';
 import { List, ListItem } from './layout/list';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Container } from './layout/container';
-import { Title } from './heading';
+import { Heading } from './heading';
 import { paddingContain } from '../styles/themes';
 import { SocialLink } from './social';
 
@@ -19,7 +18,7 @@ const StyledFooter = styled.footer`
   margin-top: 10rem;
 `;
 
-const Heading = styled(Title)`
+const Title = styled(Heading)`
   color: ${({ theme }) => theme.primary.background};
   background-color: ${({ theme }) => theme.inverse.background};
   font-weight: 400;
@@ -83,7 +82,7 @@ export const Footer: FunctionComponent<
 
   return (
     <StyledFooter>
-      <Heading>See Ya Later</Heading>
+      <Title>See Ya Later</Title>
       <StyledContainer>
         <Row>
           <Col>

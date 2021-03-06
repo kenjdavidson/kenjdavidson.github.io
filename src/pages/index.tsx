@@ -9,14 +9,14 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import slugify from 'slugify';
 import Image from 'gatsby-image';
 import { ImageSharp } from '../graphql/imageSharp';
-import { OffsetHero } from '../components/layout/offsetHero';
-import { Title } from '../components/heading';
+import { OffsetImageHeader } from '../components/offsetImageHeader';
+import { Heading } from '../components/heading';
 import { TwoColumns } from '../components/layout/twoColumns';
 import { List, ListItem } from '../components/layout/list';
 import { ArticleCard } from '../components/article';
 import styled from 'styled-components';
 
-const SectionTitle = styled(Title)`
+const SectionTitle = styled(Heading)`
   margin-bottom: 2rem;
 `;
 
@@ -27,7 +27,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
     <>
       <Seo />
       <Container hero="full">
-        <OffsetHero
+        <OffsetImageHeader
           title="Hey, I'm Ken"
           featureImage={avatar.childImageSharp.fluid}
           featureImageAlt="Carson and me hanging out"
@@ -58,7 +58,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
             With that said, I can't guarantee that this site will be pretty (or
             bug free) but you can accept it, welcome.
           </p>
-        </OffsetHero>
+        </OffsetImageHeader>
       </Container>
 
       <Container size="large">

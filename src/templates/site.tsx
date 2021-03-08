@@ -52,6 +52,7 @@ const Content = styled.section`
   background-color: ${({ theme }) => theme.primary.background};
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 
   > main {
     flex: 1;
@@ -117,12 +118,12 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
         />
       </Helmet>
       <ThemeProvider theme={baseTheme}>
+        <GlobalStyle />
         <Hamburger
           active={menuShowing}
           onClick={() => showMenu(!menuShowing)}
           className={menuShowing ? `active` : ``}
         />
-        <GlobalStyle />
         <Navigation>
           <Nav>
             <p>
@@ -163,7 +164,7 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
           </Nav>
         </Navigation>
         <Content>
-          <main>{children}</main>
+          {children}
           <ThemeProvider theme={invertTheme}>
             <Footer />
           </ThemeProvider>

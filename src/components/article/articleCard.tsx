@@ -1,5 +1,5 @@
 import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
-import { Article } from '../../gatsby/articlesGraphQL';
+import { Article, ArticleSummary } from '../../gatsby/articlesGraphQL';
 import styled from 'styled-components';
 import Image from 'gatsby-image';
 import { Link } from '../link';
@@ -7,14 +7,25 @@ import { Link } from '../link';
 const Card = styled.article``;
 
 const StyledLink = styled(Link)`
+  text-decoration: none;
+  position: relative;
+  background-color: ${({ theme }) => theme.primary.background};
+
+  h5 {
+    font-weight: 600;
+  }
+
   &:hover h5 {
-    color: ${({ theme }) => theme.primary.accent1};
     text-shadow: 1px 1px 0px ${({ theme }) => theme.primary.accent2};
+    z-index: 100;
+  }
+
+  p:last-child {
   }
 `;
 
 export const ArticleCard: FunctionComponent<
-  { article: Article } & HtmlHTMLAttributes<HTMLDivElement>
+  { article: ArticleSummary } & HtmlHTMLAttributes<HTMLDivElement>
 > = ({ article, ...rest }) => {
   return (
     <StyledLink to={article.fields.slug} decorated="none">

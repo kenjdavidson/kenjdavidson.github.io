@@ -15,14 +15,15 @@ export const sizes: Sizes = {
   margin: `1rem`,
 };
 
-export const font: Font = {
+export const bodyFont: Font = {
   family: `'Merriweather', serif`,
   weight: 300,
+  baseSizePx: 16,
 };
 
-export const heading: Font = {
+export const headingFont: Font = {
   family: `'Merriweather', serif`,
-  weight: 600,
+  weight: 300,
 };
 
 /**
@@ -43,11 +44,12 @@ export const heading: Font = {
 export const baseTheme: DefaultTheme = {
   breakpoints,
   sizes,
-  font,
-  heading,
+  body: bodyFont,
+  heading: headingFont,
   primary: {
     background: '#17BB90',
     text: 'hsl(0, 0%, 10%)',
+    heading: 'hsl(0, 0%, 0%)',
     accent1: '#F9DC5C',
     accent2: '#0D324D',
     accent3: '#B0413E',
@@ -68,8 +70,9 @@ export const baseTheme: DefaultTheme = {
     grey10: 'hsl(0, 0%, 100%)',
   },
   inverse: {
-    background: 'hsl(0, 0%, 90%)',
+    background: 'hsl(0, 0%, 100%)',
     text: 'hsl(0, 0%, 10%)',
+    heading: 'hsl(0, 0%, 0%)',
     accent1: '#0D324D',
     accent2: '#F9DC5C',
     accent3: '#B0413E',
@@ -200,3 +203,28 @@ export const marginContain = (props: ThemedProps) => css`
     calc(((100vw - ${({ theme }) => theme.sizes.maxWidth}) / 2))
   );
 `;
+
+export const fontStyle = (
+  minSizeRem: number,
+  maxSizeRem: number,
+  font?: 'body' | 'heading'
+) => (props: ThemedProps) => {
+  const fontType = font || 'body';
+  const minWidth =
+    props.theme.breakpoints.large / (props.theme[fontType].baseSizePx || 16);
+  const maxWidth =
+    props.theme.breakpoints.xxlarge / (props.theme[fontType].baseSizePx || 16);
+  const slope = (maxSizeRem - minSizeRem) / (maxWidth - minWidth);
+  const y = -minWidth * slope + minSizeRem;
+  return css`
+    ${props.theme[fontType].family &&
+    `font-family: ${props.theme[fontType].family};`}
+    font-size: clamp(
+      ${minSizeRem}rem,
+      ${y}rem + ${slope * 100}vw,
+      ${maxSizeRem}rem
+    );
+    ${props.theme[fontType].weight &&
+    `font-weight: ${props.theme[fontType].weight};`}
+  `;
+};

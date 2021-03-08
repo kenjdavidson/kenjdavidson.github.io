@@ -1,6 +1,6 @@
 export const siteMetadata = {
   siteUrl: "https://www.kenjdavidson.com",
-  title: "Welcome to Ken Davidson's online playground!",
+  title: "Husbanding, Fathering, Developing and Golfing",
   description:
     "Whether you're checking out my posts, following up on an application, or found me through a random Google - I'm glad to have you!",
   image: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
@@ -9,7 +9,7 @@ export const siteMetadata = {
     name: "Ken Davidson",
     avatar: "https://avatars1.githubusercontent.com/u/6210735?s=460&v=4",
     description:
-      "Husbanding, fathering, golfing and developing my way to retirement!"
+      "Just a old dog attempting to learn new tricks.  I'm either at work, playing other room, or out on the golf course.  Sometimes I post about one of all of the above."
   },
   editUrl:
     "https://github.com/kenjdavidson/kenjdavidson.github.io/edit/gatsby",

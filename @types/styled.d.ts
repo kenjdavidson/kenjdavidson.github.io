@@ -20,6 +20,8 @@ export type Sizes = {
 interface Palette {
   background: Color;
   text: Color;
+  heading: Color;
+
   accent1: Color;
   accent2: Color;
   accent3: Color;
@@ -45,18 +47,15 @@ interface Palette {
 export type Font = {
   family?: string;
   weight?: number;
-  lineHeight?: number;
-  size?: {
-    min: number;
-    max: number;
-  };
+  lineHeightPx?: number;
+  baseSizePx?: number;
 };
 
 declare module 'styled-components' {
   export interface DefaultTheme {
     breakpoints: Breakpoints;
     sizes: Sizes;
-    font: Font;
+    body: Font;
     heading: Font;
 
     primary: Palette;

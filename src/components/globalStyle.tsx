@@ -1,5 +1,6 @@
 import React from 'React';
 import { createGlobalStyle } from 'styled-components';
+import { fontStyle } from '../styles/themes';
 import { Breadcrumb } from './breadcrumb';
 
 export const GlobalStyle = createGlobalStyle`
@@ -9,12 +10,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-family: ${({ theme }) => theme.font.family};
+    ${({ theme }) => fontStyle(0.9, 1.02)};
     color: ${({ theme }) => theme.primary.text};
-    font-size: clamp(${({ theme }) =>
-      theme.font.size?.min}, calc(.7rem + .25vw), ${({ theme }) =>
-  theme.font.size?.max});
-    font-weight: ${({ theme }) => theme.font.weight};
   }
 
   body {
@@ -27,27 +24,27 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: clamp(2.75rem, 0.75rem + 4.5vw, 4.768rem);
+    ${({ theme }) => fontStyle(2.027, 3.815, 'heading')};
   }
 
   h2 {
-    font-size: clamp(2.221rem, 0.75rem + 3.7vw, 4rem);    
+    ${({ theme }) => fontStyle(1.802, 3.052, 'heading')};
   }
 
   h3 {
-    font-size: clamp(1.802rem, 0.75rem + 2vw, 3.052rem);    
+    ${({ theme }) => fontStyle(1.602, 2.441, 'heading')};
   }
 
   h4 {
-    font-size: clamp(1.602rem, 0.75rem + 1.5vw, 2.441rem);    
+    ${({ theme }) => fontStyle(1.424, 1.953, 'heading')};
   }
 
   h5 {
-    font-size: clamp(1.266rem, 0.75rem + 1vw, 1.563rem);    
+    ${({ theme }) => fontStyle(1.266, 1.563, 'heading')};
   }
 
   h6 {
-    font-size: clamp(1.125rem, 0.75rem + 0.5vw, 1.25rem);    
+    ${({ theme }) => fontStyle(1.125, 1.25, 'heading')};
   } 
 
 `;

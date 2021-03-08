@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
-import { Container } from '../components/layout/container';
+import { Section } from '../components/layout/container';
 
 const GolfingPage: FunctionComponent = () => (
-  <Container>
+  <Section>
     <h1>Golf Canada</h1>
     <p>
       Golf and I (much like a fair number of us) have a love/hate relationship.
@@ -12,7 +12,7 @@ const GolfingPage: FunctionComponent = () => (
       I'm hoping to get my Golf Canada gatsby source plugin up and running; I
       figure leaving a reminder here is a better push than not having it at all.
     </p>
-  </Container>
+  </Section>
 );
 
 export default GolfingPage;

@@ -8,6 +8,7 @@ export interface HeadingProps extends HtmlHTMLAttributes<HTMLHeadingElement> {
   size?: string;
   accent?: boolean;
   color?: keyof Palette;
+  weight?: number | string;
 }
 
 const colors = (props: HeadingProps) => {
@@ -18,7 +19,7 @@ const colors = (props: HeadingProps) => {
     `;
 
   return css`
-    color: ${({ theme }) => theme.primary[props.color || 'grey0']};
+    color: ${({ theme }) => theme.primary[props.color || 'heading']};
   `;
 };
 
@@ -33,4 +34,5 @@ const HeadingBase: FunctionComponent<HeadingProps> = ({
 export const Heading = styled(HeadingBase)`
   ${colors}
   ${({ size }) => size && `font-size: ${size};`}
+  ${({ weight }) => weight && `font-weight: ${weight};`}
 `;

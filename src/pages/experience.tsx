@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import { Timeline } from '../graphql/timeline';
 import { Seo } from '../components/seo';
-import { Container } from '../components/layout/container';
+import { Section } from '../components/layout/container';
 
 export interface ResumePageProps {
   data: {
@@ -16,7 +16,7 @@ const ResumePage: FunctionComponent<ResumePageProps> = ({ data }) => {
   return (
     <>
       <Seo title="Ken J Davidson - Experience and Education" />
-      <Container>
+      <Section>
         <h1>I've seen things!!</h1>
         <p>
           I've had a pretty good run so far, both personally and professionally.
@@ -24,8 +24,8 @@ const ResumePage: FunctionComponent<ResumePageProps> = ({ data }) => {
         <p>
           <strong>Only 24 more years 'til retirement!</strong>
         </p>
-      </Container>
-      <Container className="experience-timeline">
+      </Section>
+      <Section className="experience-timeline">
         {/* <AntTimeline mode="alternate">
           {data.experience.nodes.map((exp: Timeline) => (
             <AntTimeline.Item>
@@ -38,7 +38,7 @@ const ResumePage: FunctionComponent<ResumePageProps> = ({ data }) => {
             </AntTimeline.Item>
           ))}
         </AntTimeline> */}
-      </Container>
+      </Section>
       {/* {data.experience.nodes.map((job: any) => {
           const endDate = !job.frontmatter.end
             ? "Present"

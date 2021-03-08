@@ -7,7 +7,7 @@ import slugify from 'slugify';
 import { Row, Col } from './layout/grid';
 import { List, ListItem } from './layout/list';
 import { graphql, useStaticQuery } from 'gatsby';
-import { Container } from './layout/container';
+import { Section } from './layout/container';
 import { Heading } from './heading';
 import { paddingContain } from '../styles/themes';
 import { SocialLink } from './social';
@@ -27,7 +27,7 @@ const Title = styled(Heading)`
   margin: 0px;
 `;
 
-const StyledContainer = styled(Container)`
+const StyledContainer = styled(Section)`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

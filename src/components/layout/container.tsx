@@ -6,16 +6,10 @@ import React, {
 import classNames from 'classnames';
 import styled, { css } from 'styled-components';
 
-export interface ContainerProps extends HtmlHTMLAttributes<HTMLDivElement> {
+export interface SectionProps extends HtmlHTMLAttributes<HTMLDivElement> {
   size?: 'none' | 'small' | 'medium' | 'large';
-  hero?: 'half' | 'full';
   overrideWidth?: boolean;
 }
-
-const heroSizes = {
-  half: '50vh',
-  full: '100vh',
-};
 
 const paddingSizes = {
   none: '0rem',
@@ -24,18 +18,19 @@ const paddingSizes = {
   large: '5rem',
 };
 
-const StyledSection = styled.section<ContainerProps>`
+const StyledSection = styled.section<SectionProps>`
   position: relative;
-  ${({ size }) => `padding-top: ${paddingSizes[size || 'small']}`};
+  background-color: ${({ theme }) => theme.primary.background};
+  color: ${({ theme }) => theme.primary.text};
 
-  ${({ hero }) =>
-    hero &&
-    css`
-      min-height: ${heroSizes[hero]};
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    `}
+  ${({ size }) => css`
+    padding-top: ${paddingSizes[size || 'small']};
+    padding-bottom: ${paddingSizes[size || 'small']};
+
+    & ~ & {
+      padding-top: 0;
+    }
+  `}
 
   ${({ overrideWidth, theme }) =>
     !overrideWidth &&
@@ -43,16 +38,20 @@ const StyledSection = styled.section<ContainerProps>`
       padding-left: max(1.5rem, calc((100vw - ${theme.sizes.maxWidth}) / 2));
       padding-right: max(1.5rem, calc((100vw - ${theme.sizes.maxWidth}) / 2));
     `}
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
-    ${({ size }) =>
-      css`
-        padding-top: ${paddingSizes[size || 'small']};
-        padding-bottom: ${paddingSizes[size || 'small']};
-      `}
-  }
 `;
 
-export const Container: FunctionComponent<ContainerProps> = ({ ...rest }) => {
+export const Section: FunctionComponent<SectionProps> = ({ ...rest }) => {
   return <StyledSection {...rest} />;
 };
+
+export const Hero = styled.section`
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  ${({ theme }) => css`
+    padding-left: max(1.5rem, calc((100vw - ${theme.sizes.maxWidth}) / 2));
+    padding-right: max(1.5rem, calc((100vw - ${theme.sizes.maxWidth}) / 2));
+  `}
+`;

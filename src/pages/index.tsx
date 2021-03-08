@@ -1,20 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
-import { Article } from '../gatsby/articlesGraphQL';
-import { Container } from '../components/layout/container';
-import { Link } from '../components/link';
+import { Article, ArticleSummary } from '../gatsby/articlesGraphQL';
+import { Section, Hero } from '../components/layout/container';
 import { Project } from '../graphql/projects';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import slugify from 'slugify';
-import Image from 'gatsby-image';
 import { ImageSharp } from '../graphql/imageSharp';
 import { OffsetImageHeader } from '../components/offsetImageHeader';
 import { Heading } from '../components/heading';
-import { TwoColumns } from '../components/layout/twoColumns';
-import { List, ListItem } from '../components/layout/list';
 import { ArticleCard } from '../components/article';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { Grid } from '../components/grid';
+import { invertTheme } from '../styles/themes';
 
 const SectionTitle = styled(Heading)`
   margin-bottom: 2rem;
@@ -26,94 +24,81 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo />
-      <Container hero="full">
+      <Hero>
         <OffsetImageHeader
-          title="Hey, I'm Ken"
+          title="Husbanding, Fathering, Developing and Golfing my way to retirement!"
           featureImage={avatar.childImageSharp.fluid}
           featureImageAlt="Carson and me hanging out"
         >
-          <h4>
-            I'm just Husbanding, Fathering, Developing and Golfing my way to
-            retirement!
-          </h4>
-          <p>
-            I use this site to <Link to="/writing">document</Link> the successes
-            (and failures) along my <Link to="/about#work">professional</Link>{' '}
-            and <Link to="/projects">extra curricular</Link> development path.
-            I'm currently playing around (trying to love){' '}
-            <strong>JavaScript</strong>, <strong>TypeScript</strong>,
-            <strong>Gatsby</strong>, <strong>React</strong> and a couple things
-            that I should probably already love.
-          </p>
-          <p>
-            When I'm not sitting infront of a computer there's a pretty solid
-            chance that I'm{' '}
-            <Link to="/about#carson" style={{ fontStyle: 'italic' }}>
-              "playing other room"
-            </Link>{' '}
-            with my son or attempting to get a round in. I don't post much about
-            it, but my wife and son are always my top priority.
-          </p>
-          <p>
-            With that said, I can't guarantee that this site will be pretty (or
-            bug free) but you can accept it, welcome.
-          </p>
+          <Heading level={5} weight={400}>
+            Successes or failures; professional or personal; if I remember or
+            have a chance to write about it - hopefully it'll help you out.
+          </Heading>
         </OffsetImageHeader>
-      </Container>
+      </Hero>
 
-      <Container size="large">
-        <SectionTitle level={2}>Sometimes I Write</SectionTitle>
-        <TwoColumns
-          columns="1/4"
-          left={
-            <p>
-              Let's put the emphasis on **sometimes**. Every year I say I'm
-              going to try and post more... and every year I learn that I'd
-              rather be doing other things that publishing my thoughts.
-            </p>
-          }
-          right={
-            <>
-              <List>
-                {data.recentArticles.articles.map((article) => (
-                  <ListItem
-                    key={`article-${slugify(article.frontmatter.title)}`}
-                    spacing={{ bottom: 5 }}
-                  >
-                    <ArticleCard article={article} />
-                  </ListItem>
-                ))}
-              </List>
-              <p>
-                Would you like <Link to="/writing">to read more</Link>?
-              </p>
-            </>
-          }
-        />
-      </Container>
-
-      <Container size="large">
-        <SectionTitle level={2}>Sometimes I Open Source</SectionTitle>
-        {data.recentProjects.projects.map((project) => (
-          <article key={`project-row-${project.frontmatter.title}`}>
-            <Image
-              fluid={project.frontmatter.featureImage.childImageSharp.fluid}
+      <ThemeProvider theme={invertTheme}>
+        <Section size="large">
+          <SectionTitle level={2}>Some Recent Posts</SectionTitle>
+          <Grid columns={3}>
+            {data.recentArticles.articles.map((article) => (
+              <ArticleCard
+                key={`article-${slugify(article.frontmatter.title)}`}
+                article={article}
+              />
+            ))}
+            <ArticleCard
+              article={{
+                id: 'read-more-article',
+                frontmatter: {
+                  category: 'Read more',
+                  subcategory: '',
+                  title: 'Read more',
+                  summary: `I've got a couple more articles available. I'm also 
+                     attempting to start getting a bunch more content 
+                    online.`,
+                  tags: [],
+                },
+                fields: {
+                  slug: '/writing',
+                  publishTime: new Date(),
+                  publishYear: new Date().getFullYear(),
+                },
+              }}
             />
-            <section>
-              <h3>{project.frontmatter.title}</h3>
-              <MDXRenderer>{project.body}</MDXRenderer>
-            </section>
-          </article>
-        ))}
-      </Container>
+          </Grid>
+        </Section>
 
-      <Container size="large">
-        <SectionTitle level={2}>A lot of the Time I Golf</SectionTitle>
-        <p>When it's not snowing or cold!</p>
-        <p>
-          TODO - finish and publish Gatsby Golf Canada source/transform plugin.
-        </p>
-      </Container>
+        <Section size="large">
+          <SectionTitle level={2}>A Project or Two</SectionTitle>
+          <Grid columns={2}>
+            {data.recentProjects.projects.map((project) => (
+              <article key={`project-row-${project.frontmatter.title}`}>
+                <img
+                  src={
+                    project.frontmatter.featureImage.childImageSharp.fluid.src
+                  }
+                  width="100%"
+                />
+                <section>
+                  <h3>{project.frontmatter.title}</h3>
+                  <MDXRenderer>{project.body}</MDXRenderer>
+                </section>
+              </article>
+            ))}
+            {data.recentProjects.projects.length == 1 && <div />}
+          </Grid>
+        </Section>
+
+        <Section size="large">
+          <SectionTitle level={2}>I wish I was Golfing</SectionTitle>
+          <p>When it's not snowing or cold!</p>
+          <p>
+            TODO - finish and publish Gatsby Golf Canada source/transform
+            plugin.
+          </p>
+        </Section>
+      </ThemeProvider>
     </>
   );
 };
@@ -122,7 +107,7 @@ export default IndexPage;
 interface IndexPageProps {
   data: {
     recentArticles: {
-      articles: Article[];
+      articles: ArticleSummary[];
     };
     recentProjects: {
       projects: Project[];
@@ -157,7 +142,7 @@ export const query = graphql`
     }
     avatar: file(relativePath: { regex: "/images/carson-on-shoulders.png/" }) {
       childImageSharp {
-        fluid {
+        fluid(quality: 100) {
           ...GatsbyImageSharpFluid_tracedSVG
         }
       }

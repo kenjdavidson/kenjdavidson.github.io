@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
-import { Container } from '../components/layout/container';
+import { Section } from '../components/layout/container';
 import { Seo } from '../components/seo';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import { Article } from '../gatsby/articlesGraphQL';
@@ -58,18 +58,18 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
           article.frontmatter.featureImage.childImageSharp.fixed.src
         }
       />
-      <Container className="v-pad-medium">
-        <Container>
+      <Section className="v-pad-medium">
+        <Section>
           <Breadcrumb paths={['writing']} />
-        </Container>
-      </Container>
-      <Container>
-        <Container>
+        </Section>
+      </Section>
+      <Section>
+        <Section>
           <h1>{article.frontmatter.title}</h1>
-        </Container>
-      </Container>
-      <Container>
-        <Container>
+        </Section>
+      </Section>
+      <Section>
+        <Section>
           <ArticleWrapper>
             <StickyAside top={48}>
               <TableOfContents article={article}>
@@ -80,8 +80,8 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
               <MDXRenderer>{article.body}</MDXRenderer>
             </article>
           </ArticleWrapper>
-        </Container>
-      </Container>
+        </Section>
+      </Section>
     </>
   );
 };

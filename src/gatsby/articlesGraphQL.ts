@@ -63,7 +63,7 @@ export const fragment = graphql`
   }
 `;
 
-export type Frontmatter = {
+export interface Frontmatter {
   category: string;
   subcategory: string;
   title: string;
@@ -72,27 +72,33 @@ export type Frontmatter = {
   tags?: string[];
   featureImage?: FeatureImageFile;
   featureImageAlt?: string;
-};
+}
 
-export type Fields = {
+export interface Fields {
   slug: string;
   publishTime: Date;
   publishYear: number;
   seriesId?: string;
-};
+}
 
-export type WordCount = {
+export interface WordCount {
   paragraphs: number;
   sentences: number;
   words: number;
-};
+}
 
-export type ContentItem = {
+export interface ContentItem {
   title: string;
   url: string;
-};
+}
 
-export type Article = {
+export interface ArticleSummary {
+  id: string;
+  fields: Fields;
+  frontmatter: Frontmatter;
+}
+
+export interface Article extends ArticleSummary {
   id: string;
   fields: Fields;
   fileAbsolutePath: string;
@@ -106,15 +112,15 @@ export type Article = {
     items: ContentItem[];
   };
   headings: Heading[];
-};
+}
 
-export type Heading = {
+export interface Heading {
   value: string;
   depth: number;
-};
+}
 
-export type ArticleQuery = {
+export interface ArticleQuery {
   allMdx: {
     articles: Article[];
   };
-};
+}

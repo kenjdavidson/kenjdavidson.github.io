@@ -51,13 +51,6 @@ export default {
             },
           },
           {
-            resolve: 'gatsby-remark-autolink-headers', // PrismJS must be after
-            options: {
-              className: `header-anchor`,
-              isIconAfterHeader: true,
-            },
-          },
-          {
             resolve: 'gatsby-remark-prismjs',
             options: {
               classPrefix: 'language-',

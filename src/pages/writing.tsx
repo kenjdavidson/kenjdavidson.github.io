@@ -7,7 +7,7 @@ import slugify from 'slugify';
 import { Heading } from '../components/heading';
 import styled, { ThemeProvider } from 'styled-components';
 import { invertTheme } from '../styles/themes';
-import { ArticleCard } from '../components/article/articleCard';
+import { Card as ArticleCard } from '../components/article/card';
 import { Grid } from '../components/grid';
 
 const SectionTitle = styled(Heading)`

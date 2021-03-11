@@ -12,7 +12,7 @@ export const siteMetadata = {
       "Just a old dog attempting to learn new tricks.  I'm either at work, playing other room, or out on the golf course.  Sometimes I post about one of all of the above."
   },
   editUrl:
-    "https://github.com/kenjdavidson/kenjdavidson.github.io/edit/gatsby",
+    "https://github.com/kenjdavidson/kenjdavidson.github.io/edit/main",
   menu: [
     {
       icon: "Home",
@@ -94,5 +94,9 @@ export const siteMetadata = {
     themeColo: "#000",
     display: "standalone",
     icon: "static/playstore.svg"
+  },
+  articleMeta: {
+    editOn: `Accepting corrections on `,
+    shareOn: `I appreciate that I'm not the most well written; regardless of that, I hope that this article has helped in some way.  Feel free to share it if you think it could help others.`
   }
 };

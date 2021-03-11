@@ -11,6 +11,7 @@ import { Section } from './layout/container';
 import { Heading } from './heading';
 import { paddingContain } from '../styles/themes';
 import { SocialLink } from './social';
+import { Divider } from './divider';
 
 const StyledFooter = styled.footer`
   background-color: ${({ theme }) => theme.primary.background};
@@ -34,12 +35,6 @@ const StyledContainer = styled(Section)`
   align-content: center;
 `;
 
-const Divider = styled.div<{ height?: number }>`
-  width: 100%;
-  height: ${({ height }) => (height && `${height}px`) || '1px'};
-  background-color: ${({ theme }) => theme.inverse.grey8};
-`;
-
 const SocialSection = styled.section`
   display: flex;
   flex-direction: row;
@@ -54,7 +49,7 @@ const MetaRow = styled.section`
   justify-content: center;
   padding: 1rem 0;
 
-  color: ${({ theme }) => theme.inverse.grey5};
+  color: ${({ theme }) => theme.primary.grey7};
   text-transform: uppercase;
   font-size: 0.75rem;
 
@@ -98,7 +93,9 @@ export const Footer: FunctionComponent<
             </p>
           </Col>
           <Col>
-            <h3>Recent posts...</h3>
+            <Heading level={3} margin="small">
+              Recent posts...
+            </Heading>
             <List>
               {articles.map((article) => (
                 <ListItem

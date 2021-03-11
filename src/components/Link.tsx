@@ -14,14 +14,16 @@ import { LinkStyleable } from '../styles/themes';
  *
  */
 export interface LinkProps {
-  aProps?: HtmlHTMLAttributes<HTMLAnchorElement>;
-  gProps?: Omit<GatsbyLinkProps<Record<string, unknown>>, 'ref'>;
+  to: string;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  className?: string;
+  target?: string;
 }
 
 const styles = css<LinkStyleable>`
   transition: ${({ transition }) => transition || 'all 0.3s'};
-  text-decoration: ${({ decorated }) => decorated || 'underline'};
   color: ${({ theme, color }) => theme.primary[color || 'text']};
+  text-decoration: ${({ decoration }) => decoration || 'underline'};
 `;
 
 const StyledLink = styled.a`
@@ -32,32 +34,33 @@ const StyledGatsbyLink = styled(GatsbyLink)`
   ${styles}
 `;
 
-export const Link: FunctionComponent<
-  LinkProps & GatsbyLinkProps<any> & LinkStyleable
-> = ({ to, onClick, children, aProps, gProps, className }) => {
-  const external = /^https?/i.test(to);
+export const Link: FunctionComponent<LinkProps & LinkStyleable> = ({
+  to: toProp,
+  onClick,
+  children,
+  className,
+  target,
+}) => {
+  const external = /^https?/i.test(toProp);
 
   if (external) {
     return (
       <StyledLink
         className={className}
-        href={to}
+        href={toProp}
         onClick={onClick}
-        target="blank"
-        {...aProps}
+        target={target || 'blank'}
       >
         {children}
       </StyledLink>
     );
   } else {
-    const url = !to.startsWith('/') && !to.startsWith('#') ? `/${to}` : to;
+    const url =
+      !toProp.startsWith('/') && !toProp.startsWith('#')
+        ? `/${toProp}`
+        : toProp;
     return (
-      <StyledGatsbyLink
-        className={className}
-        to={url}
-        onClick={onClick}
-        {...gProps}
-      >
+      <StyledGatsbyLink className={className} to={url} onClick={onClick}>
         {children}
       </StyledGatsbyLink>
     );

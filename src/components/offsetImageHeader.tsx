@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Img, { FluidObject } from 'gatsby-image';
-import { Heading } from './heading';
+import { PageHeading } from './heading';
 import { fontStyle } from '../styles/themes';
+import { Hero } from './layout/container';
 
 export interface Props {
   title: string;
@@ -12,39 +13,14 @@ export interface Props {
 
 const StyledSection = styled.section`
   position: relative;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 `;
 StyledSection.displayName = 'OffsetImageHeader';
 
-const Title = styled(Heading)<{ dataContent: string }>`
-  ${fontStyle(2.281, 4.768, 'heading')}
-  position: relative;
-  font-weight: 600;
+const Title = styled(PageHeading)`
   margin-right: 1rem;
   z-index: 10;
-
-  &::before,
-  &&::after {
-    content: attr(datacontent);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    color: ${({ theme }) => theme.primary.accent1};
-    z-index: -1;
-  }
-
-  &::before {
-    top: 1px;
-    left: 1px;
-  }
-
-  &::after {
-    top: -1px;
-    left: -1px;
-  }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     text-align: right;
@@ -60,7 +36,7 @@ Title.displayName = 'OffsetImageHeaderTitle';
 
 const FeatureImage = styled.section`
   position: relative;
-  margin-top: -25%;
+  margin-top: -5rem;
 
   &::after {
     position: absolute;
@@ -99,7 +75,7 @@ export const OffsetImageHeader: React.FC<Props> = ({
 }) => {
   return (
     <StyledSection {...rest}>
-      <Title dataContent={title}>{title}</Title>
+      <Title data-title={title}>{title}</Title>
       <FeatureImage>
         <Img fluid={featureImage} alt={featureImageAlt} />
       </FeatureImage>

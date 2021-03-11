@@ -1,51 +1,83 @@
 import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
-import { Section } from '../components/layout/container';
+import { Section, Hero } from '../components/layout/container';
 import { Seo } from '../components/seo';
-import useSiteMetadata from '../hooks/useSiteMetadata';
-import { Article } from '../gatsby/articlesGraphQL';
-import styled from 'styled-components';
-import { ArticleMeta } from '../components/article';
+import { Article, Fields } from '../gatsby/articlesGraphQL';
+import styled, { ThemeProvider } from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { TableOfContents } from '../components/article/toc';
 import { Breadcrumb } from '../components/breadcrumb';
+import { Heading, PageHeading } from '../components/heading';
+import { invertTheme } from '../styles/themes';
+import { MDXProvider } from '@mdx-js/react';
+import { Fields as ArticleFields, Tags } from '../components/article/meta';
+import { ShareLinks } from '../components/shareLinks';
+import useEditUrl from '../hooks/useEditUrl';
+import { Link } from '../components/link';
+import useSiteMetadata from '../hooks/useSiteMetadata';
+import { Divider, TitleDivider } from '../components/divider';
 
-const ArticleWrapper = styled.main`
+const GridLayout = styled.main`
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto auto;
   grid-template-areas:
-    'header'
     'toc'
     'content'
-    'meta';
+    'metaLeft'
+    'metaRight';
   grid-gap: 0 3rem;
   gap: 2rem;
 
   @media screen and (min-width: ${({ theme }) =>
       `${theme.breakpoints.large}px`}) {
     grid-template-columns: minmax(0, 2fr) 1fr;
-    grid-template-rows: minmax(0, auto) 1fr;
+    grid-template-rows: minmax(0, auto) 1fr auto;
     grid-template-areas:
       'content toc'
-      'content meta';
+      'metaLeft metaRight';
     grid-gap: 0 3rem;
     gap: 2rem;
   }
 `;
+GridLayout.displayName = 'ArticleGridLayout';
 
-const StickyAside = styled.aside<{ top?: number }>`
+const StickyToc = styled(TableOfContents)<{ top?: string }>`
+  grid-area: toc;
+
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: ${({ top }) => top || '0px'};
+
   @media screen and (min-width: ${({ theme }) =>
       `${theme.breakpoints.large}px`}) {
     position: -webkit-sticky; /* Safari */
     position: sticky;
-    top: ${({ top }) => (top && `${top}px`) || 0};
+    top: ${({ top }) => top || '0px'};
   }
 `;
+StickyToc.displayName = 'StickyTableOfContents';
 
-export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
+const ArticleContent = styled.section`
+  grid-area: content;
+`;
+ArticleContent.displayName = 'ArticleContent';
+
+const ShareContent = styled.aside`
+  grid-area: metaLeft;
+`;
+ShareContent.displayName = 'ShareContent';
+
+const EditContent = styled.aside`
+  grid-area: metaRight;
+`;
+EditContent.displayName = 'EditContent';
+
+export const ArticleTemplate: FunctionComponent<ArticleTemplateProps> = ({
+  location,
   data,
 }) => {
+  const { articleMeta } = useSiteMetadata();
   const { article } = data.articles.edges[0];
 
   return (
@@ -58,37 +90,54 @@ export const ArticleTemplate: FunctionComponent<ArticleQueryProps> = ({
           article.frontmatter.featureImage.childImageSharp.fixed.src
         }
       />
-      <Section className="v-pad-medium">
-        <Section>
-          <Breadcrumb paths={['writing']} />
-        </Section>
-      </Section>
-      <Section>
-        <Section>
-          <h1>{article.frontmatter.title}</h1>
-        </Section>
-      </Section>
-      <Section>
-        <Section>
-          <ArticleWrapper>
-            <StickyAside top={48}>
-              <TableOfContents article={article}>
-                <h5>Content</h5>
-              </TableOfContents>
-            </StickyAside>
-            <article style={{ gridArea: 'content' }} id="introduction">
+      <Breadcrumb paths={['writing']} />
+      <Hero size="medium">
+        <PageHeading margin="small" data-title={article.frontmatter.title}>
+          {article.frontmatter.title}
+        </PageHeading>
+        {article.frontmatter.tags && <Tags tags={article.frontmatter.tags} />}
+        <ArticleFields article={article} />
+      </Hero>
+      <ThemeProvider theme={invertTheme}>
+        <Section size="large">
+          <GridLayout>
+            <div className="stickyWrapper">
+              <StickyToc top="1rem" article={article}>
+                <Heading level={5} margin="small">
+                  Content
+                </Heading>
+              </StickyToc>
+              <div style={{ height: '100% ' }} />
+            </div>
+            <ArticleContent id="introduction">
               <MDXRenderer>{article.body}</MDXRenderer>
-            </article>
-          </ArticleWrapper>
+            </ArticleContent>
+            <ShareContent>
+              <TitleDivider title="Share Me" />
+              <p>{articleMeta.shareOn} </p>
+              <ShareLinks
+                title={article.frontmatter.title}
+                href={location.href}
+              />
+            </ShareContent>
+            <EditContent>
+              <TitleDivider title="Edit Me" />
+              <p>
+                {articleMeta.editOn}{' '}
+                <Link to={useEditUrl(article.fileAbsolutePath)}>Github</Link>
+              </p>
+            </EditContent>
+          </GridLayout>
         </Section>
-      </Section>
+      </ThemeProvider>
     </>
   );
 };
 
 export default ArticleTemplate;
 
-interface ArticleQueryProps {
+interface ArticleTemplateProps {
+  location: Location;
   data: {
     articles: {
       edges: {

@@ -8,6 +8,8 @@ import { VortexReverse } from 'react-burgers';
 import { Link, navigate, useStaticQuery, graphql } from 'gatsby';
 import { GlobalStyle } from '../components/globalStyle';
 import { Navigation, Nav } from '../components/navigation';
+import { MDXProvider } from '@mdx-js/react';
+import { mdxComponents } from '../components/mdxComponents';
 
 /**
  * Provides the `Hamburger` implementation for the `SiteTemplate`.  This is currently
@@ -52,7 +54,7 @@ const Content = styled.section`
   background-color: ${({ theme }) => theme.primary.background};
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  min-height: 100vh;
 
   > main {
     flex: 1;
@@ -164,10 +166,12 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
           </Nav>
         </Navigation>
         <Content>
-          {children}
-          <ThemeProvider theme={invertTheme}>
-            <Footer />
-          </ThemeProvider>
+          <MDXProvider components={mdxComponents}>
+            {children}
+            <ThemeProvider theme={invertTheme}>
+              <Footer />
+            </ThemeProvider>
+          </MDXProvider>
         </Content>
       </ThemeProvider>
     </>

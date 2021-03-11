@@ -9,7 +9,7 @@ import slugify from 'slugify';
 import { ImageSharp } from '../graphql/imageSharp';
 import { OffsetImageHeader } from '../components/offsetImageHeader';
 import { Heading } from '../components/heading';
-import { ArticleCard } from '../components/article';
+import { Card as ArticleCard } from '../components/article/card';
 import styled, { ThemeProvider } from 'styled-components';
 import { Grid } from '../components/grid';
 import { invertTheme } from '../styles/themes';
@@ -24,7 +24,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo />
-      <Hero>
+      <Hero size="full">
         <OffsetImageHeader
           title="Husbanding, Fathering, Developing and Golfing my way to retirement!"
           featureImage={avatar.childImageSharp.fluid}
@@ -81,7 +81,9 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
                   width="100%"
                 />
                 <section>
-                  <h3>{project.frontmatter.title}</h3>
+                  <Heading level={5} weight={600} margin="small">
+                    {project.frontmatter.title}
+                  </Heading>
                   <MDXRenderer>{project.body}</MDXRenderer>
                 </section>
               </article>

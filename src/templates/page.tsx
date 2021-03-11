@@ -3,12 +3,15 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Seo } from '../components/seo';
 import { PageQuery } from '../graphql/pages';
-import { Section } from '../components/layout/container';
+import { Hero, Section } from '../components/layout/container';
 import { useLocation } from '@reach/router';
 import { Breadcrumb } from '../components/breadcrumb';
 import useSiteMetadata from '../hooks/useSiteMetadata';
-import { invertTheme } from '../styles/themes';
+import { invertTheme, sizes } from '../styles/themes';
 import { ThemeProvider } from 'styled-components';
+import { mdxComponents } from '../components/mdxComponents';
+import { MDXProvider } from '@mdx-js/react';
+import { PageHeading } from '../components/heading';
 
 export const PageTemplate = ({ data }: PageQueryProps) => {
   const page = data.pagesMdx.pages[0];
@@ -28,22 +31,30 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
     <>
       <Seo {...seo} />
       {location.pathname.split('/').length > 2 ? (
-        <Section size="medium">
-          <Breadcrumb paths={location.pathname.split('/')} />
-        </Section>
+        <Breadcrumb
+          paths={location.pathname
+            .split('/')
+            .splice(0, location.pathname.split('/').length - 1)}
+        />
       ) : undefined}
-      <Section>
-        <h1>{page.frontmatter.title}</h1>
-        <MDXRenderer>{page.body}</MDXRenderer>
-      </Section>
+      <Hero size="small">
+        <PageHeading margin="small" data-title={page.frontmatter.title}>
+          {page.frontmatter.title}
+        </PageHeading>
+      </Hero>
       <ThemeProvider theme={invertTheme}>
-        {page.sections &&
-          page.sections.map((section) => (
-            <Section key={`section-${section.id}`}>
-              <h2>{section.frontmatter.title}</h2>
-              <MDXRenderer>{section.body}</MDXRenderer>
-            </Section>
-          ))}
+        <Section size="large">
+          <section>
+            <MDXRenderer>{page.body}</MDXRenderer>
+          </section>
+          {page.sections &&
+            page.sections.map((section) => (
+              <section key={`section-${section.id}`}>
+                <h2>{section.frontmatter.title}</h2>
+                <MDXRenderer>{section.body}</MDXRenderer>
+              </section>
+            ))}
+        </Section>
       </ThemeProvider>
     </>
   );

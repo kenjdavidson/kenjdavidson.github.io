@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Image from 'gatsby-image';
 import { Link } from '../link';
 
-const Card = styled.article``;
+const StyledCard = styled.article``;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -24,12 +24,12 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export const ArticleCard: FunctionComponent<
+export const Card: FunctionComponent<
   { article: ArticleSummary } & HtmlHTMLAttributes<HTMLDivElement>
 > = ({ article, ...rest }) => {
   return (
-    <StyledLink to={article.fields.slug} decorated="none">
-      <Card {...rest}>
+    <StyledLink to={article.fields.slug} decoration="none">
+      <StyledCard {...rest}>
         {article.frontmatter.featureImage && (
           <Image
             fluid={article.frontmatter.featureImage.childImageSharp.fluid}
@@ -41,7 +41,7 @@ export const ArticleCard: FunctionComponent<
         <h5>{article.frontmatter.title}</h5>
         {article.frontmatter.subtitle && <h6>article.frontmatter.subtitle</h6>}
         <p>{article.frontmatter.summary}</p>
-      </Card>
+      </StyledCard>
     </StyledLink>
   );
 };

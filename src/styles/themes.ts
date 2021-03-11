@@ -57,17 +57,17 @@ export const baseTheme: DefaultTheme = {
     error: 'red',
     warning: 'orange',
     info: 'aqua',
-    grey0: 'hsl(0, 0%, 0%)',
-    grey1: 'hsl(0, 0%, 10%)',
-    grey2: 'hsl(0, 0%, 20%)',
-    grey3: 'hsl(0, 0%, 30%)',
-    grey4: 'hsl(0, 0%, 40%)',
-    grey5: 'hsl(0, 0%, 50%)',
-    grey6: 'hsl(0, 0%, 60%)',
-    grey7: 'hsl(0, 0%, 70%)',
-    grey8: 'hsl(0, 0%, 80%)',
-    grey9: 'hsl(0, 0%, 90%)',
-    grey10: 'hsl(0, 0%, 100%)',
+    grey0: '#000000ff',
+    grey1: '#000000dd',
+    grey2: '#000000bb',
+    grey3: '#00000099',
+    grey4: '#00000077',
+    grey5: '#ffffff55',
+    grey6: '#ffffff77',
+    grey7: '#ffffff99',
+    grey8: '#ffffffbb',
+    grey9: '#ffffffdd',
+    grey10: '#ffffffff',
   },
   inverse: {
     background: 'hsl(0, 0%, 100%)',
@@ -80,17 +80,17 @@ export const baseTheme: DefaultTheme = {
     error: 'red',
     warning: 'orange',
     info: 'aqua',
-    grey0: 'hsl(0, 0%, 100%)',
-    grey1: 'hsl(0, 0%, 90%)',
-    grey2: 'hsl(0, 0%, 80%)',
-    grey3: 'hsl(0, 0%, 70%)',
-    grey4: 'hsl(0, 0%, 60%)',
-    grey5: 'hsl(0, 0%, 50%)',
-    grey6: 'hsl(0, 0%, 40%)',
-    grey7: 'hsl(0, 0%, 30%)',
-    grey8: 'hsl(0, 0%, 20%)',
-    grey9: 'hsl(0, 0%, 10%)',
-    grey10: 'hsl(0, 0%, 0%)',
+    grey10: '#000000ff',
+    grey9: '#000000dd',
+    grey8: '#000000bb',
+    grey7: '#00000099',
+    grey6: '#00000077',
+    grey5: '#ffffff55',
+    grey4: '#ffffff77',
+    grey3: '#ffffff99',
+    grey2: '#ffffffbb',
+    grey1: '#ffffffdd',
+    grey0: '#ffffffff',
   },
 };
 
@@ -115,7 +115,7 @@ export interface FontStyleable {
 
 export interface LinkStyleable extends FontStyleable {
   transition?: string;
-  decorated?: string;
+  decoration?: string;
 }
 
 export const invertTheme = (theme: DefaultTheme) => ({

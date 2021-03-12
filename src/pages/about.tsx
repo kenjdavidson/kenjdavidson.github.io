@@ -45,7 +45,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }) => {
                 make gold records!"
               </i>{' '}
               No, sorry, that's a lie, I'm terrible with music. But I have done
-              other stuff, you can read about it here.
+              other stuff; not a lot, but some...
             </Heading>
           </SectionContent>
           <SectionContent></SectionContent>

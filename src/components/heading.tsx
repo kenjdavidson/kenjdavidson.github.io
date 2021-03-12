@@ -104,6 +104,7 @@ const BaseLinkHeading = styled(Heading)`
 export const LinkHeading: FunctionComponent<HeadingProps> = ({
   level = 1,
   children,
+  ...rest
 }) => {
   const value =
     children != null && typeof children == 'object'
@@ -111,7 +112,7 @@ export const LinkHeading: FunctionComponent<HeadingProps> = ({
       : children;
   const link = slugify(value).toLowerCase();
   return (
-    <BaseLinkHeading level={level} margin="medium" id={link}>
+    <BaseLinkHeading level={level} id={link} {...rest}>
       {children}
       {level < 4 && (
         <Link to={`#${link}`} decoration="none">

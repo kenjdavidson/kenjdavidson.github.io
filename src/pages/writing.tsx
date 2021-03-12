@@ -46,9 +46,9 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
         <Section size="large" style={{ textAlign: 'center' }} squished>
           <Heading level={5} weight={300}>
             ...it doesn't happen very often - but when it does, I hope that it
-            provides something useful. Recently I've received a couple messages
-            regarding two of my posts - like dangling a carrot - so I'll
-            continue (when time permits).
+            provides something useful. I've recently received a messages
+            regarding a couple of my posts - like dangling an ego carrot. So
+            I'll continue to post (when time permits).
           </Heading>
         </Section>
         {archives.map((year) => (

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, MouseEvent } from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
-import { baseTheme, fixed, invertTheme } from '../styles/themes';
+import { greenTheme, fixed, invertTheme } from '../styles/themes';
 import { Footer } from '../components/footer';
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
@@ -112,7 +112,7 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
           rel="stylesheet"
         />
       </Helmet>
-      <ThemeProvider theme={baseTheme}>
+      <ThemeProvider theme={greenTheme}>
         <GlobalStyle />
         <Hamburger
           active={menuShowing}

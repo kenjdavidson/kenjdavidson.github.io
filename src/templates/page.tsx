@@ -12,7 +12,7 @@ import { invertTheme, sizes } from '../styles/themes';
 import { ThemeProvider } from 'styled-components';
 import { mdxComponents } from '../components/mdxComponents';
 import { MDXProvider } from '@mdx-js/react';
-import { PageHeading, Heading, LinkHeading } from '../components/heading';
+import { PageHeading, Heading, AnchorHeading } from '../components/heading';
 
 export const PageTemplate = ({ data }: PageQueryProps) => {
   const page = data.pagesMdx.pages[0];
@@ -44,7 +44,9 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
           {page.sections &&
             page.sections.map((section) => (
               <section key={`section-${section.id}`}>
-                <LinkHeading level={2}>{section.frontmatter.title}</LinkHeading>
+                <AnchorHeading anchor={section.frontmatter.title} level={2}>
+                  {section.frontmatter.title}
+                </AnchorHeading>
                 <MDXRenderer>{section.body}</MDXRenderer>
               </section>
             ))}

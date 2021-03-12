@@ -14,8 +14,10 @@ export type Color = string;
 export type Sizes = {
   container?: string | number;
   squished?: string | number;
-  padding?: string | number;
-  margin?: string | number;
+  none?: string | number;
+  small?: string | number;
+  medium?: string | number;
+  large?: string | number;
 };
 
 interface Palette {

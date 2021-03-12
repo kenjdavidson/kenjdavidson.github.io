@@ -2,12 +2,6 @@ import { DefaultTheme, css } from 'styled-components';
 import { Breakpoints, Sizes, Font, Palette } from '../../@types/styled';
 
 export const breakpoints: Breakpoints = {
-  // small: 576,
-  // medium: 768,
-  // large: 992,
-  // xlarge: 1200,
-  // xxlarge: 1600,
-
   small: 480,
   medium: 768,
   large: 1024,
@@ -18,8 +12,10 @@ export const breakpoints: Breakpoints = {
 export const sizes: Sizes = {
   container: `${breakpoints.large}px`,
   squished: `${breakpoints.medium}px`,
-  padding: `1.5rem`,
-  margin: `1rem`,
+  none: `0rem`,
+  small: `0.5rem`,
+  medium: `1rem`,
+  large: `2rem`,
 };
 
 export const bodyFont: Font = {
@@ -33,22 +29,7 @@ export const headingFont: Font = {
   weight: 300,
 };
 
-/**
- * `baseTheme` provides all the common elements that can be used throughout
- * the `styled-components`.  The `primary` and `inverse` can be switched
- * using the `invertTheme` function when passing into a new `ThemeProvider`.
- *
- * For example, the `<Footer>` is wrapped in a `ThemeProvider` while switching
- * the primary palette.
- *
- * ```jsx
- * <ThemeProvider theme={invertTheme}>
- *  <Footer />
- * </ThemeProvider>
- * ```
- *
- */
-export const baseTheme: DefaultTheme = {
+export const greenTheme: DefaultTheme = {
   breakpoints,
   sizes,
   body: bodyFont,
@@ -100,8 +81,6 @@ export const baseTheme: DefaultTheme = {
     grey0: '#ffffffff',
   },
 };
-
-export type Theme = typeof baseTheme;
 
 export interface ThemedProps {
   theme: DefaultTheme;

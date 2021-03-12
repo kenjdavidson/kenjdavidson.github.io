@@ -101,21 +101,22 @@ const BaseLinkHeading = styled(Heading)`
   }
 `;
 
-export const LinkHeading: FunctionComponent<HeadingProps> = ({
+export interface AnchorHeadingProps extends HeadingProps {
+  anchor: string;
+}
+
+export const AnchorHeading: FunctionComponent<AnchorHeadingProps> = ({
   level = 1,
   children,
+  anchor: anchorProp,
   ...rest
 }) => {
-  const value =
-    children != null && typeof children == 'object'
-      ? children.join(' ')
-      : children;
-  const link = slugify(value).toLowerCase();
+  const anchor = slugify(anchorProp, { lower: true });
   return (
-    <BaseLinkHeading level={level} id={link} {...rest}>
+    <BaseLinkHeading level={level} id={anchor} {...rest}>
       {children}
       {level < 4 && (
-        <Link to={`#${link}`} decoration="none">
+        <Link to={`#${anchor}`} decoration="none">
           <LinkOutlined />
         </Link>
       )}

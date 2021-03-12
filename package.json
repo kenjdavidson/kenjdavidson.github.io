@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.11",
+    "@types/mdast": "^3.0.3",
     "@types/mdx-js__react": "^1.5.3",
     "@types/moment": "^2.13.0",
     "@types/react": "^17.0.1",

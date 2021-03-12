@@ -122,7 +122,7 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
         <Navigation>
           <Nav>
             <p>
-              There isn't much I know! You can head back{' '}
+              There isn't much, I know! You can head back{' '}
               <Link onClick={(e) => goto(e, '/')} to="/">
                 home
               </Link>
@@ -132,11 +132,7 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
               </Link>{' '}
               a little, or browse some of my{' '}
               <Link onClick={(e) => goto(e, '/writing')} to="/writing">
-                articles
-              </Link>{' '}
-              or{' '}
-              <Link onClick={(e) => goto(e, '/about#work')} to="/about#work">
-                projects
+                writing
               </Link>
               .
             </p>

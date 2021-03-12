@@ -22,7 +22,7 @@ import slugify from 'slugify';
 
 const AboutPage: React.FC<AboutPageProps> = ({ data }) => {
   const { timeline } = data;
-  const headingText = `My Life...`;
+  const headingText = `A Brief History`;
 
   return (
     <>
@@ -40,13 +40,12 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }) => {
         <Section size="large" style={{ textAlign: 'center' }} squished>
           <SectionContent>
             <Heading level={5} weight={300}>
-              ...is just like everyone elses.{' '}
               <i>
                 "I put my pants on one leg at a time, except when I'm done I
                 make gold records!"
               </i>{' '}
               No, sorry, that's a lie, I'm terrible with music. But I have done
-              other stuff.
+              other stuff, you can read about it here.
             </Heading>
           </SectionContent>
           <SectionContent></SectionContent>

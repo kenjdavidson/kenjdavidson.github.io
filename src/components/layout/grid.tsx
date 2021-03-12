@@ -1,37 +1,27 @@
-import React, { HtmlHTMLAttributes } from 'react';
-import styled, { css } from 'styled-components';
-export interface RowProps extends HtmlHTMLAttributes<HTMLDivElement> {
-  responsive?: boolean;
+import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
+import styled, { css, ThemeConsumer } from 'styled-components';
+
+export interface GridProps extends HtmlHTMLAttributes<HTMLDivElement> {
+  columns: number;
+  gap?: number | string;
 }
 
-export const Col = styled.div``;
-Col.displayName = 'Column';
+export const Grid = styled.div<GridProps>`
+  display: grid;
+  grid-template-rows: auto;
 
-export const Row = styled.div<RowProps>`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  padding: 1rem 0;
+  ${({ gap }) =>
+    css`
+      grid-gap: ${gap || `1rem`};
+      gap: ${gap || `1rem`};
+      padding-bottom: ${gap || `1rem`};
+    `}
 
-  > ${Col}:nth-of-type(n+2) {
-    margin: 0.5rem 0 0 0;
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
+    grid-template-columns: repeat(
+      auto-fill,
+      ${({ theme, columns }) =>
+        `minmax(${theme.breakpoints.large / (columns + 1)}px, 1fr)`}
+    );
   }
-
-  ${({ responsive }) => css`
-    @media screen and (min-width: ${({ theme }) =>
-        theme.breakpoints.medium}px) {
-      flex-direction: row;
-      justify-content: space-evenly;
-
-      > ${Col} {
-        flex: 1 0;
-      }
-
-      > ${Col}:nth-of-type(n+2) {
-        margin: 0 0 0 0.5rem;
-      }
-    }
-  `}
 `;
-Row.displayName = 'Row';

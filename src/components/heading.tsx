@@ -2,6 +2,9 @@ import React, { FunctionComponent, HtmlHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 import { Palette } from '../../@types/styled';
 import { fontStyle } from '../styles/themes';
+import slugify from 'slugify';
+import { LinkOutlined } from '@ant-design/icons';
+import { Link } from './link';
 
 export interface HeadingProps extends HtmlHTMLAttributes<HTMLHeadingElement> {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
@@ -9,7 +12,8 @@ export interface HeadingProps extends HtmlHTMLAttributes<HTMLHeadingElement> {
   accent?: boolean;
   color?: keyof Palette;
   weight?: number | string;
-  margin?: 'small' | 'medium' | 'large';
+  mx?: 'small' | 'medium' | 'large';
+  my?: 'small' | 'medium' | 'large';
 }
 
 const colors = (props: HeadingProps) => {
@@ -25,9 +29,10 @@ const colors = (props: HeadingProps) => {
 };
 
 const margins = {
-  small: '0.5em 0em',
-  medium: '1em 0em',
-  large: '1.5em 0em',
+  none: '0em',
+  small: '0.5em',
+  medium: '1em',
+  large: '1.5em',
 };
 
 const HeadingBase: FunctionComponent<HeadingProps> = ({
@@ -42,7 +47,14 @@ export const Heading = styled(HeadingBase)`
   ${colors}
   ${({ size }) => size && `font-size: ${size};`}
   ${({ weight }) => weight && `font-weight: ${weight};`}
-  ${({ margin }) => margin && `margin: ${margins[margin]}`}
+  ${({ mx }) =>
+    `margin-left: ${margins[mx || 'none']}; margin-right:${
+      margins[mx || 'none']
+    };`}
+    ${({ my }) =>
+    `margin-top: ${margins[my || 'none']}; margin-bottom:${
+      margins[my || 'none']
+    };`}
 `;
 
 export const PageHeading = styled(Heading)`
@@ -70,3 +82,42 @@ export const PageHeading = styled(Heading)`
     left: -1px;
   }
 `;
+
+const BaseLinkHeading = styled(Heading)`
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > a {
+    font-size: 0.8em;
+    margin-left: 0.5em;
+    display: none;
+  }
+
+  &:hover > a {
+    display: block;
+  }
+`;
+
+export const LinkHeading: FunctionComponent<HeadingProps> = ({
+  level = 1,
+  children,
+}) => {
+  const value =
+    children != null && typeof children == 'object'
+      ? children.join(' ')
+      : children;
+  const link = slugify(value).toLowerCase();
+  return (
+    <BaseLinkHeading level={level} margin="medium" id={link}>
+      {children}
+      {level < 4 && (
+        <Link to={`#${link}`} decoration="none">
+          <LinkOutlined />
+        </Link>
+      )}
+    </BaseLinkHeading>
+  );
+};

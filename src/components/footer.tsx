@@ -4,10 +4,10 @@ import { useRecentArticles } from '../hooks/useRecentArticles';
 import { Link } from './link';
 import styled from 'styled-components';
 import slugify from 'slugify';
-import { Row, Col } from './layout/grid';
+import { Row, Col } from './layout/row';
 import { List, ListItem } from './layout/list';
 import { graphql, useStaticQuery } from 'gatsby';
-import { Section } from './layout/container';
+import { Section } from './layout/section';
 import { Heading } from './heading';
 import { paddingContain } from '../styles/themes';
 import { SocialLink } from './social';
@@ -22,7 +22,7 @@ const StyledFooter = styled.footer`
 const Title = styled(Heading)`
   color: ${({ theme }) => theme.primary.background};
   background-color: ${({ theme }) => theme.inverse.background};
-  font-weight: 400;
+  font-weight: 300;
   line-height: 0.66em;
   ${paddingContain}
   margin: 0px;
@@ -93,8 +93,8 @@ export const Footer: FunctionComponent<
             </p>
           </Col>
           <Col>
-            <Heading level={3} margin="small">
-              Recent posts...
+            <Heading level={3} my="small">
+              Some Recent Posts
             </Heading>
             <List>
               {articles.map((article) => (
@@ -114,6 +114,7 @@ export const Footer: FunctionComponent<
         <SocialSection>
           {social.map((s) => (
             <SocialLink
+              key={`social-link-${s.name}`}
               social={s}
               size="1.25rem"
               color="grey7"

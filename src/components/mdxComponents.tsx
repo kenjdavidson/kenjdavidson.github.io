@@ -1,9 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { Link } from './link';
 import styled from 'styled-components';
-import { Heading } from './heading';
-import slugify from 'slugify';
-import { LinkOutlined } from '@ant-design/icons';
+import { Heading, LinkHeading } from './heading';
 
 const StyledLink = styled(Link)`
   font-weight: 600;
@@ -28,18 +26,10 @@ const StyledHeading = styled(Heading)`
 `;
 
 const createHeading = (depth: 1 | 2 | 3 | 4 | 5 | 6) => ({ children }: any) => {
-  const value = typeof children == 'object' ? children.join(' ') : children;
-  const link = slugify(value).toLowerCase();
   return (
-    <StyledHeading level={depth} margin="medium" id={link}>
+    <LinkHeading level={depth} my="medium">
       {children}
-      {(depth < 4 && (
-        <Link to={`#${link}`} decoration="none">
-          <LinkOutlined />
-        </Link>
-      )) ||
-        children}
-    </StyledHeading>
+    </LinkHeading>
   );
 };
 

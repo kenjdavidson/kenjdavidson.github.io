@@ -5,11 +5,12 @@ import { Footer } from '../components/footer';
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
 import { VortexReverse } from 'react-burgers';
-import { Link, navigate, useStaticQuery, graphql } from 'gatsby';
+import { navigate, useStaticQuery, graphql } from 'gatsby';
 import { GlobalStyle } from '../components/globalStyle';
 import { Navigation, Nav } from '../components/navigation';
 import { MDXProvider } from '@mdx-js/react';
 import { mdxComponents } from '../components/mdxComponents';
+import { Link } from '../components/link';
 
 /**
  * Provides the `Hamburger` implementation for the `SiteTemplate`.  This is currently
@@ -25,7 +26,7 @@ const Hamburger = styled(VortexReverse)`
     top: 0.5rem;
     right: max(
       0.5rem,
-      calc(((100vw - ${({ theme }) => theme.sizes.maxWidth}) / 2) + 1rem)
+      calc(((100vw - ${({ theme }) => theme.sizes.container}) / 2) + 1rem)
     );
   }
 
@@ -72,14 +73,6 @@ const Content = styled.section`
   }
 `;
 Content.displayName = 'Content';
-
-/**
- * Styled navigation link.
- */
-const StyledLink = styled(Link)`
-  position: relative;
-  text-decoration: underline;
-`;
 
 /**
  * Provides the `SiteTemplate` for use within the `gatsby-browser` and `gatsby-ssr`
@@ -129,38 +122,22 @@ export const SiteTemplate: FunctionComponent<SiteTemplateProps> = ({
         <Navigation>
           <Nav>
             <p>
-              Lost? Head back{' '}
-              <StyledLink
-                onClick={(e) => goto(e, '/')}
-                to="/"
-                activeClassName="active"
-              >
+              There isn't much I know! You can head back{' '}
+              <Link onClick={(e) => goto(e, '/')} to="/">
                 home
-              </StyledLink>
-              ,
-              <StyledLink
-                onClick={(e) => goto(e, '/about')}
-                to="/about"
-                activeClassName="active"
-              >
-                get to know me
-              </StyledLink>{' '}
+              </Link>
+              , get to{' '}
+              <Link onClick={(e) => goto(e, '/about')} to="/about">
+                know me
+              </Link>{' '}
               a little, or browse some of my{' '}
-              <StyledLink
-                onClick={(e) => goto(e, '/writing')}
-                to="/writing"
-                activeClassName="active"
-              >
+              <Link onClick={(e) => goto(e, '/writing')} to="/writing">
                 articles
-              </StyledLink>{' '}
+              </Link>{' '}
               or{' '}
-              <StyledLink
-                onClick={(e) => goto(e, '/about#work')}
-                to="/about#work"
-                activeClassName="active"
-              >
+              <Link onClick={(e) => goto(e, '/about#work')} to="/about#work">
                 projects
-              </StyledLink>
+              </Link>
               .
             </p>
           </Nav>

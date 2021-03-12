@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Img, { FluidObject } from 'gatsby-image';
 import { PageHeading } from './heading';
-import { fontStyle } from '../styles/themes';
-import { Hero } from './layout/container';
 
 export interface Props {
   title: string;
@@ -15,28 +13,32 @@ const StyledSection = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.medium}px) {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 `;
-StyledSection.displayName = 'OffsetImageHeader';
+StyledSection.displayName = 'ImageHeader';
 
 const Title = styled(PageHeading)`
-  margin-right: 1rem;
   z-index: 10;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     text-align: right;
-    margin-bottom: 2rem;
     margin-left: 20%;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.large}px) {
-    margin-bottom: 2rem;
   }
 `;
 Title.displayName = 'OffsetImageHeaderTitle';
 
 const FeatureImage = styled.section`
   position: relative;
-  margin-top: -5rem;
+  width: 75%;
+  left: 0;
 
   &::after {
     position: absolute;
@@ -51,7 +53,17 @@ const FeatureImage = styled.section`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     width: 45%;
     position: absolute;
-    margin-top: 0;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
   }
 `;
 FeatureImage.displayName = 'OffsetImageHeadingImage';
@@ -66,7 +78,7 @@ const Article = styled.article`
 `;
 Article.displayName = 'OffsetImageHeadingArticle';
 
-export const OffsetImageHeader: React.FC<Props> = ({
+export const ImageHeader: React.FC<Props> = ({
   title,
   featureImage,
   featureImageAlt,
@@ -79,7 +91,6 @@ export const OffsetImageHeader: React.FC<Props> = ({
       <FeatureImage>
         <Img fluid={featureImage} alt={featureImageAlt} />
       </FeatureImage>
-      <Article>{children}</Article>
     </StyledSection>
   );
 };

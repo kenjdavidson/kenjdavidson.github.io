@@ -60,7 +60,12 @@ export const Link: FunctionComponent<LinkProps & LinkStyleable> = ({
         ? `/${toProp}`
         : toProp;
     return (
-      <StyledGatsbyLink className={className} to={url} onClick={onClick}>
+      <StyledGatsbyLink
+        className={className}
+        to={url}
+        onClick={onClick}
+        activeClassName="active"
+      >
         {children}
       </StyledGatsbyLink>
     );

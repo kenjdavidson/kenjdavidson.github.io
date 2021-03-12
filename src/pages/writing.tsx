@@ -2,13 +2,15 @@ import React, { FunctionComponent } from 'react';
 import { graphql } from 'gatsby';
 import { Article } from '../gatsby/articlesGraphQL';
 import { Seo } from '../components/seo';
-import { Hero, Section } from '../components/layout/container';
+import { Section } from '../components/layout/section';
+import { Hero } from '../components/layout/hero';
 import slugify from 'slugify';
-import { Heading } from '../components/heading';
+import { Heading, PageHeading } from '../components/heading';
 import styled, { ThemeProvider } from 'styled-components';
 import { invertTheme } from '../styles/themes';
 import { Card as ArticleCard } from '../components/article/card';
-import { Grid } from '../components/grid';
+import { Grid } from '../components/layout/grid';
+import { Breadcrumb } from '../components/breadcrumb';
 
 const SectionTitle = styled(Heading)`
   margin-bottom: 2rem;
@@ -26,21 +28,29 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
 
   let archives = Object.keys(articlesByYear).reverse();
 
+  const headingText = `My Writing...`;
+
   return (
     <>
       <Seo
         title="Ken J Davidson Writing - It doesn't happen much"
-        description="Not the most well written, nor the best content - but I've helped a few people and that's what is important."
+        description="Everyone once in a while I get something posted.  Hopefully it's original and hopefully it helps someone out!"
       />
+      <Breadcrumb />
       <Hero>
-        <h1>Sometimes I do the Writing</h1>
-        <p style={{ fontSize: '1.5rem' }}>
-          I'm neither <strong>published</strong> nor <strong>awarded</strong>{' '}
-          but I am opinionated and spend a bunch of time playing around with new
-          languages and frameworks.
-        </p>
+        <PageHeading my="small" data-title={headingText}>
+          {headingText}
+        </PageHeading>
       </Hero>
       <ThemeProvider theme={invertTheme}>
+        <Section size="large" style={{ textAlign: 'center' }} squished>
+          <Heading level={5} weight={300}>
+            ...it doesn't happen very often - but when it does, I hope that it
+            provides something useful. Recently I've received a couple messages
+            regarding two of my posts - like dangling a carrot - so I'll
+            continue (when time permits).
+          </Heading>
+        </Section>
         {archives.map((year) => (
           <Section key={`articles-${year}`} size="large">
             <SectionTitle level={2}>{`${year}`}</SectionTitle>

@@ -3,21 +3,19 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Seo } from '../components/seo';
 import { PageQuery } from '../graphql/pages';
-import { Hero, Section } from '../components/layout/container';
+import { Section } from '../components/layout/section';
+import { Hero } from '../components/layout/hero';
 import { useLocation } from '@reach/router';
-import { Breadcrumb } from '../components/breadcrumb';
+import { Breadcrumb, buildCrumbs } from '../components/breadcrumb';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import { invertTheme, sizes } from '../styles/themes';
 import { ThemeProvider } from 'styled-components';
 import { mdxComponents } from '../components/mdxComponents';
 import { MDXProvider } from '@mdx-js/react';
-import { PageHeading } from '../components/heading';
+import { PageHeading, Heading, LinkHeading } from '../components/heading';
 
 export const PageTemplate = ({ data }: PageQueryProps) => {
   const page = data.pagesMdx.pages[0];
-
-  const meta = useSiteMetadata();
-  const location = useLocation();
 
   const seo = {
     title: page.frontmatter.title,
@@ -27,18 +25,14 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
       page.frontmatter.featureImage.childImageSharp.fluid.src,
   };
 
+  const { pathname } = useLocation();
+
   return (
     <>
       <Seo {...seo} />
-      {location.pathname.split('/').length > 2 ? (
-        <Breadcrumb
-          paths={location.pathname
-            .split('/')
-            .splice(0, location.pathname.split('/').length - 1)}
-        />
-      ) : undefined}
+      <Breadcrumb crumbs={buildCrumbs(pathname, 1)} />
       <Hero size="small">
-        <PageHeading margin="small" data-title={page.frontmatter.title}>
+        <PageHeading my="small" data-title={page.frontmatter.title}>
           {page.frontmatter.title}
         </PageHeading>
       </Hero>
@@ -50,7 +44,7 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
           {page.sections &&
             page.sections.map((section) => (
               <section key={`section-${section.id}`}>
-                <h2>{section.frontmatter.title}</h2>
+                <LinkHeading level={2}>{section.frontmatter.title}</LinkHeading>
                 <MDXRenderer>{section.body}</MDXRenderer>
               </section>
             ))}

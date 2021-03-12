@@ -1,7 +1,7 @@
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
 
-export const experience = graphql`
-  fragment experience on Mdx {
+export const timeline = graphql`
+  fragment timeline on Mdx {
     fileAbsolutePath
     frontmatter {
       type
@@ -10,14 +10,7 @@ export const experience = graphql`
       subtitle
       website
       twitter
-      start {
-        month
-        year
-      }
-      end {
-        month
-        year
-      }
+      date
     }
     fields {
       publishTime
@@ -31,17 +24,9 @@ export type Timeline = {
   frontmatter: {
     type: string;
     category: string;
-    subcategory: string;
     title: string;
     subtitle?: string;
-    start: {
-      month: string;
-      year: number;
-    };
-    end?: {
-      month: string;
-      year: number;
-    };
+    date: Date;
   };
   fields: {
     publishTime: Date;

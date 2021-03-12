@@ -2,15 +2,22 @@ import { DefaultTheme, css } from 'styled-components';
 import { Breakpoints, Sizes, Font, Palette } from '../../@types/styled';
 
 export const breakpoints: Breakpoints = {
-  small: 576,
+  // small: 576,
+  // medium: 768,
+  // large: 992,
+  // xlarge: 1200,
+  // xxlarge: 1600,
+
+  small: 480,
   medium: 768,
-  large: 992,
+  large: 1024,
   xlarge: 1200,
   xxlarge: 1600,
 };
 
 export const sizes: Sizes = {
-  maxWidth: `${breakpoints.xlarge}px`,
+  container: `${breakpoints.large}px`,
+  squished: `${breakpoints.medium}px`,
   padding: `1.5rem`,
   margin: `1rem`,
 };
@@ -180,11 +187,11 @@ export const absolute = (
 export const paddingContain = (props: ThemedProps) => css`
   padding-right: max(
     2rem,
-    calc(((100vw - ${({ theme }) => theme.sizes.maxWidth}) / 2))
+    calc(((100vw - ${({ theme }) => theme.sizes.container}) / 2))
   );
   padding-left: max(
     2rem,
-    calc(((100vw - ${({ theme }) => theme.sizes.maxWidth}) / 2))
+    calc(((100vw - ${({ theme }) => theme.sizes.container}) / 2))
   );
 `;
 
@@ -196,11 +203,11 @@ export const paddingContain = (props: ThemedProps) => css`
 export const marginContain = (props: ThemedProps) => css`
   padding-right: max(
     2rem,
-    calc(((100vw - ${({ theme }) => theme.sizes.maxWidth}) / 2))
+    calc(((100vw - ${({ theme }) => theme.sizes.container}) / 2))
   );
   padding-left: max(
     2rem,
-    calc(((100vw - ${({ theme }) => theme.sizes.maxWidth}) / 2))
+    calc(((100vw - ${({ theme }) => theme.sizes.container}) / 2))
   );
 `;
 

@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby';
 import React, { FunctionComponent } from 'react';
-import { Section, Hero } from '../components/layout/container';
+import { Section } from '../components/layout/section';
+import { Hero } from '../components/layout/hero';
 import { Seo } from '../components/seo';
 import { Article, Fields } from '../gatsby/articlesGraphQL';
 import styled, { ThemeProvider } from 'styled-components';
@@ -17,40 +18,25 @@ import { Link } from '../components/link';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import { Divider, TitleDivider } from '../components/divider';
 
-const GridLayout = styled.main`
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto auto 1fr auto auto;
-  grid-template-areas:
-    'toc'
-    'content'
-    'metaLeft'
-    'metaRight';
-  grid-gap: 0 3rem;
-  gap: 2rem;
+const ArticleSection = styled(Section)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 
-  @media screen and (min-width: ${({ theme }) =>
-      `${theme.breakpoints.large}px`}) {
-    grid-template-columns: minmax(0, 2fr) 1fr;
-    grid-template-rows: minmax(0, auto) 1fr auto;
-    grid-template-areas:
-      'content toc'
-      'metaLeft metaRight';
-    grid-gap: 0 3rem;
-    gap: 2rem;
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
+    flex-direction: row-reverse;
+    align-items: flex-start;
   }
 `;
-GridLayout.displayName = 'ArticleGridLayout';
 
-const StickyToc = styled(TableOfContents)<{ top?: string }>`
-  grid-area: toc;
+const StickyToc = styled.aside<{ top?: string }>`
+  margin: 0 0 4em 0;
 
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: ${({ top }) => top || '0px'};
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
+    flex: 1 0 20%;
+    margin: 0 0 0 2em;
 
-  @media screen and (min-width: ${({ theme }) =>
-      `${theme.breakpoints.large}px`}) {
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: ${({ top }) => top || '0px'};
@@ -58,8 +44,11 @@ const StickyToc = styled(TableOfContents)<{ top?: string }>`
 `;
 StickyToc.displayName = 'StickyTableOfContents';
 
-const ArticleContent = styled.section`
-  grid-area: content;
+const ArticleContent = styled.article`
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
+    flex: 0 1 75%;
+    max-width: 75%;
+  }
 `;
 ArticleContent.displayName = 'ArticleContent';
 
@@ -90,44 +79,52 @@ export const ArticleTemplate: FunctionComponent<ArticleTemplateProps> = ({
           article.frontmatter.featureImage.childImageSharp.fixed.src
         }
       />
-      <Breadcrumb paths={['writing']} />
+      <Breadcrumb
+        crumbs={[
+          {
+            title: 'Writing',
+            href: '/writing',
+          },
+        ]}
+      />
       <Hero size="medium">
-        <PageHeading margin="small" data-title={article.frontmatter.title}>
+        <PageHeading my="small" data-title={article.frontmatter.title}>
           {article.frontmatter.title}
         </PageHeading>
         {article.frontmatter.tags && <Tags tags={article.frontmatter.tags} />}
         <ArticleFields article={article} />
       </Hero>
       <ThemeProvider theme={invertTheme}>
+        <ArticleSection size="large">
+          <StickyToc top="1rem">
+            <TableOfContents article={article}>
+              <Heading level={5} my="small">
+                Content
+              </Heading>
+            </TableOfContents>
+          </StickyToc>
+          <ArticleContent id="introduction">
+            <MDXRenderer>{article.body}</MDXRenderer>
+          </ArticleContent>
+        </ArticleSection>
         <Section size="large">
-          <GridLayout>
-            <div className="stickyWrapper">
-              <StickyToc top="1rem" article={article}>
-                <Heading level={5} margin="small">
-                  Content
-                </Heading>
-              </StickyToc>
-              <div style={{ height: '100% ' }} />
-            </div>
-            <ArticleContent id="introduction">
-              <MDXRenderer>{article.body}</MDXRenderer>
-            </ArticleContent>
-            <ShareContent>
-              <TitleDivider title="Share Me" />
-              <p>{articleMeta.shareOn} </p>
-              <ShareLinks
-                title={article.frontmatter.title}
-                href={location.href}
-              />
-            </ShareContent>
-            <EditContent>
-              <TitleDivider title="Edit Me" />
-              <p>
-                {articleMeta.editOn}{' '}
-                <Link to={useEditUrl(article.fileAbsolutePath)}>Github</Link>
-              </p>
-            </EditContent>
-          </GridLayout>
+          <ShareContent>
+            <TitleDivider title="Share Me" />
+            <p>{articleMeta.shareOn} </p>
+            <ShareLinks
+              title={article.frontmatter.title}
+              href={location.href}
+            />
+          </ShareContent>
+        </Section>
+        <Section size="large">
+          <EditContent>
+            <TitleDivider title="Edit Me" />
+            <p>
+              {articleMeta.editOn}{' '}
+              <Link to={useEditUrl(article.fileAbsolutePath)}>Github</Link>
+            </p>
+          </EditContent>
         </Section>
       </ThemeProvider>
     </>

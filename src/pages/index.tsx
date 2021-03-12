@@ -2,17 +2,19 @@ import React, { FunctionComponent } from 'react';
 import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
 import { Article, ArticleSummary } from '../gatsby/articlesGraphQL';
-import { Section, Hero } from '../components/layout/container';
+import { Section } from '../components/layout/section';
+import { Hero } from '../components/layout/hero';
 import { Project } from '../graphql/projects';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import slugify from 'slugify';
 import { ImageSharp } from '../graphql/imageSharp';
-import { OffsetImageHeader } from '../components/offsetImageHeader';
+import { ImageHeader } from '../components/imageHeader';
 import { Heading } from '../components/heading';
 import { Card as ArticleCard } from '../components/article/card';
 import styled, { ThemeProvider } from 'styled-components';
-import { Grid } from '../components/grid';
+import { Grid } from '../components/layout/grid';
 import { invertTheme } from '../styles/themes';
+import { Link } from '../components/link';
 
 const SectionTitle = styled(Heading)`
   margin-bottom: 2rem;
@@ -24,20 +26,27 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Seo />
-      <Hero size="full">
-        <OffsetImageHeader
-          title="Husbanding, Fathering, Developing and Golfing my way to retirement!"
+      <Hero size="medium">
+        <ImageHeader
+          title="I'm just husbanding, fathering, developing and golfing..."
           featureImage={avatar.childImageSharp.fluid}
           featureImageAlt="Carson and me hanging out"
-        >
-          <Heading level={5} weight={400}>
-            Successes or failures; professional or personal; if I remember or
-            have a chance to write about it - hopefully it'll help you out.
-          </Heading>
-        </OffsetImageHeader>
+        ></ImageHeader>
       </Hero>
 
       <ThemeProvider theme={invertTheme}>
+        <Section size="large" style={{ textAlign: 'center' }} squished>
+          <Heading level={5} weight={300}>
+            <strong>...my way to retirement!</strong> Since I've obviously got a
+            ways to go, I do my best to keep busy. When I'm not out on the
+            course or{' '}
+            <Link to="/about#fathering">
+              <i>playing other room</i>
+            </Link>{' '}
+            I'm online playing around with stuff. Stuff that gets posted about
+            here.
+          </Heading>
+        </Section>
         <Section size="large">
           <SectionTitle level={2}>Some Recent Posts</SectionTitle>
           <Grid columns={3}>
@@ -81,7 +90,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
                   width="100%"
                 />
                 <section>
-                  <Heading level={5} weight={600} margin="small">
+                  <Heading level={5} weight={600} my="small">
                     {project.frontmatter.title}
                   </Heading>
                   <MDXRenderer>{project.body}</MDXRenderer>

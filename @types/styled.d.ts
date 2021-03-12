@@ -12,7 +12,8 @@ export type Breakpoints = {
 export type Color = string;
 
 export type Sizes = {
-  maxWidth?: string | number;
+  container?: string | number;
+  squished?: string | number;
   padding?: string | number;
   margin?: string | number;
 };

@@ -4,7 +4,7 @@ import { Link } from '../link';
 import slugify from 'slugify';
 import styled from 'styled-components';
 
-const TOCAside = styled.aside`
+const StyleTableOfContents = styled.section`
   a {
     display: block;
     color: var(--text-color);
@@ -29,8 +29,9 @@ export interface TableOfContentsProps extends HTMLAttributes<HTMLElement> {
 export const TableOfContents: FunctionComponent<TableOfContentsProps> = ({
   article,
   children,
+  className,
 }) => (
-  <TOCAside className="toc">
+  <StyleTableOfContents className={className}>
     {children}
     <Link className="depth-1" to="#introduction">
       Introduction
@@ -49,5 +50,6 @@ export const TableOfContents: FunctionComponent<TableOfContentsProps> = ({
           </Link>
         );
       })}
-  </TOCAside>
+  </StyleTableOfContents>
 );
+TableOfContents.displayName = 'TableOfContents';

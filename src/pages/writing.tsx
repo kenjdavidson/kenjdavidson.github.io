@@ -1,18 +1,25 @@
-import React, { FunctionComponent } from "react";
-import { graphql, navigate } from "gatsby";
-import useSiteMetadata from "../hooks/useSiteMetadata";
-import { Box, Heading, Text } from "grommet";
-import { Book, Clock } from "grommet-icons";
-import { Section, PageHeading } from "../components/page";
-import { Paragraph } from "../components/grommet";
-import { List as ArticleList } from "../components/article";
-import { Article } from "../graphql/articles";
-import { Seo } from "../components/Seo";
+import React, { FunctionComponent } from 'react';
+import { graphql } from 'gatsby';
+import { Article } from '../gatsby/articlesGraphQL';
+import { Seo } from '../components/seo';
+import { Section } from '../components/layout/section';
+import { Hero } from '../components/layout/hero';
+import slugify from 'slugify';
+import { Heading, PageHeading } from '../components/heading';
+import styled, { ThemeProvider } from 'styled-components';
+import { invertTheme } from '../styles/themes';
+import { Card as ArticleCard } from '../components/article/card';
+import { Grid } from '../components/layout/grid';
+import { Breadcrumb } from '../components/breadcrumb';
+
+const SectionTitle = styled(Heading)`
+  margin-bottom: 2rem;
+`;
 
 export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
   const articlesByYear: Record<string, Article[]> = {};
 
-  data.all.articles.forEach(article => {
+  data.all.articles.forEach((article) => {
     if (!articlesByYear[article.fields.publishYear]) {
       articlesByYear[article.fields.publishYear] = [];
     }
@@ -21,28 +28,45 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
 
   let archives = Object.keys(articlesByYear).reverse();
 
+  const headingText = `My Writing...`;
+
   return (
     <>
       <Seo
         title="Ken J Davidson Writing - It doesn't happen much"
-        description="Not the most well written, nor the best content - but I've helped a few people and that's what is important."
+        description="Everyone once in a while I get something posted.  Hopefully it's original and hopefully it helps someone out!"
       />
-      <Box pad="large">
-        <PageHeading>Writing</PageHeading>
-        <Paragraph>
-          <strong>I'm neither published nor awarded</strong> but I am
-          opinionated and spend a bunch of time playing around with new
-          languages and frameworks - it's possible something I write might help
-          someone skip the suffering that I've run into. There's always a chance
-          a post on my personal husbanding or fathering methods may appear!
-        </Paragraph>
-        <Paragraph>Enjoy...</Paragraph>
-        {archives.map(year => (
-          <Section heading={year} headingSize="large" key={`articles-${year}`}>
-            <ArticleList articles={articlesByYear[year]} />
+      <Breadcrumb />
+      <Hero>
+        <PageHeading my="small" data-title={headingText}>
+          {headingText}
+        </PageHeading>
+      </Hero>
+      <ThemeProvider theme={invertTheme}>
+        <Section size="large" style={{ textAlign: 'center' }} squished>
+          <Heading level={5} weight={300}>
+            ...it doesn't happen very often - but when it does, I hope that it
+            provides something useful. I've recently received a messages
+            regarding a couple of my posts - like dangling an ego carrot. So
+            I'll continue to post (when time permits).
+          </Heading>
+        </Section>
+        {archives.map((year) => (
+          <Section key={`articles-${year}`} size="large">
+            <SectionTitle level={2}>{`${year}`}</SectionTitle>
+            <Grid columns={3}>
+              {articlesByYear[year].map((article) => (
+                <ArticleCard
+                  key={`article-${slugify(article.frontmatter.title)}`}
+                  article={article}
+                />
+              ))}
+              {articlesByYear[year].length < 3 && <div />}
+              {articlesByYear[year].length < 2 && <div />}
+            </Grid>
           </Section>
         ))}
-      </Box>
+      </ThemeProvider>
     </>
   );
 };

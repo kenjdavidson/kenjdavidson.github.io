@@ -1,57 +1,44 @@
-import React, { FunctionComponent, useContext } from "react";
-import useSiteMetadata from "../hooks/useSiteMetadata";
-import {
-  Box,
-  Heading,
-  Markdown,
-  ResponsiveContext,
-  ThemeContext
-} from "grommet";
-import { Anchor, H2, Paragraph } from "../components/grommet";
-import { PageHeading, Section } from "../components/page";
-import { List } from "../components/article";
-import { Seo } from "../components/Seo";
-import { SectionPart } from "../components/page/SectionPart";
-import { graphql } from "gatsby";
-import Img from "gatsby-image";
-import { SiteMetadata } from "../graphql/siteMetadata";
+import React, { FunctionComponent } from 'react';
+import { Seo } from '../components/seo';
+import { graphql } from 'gatsby';
+import { SiteMetadata, MenuItem } from '../graphql/siteMetadata';
+import { Section } from '../components/layout/section';
+import { Link } from '../components/link';
 
 const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
-  const meta = useSiteMetadata();
-  const theme = useContext(ThemeContext);
-
   return (
-    <Box pad="large">
+    <>
       <Seo
         title="Fore, oh! Fore!"
         description="Looks like we're in the junk together"
       />
-      <Section heading="Whoops">
-        <PageHeading>I've made a huge mistake!</PageHeading>
+      <Section>
+        <h1>I've made a huge mistake!</h1>
+        <img
+          className="image-404"
+          alt={`I've made a huge mistake!`}
+          src={data.error.childImageSharp.fluid.src}
+          srcSet={data.error.childImageSharp.fluid.srcSet}
+          style={{
+            maxWidth: '350px',
+            float: 'right',
+            shapeOutside: `url(${data.error.childImageSharp.fluid.src})`,
+            shapeMargin: '2em',
+          }}
+        />
+        <p>
+          Looks like one of us made a huge mistake! There's a fairly good chance
+          it was me - breaking things and all...
+        </p>
+        <p>
+          But... in case it was a finger slip on your part, you're probably
+          going to want to head back <Link to="/">home</Link>, check out one of
+          my <Link to="/writing">articles</Link> or if you're in the area join
+          me for a round of <Link to="/golfing">golf</Link>.
+        </p>
+        <p>I really hope in real life the footer isn't duplicated!</p>
       </Section>
-      <Section headingPad="small">
-        <Box direction="row-responsive">
-          <Box basis="1/2">
-            <Paragraph>
-              Looks like one of us made a huge mistake! There's a fairly good
-              chance it's my fault; breaking things and all. But in the small
-            </Paragraph>
-            <Paragraph>
-              You're probably going to want to head back{" "}
-              <Anchor href="/">home</Anchor>, check out one of my{" "}
-              <Anchor href="/writing">articles</Anchor> or if you're in the area
-              join me for a round of <Anchor href="/golfing">golf</Anchor>.
-            </Paragraph>
-            <Paragraph>
-              I really hope in real life the footer isn't duplicated!
-            </Paragraph>
-          </Box>
-          <Box basis="1/2" align="center">
-            <Img fixed={data.error.childImageSharp.fixed} />
-          </Box>
-        </Box>
-      </Section>
-    </Box>
+    </>
   );
 };
 

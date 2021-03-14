@@ -1,4 +1,4 @@
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
 
 export const fragment = graphql`
   fragment siteMetadata on Site {
@@ -25,6 +25,11 @@ export const fragment = graphql`
         display
         href
         name
+        icon
+      }
+      articleMeta {
+        editOn
+        shareOn
       }
     }
   }
@@ -41,12 +46,18 @@ export type SocialItem = {
   display: string;
   href: string;
   name: string;
+  icon: string;
 };
 
 export type AuthorDetail = {
   name: string;
   avatar: string;
   description: string;
+};
+
+export type ArticleMeta = {
+  editOn: string;
+  shareOn: string;
 };
 
 export type SiteMetadata = {
@@ -59,4 +70,5 @@ export type SiteMetadata = {
   author: AuthorDetail;
   menu: MenuItem[];
   social: SocialItem[];
+  articleMeta: ArticleMeta;
 };

@@ -45,7 +45,11 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
           {page.sections &&
             page.sections.map((section) => (
               <section key={`section-${section.id}`}>
-                <AnchorHeading anchor={section.frontmatter.title} level={2}>
+                <AnchorHeading
+                  anchor={section.frontmatter.title}
+                  level={2}
+                  my="large"
+                >
                   {section.frontmatter.title}
                 </AnchorHeading>
                 <MDXRenderer>{section.body}</MDXRenderer>

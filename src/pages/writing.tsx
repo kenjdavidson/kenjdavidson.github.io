@@ -11,6 +11,7 @@ import { invertTheme } from '../styles/themes';
 import { Card as ArticleCard } from '../components/article/card';
 import { Grid } from '../components/layout/grid';
 import { Breadcrumb } from '../components/breadcrumb';
+import { StandardLayout } from '../templates/layout';
 
 const SectionTitle = styled(Heading)`
   margin-bottom: 2rem;
@@ -31,7 +32,7 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
   const headingText = `My Writing...`;
 
   return (
-    <>
+    <StandardLayout>
       <Seo
         title="Ken J Davidson Writing - It doesn't happen much"
         description="Everyone once in a while I get something posted.  Hopefully it's original and hopefully it helps someone out!"
@@ -67,7 +68,7 @@ export const WritingPage: FunctionComponent<WritingPageProps> = ({ data }) => {
           </Section>
         ))}
       </ThemeProvider>
-    </>
+    </StandardLayout>
   );
 };
 

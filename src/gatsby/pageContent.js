@@ -29,11 +29,14 @@ module.exports.onCreateNode = async ({
   createNodeId,
   createContentDigest
 }) => {
+  if ("Mdx" !== node.internal.type) {
+    return; // invalid type or node
+  }
+
   const fileNode = node.parent && getNode(node.parent);
   const match = fileNode && fileNode.relativeDirectory.match(/^page\/(.*)$/);
-
-  if ("Mdx" !== node.internal.type || !fileNode || !match) {
-    return; // invalid type or node
+  if (!fileNode || !match) {
+    return; // invalid content
   }
 
   const { createNodeField, createParentChildLink } = actions;

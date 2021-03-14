@@ -56,7 +56,7 @@ export const Link: FunctionComponent<LinkProps & LinkStyleable> = ({
     );
   } else {
     const url =
-      !toProp.startsWith('/') && !toProp.startsWith('#')
+      toProp && !toProp.startsWith('/') && !toProp.startsWith('#')
         ? `/${toProp}`
         : toProp;
     return (

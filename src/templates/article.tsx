@@ -17,6 +17,7 @@ import useEditUrl from '../hooks/useEditUrl';
 import { Link } from '../components/link';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import { Divider, TitleDivider } from '../components/divider';
+import { StandardLayout } from './layout';
 
 const ArticleSection = styled(Section)`
   display: flex;
@@ -70,7 +71,7 @@ export const ArticleTemplate: FunctionComponent<ArticleTemplateProps> = ({
   const { article } = data.articles.edges[0];
 
   return (
-    <>
+    <StandardLayout>
       <Seo
         title={article.frontmatter.title}
         description={article.frontmatter.summary}
@@ -127,7 +128,7 @@ export const ArticleTemplate: FunctionComponent<ArticleTemplateProps> = ({
           </EditContent>
         </Section>
       </ThemeProvider>
-    </>
+    </StandardLayout>
   );
 };
 

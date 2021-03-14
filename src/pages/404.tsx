@@ -2,8 +2,49 @@ import React, { FunctionComponent } from 'react';
 import { Seo } from '../components/seo';
 import { graphql } from 'gatsby';
 import { SiteMetadata, MenuItem } from '../graphql/siteMetadata';
-import { Section } from '../components/layout/section';
 import { Link } from '../components/link';
+import { ImageSharp } from '../graphql/imageSharp';
+import styled from 'styled-components';
+import { fontStyle } from '../styles/themes';
+import GatsbyImage from 'gatsby-image';
+import { media } from '../styles/styles';
+
+const Page = styled.section`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  background-color: ${({ theme }) => theme.primary.background};
+  color: ${({ theme }) => theme.primary.text};
+`;
+
+const Section = styled.section`
+  padding: 1rem;
+  z-index: 10;
+
+  text-align; center;
+`;
+
+const Title = styled.span`
+  ${fontStyle(2.887, 7.451, 'heading')}
+  font-weight: 600;
+`;
+
+const Info = styled.p`
+  ${fontStyle(1.802, 3.052, 'heading')}
+`;
+
+const Image = styled(GatsbyImage)`
+  display: none;
+
+  ${media.medium`
+    display: block;
+    width: 300px;`}
+`;
 
 const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
   return (
@@ -12,32 +53,20 @@ const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({ data }) => {
         title="Fore, oh! Fore!"
         description="Looks like we're in the junk together"
       />
-      <Section>
-        <h1>I've made a huge mistake!</h1>
-        <img
-          className="image-404"
-          alt={`I've made a huge mistake!`}
-          src={data.error.childImageSharp.fluid.src}
-          srcSet={data.error.childImageSharp.fluid.srcSet}
-          style={{
-            maxWidth: '350px',
-            float: 'right',
-            shapeOutside: `url(${data.error.childImageSharp.fluid.src})`,
-            shapeMargin: '2em',
-          }}
+      <Page>
+        <Image
+          alt={`Robot Ken thinks you've taken a wrong turn`}
+          fluid={data.featureImage.childImageSharp.fluid}
         />
-        <p>
-          Looks like one of us made a huge mistake! There's a fairly good chance
-          it was me - breaking things and all...
-        </p>
-        <p>
-          But... in case it was a finger slip on your part, you're probably
-          going to want to head back <Link to="/">home</Link>, check out one of
-          my <Link to="/writing">articles</Link> or if you're in the area join
-          me for a round of <Link to="/golfing">golf</Link>.
-        </p>
-        <p>I really hope in real life the footer isn't duplicated!</p>
-      </Section>
+        <Section>
+          <Title>Whoops!</Title>
+          <Info>One of us has made a huge mistake!</Info>
+          <Info>
+            <Link to="/">Home</Link> - <Link to="/about">About</Link> -{' '}
+            <Link to="/writing">Writing</Link>
+          </Info>
+        </Section>
+      </Page>
     </>
   );
 };
@@ -47,13 +76,15 @@ export default NotFoundPage;
 interface NotFoundPageProps {
   data: {
     site: SiteMetadata;
-    error: any;
+    featureImage: {
+      childImageSharp: ImageSharp;
+    };
   };
 }
 
 export const query = graphql`
   query NotFoundQuery {
-    error: file(relativePath: { eq: "error.png" }) {
+    featureImage: file(absolutePath: { regex: "/404/featureImage/" }) {
       childImageSharp {
         fixed(width: 400) {
           ...GatsbyImageSharpFixed

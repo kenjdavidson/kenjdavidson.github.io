@@ -1,15 +1,14 @@
 "use strict";
 
 /**
- * Smart people are smart
  * https://www.extensive.one/converting-gatsby-config-and-node-api-to-typescript/
- * Thanks!
+ * 
+ * A lot of people are smarter than me! 
+ * 
+ * Allows the direct import of Typescript during the Gatsby build process.
+ * 
  */
 
-/**
-* Source-map-support mimics node's stack trace making debugging easier
-* ts-node register helps importing and compiling TypeScript modules into JS
-*/
 require("source-map-support").install();
 require("ts-node").register();
 

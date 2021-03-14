@@ -19,13 +19,14 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { TimelineSection } from '../components/timeline';
 import slugify from 'slugify';
+import { StandardLayout } from '../templates/layout';
 
 const AboutPage: React.FC<AboutPageProps> = ({ data }) => {
   const { timeline } = data;
   const headingText = `A Brief History`;
 
   return (
-    <>
+    <StandardLayout>
       <Seo
         title="What've I done? Where've I been?"
         description="I've done and I've seen things; probably not as many [or as few] as you, but I have no complaints."
@@ -59,7 +60,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }) => {
           ))}
         </Section>
       </ThemeProvider>
-    </>
+    </StandardLayout>
   );
 };
 

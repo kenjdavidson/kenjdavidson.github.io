@@ -13,6 +13,7 @@ import { ThemeProvider } from 'styled-components';
 import { mdxComponents } from '../components/mdxComponents';
 import { MDXProvider } from '@mdx-js/react';
 import { PageHeading, Heading, AnchorHeading } from '../components/heading';
+import { StandardLayout } from './layout';
 
 export const PageTemplate = ({ data }: PageQueryProps) => {
   const page = data.pagesMdx.pages[0];
@@ -28,7 +29,7 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
   const { pathname } = useLocation();
 
   return (
-    <>
+    <StandardLayout>
       <Seo {...seo} />
       <Breadcrumb crumbs={buildCrumbs(pathname, 1)} />
       <Hero size="small">
@@ -52,7 +53,7 @@ export const PageTemplate = ({ data }: PageQueryProps) => {
             ))}
         </Section>
       </ThemeProvider>
-    </>
+    </StandardLayout>
   );
 };
 

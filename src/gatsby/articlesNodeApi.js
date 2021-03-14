@@ -28,11 +28,14 @@ module.exports.onCreateNode = async ({
   createNodeId,
   createContentDigest
 }) => {
+  if ("Mdx" !== node.internal.type) {
+    return; // invalid type or node
+  }
+
   const fileNode = node.parent && getNode(node.parent);
   const match = fileNode && fileNode.relativeDirectory.match(/^writing\/(\d{4})-(\d{2})-(\d{2})---(.*)$/);
-
-  if ("Mdx" !== node.internal.type || !fileNode || !match) {
-    return; // invalid type or node
+  if (!fileNode || !match) {
+    return; // invalid file content
   }
 
   reporter.verbose(`Applying post fields: ${fileNode.relativeDirectory}`);

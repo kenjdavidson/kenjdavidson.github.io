@@ -15,6 +15,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { Grid } from '../components/layout/grid';
 import { invertTheme } from '../styles/themes';
 import { Link } from '../components/link';
+import { StandardLayout } from '../templates/layout';
 
 const SectionTitle = styled(Heading)`
   margin-bottom: 2rem;
@@ -24,7 +25,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
   const { avatar } = data;
 
   return (
-    <>
+    <StandardLayout>
       <Seo />
       <Hero size="medium">
         <ImageHeader
@@ -110,7 +111,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
           </p>
         </Section>
       </ThemeProvider>
-    </>
+    </StandardLayout>
   );
 };
 

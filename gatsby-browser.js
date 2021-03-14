@@ -1,10 +1,10 @@
-import React from "react";
-import { SiteTemplate } from "./src/templates/site";
+import React from 'react';
+import SiteTemplate from './src/templates/site';
+import { GatsbyBrowser } from 'gatsby';
 
-import dark from "./src/styles/prismjs-atom-dark.css";
+import dark from './src/styles/prismjs-atom-dark.css';
 
-export const wrapPageElement = ({ element, ...rest }) => {
-  return (
-    <SiteTemplate>{element}</SiteTemplate>
-  );
-};
+export const wrapPageElement = ({
+  element,
+  ...rest
+}) => <SiteTemplate>{element}</SiteTemplate>;

@@ -1,10 +1,5 @@
 import { siteMetadata } from './src/gatsby/siteMetadata';
 
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
 export default {
   siteMetadata: siteMetadata,
   plugins: [
@@ -16,8 +11,8 @@ export default {
     `gatsby-transformer-sharp`,
     `gatsby-transformer-yaml`,
     {
-      // Described in gatsby-remark-mdx the plugin is required in both this and
-      // the gatsbyRemarkPlugins
+      // As described in `gatsby-remark-mdx` the `gatsby-remark-images` plugin is required
+      // in both the parent and as an internal plugin to `gatsby-plugin-mdx`
       resolve: `gatsby-remark-images`,
       options: {
         maxWidth: 1024,
@@ -27,6 +22,7 @@ export default {
       },
     },
     {
+      // Loads all the `/content` and let the remaining plugins sort it out
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'content',
@@ -34,6 +30,9 @@ export default {
       },
     },
     {
+      // Transform all `md` and `mdx` files within the `/content` folder.  `Mdx` is used
+      // for both articles and timeline entries, to allow for feature images, content
+      // and JSX
       // https://www.gatsbyjs.org/packages/gatsby-transformer-remark
       resolve: 'gatsby-plugin-mdx',
       options: {
@@ -42,6 +41,7 @@ export default {
           'gatsby-remark-code-titles',
           'gatsby-remark-unwrap-images',
           {
+            // Required here as per the documentation
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1024,
@@ -51,6 +51,8 @@ export default {
             },
           },
           {
+            // This needs to be replaced with `https://prince.dev/prism-react-renderer` to take
+            // advantage of better customization
             resolve: 'gatsby-remark-prismjs',
             options: {
               classPrefix: 'language-',

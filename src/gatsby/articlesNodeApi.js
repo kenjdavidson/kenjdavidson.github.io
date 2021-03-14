@@ -49,7 +49,7 @@ module.exports.onCreateNode = async ({
   // Create publish time
   const publishTime = new Date(
     Number.parseInt(match[1]),
-    Number.parseInt(match[2]),
+    Number.parseInt(match[2] - 1),
     Number.parseInt(match[3])
   );
   reporter.verbose(`writingContent: onCreateNode publishTime = ${publishTime}`);

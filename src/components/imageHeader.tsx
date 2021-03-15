@@ -39,16 +39,9 @@ const FeatureImage = styled.section`
   position: relative;
   width: 75%;
   left: 0;
-
-  &::after {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 1rem solid #00000022;
-  }
+  border-radius: 50%;
+  overflow: hidden;
+  border: 20px solid rgba(0,0,0,0.133
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     width: 45%;
@@ -59,7 +52,7 @@ const FeatureImage = styled.section`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.medium}px) {
-    width: 30%;
+    width: 40%;
     position: absolute;
     top: 50%;
     left: 0;

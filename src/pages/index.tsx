@@ -29,7 +29,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
       <Seo />
       <Hero size="medium">
         <ImageHeader
-          title="I'm just husbanding, fathering, developing and golfing..."
+          title="Husbanding, fathering, developing and golfing..."
           featureImage={avatar.childImageSharp.fluid}
           featureImageAlt="Carson and me hanging out"
         ></ImageHeader>

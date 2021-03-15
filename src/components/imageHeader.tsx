@@ -41,7 +41,7 @@ const FeatureImage = styled.section`
   left: 0;
   border-radius: 50%;
   overflow: hidden;
-  border: 20px solid rgba(0,0,0,0.133
+  border: 20px solid rgba(0,0,0,0.133);
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.small}px) {
     width: 45%;

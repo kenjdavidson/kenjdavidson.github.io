@@ -253,6 +253,8 @@ and at this point I'm going with option 2. Sorry testing!
 
 <s>If you've got a way for me to load `../` but ignore `../node_modules` during development, shoot me an email. But until then I'll have to put this on the back burner.</s>
 
+## Edits
+
 ### Edit Nov 02 2020
 
 After some late night and early morning Googling, I came across a customization of Metro that seems to fit better with my example [https://medium.com/@charpeni/setting-up-an-example-app-for-your-react-native-library-d940c5cf31e4](https://medium.com/@charpeni/setting-up-an-example-app-for-your-react-native-library-d940c5cf31e4) which makes the following changes:
@@ -265,8 +267,6 @@ Which doesn't even exist on the [Metro config](https://facebook.github.io/metro/
 > A RegEx defining which paths to ignore, however if a blocklisted file is required it will be brought into the dependency graph.
 
 But it's worth a shot!!
-
-## Edits
 
 ### Nov 03 2020... Kinda
 

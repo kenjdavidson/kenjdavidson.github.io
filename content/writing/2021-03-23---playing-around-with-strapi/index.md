@@ -72,10 +72,6 @@ running `docker-compose -f docker-compose.dev.yml up` starts the environment wit
 
 Once you connect you'll be asked to create your admin user and login for the first time...
 
-![Dev Server Screenshot]()
-
-![Dev Admin Screenshot]()
-
 ## Start Modelling in Strapi
 
 I wanted to pull together a couple already available features [smart watch golf gps](https://gallery.fitbit.com/en-ca/details/859975b5-8dcd-4d98-ab1c-1592f5f3c878) which apparently now costs $5 bucks to use, [Game Golf](https://gallery.fitbit.com/en-ca/details/59ea369e-e838-4645-aebe-349d0c8e0e0f) which apparently you need an account for but I can't actually create one.
@@ -99,7 +95,7 @@ Fire up the `Content Type Builder` and start adding data elements related to a g
 - Email
 - Phone
 
-![Facility Content Type Building]()
+![Facility Content Type Building](./caddieasy-golf-facility-model.PNG)
 
 Save this and you'll see that Strapi is restarting.  This is intersting, mainly because Strapi (like other CMS which I wasn't aware of) keep the schemas within files in the project, and not managed directly against the database.
 
@@ -113,7 +109,7 @@ Now we'll add the basics of a course - obviously this could get crazy (and proba
 - Facility (many to one reference)
 - Location (lng, lat, alt, zoom)
 
-![Course Content Type Building]()
+![Course Content Type Building](./caddieasy-golf-course-model.PNG)
 
 One of the cool things, when you add the `Relation` it's automatically included on the **Golf Facility** content type as well.
 
@@ -156,8 +152,6 @@ Because I'm basic, I want a table with actual fields for `latitude`, `longtitude
 ```
 
 > Note - lng, lat and alt come from how Google Maps uses `LngLat` and `LngLatLiteral` just to make life simple
-
-![Course Editor with GeoPoint]()
 
 ### Adding Courses
 
@@ -699,5 +693,5 @@ return strapi.registerPlugin(plugin);
 
 which should now result in our Course location being editable via a map:
 
-![Geo Point Component Input]()
+![Course Editor with GeoPoint](./caddieasy-golf-course-edit.PNG)
 

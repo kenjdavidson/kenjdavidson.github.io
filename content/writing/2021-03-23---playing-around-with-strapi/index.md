@@ -5,6 +5,9 @@ category: Technology
 title: Caddieasy - Test Driving Strapi
 summary: Running Strapi through the process to determine whether it will be a good fit for my project, Caddieasy.
 tags: [Technology, Lifestyle, Golfing]
+series:
+  name: Caddieasy and Strapi playground
+  order: 1
 ---
 
 In my continuation of attempting to learn/love Javascript I've spent a bunch of time creating a [React](https://reactjs.org/)/[Gatsby](https://www.gatsbyjs.com/) which I had planned to host on Github Pages.  It was going to be backed by a Github repository that allowed users to manage from their own account.  In playing around with this though, it's not possible for a user to OAuth login to Github without a live server (or proxy) which I wasn't planning on.

@@ -595,7 +595,7 @@ After a little bit of review, there looks like there is also a `ComponentApi` wh
 - I have a component `geo-point`
 - I will have a React Component
 
-##### 1. Create a new Plugin
+#### Create a new Plugin
 
 Create the plugin to house our react Component and functionality, once complete we'll move the Strapi component definition here:
 
@@ -604,7 +604,11 @@ Create the plugin to house our react Component and functionality, once complete 
 node .\node_modules\strapi\bin\strapi.js generate:plugin geo-point
 ```
 
-This provides all (albeit overkill) of the files required for a plugin.  If we jump into the `InputGeoPoint`:
+This provides all (albeit overkill) of the files required for a plugin.  
+
+#### Create InputGeoPoint component
+
+If we jump into the `InputGeoPoint`:
 
 ```js filename=GeoPoint.js
 const InputGeoPoint = ({ componentUid, componentFieldName, dataManager }) => {
@@ -683,4 +687,17 @@ we see that:
 - I'm still displaying the `lng`, `lat`, `alt`, and `zoom` values, although they are disabled.
 - I'm displaying a `GoogleMap` component that accepts a click and updates the full location component
 
+#### Installing InputGeoPoint Component
+
+Finally we need to make sure it gets installed with the plugin, to do this we have to update the plugin `index.js` file:
+
+```js filename=index.js
+strapi.registerComponent({ name: 'map.geo-point', Component: InputGeoPoint });
+
+return strapi.registerPlugin(plugin);
+```
+
+which should now result in our Course location being editable via a map:
+
 ![Geo Point Component Input]()
+

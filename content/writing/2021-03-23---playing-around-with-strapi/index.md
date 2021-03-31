@@ -7,7 +7,7 @@ summary: Running Strapi through the process to determine whether it will be a go
 tags: [Technology, Lifestyle, Golfing]
 ---
 
-In my continuation of attempting to learn/love Javascript (more impotantly Typescript) I've spent a bunch of time creating a [React](https://reactjs.org/)/[Gatsby](https://www.gatsbyjs.com/) which I had planned to host on Github Pages.  It was going to be backed by a Github repository that allowed users to manage from their own account.  In playing around with this though, it's not possible for a user to OAuth login to Github without a live server (or proxy) which I wasn't planning on.
+In my continuation of attempting to learn/love Javascript I've spent a bunch of time creating a [React](https://reactjs.org/)/[Gatsby](https://www.gatsbyjs.com/) which I had planned to host on Github Pages.  It was going to be backed by a Github repository that allowed users to manage from their own account.  In playing around with this though, it's not possible for a user to OAuth login to Github without a live server (or proxy) which I wasn't planning on.
 
 I decided to 180 the process and play around with the idea of:
 
@@ -82,21 +82,59 @@ I wanted to pull together a couple already available features [smart watch golf 
 
 I wanted to add in a few features which these don't have and that neither have been interested in me contributing.
 
-### Geo Point Component
+### Manage Facilities and Courses
 
-First things first, we need to add a Component that will allow the management of data.  After a few searches and review of the currently available ideas (as none of them are in core or provided easily) it looks like the consensus is to use GeoJSON along with a compatible database vendor (Mongo, PostGIS, etc).  Being honest with myself, I neither have the experience with Mongo nor the time/energy to get PostGIS installed looking at it's documentation.  I'd like a simple little component allowing lon, lat and alt to be managed:
+The first requirement was to obviously be able to maintain a listing of the Courses, which can be abstracted into a layer for Facilities.  For example, my home course of [Granite Ridge Golf Course]() has two courses: Ruby and Cobalt.  Although it would be easy enough to add contact information to the Course, splitting out Facility allows the management of other elements: Address, Pro, Menu (for example) down the road.
 
-For this reason, I've gone ahead and created the `geo-point` component.  This might come back and bite me, but for now it's simple and straight to the point (and probably what is being used on the Mongo version?
+#### Facility
+
+Fire up the `Content Type Builder` and start adding data elements related to a golf facility.  Keeping this at a super high level for now:
+
+- Name
+- Address
+- Address2
+- City
+- Province 
+- Country
+- Email
+- Phone
+
+![Facility Content Type Building]()
+
+Save this and you'll see that Strapi is restarting.  This is intersting, mainly because Strapi (like other CMS which I wasn't aware of) keep the schemas within files in the project, and not managed directly against the database.
+
+#### Course
+
+Now we'll add the basics of a course - obviously this could get crazy (and probably will) but for the time being we'll try to set it up as simply as possible:
+
+- Name
+- Holes
+- Par
+- Facility (many to one reference)
+- Location (lng, lat, alt, zoom)
+
+![Course Content Type Building]()
+
+One of the cool things, when you add the `Relation` it's automatically included on the **Golf Facility** content type as well.
+
+##### GeoPoint Component
+
+In order to implement the `location` field I needed to add a Component that will allow the management of data.  After a few searches and review of the currently available ideas (as none of them are in core or provided easily) it looks like the consensus is to use GeoJSON along with a compatible database vendor (Mongo, PostGIS, etc).  Being honest with myself, I neither have the experience with Mongo nor the time/energy to get PostGIS installed looking at it's documentation.  
+
+Because I'm basic, I want a table with actual fields for `latitude`, `longtitude`, `altitude`, and `zoom`.  I'm sure this will blow up later, but for the time being I createda  little component called `geo-point`:
 
 ```json filename:components/map/geo-point.json
 {
   "collectionName": "components_map_geo-point",
   "info": {
     "name": "geo-point",
-    "icon": "map-marked-alt"
+    "icon": "map-marked-alt",
+    "description": ""
   },
   "options": {
-    "privateAttributes": ["id"]
+    "privateAttributes": [
+      "id"
+    ]
   },
   "attributes": {
     "lng": {
@@ -109,43 +147,17 @@ For this reason, I've gone ahead and created the `geo-point` component.  This mi
     },
     "alt": {
       "type": "float"
+    },
+    "zoom": {
+      "type": "integer"
     }
   }
 }
-
 ```
-
-### Manage Facilities and Courses
-
-The first requirement was to obviously be able to maintain a listing of the Courses, which can be abstracted into a layer for Facilities.  For example, my home course of [Granite Ridge Golf Course]() has two courses: Ruby and Cobalt.  Although it would be easy enough to add contact information to the Course, splitting out Facility allows the management of other elements: Address, Pro, Menu (for example) down the road.
-
-#### Facility
-
-Fire up the `Content Type Builder` and start adding data elements related to a golf facility.  Keeping this at a super high level for now:
-
-- Name
-- Address
-- City
-- Province 
-- location (lng, lat, alt)
-
-![Facility Content Type Building]()
 
 > Note - lng, lat and alt come from how Google Maps uses `LngLat` and `LngLatLiteral` just to make life simple
 
-Save this and you'll see that Strapi is restarting.  This is intersting, mainly because Strapi (like other CMS which I wasn't aware of) keep the schemas within files in the project, and not managed directly against the database.
-
-#### Course
-
-Now we'll add the basics of a course - obviously this could get crazy (and probably will) but for the time being we'll try to set it up as simply as possible:
-
-- Name
-- Holes (9 to 18, although this might be updated for an ENUM Nine, Twelve, Eighteen)
-- Facility (many to one reference)
-
-![Course Content Type Building]()
-
-One of the cool things, when you add the `Relation` it's automatically included on the **Golf Facility** content type as well.
+![Course Editor with GeoPoint]()
 
 ### Adding Courses
 
@@ -276,7 +288,7 @@ Our cons aren't apparent until we look well ahead into the application, but we s
 
 So our choices are definitely workable, I'd probably lean towards the private `lng`/`lat` fields that are searchable, but still fall back to the transmission of `location` to the end user.  It would still be better if we could get searching working to keep the data duplication to a minimum.
 
-### Customizing the App
+## Customizing the API 
 
 One of the pros to Strapi is that it provides a large number of customizations that should allow us to get this done.  It's only (or should be) a matter of getting through the documentation and determining how to do it.  If we look at our requirements, we might have a good idea:
 
@@ -288,7 +300,7 @@ Pretty simple right!!
 
 Ok, so let's start:
 
-#### Adding the Endpoint
+### Adding the Endpoint
 
 User sends in a query `http://localhost:1337/golf-facilties?lng=${lng}&lat=${lat}&r=${radius}`
 
@@ -326,7 +338,7 @@ So let's add the endpoint - we open up and edit.  It's important that we put the
 
 Now we need to add in a little love for our controller so that we can manage the request, let's open up the pre-built `./golf-facility/controllers/golf-facility.js` and apply the function:
 
-```js filename=controllers/golf-facility.js
+```js filename=controllers/golf-courses.js
 module.exports = {
   findNearby: async (ctx) => {
     const { query, request, response } = ctx;
@@ -346,18 +358,18 @@ module.exports = {
       ctx.throw(400, `Invalid query parameters: ${errors}`);
     }
 
-    const entities = await strapi.services['golf-facility'].findNearby(
+    const entities = await strapi.services['golf-course'].findNearby(
       new LatLng(Number.parseFloat(query.lat), Number.parseFloat(query.lng)),
       query.r && Number.parseInt(query.r)
     );
     return entities.map((e) =>
-      sanitizeEntity(e, { model: strapi.models['golf-facility'] })
+      sanitizeEntity(e, { model: strapi.models['golf-course'] })
     );
   },
 };
 ```
 
-#### Adding the Service
+### Adding the Service
 
 Now we work on the golf facility service.  The service is going to have a little more to it, being responsible for:
 
@@ -374,18 +386,18 @@ yarn add spherical-geometry-js -S
 
 Now we can start applying what we need to the service:
 
-```js filename=services/golf-facility.js
+```js filename=services/golf-courses.js
 module.exports = {
   findNearby: async (latLng, r = 10) => {
     const [nw, se] = getBoundingBox(latLng, r);
 
     const knex = strapi.connections.default;
-    const facilityIds = await knex({ cml: `components_map_geo-point` })
-      .innerJoin({ gfc: `golf_facilities_components` }, function () {
+    const courseIds = await knex({ cml: `components_map_geo-point` })
+      .innerJoin({ gcc: `golf_courses_components` }, function () {
         this.on(function () {
-          this.on(`gfc.component_id`, '=', `cml.id`);
+          this.on(`gcc.component_id`, '=', `cml.id`);
           this.andOn(
-            `gfc.component_type`,
+            `gcc.component_type`,
             '=',
             knex.raw('?', ['components_map_geo-point'])
           );
@@ -393,51 +405,47 @@ module.exports = {
       })
       .whereBetween(`cml.lat`, [se.lat(), nw.lat()])
       .whereBetween(`cml.lng`, [nw.lng(), se.lng()])
-      .select(`gfc.golf_facility_id`);
+      .select(`gcc.golf_course_id`);
 
-    return strapi.query('golf-facility').find({
-      id_in: facilityIds.reduce((acc, cur) => cur.golf_facility_id, []),
+    return strapi.query('golf-course').find({
+      id_in: courseIds.reduce((acc, cur) => cur.golf_course_id, []),
     });
   },
 };
 ```
 
-Where we're performing:
+Where we're doing:
 
 - A lookup of the components `map.geo-point` within the bounds that were calculated
 - Reducing the Ids found and using them to search using the built in Strapi query
 
-which (with this simple example) results in the return of our only facility:
+which (with this simple example) results in the return of our only course:
 
 ```json
 [
     {
         "id": 1,
-        "name": "Granit Ridge Golf Club",
-        "address": null,
-        "city": "Milton",
-        "province": "Ontario",
-        "location": {
-            "lng": -79.940037,
-            "lat": 43.540685,
-            "alt": null
+        "name": "Granite Ridge - Ruby",
+        "facility": {
+            "id": 1,
+            "name": "Granite Ridge Golf Club",
+            "address1": null,
+            "address2": null,
+            "city": "Milton",
+            "province": "ON",
+            "country": "CAN",
+            "postal": null,
+            "email": null,
+            "phone": null
         },
-        "courses": [
-            {
-                "id": 1,
-                "name": "Granite Ridge Ruby",
-                "facility": 1,
-                "holes": "Eighteen",
-                "Par": 72
-            },
-            {
-                "id": 2,
-                "name": "Granite Ridge Cobalt",
-                "facility": 1,
-                "holes": "Eighteen",
-                "Par": 72
-            }
-        ]
+        "par": 70,
+        "holes": 18,
+        "location": {
+            "lng": -79.93977071893895,
+            "lat": 43.54062794464268,
+            "alt": null,
+            "zoom": 16
+        }       
     }
 ]
 ```
@@ -462,7 +470,123 @@ There is a bunch of documentation going over how to [extend plugins](https://str
 
 During the build process, the extensions folder is copied overtop of the Strapi folder, making this possible.  If this works, we can look at porting it back and contributing to the main project.  To me it seems like a pretty common or usable use case, but who knows.
 
-#### Game Plan?
+#### Overriding the Content Manager
+
+Great!! We know that we can override the Content Manager plugin, but how do we go about doing this?  We need to dive into the code and try to understand how the Content Manager is actually building the screens.
+
+...couple hours reading code...
+
+At a high level the major players in this process are:
+
+##### FieldsComponent
+
+The `FieldsComponent` is the primary component used for rendering (that I can find).  It's responsible for determining what to display for the data being edited, the options are:
+
+- **NotAllowedInput** which is shown when the field cannot be displayed or viewed based on security
+- **ComponentInitializer** which is displayed for _NON REPEATABLE_ components.  It allows the user to press the (+) button to add an empty component value
+- **NonRepeatableComponent** which is displayed for _NON REPEATABLE_ components (great naming).
+- **RepeatableComponent** which is displayed for _REPEATABLE_ components (great naming again).
+
+##### NonRepeatableComponent
+
+Taking a look in `NonRepeatableComponent` it does one of two primary things:
+
+- It recursively displays another `FieldComponent` if required
+- It loops through the content type fields and adds the appropriate `Inputs`
+
+##### RepeatableComponent
+
+`RepeatableComponent` does pretty much the same thing, but adds an intermediate step of `DraggedItem`.
+
+##### DraggedItem
+
+This does something extremely similar to what we've seen from `NonRepeatableComponent`:
+
+- It recursively displays another `FieldComponent` if required
+- It loops through the content type fields and adds the appropriate `Inputs`
+
+This makes sense, since inside DraggedItem you would have a `NonRepeatableComponent`.
+
+#### Time to Play Around
+
+Knowing what we know now, it seems like the best things to do are:
+
+- Update `DraggedItem` to use `NonRepeatableComponent` instead of having duplicated that code
+- Update `NonRepeatableComponent` to use the `componentApi` and choose want to display
+
+##### Update DraggedItem
+
+First thing first, we need to take all the common logic in `DraggedItem` that is similar to `NonRepeatingComponent` and replace it.  After doing so I've got something that looks like this:
+
+```js filename=DraggedItem/index.js
+...
+        {!isDragging && (
+          <FormWrapper
+            hasErrors={hasErrors}
+            isOpen={isOpen}
+            isReadOnly={isReadOnly}
+          >
+            {showForm && (
+              <NonRepeatableComponent
+                componentUid={componentUid}
+                name={componentFieldName}
+                onBlur={hasErrors ? checkFormErrors : null}
+              />
+            )}
+          </FormWrapper>
+        )}
+...
+```
+
+The only thing that was missing `NonRepeatableComponent` was the `onBlur` function being passed to `Inputs`. 
+
+##### Update NonRepeatableComponent
+
+With regards to the `NonRepeatbleComponent` there are only a few things we need to do:
+
+- Pull in the `componentApi`
+
+```js
+  const {
+    strapi: { componentApi },
+  } = useStrapi();
+```
+
+- Pull in the `EditViewDataManagerContext` details.  This is the heart and soul of the Content Manager - it builds and makes available all the important information, things like: `onChange`, `modifiedData`, `initialData`, and much much more.  It probably wasn't meant to be used as a whole like this, but without any form of standards (the JS way, hahah) I'll just use the whole object.
+
+```js
+  const dataManager = useDataManager();
+```
+
+- Determine whether we have a customized component
+
+```js
+  const component = componentApi.getComponent(componentUid);
+  const Component = component && component.Component;
+```
+
+- Fill the `NonRepeatableWrapper` with either the custom component or the standard fields
+
+```js
+      {Component && (
+        <Component
+          componentUid={componentUid}
+          componentFieldName={componentFieldName}
+          dataManager={dataManager}
+        />
+      )}
+      {!Component &&
+        fields.map((fieldRow, key) => {
+```
+
+At this point, since there are no custom fields everything should be working exactly as it was before:
+
+- Non repeatable components working... CHECK
+- Repeatable components working... CHECK
+
+You can take my word or test it out yourself.
+
+### Creating the Caddieasy Plugin
 
 We want to extend the Plugin and FieldApi functionality to work with Components, since a field type, it makes sense that we may want to replace the WHOLE component UI with our own field implementation.  For that we need to take a look at the [field api documentation](https://strapi.io/documentation/developer-docs/latest/guides/registering-a-field-in-admin.html#creating-a-new-field-in-the-administration-panel).  
 
@@ -480,22 +604,83 @@ Create the plugin to house our react Component and functionality, once complete 
 node .\node_modules\strapi\bin\strapi.js generate:plugin geo-point
 ```
 
-This provides all (albeit overkill) of the files required for a plugin.  At this point in time the plugin will only be responsible for providing the component model and the React Component for editing.  At this point let's make it as simple as possible:
+This provides all (albeit overkill) of the files required for a plugin.  If we jump into the `InputGeoPoint`:
 
 ```js filename=GeoPoint.js
-// Just a regular text field that will split the lat:lng by a colon and set the appropriate information
-const GeoPoint = (props) => {
-  console.log(props);
+const InputGeoPoint = ({ componentUid, componentFieldName, dataManager }) => {
+  const [mapRef, setMapRef] = useState(); // google.maps.Map
+  const { formatMessage } = useIntl();
+  const { modifiedData, onChange } = dataManager;
+  const componentValue = get(modifiedData, componentFieldName, null);
 
-  const [data, setData] = useState();
+  const onClick = ({ latLng }) => {
+    onChange({
+      target: {
+        name: 'location',
+        value: {
+          ...componentValue,
+          lat: latLng && latLng.lat(),
+          lng: latLng && latLng.lng(),
+          zoom: mapRef && mapRef.zoom,
+        },
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (mapRef && componentValue.lat && componentValue.lng) {
+      mapRef.setCenter(componentValue);
+      mapRef.setZoom(componentValue.zoom || 11);
+    }
+  });
 
   return (
-    <div>
-      <InputText value={data} onChange={(data) => setData(data)}></InputText>
-    </div>
+    <Wrapper>
+      <DisplayWrapper>
+        <Label htmlFor="latDisplay">
+          {formatMessage({ id: `mapping.mapping.latitude` })}
+        </Label>
+        <InputNumber
+          name="latDisplay"
+          value={componentValue.lat}
+          disabled={true}
+        ></InputNumber>
+        <Label htmlFor="lngDisplay">
+          {formatMessage({ id: `mapping.mapping.longitude` })}
+        </Label>
+        <InputNumber
+          name="lngDisplay"
+          value={componentValue.lng}
+          disabled={true}
+        ></InputNumber>
+        <Label htmlFor="zoomDisplay">
+          {formatMessage({ id: `mapping.mapping.zoom` })}
+        </Label>
+        <InputNumber
+          name="zoomDisplay"
+          value={componentValue.zoom}
+          disabled={true}
+        ></InputNumber>
+      </DisplayWrapper>
+      <MapWrapper>
+        <GoogleMapView
+          onLoad={(map) => setMapRef(map)}
+          onUnmount={() => setMapRef(undefined)}
+          onClick={(event) => onClick(event)}
+        >
+          {componentValue.lat && componentValue.lng && (
+            <Marker position={componentValue} />
+          )}
+        </GoogleMapView>
+      </MapWrapper>
+    </Wrapper>
   );
 };
-
-export default GeoPoint;
 ```
 
+we see that:
+
+- I'm still displaying the `lng`, `lat`, `alt`, and `zoom` values, although they are disabled.
+- I'm displaying a `GoogleMap` component that accepts a click and updates the full location component
+
+![Geo Point Component Input]()

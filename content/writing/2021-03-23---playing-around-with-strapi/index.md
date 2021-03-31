@@ -291,7 +291,7 @@ One of the pros to Strapi is that it provides a large number of customizations t
 
 - Users should be able to send their location (or a location)
 - ...do stuff...
-- Users get back a list of facilities within a raduis of that location
+- Users get back a list of Courses within a raduis of that location
 
 Pretty simple right!!
 
@@ -301,9 +301,9 @@ Ok, so let's start:
 
 User sends in a query `http://localhost:1337/golf-facilties?lng=${lng}&lat=${lat}&r=${radius}`
 
-So we know that this is going to use the standard controller, which we don't want to override.  It makes sense to add a custom endpoint to allow doing this, `http://localhost:1337/golf-facilties/nearby?lng=${lng}&lat=${lat}&r=${radius}` seems good.
+So we know that this is going to use the standard controller, which we don't want to override.  It makes sense to add a custom endpoint to allow doing this, `http://localhost:1337/golf-courses/nearby?lng=${lng}&lat=${lat}&r=${radius}` seems good.
 
-```json filename:http://localhost:1337/golf-facilities/nearby?lng=-79.94186611445596&lat=43.54068791918545&r=50
+```json filename:http://localhost:1337/golf-courses/nearby?lng=-79.94186611445596&lat=43.54068791918545&r=50
 
 {
     "statusCode": 400,
@@ -312,12 +312,12 @@ So we know that this is going to use the standard controller, which we don't wan
 }
 ```
 
-So let's add the endpoint - we open up and edit.  It's important that we put the new entry above the `/golf-facilities/:id` entry, or else the `:id` will suck up our request with `:id=nearby` as we are seeing in the above request:
+So let's add the endpoint - we open up and edit.  It's important that we put the new entry above the `/golf-courses/:id` entry, or else the `:id` will suck up our request with `:id=nearby` as we are seeing in the above request:
 
 ```json
     {
       "method": "GET",
-      "path": "/golf-facilities/nearby",
+      "path": "/golf-courses/nearby",
       "handler": "golf-facility.nearby",
       "config": {
         "policies": []
@@ -325,7 +325,7 @@ So let's add the endpoint - we open up and edit.  It's important that we put the
     },
     {
       "method": "GET",
-      "path": "/golf-facilities/:id",
+      "path": "/golf-courses/:id",
       "handler": "golf-facility.findOne",
       "config": {
         "policies": []
@@ -370,8 +370,8 @@ module.exports = {
 
 Now we work on the golf facility service.  The service is going to have a little more to it, being responsible for:
 
-- Calculating the GPS box in which we look for facilities
-- Querying the facilities within the box, for this we need to reach into [Knex]() in order to return a list of facility ids.
+- Calculating the GPS box in which we look for courses
+- Querying the courses within the box, for this we need to reach into [Knex]() in order to return a list of facility ids.
 - Use the provided facility ids to return the `golf-facility` model data including courses.
 
 First thing first we need to make life easy, let's add `spherical-geometry-js` to gain access to some friendly GPS utility functions:

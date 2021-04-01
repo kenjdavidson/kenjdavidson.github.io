@@ -638,30 +638,27 @@ const InputGeoPoint = ({ componentUid, componentFieldName, dataManager }) => {
   return (
     <Wrapper>
       <DisplayWrapper>
-        <Label htmlFor="latDisplay">
-          {formatMessage({ id: `mapping.mapping.latitude` })}
-        </Label>
-        <InputNumber
+        <InputNumberWithErrors
           name="latDisplay"
+          label={formatMessage({ id: `${pluginId}.mapping.latitude` })}
           value={componentValue.lat}
           disabled={true}
-        ></InputNumber>
-        <Label htmlFor="lngDisplay">
-          {formatMessage({ id: `mapping.mapping.longitude` })}
-        </Label>
-        <InputNumber
+          customBootstrapClass="col-md-12"
+        />
+        <InputNumberWithErrors
           name="lngDisplay"
+          label={formatMessage({ id: `${pluginId}.mapping.longitude` })}
           value={componentValue.lng}
           disabled={true}
-        ></InputNumber>
-        <Label htmlFor="zoomDisplay">
-          {formatMessage({ id: `mapping.mapping.zoom` })}
-        </Label>
-        <InputNumber
+          customBootstrapClass="col-md-12"
+        />
+        <InputNumberWithErrors
           name="zoomDisplay"
+          label={formatMessage({ id: `${pluginId}.mapping.zoom` })}
           value={componentValue.zoom}
           disabled={true}
-        ></InputNumber>
+          customBootstrapClass="col-md-12"
+        />
       </DisplayWrapper>
       <MapWrapper>
         <GoogleMapView

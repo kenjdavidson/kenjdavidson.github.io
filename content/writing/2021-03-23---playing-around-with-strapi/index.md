@@ -4,7 +4,7 @@ type: Post
 category: Technology
 title: Caddieasy - Test Driving Strapi
 summary: Running Strapi through the process to determine whether it will be a good fit for my project, Caddieasy.
-tags: [Technology, Lifestyle, Golfing]
+tags: [Javascript, Strapi, CMS, Golfing]
 series:
   name: Caddieasy and Strapi playground
   order: 1

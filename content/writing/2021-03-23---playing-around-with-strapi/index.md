@@ -183,7 +183,7 @@ Now that we've got our basics setup, lets give it a go on [Postman](https://www.
 
 We're given the external address required to query content while editing - just using the url pointing at the pluralized named of the content type, we get back all our available Golf Facilities:
 
-```json filename:http://localhost:1337/golf-facilities
+```json filename:http://localhost:1337/golf-courses
 [
     {
         "id": 1,
@@ -253,17 +253,17 @@ Another thing, when creating the relationships I wasn't careful to rename them, 
 
 Now that we know our data is coming through, we need to figure out if we have access to all the filters/queries that will most likely be needed by clients.  For this we can go through some of the examples provided at [API Parameters](https://strapi.io/documentation/developer-docs/latest/developer-resources/content-api/content-api.html#api-parameters) let's ensure that some of the most likely search cases are available:
 
-1. Search by name: `http://localhost:1337/golf-facilities?name=Granite Ridge Golf Course` is available and somewhat likely.
+1. Search by name: `http://localhost:1337/golf-courses?name=Granite Ridge Golf Course` is available and somewhat likely.
 
-2. Search by name and city `http://localhost:1337/golf-facilities?name_containss=Granite&city_containss=milton` is probably more likely to be used, as there could be multiple courses with the same name across the globe.
+2. Search by name and city `http://localhost:1337/golf-courses?name_containss=Granite&city_containss=milton` is probably more likely to be used, as there could be multiple courses with the same name across the globe.
 
 > Notice that the use of `containss` instead of `=` or `contains` to manage case-insensitivity.
 
-3. Search courses that are 18 holes `http://localhost:1337/golf-facilities?courses.holes=Eighteen` to let us search through to the relation data. 
+3. Search courses that are 18 holes `http://localhost:1337/golf-courses?holes=18` to let us search through to the relation data. 
 
 > The documentation states that this could cause performance issues.  None were noticed with two courses, but obviously this is something that would need to be monitored as data grows.
 
-3. Filter by Location `http://localhost:1337/golf-facilities?location.lng=-79.94186611445596` is where we run into our first problem.  For the purpose of this article (I'll act super surprised) but from spending some times reading about some of Strapi's short comings this was a major one.  Although this is a basic query attempting to match the `longitude` of our facility, without it working it means that our actual query looking for courses within a GPS area are not going to work.
+3. Filter by Location `http://localhost:1337/golf-courses?location.lng=-79.94186611445596` is where we run into our first problem.  For the purpose of this article (I'll act super surprised) but from spending some times reading about some of Strapi's short comings this was a major one.  Although this is a basic query attempting to match the `longitude` of our facility, without it working it means that our actual query looking for courses within a GPS area are not going to work.
 
 Since this is one of the absolute requirements for working with Golf data, it's something that we either need to resolve or work around.  Let's take a look at what both of those would require:
 
@@ -299,7 +299,7 @@ Ok, so let's start:
 
 ### Adding the Endpoint
 
-User sends in a query `http://localhost:1337/golf-facilties?lng=${lng}&lat=${lat}&r=${radius}`
+User sends in a query `http://localhost:1337/golf-courses?lng=${lng}&lat=${lat}&r=${radius}`
 
 So we know that this is going to use the standard controller, which we don't want to override.  It makes sense to add a custom endpoint to allow doing this, `http://localhost:1337/golf-courses/nearby?lng=${lng}&lat=${lat}&r=${radius}` seems good.
 
@@ -318,7 +318,7 @@ So let's add the endpoint - we open up and edit.  It's important that we put the
     {
       "method": "GET",
       "path": "/golf-courses/nearby",
-      "handler": "golf-facility.nearby",
+      "handler": "golf-courses.nearby",
       "config": {
         "policies": []
       }
@@ -326,14 +326,14 @@ So let's add the endpoint - we open up and edit.  It's important that we put the
     {
       "method": "GET",
       "path": "/golf-courses/:id",
-      "handler": "golf-facility.findOne",
+      "handler": "golf-courses.findOne",
       "config": {
         "policies": []
       }
     },
 ```
 
-Now we need to add in a little love for our controller so that we can manage the request, let's open up the pre-built `./golf-facility/controllers/golf-facility.js` and apply the function:
+Now we need to add in a little love for our controller so that we can manage the request, let's open up the pre-built `./golf-courses/controllers/golf-courses.js` and apply the function:
 
 ```js filename=controllers/golf-courses.js
 module.exports = {
@@ -372,7 +372,7 @@ Now we work on the golf facility service.  The service is going to have a little
 
 - Calculating the GPS box in which we look for courses
 - Querying the courses within the box, for this we need to reach into [Knex]() in order to return a list of facility ids.
-- Use the provided facility ids to return the `golf-facility` model data including courses.
+- Use the provided course ids to return the `golf-courses` model data including courses.
 
 First thing first we need to make life easy, let's add `spherical-geometry-js` to gain access to some friendly GPS utility functions:
 
@@ -449,7 +449,7 @@ which (with this simple example) results in the return of our only course:
 
 ## Data Input/Management
 
-Up until this point, we're in a pretty solid spot with regards to the querying of the data.  I've got my structures and my queries lined up, which all seem to be working exactly as I want them. But now there is one big problem, after reviewing the code it looks like I cannot assign a React Component (field component) to a whole Component, for example, I cannot provide a MAP and have it update the whole `location` field on the `golf-facility`.  Currently there are only field level customizations, which is sad, and means we need to:
+Up until this point, we're in a pretty solid spot with regards to the querying of the data.  I've got my structures and my queries lined up, which all seem to be working exactly as I want them. But now there is one big problem, after reviewing the code it looks like I cannot assign a React Component (field component) to a whole Component, for example, I cannot provide a MAP and have it update the whole `location` field on the `golf-courses`.  Currently there are only field level customizations, which is sad, and means we need to:
 
 1. Contribute to the `content-manager` plugin so that full Components can be customized as a whole.
 2. Extend the `content-manager` plugin supplying my own Component when it comes across the type `geo-point`

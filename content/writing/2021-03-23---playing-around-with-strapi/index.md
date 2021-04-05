@@ -1,5 +1,4 @@
 ---
-draft: true
 type: Post
 category: Technology
 title: Caddieasy - Test Driving Strapi

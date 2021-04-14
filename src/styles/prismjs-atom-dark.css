@@ -26,6 +26,14 @@ pre[class*='language-'] {
   hyphens: none;
 }
 
+/* Inline code blocks to provide wrapping correctly */
+p > code[class*='language-'], 
+li > code[class*='language-'] {
+    white-space: normal;
+    display: inline-block;
+    word-break: break-all;
+}
+
 /* Code blocks */
 pre[class*='language-'] {
   padding: 1em;

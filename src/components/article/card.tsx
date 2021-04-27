@@ -18,6 +18,7 @@ const StyledLink = styled(Link)`
   border: 1px solid ${({ theme }) => theme.inverse.grey1};
   border-radius: 0.25rem;
   padding: 0.5em 1em;
+  min-height: 300px;
 
   &:hover {
     box-shadow: 1px 1px 2px ${({ theme }) => theme.primary.accent1},

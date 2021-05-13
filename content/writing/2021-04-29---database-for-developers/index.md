@@ -11,11 +11,19 @@ I came across one of the best sets of videos, geared for developers in understan
 
 ## Blog Link(s)
 
+He writes for the Oracle Developer blog (a quick Google) which I've started following as well:
+
 [Oracle Developer Blog](https://blogs.oracle.com/author/chris-saxon)
 
 ## Youtube Link(s)
 
+He has a wide assortment of developer (related) videos for using, managing and troubleshooting databases.
+
 [Channel](https://www.youtube.com/channel/UCWeOtlakw8g01MrR8U4yYtg)
 [Database for Developers playlist](https://www.youtube.com/watch?v=NkXxRodAFUY&list=PL78V83xV2fYlT11CJXE77H0LD7C_gZmyf)
 
+####
+
 ps. He's got a pretty solid mustache game!!
+
+pps. He also replies to every single comment on his posts and videos.  Seems like a solid guy!

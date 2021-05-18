@@ -21,9 +21,8 @@ const StyledLink = styled(Link)`
   min-height: 300px;
 
   &:hover {
-    box-shadow: 1px 1px 2px ${({ theme }) => theme.primary.accent1},
-      -1px -1px 2px ${({ theme }) => theme.primary.accent2};
-    transform: scale(1.05);
+    box-shadow: 2px 2px 2px ${({ theme }) => theme.primary.accent1},
+      -2px -2px 2px ${({ theme }) => theme.primary.accent2};
   }
 `;
 

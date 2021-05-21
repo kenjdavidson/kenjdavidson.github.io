@@ -45,5 +45,14 @@ export const GlobalStyle = createGlobalStyle`
   h6 {
     ${({ theme }) => fontStyle(1.125, 1.25, 'heading')};
   } 
+  
+  blockquote {
+    padding: 1em 40px 1em 40px;
+    margin: 2em 0 2em 0;
+    border-left: 0.5em solid rgba(0,0,0,0.2);
+    background-color: beige;
+    font-style: italic;
+    color: black;
+  }
 
 `;

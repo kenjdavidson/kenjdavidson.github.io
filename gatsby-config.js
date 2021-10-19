@@ -8,7 +8,14 @@ module.exports = {
     // You can overwrite values here that are used for the SEO component
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/master/themes/gatsby-theme-minimal-blog/gatsby-config.js
-    siteTitleAlt: `Minimal Blog - Gatsby Theme`,
+    siteTitle: `Ken Davidson`,
+    siteTitleAlt: `Ken Davidson - Husbanding, Fathering, Golfing and Developing`,
+    siteHeadline: `Ken Davidson - Husbanding, Fathering, Golfing and Developing`,
+    siteUrl: `https://kenjdavidson.com`,
+    siteDescription: `I'm a husband and father who spends his free time golfing (as much as possible) and attempting to learn/play with a number of new technologies.  When something works out well (or terribly wrong) I do my best to document it.`,
+    siteLanguage: `en`,
+    siteImage: `/glorious.png`,
+    author: `@kenjdavidson`,
   },
   plugins: [
     {
@@ -22,7 +29,11 @@ module.exports = {
           },
           {
             title: `About`,
-            slug: `/about`,
+            slug: `/about-me`,
+          },
+          {
+            title: `Golf`,
+            slug: `/golf`,
           },
         ],
         externalLinks: [
@@ -30,11 +41,13 @@ module.exports = {
           //   name: `Twitter`,
           //   url: `https://twitter.com/lekoarts_de`,
           // },
-          // {
-          //   name: `Homepage`,
-          //   url: `https://www.lekoarts.de?utm_source=minimal-blog&utm_medium=Starter`,
-          // },
         ],
+        blogPath: '/writing',
+        tagsPath: '/writing/tags',
+        postsPrefix: '/writing',
+        postsPath: `content/writing`,
+        pagesPath: `content/pages`,
+        formatString: `MMM DD, yyyy`
       },
     },
     {
@@ -64,21 +77,22 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `minimal-blog - @lekoarts/gatsby-theme-minimal-blog`,
-        short_name: `minimal-blog`,
-        description: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
+        name: `Ken Davidson - Husbanding, Fathering, Golfing and Developing...`,
+        short_name: `Ken Davidson`,
+        description: `Husbanding, Fathering, Golfing and Developing my way to retirement!!  Sometimes I document the successes and failres, but often times not.`,
         start_url: `/`,
         background_color: `#fff`,
-        theme_color: `#6B46C1`,
+        theme_color: `#17bb90`,
         display: `standalone`,
+        icon: `static/glorious.png`,
         icons: [
           {
-            src: `/android-chrome-192x192.png`,
+            src: `/static/Assets.xcassets/AppIcon.appiconset/196.png`,
             sizes: `192x192`,
             type: `image/png`,
           },
           {
-            src: `/android-chrome-512x512.png`,
+            src: `/static/Assets.xcassets/AppIcon.appiconset/512.png`,
             sizes: `512x512`,
             type: `image/png`,
           },

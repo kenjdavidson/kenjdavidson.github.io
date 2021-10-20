@@ -32,7 +32,7 @@ const Tags = ({ list }: PostsProps) => {
           View all writing
         </TLink>
       </Flex>      
-      <Box mt={[4, 5]}>
+      <Box mt={[4, 5]} mb={[5, 5, 6]}>
         {list.map((listItem) => (
           <Box key={listItem.fieldValue} mb={[1, 1, 2]} sx={{ display: `inline-block` }}>
             <TLink

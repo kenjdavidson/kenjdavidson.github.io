@@ -29,11 +29,11 @@ module.exports = {
           },
           {
             title: `About`,
-            slug: `/about-me`,
+            slug: `/about`,
           },
           {
-            title: `Golf`,
-            slug: `/golf`,
+            title: `Contact`,
+            slug: `/contact`,
           },
         ],
         externalLinks: [

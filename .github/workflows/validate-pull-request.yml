@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: 
       - main
-  repository-dispatch:
+  repository_dispatch:
     types: 
       - pull_request_content
 

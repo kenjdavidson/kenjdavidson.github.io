@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/java-script",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2020/03/20/zero-to-typescript-in-undefined","title":"Zero to TypeScript in ... I'll let you know when it's done.","date":"Mar 20, 2020","excerpt":"I know what you're thinking... Well let me tell you, I've never been the biggest fan of JavaScript! If you're still reading, let me explain…","timeToRead":3,"description":"So I've been disliking Javascript for a while now, I won't lie - but I understand necessity.  Looks like it's time to give Typescript a go and try to make the best of it.  Enjoy my suffering.","tags":[{"name":"TypeScript","slug":"type-script"},{"name":"JavaScript","slug":"java-script"},{"name":"VSCode","slug":"vs-code"}]}]}},"pageContext":{"slug":"java-script","name":"JavaScript","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

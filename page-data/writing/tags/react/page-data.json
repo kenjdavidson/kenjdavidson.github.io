@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/react",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2020/03/01/here-comes-gatsby","title":"Goodbye Jekyll, Hello Gatsby!!","date":"Mar 01, 2020","excerpt":"A few months ago I decided that I was going to cancel my hosting with  Go Daddy  in an attempt to save on some expenses. I've been a Github…","timeToRead":4,"description":"Welp... Jekyll didn't last long.  I know it seems fickle, but after playing around with Jekyll for a while (I just wasn't a fan). Check out how I go about, yet another conversion, to Gatsby.","tags":[{"name":"Gatsby","slug":"gatsby"},{"name":"React","slug":"react"}]}]}},"pageContext":{"slug":"react","name":"React","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

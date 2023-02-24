@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/design",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2017/10/03/indellient-interview-project","title":"Indellient Software Analyst Interview Project","date":"Oct 03, 2017","excerpt":"I had applied for a software developer role at  Indellient , when I was invited in for an interview it was actually for two roles: Developer…","timeToRead":3,"description":"When applying for a role developer/analyst role at Indellient Software, part of the application process was to write a documenting explaining my analysis and review of my favorite software, for discussion during the interview.","tags":[{"name":"Interview","slug":"interview"},{"name":"Software Analysis","slug":"software-analysis"},{"name":"Design","slug":"design"}]}]}},"pageContext":{"slug":"design","name":"Design","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

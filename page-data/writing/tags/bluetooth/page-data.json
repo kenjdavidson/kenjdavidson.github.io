@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/bluetooth",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2021/03/10/a-year-of-bluetooth-classic","title":"A year of Bluetooth Classic Maintenence","date":"Mar 10, 2021","excerpt":"So it's actually probably been longer than a year, but if we just go back to when I started/released  v1.60.x-rcY  it's close enough. When I…","timeToRead":7,"description":"It's been a cool (albeit annoying at times) experience to maintain my first real project.","tags":[{"name":"React Native","slug":"react-native"},{"name":"Bluetooth","slug":"bluetooth"},{"name":"Open Source","slug":"open-source"}]}]}},"pageContext":{"slug":"bluetooth","name":"Bluetooth","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

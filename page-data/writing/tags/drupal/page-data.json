@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/drupal",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2022/04/20/drupal-custom-service-authentication","title":"Drupal Custom Service w/ Authentication","date":"Apr 20, 2022","excerpt":"Since I've had the  opportunity  (for lack of a better word) to continue down the Drupal rabbit hole - the next requirements of our project…","timeToRead":2,"description":"Connecting Drupal to a Google Authenticated Back End","tags":[{"name":"Technology","slug":"technology"},{"name":"Drupal","slug":"drupal"},{"name":"PHP","slug":"php"},{"name":"GuzzleHttp","slug":"guzzle-http"}]}]}},"pageContext":{"slug":"drupal","name":"Drupal","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

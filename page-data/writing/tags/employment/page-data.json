@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/employment",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2015/09/17/sortable-coding-challenge","title":"Sortable Coding Challenge","date":"Sep 17, 2015","excerpt":"When I was attempting to make the switch from application support/implementation to a completely development based role - which was…","timeToRead":2,"description":"A long time ago I was looking to get out of support and into a development role.  At this point I had education and some extra curricular development on my side - turned out to be quite the learning experience.","tags":[{"name":"Java","slug":"java"},{"name":"Employment","slug":"employment"}]}]}},"pageContext":{"slug":"employment","name":"Employment","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

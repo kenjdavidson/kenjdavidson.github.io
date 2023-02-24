@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/jpa",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2018/10/01/mybatis-jpa-annotation-parsing","title":"MyBatipse XML Generate ResultSet from JPA Annotations","date":"Oct 01, 2018","excerpt":"My Batipse  is a great Eclipse plugin that provides:\nValidation\nGeneration\nTools\nwhile working with Mybatis XML files. When I started at…","timeToRead":2,"description":"My new company, Standardbred Canada, uses Mybatis to manage their Data Access.  After getting used to the environment I found I needed a better/faster way to write mapper files.  I was able to throw together a JPA backed mapping plugin for Eclipse.","tags":[{"name":"Eclipse","slug":"eclipse"},{"name":"Mybatis","slug":"mybatis"},{"name":"JPA","slug":"jpa"}]}]}},"pageContext":{"slug":"jpa","name":"JPA","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

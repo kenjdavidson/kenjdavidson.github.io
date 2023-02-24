@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/github-actions",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2020/09/10/babel-no-exports-main-resolved","title":"No exports main resolved ... @babel/helper-compilation-targets/package.json","date":"Sep 10, 2020","excerpt":"After the recent version of Node was released my Gatsby (as well as others) stopped building on Github. To keep my site up to date (or at…","timeToRead":1,"description":"Looks like the latest version of Node broke my Gatsby Publish Action.   It's a good thing Google and Stack Overflow exist and made life substantially easier than it could have been.","tags":[{"name":"Gatsby","slug":"gatsby"},{"name":"Node","slug":"node"},{"name":"Github Actions","slug":"github-actions"}]}]}},"pageContext":{"slug":"github-actions","name":"Github Actions","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

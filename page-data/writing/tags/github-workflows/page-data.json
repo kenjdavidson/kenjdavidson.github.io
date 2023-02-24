@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/github-workflows",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2020/03/11/publish-gatsby-with-github-actions","title":"Pusblish Gatsby with Github Actions","date":"Mar 11, 2020","excerpt":"Now that I've got things rolling with my  Gatsby conversion  and everything seems good working with Github Pages, it was time to automate…","timeToRead":2,"description":"Since you've taken the time to get your Github Pages site setup with Gatsby, you should probably add automated publishing next.  With the help of Github Workflows and Gatsby Publish Action it takes seconds (or a few minutes tops).","tags":[{"name":"Gatsby","slug":"gatsby"},{"name":"Github Pages","slug":"github-pages"},{"name":"Github Workflows","slug":"github-workflows"}]}]}},"pageContext":{"slug":"github-workflows","name":"Github Workflows","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

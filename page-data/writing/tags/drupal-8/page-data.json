@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/drupal-8",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2021/12/01/getting-drupal-8-up-and-running","title":"Getting Drupal 8 Up and Running","date":"Dec 01, 2021","excerpt":"So, we recently got a vendor (which won't be named here due to how absolutely terrible they are) to migrate our Drupal 6 site to Drupal…","timeToRead":4,"description":"Lucky me got tasked with having to setup a local Drupal 8 environment provided by a vendor we chose to do our migration.. let's just say it wasn't fun.","tags":[{"name":"Technology","slug":"technology"},{"name":"PHP","slug":"php"},{"name":"Drupal 8","slug":"drupal-8"}]}]}},"pageContext":{"slug":"drupal-8","name":"Drupal 8","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

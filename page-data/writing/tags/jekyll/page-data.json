@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/jekyll",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2019/05/28/from-wordpress-to-github-pages","title":"Wordpress to Github Pages","date":"May 28, 2019","excerpt":"I started working with Wordpress after losing my job a few years ago, I wanted to get into a development role and I wasn't\nsure which…","timeToRead":4,"description":"To save a little bit of cash on GoDaddy hosting, as well as get some experience with Github Pages, I took the time move (and document the process) of that conversion.","tags":[{"name":"Github Pages","slug":"github-pages"},{"name":"Jekyll","slug":"jekyll"}]}]}},"pageContext":{"slug":"jekyll","name":"Jekyll","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

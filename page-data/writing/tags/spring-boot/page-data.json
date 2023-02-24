@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/spring-boot",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2022/03/21/javafx-and-spring-boot","title":"Java FX and Spring Boot playground","date":"Mar 21, 2022","excerpt":"Time to throw my hat into the ring with a  JavaFX and Spring Boot  article.  This information exists elsewhere, but I've accumulated and…","timeToRead":4,"description":"Started playing around with JavaFX (again), backed by Spring Boot.  Seems interesting....","tags":[{"name":"Technology","slug":"technology"},{"name":"Java","slug":"java"},{"name":"JavaFX","slug":"java-fx"},{"name":"Spring Boot","slug":"spring-boot"}]}]}},"pageContext":{"slug":"spring-boot","name":"Spring Boot","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

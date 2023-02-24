@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/scriptlets",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2021/03/02/jasper-reports-top-n","title":"Simulating TOP N / RANK() with Jasper Reports","date":"Mar 02, 2021","excerpt":"While attempting to get some reports working I ran into a problem where: Our database (version) doesn't support the  RANK()  function Jasper…","timeToRead":2,"description":"Ran into an issue where I needed to simulate TOP N / RANK() with Jasper Reports","tags":[{"name":"Jasper Reports","slug":"jasper-reports"},{"name":"Java","slug":"java"},{"name":"Scriptlets","slug":"scriptlets"}]}]}},"pageContext":{"slug":"scriptlets","name":"Scriptlets","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/alexa",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2018/10/01/alexa-localed-handler","title":"Alexa skill(s) backed by Java Resource(s)","date":"Apr 20, 2018","excerpt":"I wanted to start playing around with Alexa skills, I had a view ideas but no experience and needed a good starting place. Figured I’d hit…","timeToRead":1,"description":"I wanted to play around with the Alexa Skills Kit to see if I could make a pseudo framework for using Java's built in Resource functionality to provide language support.  It didn't go far, but it was a fun process.","tags":[{"name":"Java","slug":"java"},{"name":"Alexa","slug":"alexa"}]}]}},"pageContext":{"slug":"alexa","name":"Alexa","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

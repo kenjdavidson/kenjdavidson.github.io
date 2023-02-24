@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/databases",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2021/04/29/databases-for-developers","title":"Databases for Developers","date":"Apr 29, 2021","excerpt":"I came across one of the best sets of videos, geared for developers in understanding and working with databases.  I fully realize my…","timeToRead":1,"description":"Down the rabbit hole and came across this amazing series of videos that every level of developer should watch!  Thanks Chris!","tags":[{"name":"Technology","slug":"technology"},{"name":"Databases","slug":"databases"}]}]}},"pageContext":{"slug":"databases","name":"Databases","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

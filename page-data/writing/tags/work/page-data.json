@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/work",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2020/01/01/year-in-review","title":"The Gongshow that was 2020","date":"Jan 01, 2021","excerpt":"So let's be serious, 2020 was a completes S@#% show! (I think we can all agree that throwning down a little profanity is justified) I won't…","timeToRead":8,"description":"It's been one heck of year!  Continuing in my attempt to document a little bit more about the things I've done (and I guess things I haven't done) it felt like a run down about my last year might be a great kickoff to continuing the process.","tags":[{"name":"Review","slug":"review"},{"name":"Health","slug":"health"},{"name":"Family","slug":"family"},{"name":"Work","slug":"work"}]}]}},"pageContext":{"slug":"work","name":"Work","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/writing/tags/stimulus",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/2033/11/12/playing-around-with-eleventy","title":"Playing Around with Eleventy","date":"Nov 12, 2022","excerpt":"Eleventy - yet another static site generator So I've been toying with the idea of creating a web app for an NFL pool that I'm in.  The guy…","timeToRead":5,"description":"Taking a stab at another static site generator.  Eleventy (11ty) was a refreshingly simple SSG that was up and running in a couple days.","tags":[{"name":"Eleventy","slug":"eleventy"},{"name":"TypeScript","slug":"type-script"},{"name":"Tailwind","slug":"tailwind"},{"name":"Stimulus","slug":"stimulus"}]}]}},"pageContext":{"slug":"stimulus","name":"Stimulus","formatString":"MMM DD, yyyy"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

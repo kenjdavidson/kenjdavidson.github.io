@@ -27,7 +27,7 @@
     "gatsby-plugin-netlify": "^4.4.0",
     "gatsby-plugin-offline": "^5.25.0",
     "gatsby-plugin-theme-ui": "^0.14.7",
-    "theme-ui": "^0.16.0",
+    "theme-ui": "^0.13.5",
     "gatsby-plugin-sitemap": "^5.25.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.22",
     "react": "^17.0.2",

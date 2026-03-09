@@ -30,6 +30,6 @@ jobs:
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
       - name: Install dependencies
-        run: npm install
+        run: npm ci --legacy-peer-deps
       - name: Build Gatsby site
         run: npm run build

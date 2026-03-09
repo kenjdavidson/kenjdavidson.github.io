@@ -1,4 +1,0 @@
-[submodule "content"]
-	path = content
-	url = git@github.com:kenjdavidson/kenjdavidson.content.git
-	branch = main

@@ -86,7 +86,7 @@ In the grand scheme of 2020 I think we've been pretty lucky with how things have
     </p>
   </div>
   <div style={{flex: "1", padding: "1em"}}>
-    <img src="./family.png" />
+    <img src="./family.png" alt="Family photo" />
   </div>
 </div>
 

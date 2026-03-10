@@ -3,6 +3,11 @@ const React = require("react")
 exports.onRenderBody = ({ setHeadComponents }) => {
   setHeadComponents([
     React.createElement("link", {
+      key: "preconnect-googleapis",
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    }),
+    React.createElement("link", {
       key: "preconnect-gstatic",
       rel: "preconnect",
       href: "https://fonts.gstatic.com",

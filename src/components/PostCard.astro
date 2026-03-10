@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import TagList from './TagList.astro';
+
+interface Props {
+  post: CollectionEntry<'writing'>;
+}
+
+const { post } = Astro.props;
+const { title, description, date, tags } = post.data;
+
+// Build URL from slug or from the collection entry id
+const slug = post.data.slug
+  ? post.data.slug
+  : `/writing/${post.id.replace(/\/index\.mdx?$/, '').replace(/\/index$/, '')}`;
+---
+
+<article class="mb-10 pb-10 border-b border-gray-100 last:border-0">
+  <h2 class="text-xl font-semibold mb-1">
+    <a href={slug} class="text-gray-900 hover:text-brand-600 transition-colors">
+      {title}
+    </a>
+  </h2>
+  <div class="flex flex-wrap items-center gap-3 mb-2">
+    <FormattedDate date={date} />
+    {tags && tags.length > 0 && <TagList tags={tags} />}
+  </div>
+  {description && <p class="text-gray-600 text-sm leading-relaxed">{description}</p>}
+</article>

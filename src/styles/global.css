@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-brand: #17bb90;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-white text-gray-900 min-h-screen flex flex-col;
+  }
+}
+
+@layer components {
+  .prose a {
+    @apply text-brand-600 hover:text-brand-700 underline;
+  }
+}

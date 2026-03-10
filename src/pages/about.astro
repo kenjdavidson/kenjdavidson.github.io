@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allTimeline = await getCollection('timeline', ({ data }) => !data.draft);
+const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="About" description="A little bit about Ken Davidson — husband, father, golfer, and developer.">
+  <h1 class="text-4xl font-bold text-gray-900 mb-6">About</h1>
+
+  <div class="prose prose-lg max-w-none mb-16">
+    <p>
+      Hey, I'm <strong>Ken Davidson</strong> — a husband and father who spends his free time golfing
+      (as much as possible) and attempting to learn/play with a number of new technologies. When
+      something works out well (or terribly wrong) I do my best to document it here.
+    </p>
+    <p>
+      I'm a senior developer primarily working in <strong>Java</strong> and <strong>React</strong>,
+      with a soft spot for React Native and open source work. You can check out some of my projects
+      on <a href="https://github.com/kenjdavidson">GitHub</a>.
+    </p>
+  </div>
+
+  <!-- Contact -->
+  <section class="mb-16 p-6 rounded-xl bg-gray-50 border border-gray-100">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+    <p class="text-gray-600 mb-4">
+      Feel free to reach out — whether it's about a project, a question from one of my posts, or
+      just to say hi!
+    </p>
+    <ul class="space-y-2 text-sm">
+      <li>
+        <a href="mailto:hello@kenjdavidson.com" class="text-brand-600 hover:underline">
+          hello@kenjdavidson.com
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/kenjdavidson"
+          class="text-brand-600 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          github.com/kenjdavidson
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://linkedin.com/in/kenjdavidson"
+          class="text-brand-600 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          linkedin.com/in/kenjdavidson
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Timeline -->
+  {
+    timeline.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-bold text-gray-900 mb-8">Timeline</h2>
+        <ol class="relative border-l border-gray-200 space-y-8 ml-3">
+          {timeline.map((item) => (
+            <li class="ml-6">
+              <span class="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 ring-8 ring-white">
+                <span class="h-2 w-2 rounded-full bg-brand-500" />
+              </span>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <h3 class="text-base font-semibold text-gray-900">{item.data.title}</h3>
+                {item.data.category && (
+                  <span class="px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700">
+                    {item.data.category}
+                  </span>
+                )}
+              </div>
+              {item.data.subtitle && (
+                <p class="text-sm text-gray-500 mb-1">{item.data.subtitle}</p>
+              )}
+              <time class="text-xs text-gray-400">
+                {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(
+                  item.data.date
+                )}
+              </time>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('writing', ({ data }) => !data.draft);
+  return posts.map((entry) => {
+    // Strip "YYYY-MM-DD---" prefix and "/index" suffix for the slug
+    const rawId = entry.id.replace(/\/index\.mdx?$/, '');
+    const slug = rawId.replace(/^\d{4}-\d{2}-\d{2}---/, '');
+    return { params: { slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BlogPostLayout entry={entry}>
+  <Content />
+</BlogPostLayout>

@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('writing', ({ data }) => !data.draft);
+
+  // Collect all tags
+  const tagSet = new Set<string>();
+  for (const post of allPosts) {
+    for (const tag of post.data.tags ?? []) {
+      tagSet.add(tag);
+    }
+  }
+
+  return [...tagSet].map((tag) => {
+    const tagSlug = tag.toLowerCase().replace(/\s+/g, '-');
+    const posts = allPosts
+      .filter((p) => p.data.tags?.includes(tag))
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    return { params: { tag: tagSlug }, props: { tag, posts } };
+  });
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`Tag: ${tag}`} description={`Articles tagged with "${tag}".`}>
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-4xl font-bold text-gray-900">
+      Tag: <span class="text-brand-600">{tag}</span>
+    </h1>
+    <a href="/writing/tags" class="text-brand-600 hover:text-brand-700 text-sm font-medium">
+      &larr; All tags
+    </a>
+  </div>
+  <p class="text-gray-500 mb-8">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+  {posts.map((post) => <PostCard post={post} />)}
+</BaseLayout>

@@ -1,5 +1,5 @@
-# Publish Astro site
-name: publish-astro
+# Publish site
+name: publish
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Build Astro site
+      - name: Build Site
         run: npm run build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

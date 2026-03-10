@@ -7,38 +7,84 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
 ---
 
 <BaseLayout title="About" description="A little bit about Ken Davidson — husband, father, golfer, and developer.">
-  <h1 class="text-4xl font-bold text-gray-900 mb-6">About</h1>
+  <h1 class="text-4xl font-bold text-gray-900 mb-6">Heyoh!</h1>
 
   <div class="prose prose-lg max-w-none mb-16">
     <p>
-      Hey, I'm <strong>Ken Davidson</strong> — a husband and father who spends his free time golfing
-      (as much as possible) and attempting to learn/play with a number of new technologies. When
-      something works out well (or terribly wrong) I do my best to document it here.
+      So, I'm <strong>Ken</strong>. I'm not a big enough deal (nor trust any of my friends) to have
+      someone write me a biography! To get through this quickly and to my level of writing, let me
+      provide you with the <em>communication of the Gods</em> (a.k.a. point form)!!
     </p>
-    <p>
-      I'm a senior developer primarily working in <strong>Java</strong> and <strong>React</strong>,
-      with a soft spot for React Native and open source work. You can check out some of my projects
-      on <a href="https://github.com/kenjdavidson">GitHub</a>.
-    </p>
+
+    <h2>Husbanding &amp; Fathering</h2>
+    <ul>
+      <li>I'm married to a wonderfully amazing (and more importantly patient) woman, Sue.</li>
+      <li>We've been together/married for north of 10 years.</li>
+      <li>We've got a crazy and energetic (my doppelgänger of a) son, Carson.</li>
+      <li>
+        We try to be outside as much as possible; watching Carson scoot around the block, checking
+        out <a href="https://www.conservationhalton.ca/parks">Halton's conservation areas</a>,
+        building a luge track on the front lawn, or any number of other ridiculous things we find
+        ourselves doing.
+      </li>
+      <li>When inside we're in <em>other room</em> making money playing <strong>Axe Ball</strong>.</li>
+    </ul>
+
+    <h2>Golfing</h2>
+    <ul>
+      <li>I played baseball through my youth and didn't get into golf until my mid twenties.</li>
+      <li>Even with ~20 years under my belt, I'm still pretty terrible (14 handicap).</li>
+      <li>I try to play twice a week (sprinkling in a third whenever the opportunity presents itself).</li>
+      <li>If you're a bogey golfer, feel free to hit me up for some loonie skins around the GTA.</li>
+      <li>What's in the bag? Callaway Rogue Driver/3 Wood, Cobra King Max 4i-GW, 56°, 60°</li>
+    </ul>
+
+    <h2>Developing</h2>
+    <ul>
+      <li>
+        I graduated from <a href="https://ryerson.ca">Ryerson University</a> with a degree in{' '}
+        <a href="https://www.ryerson.ca/programs/undergraduate/computer-science/">Computer Science</a>.
+      </li>
+      <li>
+        I went through a string of non-development roles including sales, support, implementation
+        and design before getting back into the development game.
+      </li>
+      <li>
+        I'm currently working as a Senior Software Engineer. The main technologies I work with are
+        <code>Java</code>, <code>Kotlin</code>, and <code>React</code> on Spring Boot.
+      </li>
+      <li>
+        My first attempt at playing with React Native ended up in releasing and maintaining the{' '}
+        <a href="https://kenjdavidson.com/react-native-bluetooth-classic">React Native Bluetooth Classic</a>{' '}
+        library.
+      </li>
+      <li>
+        I'm always attempting to work my way through new languages and frameworks.
+      </li>
+    </ul>
   </div>
 
   <!-- Contact -->
   <section class="mb-16 p-6 rounded-xl bg-gray-50 border border-gray-100">
     <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
-    <p class="text-gray-600 mb-4">
-      Feel free to reach out — whether it's about a project, a question from one of my posts, or
-      just to say hi!
+    <p class="text-gray-600 mb-6">
+      Thanks for swinging by! Whether you're looking for assistance with{' '}
+      <a href="https://kenjdavidson.com/react-native-bluetooth-classic" class="text-brand-600 hover:underline">Bluetooth Classic</a>,
+      a role you're head hunting for, or maybe a custom project you're looking to start — I do my
+      best to respond within the day.
     </p>
-    <ul class="space-y-2 text-sm">
+    <ul class="space-y-3 text-sm">
       <li>
-        <a href="mailto:hello@kenjdavidson.com" class="text-brand-600 hover:underline">
+        <span class="text-gray-500 font-medium">Email:</span>{' '}
+        <a href="mailto:hello@kenjdavidson.com" class="text-brand-600 hover:underline ml-1">
           hello@kenjdavidson.com
         </a>
       </li>
       <li>
+        <span class="text-gray-500 font-medium">GitHub:</span>{' '}
         <a
           href="https://github.com/kenjdavidson"
-          class="text-brand-600 hover:underline"
+          class="text-brand-600 hover:underline ml-1"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -46,13 +92,25 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
         </a>
       </li>
       <li>
+        <span class="text-gray-500 font-medium">LinkedIn:</span>{' '}
         <a
           href="https://linkedin.com/in/kenjdavidson"
-          class="text-brand-600 hover:underline"
+          class="text-brand-600 hover:underline ml-1"
           target="_blank"
           rel="noopener noreferrer"
         >
           linkedin.com/in/kenjdavidson
+        </a>
+      </li>
+      <li>
+        <span class="text-gray-500 font-medium">Instagram:</span>{' '}
+        <a
+          href="https://instagram.com/kenjdavidson"
+          class="text-brand-600 hover:underline ml-1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          @kenjdavidson
         </a>
       </li>
     </ul>
@@ -85,6 +143,18 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
                   item.data.date
                 )}
               </time>
+              {item.data.website && (
+                <p class="mt-1">
+                  <a
+                    href={item.data.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs text-brand-600 hover:underline"
+                  >
+                    {item.data.website}
+                  </a>
+                </p>
+              )}
             </li>
           ))}
         </ol>

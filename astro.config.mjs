@@ -6,6 +6,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://kenjdavidson.com',
+  publicDir: 'static',
   integrations: [
     mdx(),
     sitemap(),

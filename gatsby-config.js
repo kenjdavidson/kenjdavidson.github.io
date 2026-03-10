@@ -50,23 +50,6 @@ module.exports = {
         formatString: `MMM DD, yyyy`
       },
     },
-    {
-      resolve: `gatsby-omni-font-loader`,
-      options: {
-        enableListener: true,
-        preconnect: [`https://fonts.gstatic.com`],
-        interval: 300,
-        timeout: 30000,
-        // If you plan on changing the font you'll also need to adjust the Theme UI config to edit the CSS
-        // See: https://github.com/LekoArts/gatsby-themes/tree/master/examples/minimal-blog#changing-your-fonts
-        web: [
-          {
-            name: `IBM Plex Sans`,
-            file: `https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap`,
-          },
-        ],
-      },
-    },
     googleAnalyticsTrackingId && {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -135,7 +118,7 @@ module.exports = {
               }),
             query: `
               {
-                allPost(sort: { fields: date, order: DESC }) {
+                allPost(sort: { date: DESC }) {
                   nodes {
                     title
                     date(formatString: "MMMM D, YYYY")

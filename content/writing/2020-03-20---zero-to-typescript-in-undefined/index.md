@@ -9,7 +9,7 @@ slug: "/2020/03/20/zero-to-typescript-in-undefined"
 
 I know what you're thinking...
 
-<div style="margin: 2em;"><blockquote class="cite"><p>
+<div style={{margin: "2em"}}><blockquote className="cite"><p>
 TypeScript has been out for ages, how's this guy just getting into it now?
 </p></blockquote></div>
 

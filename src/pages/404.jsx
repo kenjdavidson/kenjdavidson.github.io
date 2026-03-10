@@ -4,6 +4,7 @@ import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Title from "@lekoarts/gatsby-theme-minimal-blog/src/components/title"
 import { jsx, Box, Heading } from 'theme-ui'
 import { Link } from 'gatsby'
+import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
 
 const NotFound = () => (  
   <Layout>    
@@ -23,3 +24,5 @@ const NotFound = () => (
 )
 
 export default NotFound
+
+export const Head = ({ location }) => <Seo title="Not Found" pathname={location.pathname} />

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Link as TLink } from "theme-ui"
-import { Link } from "gatsby"
+import { HeadFC, Link } from "gatsby"
+import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Title from "@lekoarts/gatsby-theme-minimal-blog/src/components/title"
 import Listing from "./listing"
@@ -58,3 +59,5 @@ const Homepage = ({ posts }: PostsProps) => {
 }
 
 export default Homepage
+
+export const Head: HeadFC = ({ location }) => <Seo pathname={location.pathname} />

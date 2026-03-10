@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Heading, Link as TLink, Flex } from "theme-ui"
-import { Link } from "gatsby"
+import { HeadFC, Link } from "gatsby"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Listing from "./listing"
 import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
@@ -27,7 +27,6 @@ const Blog = ({ posts }: PostsProps) => {
 
   return (
     <Layout>
-      <Seo title="Writing" />
       <Flex sx={{ alignItems: `center`, justifyContent: `space-between`, flexFlow: `wrap` }}>
         <Heading as="h1" variant="styles.h1" sx={{ marginY: 2 }}>
           Writing
@@ -46,3 +45,5 @@ const Blog = ({ posts }: PostsProps) => {
 }
 
 export default Blog
+
+export const Head: HeadFC = ({ location }) => <Seo title="Writing" pathname={location.pathname} />

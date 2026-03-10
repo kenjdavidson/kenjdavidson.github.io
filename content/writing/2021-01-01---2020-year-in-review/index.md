@@ -79,16 +79,16 @@ I'm currently sitting around **180**, and I'm thrilled about it! (Don't mind the
 
 In the grand scheme of 2020 I think we've been pretty lucky with how things have gone.  When covid first went down in March we were concerned about how things would turn out.   We ended up picking corners of the house; Sue was in the kitchen while while I was in the dining room, it worked well but it definitely wasn't opimal.  
 
-<Box responsive direction="row-responsive">
-  <Box basis="2/3" >
+<div style={{display: "flex", flexWrap: "wrap"}}>
+  <div style={{flex: "2"}}>
     <p>
     Carson not being in daycare/school was problematic, trying to keep a 4 year old busy during the day (enough to ensure he's tired enough to sleep) is difficult.  The most difficult thing was attempting to get some time outside while keeping him off play grounds; even more so trying to explain why some people were still playing on them (when they shouldn't have been).  I couldn't imagine going through this type of thing when I was a kid, but he took it well (enough).
     </p>
-  </Box>
-  <Box basis="1/3" pad="medium">
-    <img src="./family.png"></img>
-  </Box>
-</Box>
+  </div>
+  <div style={{flex: "1", padding: "1em"}}>
+    <img src="./family.png" alt="Family photo" />
+  </div>
+</div>
 
 Sue and I were able to split most of the days well; but more often than not I spend most of the day playing and most of the evening working.  It wasn't the greatest situation - I wouldn't say I'm a workaholic but I'm super anxious about whether I'm completing my work to the standard that is expected of me, regardless of the times.
 

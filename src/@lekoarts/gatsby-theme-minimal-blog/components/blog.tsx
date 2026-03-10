@@ -46,4 +46,4 @@ const Blog = ({ posts }: PostsProps) => {
 
 export default Blog
 
-export const Head: HeadFC = () => <Seo title="Writing" />
+export const Head: HeadFC = ({ location }) => <Seo title="Writing" pathname={location.pathname} />

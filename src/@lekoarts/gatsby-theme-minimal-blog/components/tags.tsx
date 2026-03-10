@@ -50,4 +50,4 @@ const Tags = ({ list }: PostsProps) => {
 
 export default Tags
 
-export const Head: HeadFC = () => <Seo title="Tags" />
+export const Head: HeadFC = ({ location }) => <Seo title="Tags" pathname={location.pathname} />

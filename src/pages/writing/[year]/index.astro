@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { getPostSlug } from '../../../utils/writing';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('writing', ({ data }) => !data.draft);
+
+  const yearSet = new Set<string>();
+  for (const post of allPosts) {
+    yearSet.add(getPostSlug(post).split('/')[0]);
+  }
+
+  return [...yearSet].map((year) => {
+    const posts = allPosts
+      .filter((p) => getPostSlug(p).split('/')[0] === year)
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    return { params: { year }, props: { year, posts } };
+  });
+}
+
+const { year, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`Writing — ${year}`}
+  description={`Articles and notes from ${year}.`}
+>
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-4xl font-bold text-gray-900">Writing — {year}</h1>
+    <a href="/writing" class="text-brand-600 hover:text-brand-700 text-sm font-medium">
+      &larr; All writing
+    </a>
+  </div>
+  <p class="text-gray-500 mb-8">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+  {posts.map((post) => <PostCard post={post} />)}
+</BaseLayout>

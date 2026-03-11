@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 import TagList from './TagList.astro';
+import { getPostUrl } from '../utils/writing';
 
 interface Props {
   post: CollectionEntry<'writing'>;
@@ -10,15 +11,13 @@ interface Props {
 const { post } = Astro.props;
 const { title, description, date, tags } = post.data;
 
-// Build URL from slug or from the collection entry id
-const slug = post.data.slug
-  ? post.data.slug
-  : `/writing/${post.id.replace(/\/index\.mdx?$/, '').replace(/\/index$/, '')}`;
+// Build the full URL for this post
+const postUrl = getPostUrl(post);
 ---
 
 <article class="mb-10 pb-10 border-b border-gray-100 last:border-0">
   <h2 class="text-xl font-semibold mb-1">
-    <a href={slug} class="text-gray-900 hover:text-brand-600 transition-colors">
+    <a href={postUrl} class="text-gray-900 hover:text-brand-600 transition-colors">
       {title}
     </a>
   </h2>

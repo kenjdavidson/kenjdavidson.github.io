@@ -2,64 +2,64 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const allTimeline = await getCollection('timeline', ({ data }) => !data.draft);
+const allTimeline = await getCollection('timeline', ({ data }) => !data.draft && data.category === 'Employment');
 const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title="About" description="A little bit about Ken Davidson — husband, father, golfer, and developer.">
-  <h1 class="text-4xl font-bold text-gray-900 mb-6">Heyoh!</h1>
+  <h1 class="text-4xl font-bold text-gray-900 mb-6">Hey there!</h1>
 
   <div class="prose prose-lg max-w-none mb-16">
     <p>
-      So, I'm <strong>Ken</strong>. I'm not a big enough deal (nor trust any of my friends) to have
-      someone write me a biography! To get through this quickly and to my level of writing, let me
-      provide you with the <em>communication of the Gods</em> (a.k.a. point form)!!
+      I'm <strong>Ken</strong> — a husband, father, golfer, and software developer based in the GTA.
+      Rather than make you read through a wall of text, here's the quick version:
     </p>
 
-    <h2>Husbanding &amp; Fathering</h2>
+    <h2>Husband &amp; Father</h2>
     <ul>
-      <li>I'm married to a wonderfully amazing (and more importantly patient) woman, Sue.</li>
-      <li>We've been together/married for north of 10 years.</li>
-      <li>We've got a crazy and energetic (my doppelgänger of a) son, Carson.</li>
+      <li>Married to the wonderfully patient Sue — she's far too good for me and we both know it.</li>
+      <li>Together we're raising our energetic son Carson, who is very much my doppelgänger.</li>
       <li>
-        We try to be outside as much as possible; watching Carson scoot around the block, checking
-        out <a href="https://www.conservationhalton.ca/parks">Halton's conservation areas</a>,
-        building a luge track on the front lawn, or any number of other ridiculous things we find
-        ourselves doing.
+        We spend as much time outdoors as possible — exploring{' '}
+        <a href="https://www.conservationhalton.ca/parks">Halton's conservation areas</a>, watching
+        Carson tear around the neighbourhood, or finding some other ridiculous activity to fill the
+        weekend.
       </li>
-      <li>When inside we're in <em>other room</em> making money playing <strong>Axe Ball</strong>.</li>
+      <li>When the weather doesn't cooperate, you'll find us in the basement playing <strong>Axe Ball</strong>.</li>
     </ul>
 
-    <h2>Golfing</h2>
+    <h2>Golfer</h2>
     <ul>
-      <li>I played baseball through my youth and didn't get into golf until my mid twenties.</li>
-      <li>Even with ~20 years under my belt, I'm still pretty terrible (14 handicap).</li>
-      <li>I try to play twice a week (sprinkling in a third whenever the opportunity presents itself).</li>
-      <li>If you're a bogey golfer, feel free to hit me up for some loonie skins around the GTA.</li>
-      <li>What's in the bag? Callaway Rogue Driver/3 Wood, Cobra King Max 4i-GW, 56°, 60°</li>
+      <li>A baseball kid who didn't pick up a club until his mid-twenties — some habits are hard to break.</li>
+      <li>Nearly two decades in and I'm still hovering around a 14 handicap. Progress is progress.</li>
+      <li>I try to get out twice a week, with a bonus round whenever the stars align.</li>
+      <li>Always up for loonie skins with fellow bogey golfers around the GTA — don't be shy.</li>
+      <li>Current bag: Callaway Rogue Driver &amp; 3 Wood, Cobra King Max 4i–GW, 56°, 60°</li>
     </ul>
 
-    <h2>Developing</h2>
+    <h2>Developer</h2>
     <ul>
       <li>
-        I graduated from <a href="https://ryerson.ca">Ryerson University</a> with a degree in{' '}
-        <a href="https://www.ryerson.ca/programs/undergraduate/computer-science/">Computer Science</a>.
+        Computer Science graduate from <a href="https://ryerson.ca">Ryerson University</a> (now{' '}
+        <a href="https://torontomu.ca">Toronto Metropolitan University</a>).
       </li>
       <li>
-        I went through a string of non-development roles including sales, support, implementation
-        and design before getting back into the development game.
+        Spent several years in support, implementation, and product roles before making the full
+        switch to software development — turns out working close to the customer teaches you a lot
+        about building things people actually want to use.
       </li>
       <li>
-        I'm currently working as a Senior Software Engineer. The main technologies I work with are
-        <code>Java</code>, <code>Kotlin</code>, and <code>React</code> on Spring Boot.
+        Currently working as a Senior Software Engineer, primarily with <code>Java</code>,{' '}
+        <code>Kotlin</code>, and <code>React</code> on Spring Boot.
       </li>
       <li>
-        My first attempt at playing with React Native ended up in releasing and maintaining the{' '}
-        <a href="https://kenjdavidson.com/react-native-bluetooth-classic">React Native Bluetooth Classic</a>{' '}
-        library.
+        A side project exploring React Native led to building and open-sourcing{' '}
+        <a href="https://kenjdavidson.com/react-native-bluetooth-classic">React Native Bluetooth Classic</a>,
+        which turned into something far bigger than expected.
       </li>
       <li>
-        I'm always attempting to work my way through new languages and frameworks.
+        Always tinkering with new languages, frameworks, or whatever rabbit hole seems interesting
+        at the time.
       </li>
     </ul>
   </div>
@@ -68,18 +68,12 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
   <section class="mb-16 p-6 rounded-xl bg-gray-50 border border-gray-100">
     <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
     <p class="text-gray-600 mb-6">
-      Thanks for swinging by! Whether you're looking for assistance with{' '}
+      Thanks for stopping by! Whether you have questions about{' '}
       <a href="https://kenjdavidson.com/react-native-bluetooth-classic" class="text-brand-600 hover:underline">Bluetooth Classic</a>,
-      a role you're head hunting for, or maybe a custom project you're looking to start — I do my
-      best to respond within the day.
+      a role you think I'd be a good fit for, or a project you'd like to collaborate on — feel free
+      to reach out through any of the links below.
     </p>
     <ul class="space-y-3 text-sm">
-      <li>
-        <span class="text-gray-500 font-medium">Email:</span>{' '}
-        <a href="mailto:hello@kenjdavidson.com" class="text-brand-600 hover:underline ml-1">
-          hello@kenjdavidson.com
-        </a>
-      </li>
       <li>
         <span class="text-gray-500 font-medium">GitHub:</span>{' '}
         <a
@@ -105,22 +99,22 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
       <li>
         <span class="text-gray-500 font-medium">Instagram:</span>{' '}
         <a
-          href="https://instagram.com/kenjdavidson"
+          href="https://instagram.com/kenjdavidson.golf"
           class="text-brand-600 hover:underline ml-1"
           target="_blank"
           rel="noopener noreferrer"
         >
-          @kenjdavidson
+          @kenjdavidson.golf
         </a>
       </li>
     </ul>
   </section>
 
-  <!-- Timeline -->
+  <!-- Work History -->
   {
     timeline.length > 0 && (
       <section>
-        <h2 class="text-2xl font-bold text-gray-900 mb-8">Timeline</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-8">Work History</h2>
         <ol class="relative border-l border-gray-200 space-y-8 ml-3">
           {timeline.map((item) => (
             <li class="ml-6">
@@ -129,11 +123,6 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
               </span>
               <div class="flex flex-wrap items-center gap-2 mb-1">
                 <h3 class="text-base font-semibold text-gray-900">{item.data.title}</h3>
-                {item.data.category && (
-                  <span class="px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700">
-                    {item.data.category}
-                  </span>
-                )}
               </div>
               {item.data.subtitle && (
                 <p class="text-sm text-gray-500 mb-1">{item.data.subtitle}</p>

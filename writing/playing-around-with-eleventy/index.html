@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="generator" content="Astro v5.18.1"><title>Playing Around with Eleventy | Ken Davidson</title><meta name="description" content="Taking a stab at another static site generator.  Eleventy (11ty) was a refreshingly simple SSG that was up and running in a couple days."><!-- Open Graph --><meta property="og:title" content="Playing Around with Eleventy | Ken Davidson"><meta property="og:description" content="Taking a stab at another static site generator.  Eleventy (11ty) was a refreshingly simple SSG that was up and running in a couple days."><meta property="og:image" content="https://kenjdavidson.com/glorious.png"><meta property="og:type" content="website"><meta property="og:url" content="https://kenjdavidson.com/writing/playing-around-with-eleventy/"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kenjdavidson"><meta name="twitter:title" content="Playing Around with Eleventy | Ken Davidson"><meta name="twitter:description" content="Taking a stab at another static site generator.  Eleventy (11ty) was a refreshingly simple SSG that was up and running in a couple days."><meta name="twitter:image" content="https://kenjdavidson.com/glorious.png"><link rel="stylesheet" href="/_astro/about.CQ7zffCo.css">
+<link rel="stylesheet" href="/_astro/_slug_.RND3Bnrf.css"></head> <body> <header class="border-b border-gray-200 bg-white sticky top-0 z-10"> <nav class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between"> <a href="/" class="text-xl font-bold text-brand-600 hover:text-brand-700">
+Ken Davidson
+</a> <ul class="flex gap-6"> <li> <a href="/writing" class="text-sm font-medium transition-colors text-brand-600"> Writing </a> </li><li> <a href="/projects" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> Projects </a> </li><li> <a href="/about" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> About </a> </li> </ul> </nav> </header> <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-10">  <article> <header class="mb-10"> <h1 class="text-4xl font-bold text-gray-900 mb-4">Playing Around with Eleventy</h1> <div class="flex flex-wrap items-center gap-4 text-gray-500 text-sm"> <time datetime="2022-11-12T00:00:00.000Z" class="text-gray-500 text-sm"> November 12, 2022 </time> <ul class="flex flex-wrap gap-2 list-none p-0 m-0"> <li> <a href="/writing/tags/eleventy" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Eleventy </a> </li><li> <a href="/writing/tags/typescript" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> TypeScript </a> </li><li> <a href="/writing/tags/tailwind" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Tailwind </a> </li><li> <a href="/writing/tags/stimulus" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Stimulus </a> </li> </ul> </div> <p class="mt-4 text-lg text-gray-600">Taking a stab at another static site generator.  Eleventy (11ty) was a refreshingly simple SSG that was up and running in a couple days.</p> </header> <div class="prose prose-lg max-w-none">  <h1 id="eleventy---yet-another-static-site-generator">Eleventy - yet another static site generator</h1>
+<p>So I’ve been toying with the idea of creating a web app for an NFL pool that I’m in.  The guy that runs the pool is fantastic, but he’s shot down all my attempts automating the process for him; in all honesty I respect him holding on.  Since he isn’t interested in a full application, all that I needed was a way to manage/view the Excel files he sends on a weekly basis - this opened the door to combining a static site generator with github pages (thanks to githubs <code>schedule</code> action trigger).</p>
+<p>First off let’s look at why I chose Elventy (11ty) for this:</p>
+<ul>
+<li>Jimbo (the owner) had no interest in automating the process, which mean I only had to deal with Excel files he sent bi-weekly</li>
+<li>The only automation was converting his Excel documents into HTML pages (with a sprinkle of Javascript)</li>
+<li>I had zero interest in adding in the requirement of dealing with <code>GraphQL</code>; mainly due to my experience being limited and not wanting to spend the majority of my time on managing data.</li>
+</ul>
+<p>Obviously there was a bunch of reading involved.  I’ve said this before, and I’ll most likely say it agian; when you’re not a genius (I don’t deny what i am) you need to make this up by being able to reverse design (engineer is such a bad term) and read a substantial amount of documentation and code.  So let’s jumpt in to what I needed:</p>
+<h2 id="requirements">Requirements</h2>
+<p>When I was reviewing options, I needed to:</p>
+<h3 id="github-pages-support">Github Pages Support</h3>
+<p>Taking advantage of <code>Github Pages</code> (being cheap and all) was a huge requirement.   Github pages is free (even though I’m a subscriber) and provide an inexpensive way for pages to be made available to the public.  Since <a href="https://kenjdavidson.com">kenjdavidson.com</a> is already published to Github Pages, it made sense to continue</p>
+<h3 id="custom-data">Custom Data</h3>
+<p>I needed the ability to parse custom Excel files into data to be available on the site.  When looking at the different options:</p>
+<ul>
+<li>Gatsby requires <code>GraphQL</code> for custom data.  Since all my GraphQL experience is solely theoretical, this didn’t seem like a realistic choice to managing custom data.</li>
+<li>Other SSG frameworks allow access to <code>api</code> content, but not from static files.</li>
+</ul>
+<p>Eleventy’s ability to convert static files (xlsx) into manageable JSON content seemed like the best choice.   Eleventy manages this data in a <code>cascade</code>, which is really just a fancy way of saying priority.  If you’re used to the way that Spring Boot processes <code>application.properties</code> this shouldn’t be a shock.</p>
+<h2 id="jimbos-nfl-pool">Jimbos NFL Pool</h2>
+<p><img src="https://user-images.githubusercontent.com/6210735/201553383-bfa27344-60eb-4511-850d-42b69091146d.png" alt="Jimbos NLF Pool"/></p>
+<p>Jimbo runs a great pool, but he’s old school and maintains pool picks/data in Excel instead of using one of the many third party sites.  When Sunday rolls around we’re always attempting to do the calculations to determine who is in the lead, what needs to happen for which results.   I tried to get Jimbo into the present (without luck) so the next best thing was to just work with what he’s providing (Excel) and provide the results.  The important parts are:</p>
+<ul>
+<li>showing a page containing the current standings</li>
+<li>showing a page containing the current week picks (picks, points, etc).</li>
+<li>showing a page for each player showing there season picks (by week) - this is more of a nice to have, but it was pretty straight forward.</li>
+</ul>
+<p>A pretty simple idea, let’s see how it happened:</p>
+<blockquote>
+<p>If you’re interesting is the finally project, you can see the source at <a href="https://github.com/kenjdavidson/jimbos-nfl-pool">https://github.com/kenjdavidson/jimbos-nfl-pool</a> or the final result at <a href="https://kenjdavidson.com/jimbos-nfl-pool">https://kenjdavidson.com/jimbos-nfl-pool</a>.</p>
+</blockquote>
+<h3 id="eleventy-11ty">Eleventy (11ty)</h3>
+<p>First off, I’ve got to comment about how much I hate ‘11ty’.  Like why?  I get that <code>Eleven</code> = <code>11</code> + <code>ty</code> but this seems like even more ridiculous of. short form as <code>i18n</code> or <code>k8s</code> (which both drive me crazy).  But, this is an old man story for another time.</p>
+<p>Secondly, the site is super annoying.  The <strong>tutorials</strong> are just links to articles and videos that I really don’t want deal with.  The documents <a href="https://www.11ty.dev/docs/usage/">cli</a> page had the most information to get things started, it was pretty straight forward:</p>
+<ul>
+<li>Create an NPM project</li>
+<li><code>npm i -d @11ty/eleventy</code></li>
+</ul>
+<p>which works ok for the basic site.  While setting this up, I went with the following folder stucture:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>jimbos-nfl-pools</span></span>
+<span class="line"><span>|- content    # Eleventy files</span></span>
+<span class="line"><span>|- src        # Javascript/Typescript files</span></span>
+<span class="line"><span>\- styles     # CSS files</span></span></code></pre>
+<h4 id="content">Content</h4>
+<p>I chose to go with (most of the tutorials used) Nunjucks as the template engine.  Not much really to say here, just that you’ll need to have the <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> docs site ready to go.  The eleventy folder structure is pretty simple:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>jimbos-nfl-pools</span></span>
+<span class="line"><span>|- content     # Eleventy files</span></span>
+<span class="line"><span>  |- _data     # Stores the Excel files</span></span>
+<span class="line"><span>  |- _includes </span></span>
+<span class="line"><span>     \- layout.njk</span></span>
+<span class="line"><span>  |- index.njk</span></span>
+<span class="line"><span>  |- spread_pools.njk</span></span>
+<span class="line"><span>  \- players.njk</span></span></code></pre>
+<h5 id="data">Data</h5>
+<p>As mentioned, the data files are Excel documents which contain:</p>
+<ul>
+<li>Week details</li>
+<li>Player picks</li>
+<li>Weekly games with spreads</li>
+<li>Pool standings (accumulated)</li>
+</ul>
+<p>Since Eleventy provides some solid data processing, the only thing that was needed was adding the custom processor.  This is configured through the <code>eleventyConfig</code> api:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>  eleventyConfig.addDataExtension(&quot;xlsx&quot;, {</span></span>
+<span class="line"><span>    parser: parseSpreadPoolFile(eleventyConfig),</span></span>
+<span class="line"><span>    read: false</span></span>
+<span class="line"><span>  });</span></span></code></pre>
+<p>Which configures the following:</p>
+<ul>
+<li>Whenever you see an <code>xlsx</code> file use the <code>parseSpreadPoolFile</code> (function provided by)</li>
+<li>This file should not be read, but instead passed to the processor by <code>filename</code></li>
+</ul>
+<blockquote>
+<p>The processing code is available in the <a href="https://github.com/kenjdavidson/jimbos-nfl-pool">project repository</a>.  But essentially it just takes the sections processed above, and creates the data object.</p>
+</blockquote>
+<h5 id="collections">Collections</h5>
+<p>Once we’ve got the data processed it will be available to to our pages using the <code>data</code> api.  This data is not available through the <code>collections</code> (and therefore not available for <code>pagination</code> - this means a separate page would be required for each item (not cool).  This means that all the data objects need to be massaged into a couple of collections:</p>
+<p>The two collections needed to match my requirements are: <code>spread_pools</code> and <code>players</code>, again using the <code>eleventyConfig</code> api:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>  // Collection</span></span>
+<span class="line"><span>  eleventyConfig.addCollection(&quot;spread_pool&quot;, spreadPoolsCollection);</span></span>
+<span class="line"><span>  eleventyConfig.addCollection(&quot;players&quot;, playersCollection);</span></span></code></pre>
+<p>In this case we need to reduce all the spread pool file data into a single collection:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>module.exports = function (collectionsApi) {</span></span>
+<span class="line"><span>  const data = collectionsApi.getAll()[0].data;</span></span>
+<span class="line"><span>  return Object.entries(data)</span></span>
+<span class="line"><span>    .filter(([k, v]) =&gt; &quot;spread_pool&quot; === v.type)</span></span>
+<span class="line"><span>    .map(([k, v]) =&gt; ({</span></span>
+<span class="line"><span>      ...v,</span></span>
+<span class="line"><span>      name: k,</span></span>
+<span class="line"><span>    }));</span></span>
+<span class="line"><span>};</span></span></code></pre>
+<p>The players collection is a little more intense, as it performs some processing of all the <code>spread_pool</code> (weekly data) and merges/reduces the game results and standings with the weekly player picks.</p>
+<h4 id="styles">Styles</h4>
+<p>I know this is the third (sorting) folder in the list; but as a live site it was important that there was some style.  I’m not a designer, which means I’m ok with pages looking a little less <strong>amazing</strong> if they flow and work well.   I also love libraries/frameworks that have a pretty decent community and a good number of pre-designed components.   I fully acknowledge that I’m a developer, not a designer.  For no other reason than that I’ve been using it more and more often, I decided to go with <a href="https://tailwindcss.com/">tailwindcss</a>.</p>
+<p>Setting up Tailwind was pretty straight forward.  Since this project is a static site, it made sense to use the <code>tailwind</code> cli.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>jimbos-nfl-pools</span></span>
+<span class="line"><span>|- css</span></span>
+<span class="line"><span>  \- styles.css</span></span>
+<span class="line"><span>\- tailwind.config.js</span></span></code></pre>
+<p>At this point there is only a single <code>styles.css</code> file which does all the tailwind goodness:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>@tailwind base;</span></span>
+<span class="line"><span>@tailwind components;</span></span>
+<span class="line"><span>@tailwind utilities;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// add some custom layer base/components</span></span></code></pre>
+<h4 id="javascript">JavaScript</h4>
+<p>I’ve been using <a href="https://stimulus.hotwired.dev/">@hotwired/stimulus</a> in my more recent projects, so I figured I’d keep the ball rolling in this one.  Stimulus has Typescript support through <code>webpack</code> which is how I decided get things setup.  This gives me the option of keeping the javascript and css separate or eventually join them together at some point.</p>
+<p>The project structure for javascript is:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>jimbos-nfl-pools</span></span>
+<span class="line"><span>|- src</span></span>
+<span class="line"><span>  |- controllers</span></span>
+<span class="line"><span>  \- stimulus.ts</span></span>
+<span class="line"><span>|- tsconfig.json</span></span>
+<span class="line"><span>|- webpack.config.js</span></span></code></pre>
+<h3 id="packagejson">Package.json</h3>
+<p>To get everything running nicely, <code>package.json</code> provides the following scripts:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>&quot;scripts&quot;: {</span></span>
+<span class="line"><span>    ...</span></span>
+<span class="line"><span>    &quot;dev&quot;: &quot;run-p dev:*&quot;,</span></span>
+<span class="line"><span>    &quot;dev:11ty&quot;: &quot;eleventy --serve --watch&quot;,</span></span>
+<span class="line"><span>    &quot;dev:css&quot;: &quot;tailwindcss -i ./css/styles.css -o ./_site/styles.css --watch&quot;,</span></span>
+<span class="line"><span>    &quot;dev:webpack&quot;: &quot;webpack --watch&quot;,</span></span>
+<span class="line"><span>    &quot;build&quot;: &quot;NODE_ENV=production npm-run-all clean build:*&quot;,</span></span>
+<span class="line"><span>    &quot;build:11ty&quot;: &quot;eleventy --pathprefix=jimbos-nfl-pool&quot;,</span></span>
+<span class="line"><span>    &quot;build:css&quot;: &quot;tailwindcss -i ./css/styles.css -o ./_site/styles.css --minify&quot;,</span></span>
+<span class="line"><span>    &quot;build:webpack&quot;: &quot;webpack&quot;,</span></span>
+<span class="line"><span>    ...</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<blockquote>
+<p><code>npm run dev</code> gets things going!!</p>
+</blockquote>
+<h2 id="deploying-to-github-pages">Deploying to Github Pages</h2>
+<p>Like all other static site generators, Eleventy works well with Github Pages; which is how I decided to publish the site.  There are two main issues related to deployment that still need to be addressed:</p>
+<h3 id="data-file-updates">Data File Updates</h3>
+<p>This one I haven’t dealt with yet, but in order to deploy a new week the Excel file needs to be uploaded to the project.  The files are emailed out at this point (and as I mentioned Jimbo has no interest in changing this):</p>
+<ul>
+<li>Manually upload the file</li>
+<li>Pull the email/file from my email at the beginning of the week</li>
+</ul>
+<blockquote>
+<p>Future Ken’s problems</p>
+</blockquote>
+<h3 id="deploying-updates">Deploying Updates</h3>
+<p>At this point the site is completely static - which means all the game results are updated only when the site is generated (and deployed).  Github actions provide the ability to fire deployments on <code>schedule</code> using cron expressions.  The most annoying part of this was converting <code>EST</code> to <code>UTC</code>.  The following section of the configuration provides generation on:</p>
+<ul>
+<li>manual request</li>
+<li>push to main</li>
+<li>on schedule attempting to match the end/beginning of each game group</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>name: Build and Release</span></span>
+<span class="line"><span>run-name: ${{ github.actor }} is releasing new spread pool results</span></span>
+<span class="line"><span>on:</span></span>
+<span class="line"><span>  workflow_dispatch:    </span></span>
+<span class="line"><span>  push:</span></span>
+<span class="line"><span>    branches: </span></span>
+<span class="line"><span>      - main</span></span>
+<span class="line"><span>  schedule:</span></span>
+<span class="line"><span>    # Thursday 11:45pm = Friday 4:45am</span></span>
+<span class="line"><span>    # Sunday 11:45am, 3:45pm = Sunday 4:45pm, 8:45pm</span></span>
+<span class="line"><span>    # Sunday 7:45pm, 11:45pm = Monday 12:45, 4:45am</span></span>
+<span class="line"><span>    # Monday 11:45pm = Tuesday 4:45am</span></span>
+<span class="line"><span>    - cron: &#39;45 0,4 * * 1,2,5&#39;</span></span>
+<span class="line"><span>    - cron: &#39;45 16,20 * * 0&#39;</span></span></code></pre>
+<blockquote>
+<p>I’ll slowly start adding in <code>Stimulus</code> controllers to handle the updates between deployments (things like in game updates and live leaderboard).</p>
+</blockquote>  </div> <footer class="mt-16 pt-8 border-t border-gray-200"> <a href="/writing" class="text-brand-600 hover:text-brand-700 font-medium">
+&larr; Back to Writing
+</a> </footer> </article>  </main> <footer class="border-t border-gray-200 mt-auto"> <div class="max-w-3xl mx-auto px-4 py-8"> <div class="flex justify-center gap-5 mb-6 text-2xl text-gray-500"> <a href="https://github.com/kenjdavidson" aria-label="GitHub" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path> </svg> </a> <a href="https://linkedin.com/in/kenjdavidson" aria-label="LinkedIn" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg> </a> <a href="https://instagram.com/kenjdavidson" aria-label="Instagram" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path> </svg> </a> <a href="https://stackoverflow.com/users/4196620/kendavidson" aria-label="Stack Overflow" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.95zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.36 1.618zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.751 0z"></path> </svg> </a> <a href="mailto:hello@kenjdavidson.com" aria-label="Email" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"></path> <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"></path> </svg> </a> </div> <div class="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500 gap-2"> <p>&copy; 2026 Ken Davidson. All rights reserved.</p> <p>Built with <a href="https://astro.build" class="text-brand-600 hover:underline">Astro</a></p> </div> </div> </footer> </body></html>

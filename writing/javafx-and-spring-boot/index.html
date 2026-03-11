@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="generator" content="Astro v5.18.1"><title>Java FX and Spring Boot playground | Ken Davidson</title><meta name="description" content="Started playing around with JavaFX (again), backed by Spring Boot.  Seems interesting...."><!-- Open Graph --><meta property="og:title" content="Java FX and Spring Boot playground | Ken Davidson"><meta property="og:description" content="Started playing around with JavaFX (again), backed by Spring Boot.  Seems interesting...."><meta property="og:image" content="https://kenjdavidson.com/glorious.png"><meta property="og:type" content="website"><meta property="og:url" content="https://kenjdavidson.com/writing/javafx-and-spring-boot/"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kenjdavidson"><meta name="twitter:title" content="Java FX and Spring Boot playground | Ken Davidson"><meta name="twitter:description" content="Started playing around with JavaFX (again), backed by Spring Boot.  Seems interesting...."><meta name="twitter:image" content="https://kenjdavidson.com/glorious.png"><link rel="stylesheet" href="/_astro/about.CQ7zffCo.css">
+<link rel="stylesheet" href="/_astro/_slug_.RND3Bnrf.css"></head> <body> <header class="border-b border-gray-200 bg-white sticky top-0 z-10"> <nav class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between"> <a href="/" class="text-xl font-bold text-brand-600 hover:text-brand-700">
+Ken Davidson
+</a> <ul class="flex gap-6"> <li> <a href="/writing" class="text-sm font-medium transition-colors text-brand-600"> Writing </a> </li><li> <a href="/projects" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> Projects </a> </li><li> <a href="/about" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> About </a> </li> </ul> </nav> </header> <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-10">  <article> <header class="mb-10"> <h1 class="text-4xl font-bold text-gray-900 mb-4">Java FX and Spring Boot playground</h1> <div class="flex flex-wrap items-center gap-4 text-gray-500 text-sm"> <time datetime="2022-03-21T00:00:00.000Z" class="text-gray-500 text-sm"> March 21, 2022 </time> <ul class="flex flex-wrap gap-2 list-none p-0 m-0"> <li> <a href="/writing/tags/technology" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Technology </a> </li><li> <a href="/writing/tags/java" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Java </a> </li><li> <a href="/writing/tags/javafx" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> JavaFX </a> </li><li> <a href="/writing/tags/spring-boot" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Spring Boot </a> </li> </ul> </div> <p class="mt-4 text-lg text-gray-600">Started playing around with JavaFX (again), backed by Spring Boot.  Seems interesting....</p> </header> <div class="prose prose-lg max-w-none">  <p>Time to throw my hat into the ring with a <strong>JavaFX and Spring Boot</strong> article.  This information exists elsewhere, but I’ve accumulated and added what I’ve learned in the hopes:</p>
+<ul>
+<li>that I’ll be able to remember it going forward</li>
+<li>learn a little about spring boot</li>
+<li>help someone with the same pains</li>
+</ul>
+<blockquote>
+<p>As always, feel free to add some comments or push me in the right direction if you’ve come across this and see that I’m going in the completely wrong way.</p>
+</blockquote>
+<blockquote>
+<p>The project (in all it’s glory) can be found at <a href="https://github.com/kenjdavidson/gspro-connector">https://github.com/kenjdavidson/gspro-connector</a></p>
+</blockquote>
+<h2 id="project-details">Project Details</h2>
+<p>If it’s not apparent, I love golf.  Which means in the winter I love virtual golf.  The last winter I’ve been playing <a href="https://e6golf.com/">E6 Connect</a> using the <a href="https://www.swinglogic.us/slx">SLX Micro Simulator</a> and it’s gotten me by.  Although now that the primary game that I’ve been playing has disallowed the SLX Micro Sim, I figured I’d see if I could give <a href="https://gsprogolf.com/">GS Pro</a> a shot; it seems to have substantially better reviews in terms of graphics and game play, just not internal simulator support.</p>
+<p>It does offer the <a href="https://gsprogolf.com/GSProConnectV1.html">GS Pro Connect API</a> which already have some plugins available for different monitors.  Not that I have (nor maybe will ever have) the SLX Micro library, but here’s dreaming.  This project should be a fully working, pluginable, desktop application that will provide the UI and GS Pro Connect functionality to any willing to create a library plugin.</p>
+<p>The source for this can be found at <a href="https://github.com/kenjdavidson/gspro-connect">https://github.com/kenjdavidson/gspro-connect</a>.</p>
+<h2 id="development-environment">Development Environment</h2>
+<h3 id="initialize-the-project">Initialize the Project</h3>
+<p>The project is initialized pretty quickly:</p>
+<ol>
+<li>Open up Visual Studio Code</li>
+<li><code>Ctrl-P</code> to open up the palette and choose <code>Remote Container: Add Development Container Configuration Files</code></li>
+<li>Configure the newly generated <code>.devcontainer</code> with the following Java related extensions</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	"extensions": [</span></span>
+<span class="line"><span>		"vscjava.vscode-java-pack",</span></span>
+<span class="line"><span>		"Pivotal.vscode-boot-dev-pack",</span></span>
+<span class="line"><span>		"GabrielBB.vscode-lombok",</span></span>
+<span class="line"><span>		"redhat.vscode-xml"</span></span>
+<span class="line"><span>	],</span></span></code></pre>
+<ol start="4">
+<li>Startup the devcontainer with <code>Ctrl-P</code> > <code>Remote Containers: Rebuild and Run Container</code>.  This is where I started development on the API side of things (non-spring, non-fx).</li>
+</ol>
+<blockquote>
+<p>Just a note - Java and VSCode still still seem to have some issues, specifically regarding the Java Language Server and other Java Language plugins.  Particularly when the devcontainer is first built.</p>
+</blockquote>
+<p>I’ve found a couple things that help:</p>
+<ul>
+<li>Adding <code>mvn clean install -DskipTests</code> to the container post build command.</li>
+<li>When rebuilding the container, you may need to restart the Java language service after <code>mvn install</code> runs.</li>
+</ul>
+<h4 id="project">Project</h4>
+<p>The project consists of a maven parent module <code>gspro-connector</code> and a number of sub modules:</p>
+<ul>
+<li><code>gspro-api</code> which contains the api data and connection functionality</li>
+<li><code>gspro-client</code> (deprecated) wrapping the api connection</li>
+<li><code>gspro-app</code> which is the JavaFX/Spring Boot application.  The application contains a basic form based launch monitor which can be used if no other plugin(s) are provided.</li>
+<li><code>gspro-api-garmin-r10</code> which is a sample plugin, the Python and Javascript version were first developed by <a href="https://github.com/travislang/gspro-garmin-connect-v2">Travis Lang</a> and converted to Java to showcase how a plugin is used.</li>
+</ul>
+<h3 id="desktop-in-devcontainer">Desktop in Devcontainer</h3>
+<p>Now that the API is pretty good, it’s time to start on the interface portion.  I know what you’re thinking, this could have been a web app (desktop apps are uncool now); but realistically there is just much less to do:</p>
+<ul>
+<li>The code is self contained in Java, no HTML or JavaScript to need to worry about.</li>
+<li>The communication code doesn’t need to be added, no Websockets, etc to fool around with.</li>
+<li>For the purpose of this it just made sense to take out the extra layer</li>
+</ul>
+<p>But the main issue is <strong>Devcontainers have no desktop</strong>!!!</p>
+<p>But thanks to a number of people smarter than I, this is manageable using the the Visual Studio Code feature <a href="https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/desktop-lite.md">desktop-lite</a>.  There are a number of great tutorials on how to get this working, so I’ll just provide the short form here:</p>
+<ol>
+<li>Configure your <code>.devcontainer</code> with the required feature, <strong>desktop-lite</strong>, which as described</li>
+</ol>
+<blockquote>
+<p>Adds a lightweight Fluxbox based desktop to the container that can be accessed using a VNC viewer or the web. GUI-based commands executed from the built-in VS code terminal will open on the desktop automatically.</p>
+</blockquote>
+<p>which is what we want:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	"features": {</span></span>
+<span class="line"><span>		// Install desktop-lite (Fluxbox) on devcontainer</span></span>
+<span class="line"><span>		// When starting GsProConnectApplicationBoot application loads into desktop</span></span>
+<span class="line"><span>		// https://lucasjellema.medium.com/run-and-access-gui-inside-vs-code-devcontainers-b572643d0d2a		</span></span>
+<span class="line"><span>		"desktop-lite": {</span></span>
+<span class="line"><span>			"password": "vscode",</span></span>
+<span class="line"><span>			"webPort": 6080,</span></span>
+<span class="line"><span>			"vncPort": 5901</span></span>
+<span class="line"><span>		}</span></span>
+<span class="line"><span>	},</span></span></code></pre>
+<ol start="2">
+<li>Add the appropriate port forwarding.  Here there are two options:</li>
+</ol>
+<ul>
+<li>Web</li>
+<li>VNC</li>
+</ul>
+<p>Both are configured in this case, but I generally just use the web desktop:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	// Use 'forwardPorts' to make a list of ports inside the container available locally.</span></span>
+<span class="line"><span>	"forwardPorts": [</span></span>
+<span class="line"><span>		6080,	// desktop-lite web</span></span>
+<span class="line"><span>		5901,	// desktop-lite vnc</span></span>
+<span class="line"><span>	],	</span></span></code></pre>
+<p>Once the devcontainer is started, you’ll be able to login to <em><a href="http://localhost:6080">http://localhost:6080</a></em> with the password you provided (vscode in my case).  Now when you start up your JavaFX application it will be run in the context of the VNC desktop.</p>
+<p><img alt="Desktop Lite Web VNC" loading="lazy" decoding="async" fetchpriority="auto" width="1850" height="977" src="/_astro/novnc.BcBYgD7L_2bUmXn.webp" ></p>
+<h2 id="javafx-with-spring-boot">JavaFX with Spring Boot</h2>
+<p>The connect application provides a standardized <code>GS Pro Connector</code> interface and the ability to choose from a number of installed <code>LaunchMonitor</code>(s) using the <code>LaunchMonitorProvider</code> interface.  By default there is only the <code>FormLaunchMonitor</code> installed, but these are easy to implement and add to the application by placing the compiled JAR in the class path.</p>
+<p><img alt="GS Pro Connect JavaFX" loading="lazy" decoding="async" fetchpriority="auto" width="1441" height="771" src="/_astro/gspro-connect-vnc.BLLmLWSp_1M4W7I.webp" ></p>
+<h3 id="two-applicationsone-stone">Two Applications/One Stone</h3>
+<p>One of the major issues run into across the web is getting the Spring Boot <code>Application</code> to play nicely with the JavaFX <code>Application</code>.  There are a number of great tutorials on this:</p>
+<p>Following a combination of these tutorials the resulting <code>Application</code> classes look like this:</p>
+<p><strong>Spring Boot</strong></p>
+<p>The <code>@SpringBootApplication</code> launches the <code>GsProConnectApplication</code> (FX Application) during the boot process:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>@SpringBootApplication</span></span>
+<span class="line"><span>public class GsProConnectApplicationBoot {</span></span>
+<span class="line"><span>  public static void main(String[] args) {</span></span>
+<span class="line"><span>      Application.launch(GsProConnectApplication.class, args);</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p><strong>JavaFX Application</strong></p>
+<p>The Java FX <code>Application</code> peforms a couple key functions:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>  /**</span></span>
+<span class="line"><span>   * Starts the application and fires off an `ApplicationStartupEvent` (which is responsible for building</span></span>
+<span class="line"><span>   * the primary stage) and displaying it.</span></span>
+<span class="line"><span>   */</span></span>
+<span class="line"><span>  @Override</span></span>
+<span class="line"><span>  public void start(Stage stage) throws Exception {</span></span>
+<span class="line"><span>      logger.debug("Starting GsProConnectApplication");</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      applicationContext.publishEvent(new ApplicationStartupEvent(this, stage));</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  /**</span></span>
+<span class="line"><span>   * Initialize is responsible for completing the configuration of the `ApplicationContext`.  During this process</span></span>
+<span class="line"><span>   * a number of additional beans are applied using the `initializers()`:</span></span>
+<span class="line"><span>   */</span></span>
+<span class="line"><span>  @Override</span></span>
+<span class="line"><span>  public void init() {</span></span>
+<span class="line"><span>      logger.debug("Initializing Spring ApplicationContext");</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      applicationContext = new SpringApplicationBuilder(GsProConnectApplicationBoot.class)</span></span>
+<span class="line"><span>          .sources(GsProConnectApplicationBoot.class)</span></span>
+<span class="line"><span>          .initializers(initializers())</span></span>
+<span class="line"><span>          .run(getParameters().getRaw().toArray(new String[0]));</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  /**</span></span>
+<span class="line"><span>   * Return an `ApplicationContextInitializer` which provides some of the specific JavaFX application</span></span>
+<span class="line"><span>   * related beans: `Application`, `Parameters` and `HostServices`.  This allows `Controller`(s) to </span></span>
+<span class="line"><span>   * be injected with application related items. </span></span>
+<span class="line"><span>   *</span></span>
+<span class="line"><span>   * For example `HostServices` would allow a controller access to disk, etc.</span></span>
+<span class="line"><span>   */</span></span>
+<span class="line"><span>  ApplicationContextInitializer&#x3C;GenericApplicationContext> initializers() { </span></span>
+<span class="line"><span>        return ac -> {</span></span>
+<span class="line"><span>            ac.registerBean(Application.class, () -> GsProConnectApplication.this);</span></span>
+<span class="line"><span>            ac.registerBean(Parameters.class, this::getParameters);</span></span>
+<span class="line"><span>            ac.registerBean(HostServices.class, this::getHostServices);</span></span>
+<span class="line"><span>        };</span></span>
+<span class="line"><span>    }</span></span></code></pre>
+<h3 id="controllers-fxml">Controllers (FXML)</h3>
+<p>The FXML controllers are implemented through the <code>#setControllerFactory</code> providing the <code>applicationContext::getBean</code> method.  Controllers are setup as <code>prototype</code> scope; this isn’t really required (based on your application) but just be aware that if you are working with <code>singleton</code> controllers and attempting to display multiple Views you’re run into issues.</p>
+<blockquote>
+<p>Stolen from another project the <code>ViewManager</code> provides the direct management of loading FXML views.</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>public &#x3C;T> T load(String view, Stage stage) throws IOException {</span></span>
+<span class="line"><span>  String resource = validateViewPath(view);</span></span>
+<span class="line"><span>  FXMLLoader loader = new FXMLLoader(getClass().getResource(resource), ResourceBundle.getBundle("i18n"));</span></span>
+<span class="line"><span>        </span></span>
+<span class="line"><span>  loader.setControllerFactory(applicationContext::getBean);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  // Need to find a way to make an fxml scope so that controller and builder will return the same</span></span>
+<span class="line"><span>  // controller from the context, instead of needing the controller to be a singleton (bad) or </span></span>
+<span class="line"><span>  // having two different instances of the same class (also bad); since all examples for use of</span></span>
+<span class="line"><span>  // fx:root use #setRoot(this); #setController(this); when performing the load.</span></span>
+<span class="line"><span>  //loader.setBuilderFactory(builderFactory);</span></span>
+<span class="line"><span>        </span></span>
+<span class="line"><span>  T parent = loader.load();  </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  if (loader.getController() instanceof StageAware) {</span></span>
+<span class="line"><span>    ((StageAware)loader.getController()).setStage(stage);</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  return parent;</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<blockquote>
+<p>This could have been more easily done with <a href="https://github.com/rgielen/javafx-weaver">FXWeaver</a>, which is on the todo list for implementation.</p>
+</blockquote>
+<h3 id="services">Services</h3>
+<p>Services are designed pretty much how they would be normally.</p>
+<h3 id="issues">Issues</h3>
+<p>One of the main issues that I ran into while getting this project going was the inability to use <code>fx:root</code> to build the FXML components.  There are a few ways around this that I found online, while JavaFX allows you to set the <code>FXMLLoader#setControlllerFactory</code> and <code>FXMLLoader#setBuilderFactory</code> to the <code>context::getBean</code> this will result in two separate version of the class (ie. Not the same instance of Controller being the root).  This can be worked around by using <code>singleton</code> scope for your highest level components (application scene, etc) but that also has limitations (only a single window available, which might work for the majority of applications).</p>
+<p>As long as you’re following a pretty standard structure of:</p>
+<ul>
+<li><code>singleton</code> Service(s) which are pretty standard</li>
+<li><code>prototype</code> View Controllers which get injected with singleton services</li>
+<li><code>fx:root</code> Which are just display Views (no injected services)</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>@Scope('prototype')</span></span>
+<span class="line"><span>public class Controller {</span></span>
+<span class="line"><span>  @Inject DataService dataService;</span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  void buildList() {</span></span>
+<span class="line"><span>    // MyCustomList created with `fx:root` extending the ListView</span></span>
+<span class="line"><span>    ListView list = new MyCustomList(dataService.getItems());</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="web-app--running-as-service">Web App / Running as Service</h2>
+<p>The cool thing about backing JavaFX with Spring Boot is that if you’d like to run the application as a service, you have the option of quickly adding some Web Controllers and modifying the Spring Boot startup so that instead of running the JavaFX <code>Application</code> it runs the Web <code>Application</code>.</p>
+<h3 id="updating-the-spring-boot-application">Updating the Spring Boot Application</h3>
+<blockquote>
+<p>Check out one of the next articles</p>
+</blockquote>
+<h3 id="starting-the-application-in-service-mode">Starting the Application in Service Mode</h3>
+<blockquote>
+<p>Check out one of the next articles</p>
+</blockquote>  </div> <footer class="mt-16 pt-8 border-t border-gray-200"> <a href="/writing" class="text-brand-600 hover:text-brand-700 font-medium">
+&larr; Back to Writing
+</a> </footer> </article>  </main> <footer class="border-t border-gray-200 mt-auto"> <div class="max-w-3xl mx-auto px-4 py-8"> <div class="flex justify-center gap-5 mb-6 text-2xl text-gray-500"> <a href="https://github.com/kenjdavidson" aria-label="GitHub" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path> </svg> </a> <a href="https://linkedin.com/in/kenjdavidson" aria-label="LinkedIn" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg> </a> <a href="https://instagram.com/kenjdavidson" aria-label="Instagram" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path> </svg> </a> <a href="https://stackoverflow.com/users/4196620/kendavidson" aria-label="Stack Overflow" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.95zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.36 1.618zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.751 0z"></path> </svg> </a> <a href="mailto:hello@kenjdavidson.com" aria-label="Email" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"></path> <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"></path> </svg> </a> </div> <div class="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500 gap-2"> <p>&copy; 2026 Ken Davidson. All rights reserved.</p> <p>Built with <a href="https://astro.build" class="text-brand-600 hover:underline">Astro</a></p> </div> </div> </footer> </body></html>

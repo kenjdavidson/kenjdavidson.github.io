@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="generator" content="Astro v5.18.1"><title>Pusblish Gatsby with Github Actions | Ken Davidson</title><meta name="description" content="Since you've taken the time to get your Github Pages site setup with Gatsby, you should probably add automated publishing next.  With the help of Github Workflows and Gatsby Publish Action it takes seconds (or a few minutes tops)."><!-- Open Graph --><meta property="og:title" content="Pusblish Gatsby with Github Actions | Ken Davidson"><meta property="og:description" content="Since you've taken the time to get your Github Pages site setup with Gatsby, you should probably add automated publishing next.  With the help of Github Workflows and Gatsby Publish Action it takes seconds (or a few minutes tops)."><meta property="og:image" content="https://kenjdavidson.com/glorious.png"><meta property="og:type" content="website"><meta property="og:url" content="https://kenjdavidson.com/writing/publish-gatsby-with-github-actions/"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kenjdavidson"><meta name="twitter:title" content="Pusblish Gatsby with Github Actions | Ken Davidson"><meta name="twitter:description" content="Since you've taken the time to get your Github Pages site setup with Gatsby, you should probably add automated publishing next.  With the help of Github Workflows and Gatsby Publish Action it takes seconds (or a few minutes tops)."><meta name="twitter:image" content="https://kenjdavidson.com/glorious.png"><link rel="stylesheet" href="/_astro/about.CQ7zffCo.css">
+<link rel="stylesheet" href="/_astro/_slug_.RND3Bnrf.css"></head> <body> <header class="border-b border-gray-200 bg-white sticky top-0 z-10"> <nav class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between"> <a href="/" class="text-xl font-bold text-brand-600 hover:text-brand-700">
+Ken Davidson
+</a> <ul class="flex gap-6"> <li> <a href="/writing" class="text-sm font-medium transition-colors text-brand-600"> Writing </a> </li><li> <a href="/projects" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> Projects </a> </li><li> <a href="/about" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> About </a> </li> </ul> </nav> </header> <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-10">  <article> <header class="mb-10"> <h1 class="text-4xl font-bold text-gray-900 mb-4">Pusblish Gatsby with Github Actions</h1> <div class="flex flex-wrap items-center gap-4 text-gray-500 text-sm"> <time datetime="2020-03-11T00:00:00.000Z" class="text-gray-500 text-sm"> March 11, 2020 </time> <ul class="flex flex-wrap gap-2 list-none p-0 m-0"> <li> <a href="/writing/tags/gatsby" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Gatsby </a> </li><li> <a href="/writing/tags/github-pages" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Github Pages </a> </li><li> <a href="/writing/tags/github-workflows" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Github Workflows </a> </li> </ul> </div> <p class="mt-4 text-lg text-gray-600">Since you&#39;ve taken the time to get your Github Pages site setup with Gatsby, you should probably add automated publishing next.  With the help of Github Workflows and Gatsby Publish Action it takes seconds (or a few minutes tops).</p> </header> <div class="prose prose-lg max-w-none">  <p>Now that I’ve got things rolling with my <a href="/writing/2020/03/01/here-comes-gatsby">Gatsby conversion</a> and everything seems good working with Github Pages, it was time to automate the build/release process. What a great chance to start playing with a little Github Actions (Yup, I know this stuff is old - but it’s still new to me!). Right off the bat, my two priorties are to:</p>
+<ol>
+<li>Automate the build when publishing new content to the <code>gatsby</code> branch</li>
+<li>Perform a test build of any pull requests that come in.</li>
+</ol>
+<p>With these two things, I have the ability to make modifications on the fly directly from Github as well as start following a few best practices for new content. Enter:</p>
+<h3 id="github-workflows">Github Workflows</h3>
+<p><a href="https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-and-managing-workflow-files-and-runs">Github Workflows</a> provide the ability to configure any number of jobs, performed as reactions to common Gitub and API actions.</p>
+<h3 id="gatbsy-gh-pages-action">Gatbsy GH Pages Action</h3>
+<p>While Googling around I found this little gem of a project, <a href="https://github.com/marketplace/actions/gatsby-publish">Gatsby Publish action</a> that did exactly what I was looking for; with regards to publishing the <code>gatsby</code> branch to <code>master</code> on push. With a couple <a href="https://github.com/enriikke/gatsby-gh-pages-action/pull/16">changes</a> it’s possible to perform only a build, by <code>skip-publish</code>ing the job.</p>
+<h2 id="github-workflow-config">Github Workflow Config</h2>
+<p>The first step to setting up workflows is to create a configuration file, from your project page:</p>
+<ul>
+<li>click on <code>Actions</code></li>
+<li>then <code>New Workflow</code>.</li>
+</ul>
+<h3 id="publish-gatsbyyml">publish-gatsby.yml</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#6A737D"># Publish Gatsby</span></span>
+<span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">publish-gatsby</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Controls when the action will run. Triggers the workflow on push or pull request</span></span>
+<span class="line"><span style="color:#6A737D"># events but only for the master branch</span></span>
+<span class="line"><span style="color:#79B8FF">on</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  push</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    branches</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">gatsby</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># A workflow run is made up of one or more jobs that can run sequentially or in parallel</span></span>
+<span class="line"><span style="color:#85E89D">jobs</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">  # This workflow contains a single job called "build"</span></span>
+<span class="line"><span style="color:#85E89D">  build</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">    # The type of runner on which this job will run</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    # Steps represent a sequence of tasks that will be executed as part of the job</span></span>
+<span class="line"><span style="color:#6A737D">    # - Checkout gatsby branch</span></span>
+<span class="line"><span style="color:#6A737D">    # - Update authentication for Github Package Registry @kenjdavidson/base16-scss</span></span>
+<span class="line"><span style="color:#6A737D">    # - Build gh-pages using action</span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/checkout@v1</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Authenticate with GitHub package registry</span></span>
+<span class="line"><span style="color:#85E89D">        run</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" > ~/.npmrc</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">enriikke/gatsby-gh-pages-action@v2</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          access-token</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.ACCESS_TOKEN }}</span></span></code></pre>
+<p>At a high level this file is:</p>
+<ul>
+<li>Kicking the workflow off on Push and Pull of the <code>gatsby</code> branch, which is configured as my main branch</li>
+<li>Checks out the branch</li>
+<li>Applies any custom logic (see below)</li>
+<li>Runs the gh-pages action</li>
+</ul>
+<blockquote>
+<p>The highlighted lines are used to import the <code>@kenjdavidson/base16-scss</code> package which I have posted to Github Package Registry, if you don’t have any package registry requirements, these lines can be removed from your configuration file.</p>
+</blockquote>
+<h3 id="validate-pull-requestyml">validate-pull-request.yml</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#6A737D"># Validates that the pull request branch will build</span></span>
+<span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">validate-pull-request</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Fires on pull-request to gatsby branc</span></span>
+<span class="line"><span style="color:#79B8FF">on</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  pull_request</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    branches</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">gatsby</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># A workflow run is made up of one or more jobs that can run sequentially or in parallel</span></span>
+<span class="line"><span style="color:#85E89D">jobs</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">  # This workflow contains a single job called "build"</span></span>
+<span class="line"><span style="color:#85E89D">  build</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">    # The type of runner on which this job will run</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    # Steps represent a sequence of tasks that will be executed as part of the job</span></span>
+<span class="line"><span style="color:#6A737D">    # - Checkout gatsby branch</span></span>
+<span class="line"><span style="color:#6A737D">    # - Update authentication for Github Package Registry @kenjdavidson/base16-scss</span></span>
+<span class="line"><span style="color:#6A737D">    # - Build gh-pages using action</span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/checkout@v1</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Authenticate with GitHub package registry</span></span>
+<span class="line"><span style="color:#85E89D">        run</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" > ~/.npmrc</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">kenjdavidson/gatsby-gh-pages-action@feature/build-only-config</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          access-token</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.ACCESS_TOKEN }}</span></span>
+<span class="line"><span style="color:#85E89D">          skip-publish</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span></code></pre>
+<p>configured with the same items as the original, except for the added <code>skip-publish: true</code> in order stop after a successful build. Ensures that pull requests will at least compile properly when merging the pull request from Github.</p>
+<h3 id="project-secrets">Project Secrets</h3>
+<p>This workflow requires access to the <code>Github Package Registry</code> and <code>Push</code> to the repository, this is where the <code>secrets.ACCESS_TOKEN</code> comes in. First you’ll need to create a Github <a href="https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line">personal access token</a>, I won’t get into those steps here, they are pretty straight forward.</p>
+<blockquote>
+<p>Note - once you create your access token you can’t ever get it back. So you’ll either need to store it somewhere safe, regenterate it (which would require you updating all other places its required), or have one per action/feature so that resetting doesn’t affect anything else. I’m unsure of Github best practices?</p>
+</blockquote>
+<p>In order to configure your <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">secrets</a>, from you project page:</p>
+<ul>
+<li>Click <code>Settings</code></li>
+<li>Click <code>Secrets</code></li>
+<li><code>Add New Secret</code></li>
+</ul>
+<p>You’ll be asked to enter the name <code>ACCESS_TOKEN</code> (required by the action) and the content.</p>
+<h2 id="running-the-workflow">Running the Workflow</h2>
+<p>As the actions are defined, you’ll kick off one of the two actions by either:</p>
+<h3 id="pushing-to-gatsby-branch">Pushing to Gatsby branch</h3>
+<p>Each push will now fire a build and publish - great for editing/correcting those pesky issues directly on Github.</p>
+<p><strong>Note</strong> - originally I had the publish workflow configured for <code>pull-reqeust</code> as well. This caused the build to actually publish the <code>feature/branch</code> to production, instead of just ensuring the build.</p>
+<p><img alt="Publish Gatsby Workflow" loading="lazy" decoding="async" fetchpriority="auto" width="797" height="453" src="/_astro/gatsby-publish.DcmB_Vgj_1CQP2V.webp" ></p>
+<h3 id="submitting-a-pull-request">Submitting a pull request</h3>
+<p>I’ve submitted a pull request for this specific draft, which kicked off the <code>validate-pull-request</code> action:</p>
+<p><img alt="Pull Request" loading="lazy" decoding="async" fetchpriority="auto" width="758" height="422" src="/_astro/validate-pull-request.D-DCN6QF_26PNia.webp" ></p>
+<p>Once I get up and running with some actual React/Gatsby testing, I’ll be able to take more advantage of these workflows.</p>  </div> <footer class="mt-16 pt-8 border-t border-gray-200"> <a href="/writing" class="text-brand-600 hover:text-brand-700 font-medium">
+&larr; Back to Writing
+</a> </footer> </article>  </main> <footer class="border-t border-gray-200 mt-auto"> <div class="max-w-3xl mx-auto px-4 py-8"> <div class="flex justify-center gap-5 mb-6 text-2xl text-gray-500"> <a href="https://github.com/kenjdavidson" aria-label="GitHub" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path> </svg> </a> <a href="https://linkedin.com/in/kenjdavidson" aria-label="LinkedIn" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg> </a> <a href="https://instagram.com/kenjdavidson" aria-label="Instagram" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path> </svg> </a> <a href="https://stackoverflow.com/users/4196620/kendavidson" aria-label="Stack Overflow" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.95zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.36 1.618zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.751 0z"></path> </svg> </a> <a href="mailto:hello@kenjdavidson.com" aria-label="Email" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"></path> <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"></path> </svg> </a> </div> <div class="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500 gap-2"> <p>&copy; 2026 Ken Davidson. All rights reserved.</p> <p>Built with <a href="https://astro.build" class="text-brand-600 hover:underline">Astro</a></p> </div> </div> </footer> </body></html>

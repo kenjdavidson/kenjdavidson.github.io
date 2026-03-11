@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="generator" content="Astro v5.18.1"><title>A year of Bluetooth Classic Maintenence | Ken Davidson</title><meta name="description" content="It's been a cool (albeit annoying at times) experience to maintain my first real project."><!-- Open Graph --><meta property="og:title" content="A year of Bluetooth Classic Maintenence | Ken Davidson"><meta property="og:description" content="It's been a cool (albeit annoying at times) experience to maintain my first real project."><meta property="og:image" content="https://kenjdavidson.com/glorious.png"><meta property="og:type" content="website"><meta property="og:url" content="https://kenjdavidson.com/writing/a-year-of-bluetooth-classic/"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kenjdavidson"><meta name="twitter:title" content="A year of Bluetooth Classic Maintenence | Ken Davidson"><meta name="twitter:description" content="It's been a cool (albeit annoying at times) experience to maintain my first real project."><meta name="twitter:image" content="https://kenjdavidson.com/glorious.png"><link rel="stylesheet" href="/_astro/about.CQ7zffCo.css">
+<link rel="stylesheet" href="/_astro/_slug_.RND3Bnrf.css"></head> <body> <header class="border-b border-gray-200 bg-white sticky top-0 z-10"> <nav class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between"> <a href="/" class="text-xl font-bold text-brand-600 hover:text-brand-700">
+Ken Davidson
+</a> <ul class="flex gap-6"> <li> <a href="/writing" class="text-sm font-medium transition-colors text-brand-600"> Writing </a> </li><li> <a href="/projects" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> Projects </a> </li><li> <a href="/about" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> About </a> </li> </ul> </nav> </header> <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-10">  <article> <header class="mb-10"> <h1 class="text-4xl font-bold text-gray-900 mb-4">A year of Bluetooth Classic Maintenence</h1> <div class="flex flex-wrap items-center gap-4 text-gray-500 text-sm"> <time datetime="2021-03-10T00:00:00.000Z" class="text-gray-500 text-sm"> March 10, 2021 </time> <ul class="flex flex-wrap gap-2 list-none p-0 m-0"> <li> <a href="/writing/tags/react-native" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> React Native </a> </li><li> <a href="/writing/tags/bluetooth" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Bluetooth </a> </li><li> <a href="/writing/tags/open-source" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Open Source </a> </li> </ul> </div> <p class="mt-4 text-lg text-gray-600">It&#39;s been a cool (albeit annoying at times) experience to maintain my first real project.</p> </header> <div class="prose prose-lg max-w-none">  <p>So it’s actually probably been longer than a year, but if we just go back to when I started/released <code>v1.60.x-rcY</code> it’s close enough. When I was first re-implementing <a href="https://www.npmjs.com/package/react-native-bluetooth-serial">react-native-bluetooth-serial</a> I thought it would be for my own copmanies app; I was not planning nor ready to start maintaining something that would be used all over the world.</p>
+<blockquote>
+<p><code>v1.60.x-rcY</code> is still in release candidate mode, since I’ve been continuing to work with users on adding the final touches to get it where it needs to be in order to drop the <code>rcY</code> portion.</p>
+</blockquote>
+<h2 id="background">Background</h2>
+<p>I was tasked with designing and developing my companies microchip scanning app - which in and of itself is it’s own article series - which used an MFI compliant microchip scanner. I’d never done any IOS development before and I’d only played with Android a little. While looking over the options there were only a couple:</p>
+<ul>
+<li>I’d have to write an Android and IOS version of the App and communication peices</li>
+<li>I’d use React Native or Flutter and I’d have to just write the communication peice</li>
+</ul>
+<p>React Native posed the biggest up and down sides. For one, there would be one code base, I wouldn’t have to maintain two applications (which really isn’t actually the truth once you get started, but it’s a great way to suck you in) but I would have to at least write the <a href="">native module</a> for the Bluetooth communication. Since the latter was happening anyhow, the former made the choice pretty straight forward.</p>
+<p>I ended up keeping the project public, since the original <a href="https://www.npmjs.com/package/react-native-bluetooth-serial">react-native-bluetooth-serial</a> was public and seemed to not be maintained anymore but had questions and requests for the functionality that I was going to be adding. I wasn’t sure how or if this project would be found by anyone else, but hey, why not give it a chance.</p>
+<h2 id="v010x-was-released">v0.10.x was Released</h2>
+<p>The actual first version was <code>v0.9.x</code> which started with React Native v0.59.4, but since shortly after that React Native v0.60.0 was released with breaking changes I released <code>v0.10.0</code> to match. The main changes here were the auto registration of the module; which turns out didn’t really matter much at the time. When I released the library the top priorites for me were:</p>
+<h3 id="converting-ios-bluetooth-to-mfi">Converting IOS Bluetooth to MFi</h3>
+<p>This was the sole reason for me (re)writing the library becuase there was absolutely nothing out there already. After getting to know how Apple and the MFi program worked, it made sense - why the hell would anyone design hardware with BLE available that required them to signup and maintain their MFi status. I guess it’s an Apple thing (don’t get me started on my Apple opinions) and it’s required in some ways, but man it makes life annoying.</p>
+<p>I’ve written a couple articles about this processs:</p>
+<ul>
+<li><a href="/writing/2019/06/02/my-foray-into-swift-streams">my-foray-into-swift-streams</a></li>
+<li><a href="/writing/2020/10/16/async-component-did-wait-woes">async-component-did-wait-woes</a></li>
+</ul>
+<h3 id="standardizing-method-calls">Standardizing Method Calls</h3>
+<p>One of the other things I wanted was the consistency across the native calls - I get this is a choice some won’t agree with - I chose to make all of the calls <code>Promise</code> based. Even the calls that didn’t really require a promise (getBondedDevices, isEnabled, etc.) but maybe it’s the OCD in me or the fact that I’m not JavaScripts biggest fan (although Typescript helps out a lot) and it just seemed like a good idea at the time.</p>
+<p>Moving to promises across the board, also allowed being able to consistently throw <code>Error</code> on IOS when a feature wasn’t available. I absolutely hate the idea of having two files <code>feature.android.js</code> and <code>feature.ios.js</code> when it’s just as easy to catch and check an <code>Error</code> for not implemented. This gave users the opportunity to:</p>
+<ul>
+<li>create multiple files</li>
+<li>use the <code>Platform</code> functionality within a single file</li>
+<li>show a resulting error that the feature isn’t available on IOS</li>
+</ul>
+<p>I didn’t want to force users into any of these. Plus if they chose the latter and one of the features was implemented on IOS, there would be no changes needed (which was my goal, unrealized, but a goal never the less).</p>
+<h3 id="contributors">Contributors</h3>
+<p>This is where the <em>fun?</em> began, there was a steady influx of issues and feature requests that started coming in, it was an exciting and (equally) aggravating time. Some solid feature and pull requests came in:</p>
+<ul>
+<li><a href="https://github.com/kenjdavidson/react-native-bluetooth-classic/pulls?q=is%3Apr+author%3AJose-Gallegos">Jose Gallegos</a> provided some great documentation changes</li>
+<li><a href="https://github.com/kenjdavidson/react-native-bluetooth-classic/pulls?q=is%3Apr+author%3Aiamandiradu">iamandiradu</a> saved my life with some Podspec help</li>
+<li><a href="https://github.com/kenjdavidson/react-native-bluetooth-classic/pulls?q=is%3Apr+author%3Atpettrov">tpettrov</a> added one of the most used features</li>
+</ul>
+<h4 id="accept-mode">Accept Mode</h4>
+<p>As mentioned above, this was one of the features that took the library to the next level, provided by <a href="https://github.com/tpettrov">Anton Pettrov</a>. It allowed the connection between two Android devices and effectively resolved like 50% of the feature requests from the original project.</p>
+<p>SOLID!</p>
+<h2 id="v160x-made-an-appearance">v1.60.x made an Appearance</h2>
+<p>One of the other major issues (or requests) was that it wasn’t easy to send different data, the original (and this) library was only required to send String based data in either ASCII or UTF-8. There were growing requests (and resolutions which required changes to the library) in order to send binary/byte data. For the purpose of (a) helping these people out and (b) attempting to get more experience myself, I set out on upgrading the library. The top requirements were:</p>
+<ul>
+<li>To connect to multiple devices at one time</li>
+<li>To provide each of these with their own communication settings</li>
+</ul>
+<h3 id="connect-to-multiple-devices">Connect to Multiple Devices</h3>
+<p>This required the removal (or reworking) of the <code>BluetoothClassicService</code> into a manageable <code>DeviceConnection</code> that could be maintained.</p>
+<h3 id="provide-device-based-configuration">Provide Device Based Configuration</h3>
+<p>This one was a little more annoying, in that there needed to be a way to extend the functionality without bloating the current library. This requires heavy use of the <code>autoloading</code> functionality on both Android and IOS as well as designing custom <code>DeviceConnection</code> logic within the host application. There are still issues with this, and I’m not overly happy with it - but it works and can be updated down the road.</p>
+<p>The logic was broken into three configurable peices:</p>
+<ul>
+<li><code>Acceptors</code> which are used to listen for incomming connections - and pass off the resulting <code>BluetoothSocket</code></li>
+<li><code>Connectors</code> which do the connecting - and again pass off the <code>BluetoothSocket</code></li>
+<li><code>DeviceConnection</code> which receives the <code>BluetoothSocket</code> and manage the communication</li>
+</ul>
+<h2 id="the-positives">The Positives</h2>
+<p>One of the cool things about maintaining this, is that I’ve been able to help and see the library in action. The following are some instances of this:</p>
+<h3 id="high-school-final-project">High School Final Project</h3>
+<p>This was actually pretty cool! These three kids emailed me out of the blue asking for help using the library for one of their school projects. This was the start to an email I received from Ben asking for assistance.</p>
+<blockquote>
+<p>Hi Mr. Davidson,</p>
+<p>I’m Ben <strong><strong>*</strong></strong>, and I’m a high school student in New Jersey. My team and I are taking an engineering design course this semester, and for our major project we are building a device to help visually-impaired people cross the street. We’re doing this with a device rigged with sensors that will send a vibratory alert to a user’s phone with a certain app. The device is an Arduino Uno with an HC-05 Bluetooth classic module.</p>
+<p>…</p>
+</blockquote>
+<p>After a couple weeks of communication we were able to:</p>
+<ul>
+<li>Clean up the application code</li>
+<li>Get some more features working</li>
+</ul>
+<p>They eventually got their application working on a <strong>Nintendo Switch</strong> which is crazy. I hope they got an A!</p>
+<p><strong>Pending confirmation on attaching their images/screenshots</strong></p>
+<h3 id="rock-wall-climbing">Rock Wall Climbing</h3>
+<p>I haven’t reached out to <strong>Zlatanius</strong> yet, but I came across his use of the project, and it looks awesome! <a href="https://github.com/Zlatanius/LED-Rock-Climbing-Wall-RN-project">https://github.com/Zlatanius/LED-Rock-Climbing-Wall-RN-project</a>.</p>
+<p>When I get time I’d like to take a deeper dive into how he’s using the library.</p>
+<h3 id="any-others">Any Others?</h3>
+<p>If you’ve got a project using this library and would like to chat (or let me write about it) please reach out. Getting to work with the positives every once in a while (the people that is) definitely makes the negatives a little less annoying.</p>
+<h2 id="the-pain-points">The Pain Points!!</h2>
+<p>… although being in the industry for a while I should have expected.</p>
+<p>I’m the first to admit that I’m no where near the <strong>top</strong> level of developers in the world. But I do my best to read and learn and figure things out on my own, I think that’s the most important thing. It continues to amaze me how many people just expect things to work without:</p>
+<ul>
+<li>Reading documentation - which I’ve done my best to maintain as well as the library itself.</li>
+<li>Attempting to debug things on their own</li>
+<li>Open issues with absolutely no information what so-ever</li>
+<li>Time expectations</li>
+</ul>
+<p>TLDR; just me whining about things, <a href="#v2.60.x-roadmap">feel free to skip</a></p>
+<h3 id="not-reading-documentation">Not Reading Documentation</h3>
+<p>I have to admit, I’ve been guilty of this as well, but when someone opens an issue stating that something doesn’t work or isn’t working as it should when the documentation clearly says WHY it’s not working that way is painful.</p>
+<p>I’d have to say the top subject for this is the MFi protocols from Apple, people seem to just completely ignore this documentation. I appreciate that it’s a lot to read, I do, but it’s a requirement of the job!</p>
+<h3 id="not-debugging-first">Not Debugging First</h3>
+<p>Bluetooth is a fickle beast. That combined with React Native makes this library very susceptible to bugs when not used exactly how it was intended. The expecation that I have the ability to debug the library with every single Android device and version is mind boggling! What’s even more crazy is that after an issue is opened and there’s a response asking for more details - there is no response.</p>
+<h3 id="poorly-openned-issues">Poorly Openned Issues</h3>
+<p>I do my best to provide as much information as possible; with regards to bugs, reasoning, etc. and it’s painful to see issues getting opened with a line of text saying “<em>SOME ISSUE</em> just doesn’t work”. What I would like to do (and this is super petty of me I know) is to be able to reverse open source some of these things.</p>
+<p>Take the anonimity right out of the process!!</p>
+<p>I’ve opened myself up by sharing my name and face and work with the world. I get that there are negatives that come along with the positives. What I’d love to do is be able to go back to someones work and post about something they’ve done.</p>
+<blockquote>
+<p>Hey John Doe’s employer! This is how your employee is using (and requesting use) of an open source library. I hope he does a better job filling out internal tickets or providing information to clients.</p>
+</blockquote>
+<p>Yes, I know I’m jaded at times.</p>
+<h3 id="time-expectations">Time Expectations</h3>
+<p>I work 9-5 and have a 4 year old son and a wife doing her MBA. As much as I would love to have all the time in the world it’s just not possible. I do my best to answer questions but I am starting to rely on the <em>kindness of strangers</em> a little more with regards to this library. I’ve had some requests from people that just don’t get that this is a side project - and expect the world from it (and me).</p>
+<h2 id="v260x-roadmap">v2.60.x Roadmap</h2>
+<p>At a super high level, the next round of development will include:</p>
+<ul>
+<li>Cleaning up the abstract logic</li>
+<li>Moving the Android specific connection logic to <code>Services</code> to allow for background communication. Sadly this isn’t doable on IOS, but at this point IOS seems to be falling behind anyhow.</li>
+<li>Look into what is available in <code>CoreBluetooth</code> on IOS with regards to classic. I don’t think this provides <code>RFCOMM</code> support, but I think it does provide <code>L2CAP</code> support.</li>
+</ul>  </div> <footer class="mt-16 pt-8 border-t border-gray-200"> <a href="/writing" class="text-brand-600 hover:text-brand-700 font-medium">
+&larr; Back to Writing
+</a> </footer> </article>  </main> <footer class="border-t border-gray-200 mt-auto"> <div class="max-w-3xl mx-auto px-4 py-8"> <div class="flex justify-center gap-5 mb-6 text-2xl text-gray-500"> <a href="https://github.com/kenjdavidson" aria-label="GitHub" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path> </svg> </a> <a href="https://linkedin.com/in/kenjdavidson" aria-label="LinkedIn" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg> </a> <a href="https://instagram.com/kenjdavidson" aria-label="Instagram" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path> </svg> </a> <a href="https://stackoverflow.com/users/4196620/kendavidson" aria-label="Stack Overflow" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.95zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.36 1.618zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.751 0z"></path> </svg> </a> <a href="mailto:hello@kenjdavidson.com" aria-label="Email" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"></path> <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"></path> </svg> </a> </div> <div class="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500 gap-2"> <p>&copy; 2026 Ken Davidson. All rights reserved.</p> <p>Built with <a href="https://astro.build" class="text-brand-600 hover:underline">Astro</a></p> </div> </div> </footer> </body></html>

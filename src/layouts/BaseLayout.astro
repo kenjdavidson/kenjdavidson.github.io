@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const siteTitle = 'Ken Davidson';
+const siteDescription =
+  "I'm a husband and father who spends his free time golfing (as much as possible) and attempting to learn/play with a number of new technologies. When something works out well (or terribly wrong) I do my best to document it.";
+
+const {
+  title,
+  description = siteDescription,
+  image = '/glorious.png',
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} — Husbanding, Fathering, Golfing and Developing`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kenjdavidson" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+  </head>
+  <body>
+    <Header />
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-10">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

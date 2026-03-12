@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import PostCard from '../../../../components/PostCard.astro';
+import { getPostSlug } from '../../../../utils/writing';
+
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('writing', ({ data }) => !data.draft);
+
+  const monthSet = new Set<string>();
+  for (const post of allPosts) {
+    const parts = getPostSlug(post).split('/');
+    monthSet.add(`${parts[0]}/${parts[1]}`);
+  }
+
+  return [...monthSet].map((yearMonth) => {
+    const [year, month] = yearMonth.split('/');
+    const posts = allPosts
+      .filter((p) => {
+        const parts = getPostSlug(p).split('/');
+        return parts[0] === year && parts[1] === month;
+      })
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    return { params: { year, month }, props: { year, month, posts } };
+  });
+}
+
+const { year, month, posts } = Astro.props;
+const monthIndex = parseInt(month, 10);
+const monthName = monthIndex >= 1 && monthIndex <= 12 ? MONTH_NAMES[monthIndex - 1] : month;
+---
+
+<BaseLayout
+  title={`Writing — ${monthName} ${year}`}
+  description={`Articles and notes from ${monthName} ${year}.`}
+>
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-4xl font-bold text-gray-900">Writing — {monthName} {year}</h1>
+    <a href={`/writing/${year}`} class="text-brand-600 hover:text-brand-700 text-sm font-medium">
+      &larr; {year}
+    </a>
+  </div>
+  <p class="text-gray-500 mb-8">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+  {posts.map((post) => <PostCard post={post} />)}
+</BaseLayout>

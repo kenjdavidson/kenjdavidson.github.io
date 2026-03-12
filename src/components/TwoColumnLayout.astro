@@ -18,7 +18,8 @@ const { secondaryFirst = false } = Astro.props;
   <div class:list={["min-w-0 md:flex-[3]", { "order-2 md:order-1": secondaryFirst }]}>
     <slot name="main" />
   </div>
-  <aside class:list={["w-full md:flex-1 shrink-0", { "order-1 md:order-2": secondaryFirst }]}>
+  <!-- md:top-[4.5rem] offsets the sticky header (py-4 padding + ~text-xl line-height ≈ 60px) -->
+  <aside class:list={["w-full md:flex-1 shrink-0 md:sticky md:top-[4.5rem]", { "order-1 md:order-2": secondaryFirst }]}>
     <slot name="secondary" />
   </aside>
 </div>

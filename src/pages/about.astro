@@ -67,10 +67,14 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
         </ul>
       </div>
 
+    </div>
+
+    <!-- Secondary column: contact + work history -->
+    <div slot="secondary">
       <!-- Contact -->
-      <section class="p-6 rounded-xl bg-gray-50 border border-gray-100">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
-        <p class="text-gray-600 mb-6">
+      <section class="p-6 rounded-xl bg-gray-50 border border-gray-100 mb-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Get in Touch</h2>
+        <p class="text-gray-600 text-sm mb-6">
           Thanks for stopping by! Whether you have questions about{' '}
           <a href="https://kenjdavidson.com/react-native-bluetooth-classic" class="text-brand-600 hover:underline">Bluetooth Classic</a>,
           a role you think I'd be a good fit for, or a project you'd like to collaborate on — feel free
@@ -112,13 +116,12 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
           </li>
         </ul>
       </section>
-    </div>
 
-    <!-- Work History (sidebar, appears below main on mobile) -->
-    {
-      timeline.length > 0 && (
-        <section slot="secondary">
-          <h2 class="text-lg font-bold text-gray-900 mb-6">Work History</h2>
+      <!-- Work History -->
+      {
+        timeline.length > 0 && (
+          <section>
+            <h2 class="text-lg font-bold text-gray-900 mb-6">Work History</h2>
           <ol class="relative border-l border-gray-200 space-y-8 ml-3">
             {timeline.map((item) => (
               <li class="ml-6">
@@ -154,5 +157,6 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
         </section>
       )
     }
+    </div>
   </TwoColumnLayout>
 </BaseLayout>

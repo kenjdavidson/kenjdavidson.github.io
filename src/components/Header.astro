@@ -1,4 +1,6 @@
 ---
+import { ThemeToggle } from './ThemeToggle';
+
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/writing', label: 'Writing' },
@@ -9,28 +11,31 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="border-b border-gray-200 bg-white sticky top-0 z-10">
+<header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 sticky top-0 z-10">
   <nav class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
     <a href="/" class="text-xl font-bold text-brand-600 hover:text-brand-700">
       Ken Davidson
     </a>
-    <ul class="flex gap-6">
-      {
-        navLinks.filter(l => l.href !== '/').map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class={`text-sm font-medium transition-colors ${
-                currentPath.startsWith(link.href)
-                  ? 'text-brand-600'
-                  : 'text-gray-600 hover:text-brand-600'
-              }`}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="flex items-center gap-6">
+      <ul class="flex gap-6">
+        {
+          navLinks.filter(l => l.href !== '/').map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class={`text-sm font-medium transition-colors ${
+                  currentPath.startsWith(link.href)
+                    ? 'text-brand-600'
+                    : 'text-gray-600 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400'
+                }`}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ThemeToggle client:load />
+    </div>
   </nav>
 </header>

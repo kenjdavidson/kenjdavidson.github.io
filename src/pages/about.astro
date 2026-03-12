@@ -117,7 +117,7 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
     <!-- Work History (sidebar, appears below main on mobile) -->
     {
       timeline.length > 0 && (
-        <section slot="sidebar">
+        <section slot="secondary">
           <h2 class="text-lg font-bold text-gray-900 mb-6">Work History</h2>
           <ol class="relative border-l border-gray-200 space-y-8 ml-3">
             {timeline.map((item) => (

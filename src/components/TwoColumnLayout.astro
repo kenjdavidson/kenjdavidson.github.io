@@ -1,0 +1,24 @@
+---
+/**
+ * Two-column layout component.
+ *
+ * On desktop: main content (left, ~75%) and sidebar (right, ~25%) sit side by side.
+ * On mobile: columns stack vertically. Use `sidebarFirst` to place the sidebar
+ * *above* the main content on mobile (e.g. tag list on writing index), or leave it
+ * false (default) to place the sidebar *below* (e.g. work history on about page).
+ */
+interface Props {
+  sidebarFirst?: boolean;
+}
+
+const { sidebarFirst = false } = Astro.props;
+---
+
+<div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+  <div class:list={["min-w-0 md:flex-[3]", { "order-2 md:order-1": sidebarFirst }]}>
+    <slot name="main" />
+  </div>
+  <aside class:list={["w-full md:flex-1 shrink-0", { "order-1 md:order-2": sidebarFirst }]}>
+    <slot name="sidebar" />
+  </aside>
+</div>

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TwoColumnLayout from '../components/TwoColumnLayout.astro';
 
 const allTimeline = await getCollection('timeline', ({ data }) => !data.draft && data.category === 'Employment');
 const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -9,145 +10,149 @@ const timeline = allTimeline.sort((a, b) => b.data.date.valueOf() - a.data.date.
 <BaseLayout title="About" description="A little bit about Ken Davidson — husband, father, golfer, and developer.">
   <h1 class="text-4xl font-bold text-gray-900 mb-6">Hey there!</h1>
 
-  <div class="prose prose-lg max-w-none mb-16">
-    <p>
-      I'm <strong>Ken</strong> — a husband, father, golfer, and software developer based in the GTA.
-      Rather than make you read through a wall of text, here's the quick version:
-    </p>
+  <TwoColumnLayout>
+    <div slot="main">
+      <div class="prose prose-lg max-w-none mb-16">
+        <p>
+          I'm <strong>Ken</strong> — a husband, father, golfer, and software developer based in the GTA.
+          Rather than make you read through a wall of text, here's the quick version:
+        </p>
 
-    <h2>Husband &amp; Father</h2>
-    <ul>
-      <li>Married to the wonderfully patient Sue — she's far too good for me and we both know it.</li>
-      <li>Together we're raising our energetic son Carson, who is very much my doppelgänger.</li>
-      <li>
-        We spend as much time outdoors as possible — exploring{' '}
-        <a href="https://www.conservationhalton.ca/parks">Halton's conservation areas</a>, watching
-        Carson tear around the neighbourhood, or finding some other ridiculous activity to fill the
-        weekend.
-      </li>
-      <li>When the weather doesn't cooperate, you'll find us in the basement playing <strong>Axe Ball</strong>.</li>
-    </ul>
+        <h2>Husband &amp; Father</h2>
+        <ul>
+          <li>Married to the wonderfully patient Sue — she's far too good for me and we both know it.</li>
+          <li>Together we're raising our energetic son Carson, who is very much my doppelgänger.</li>
+          <li>
+            We spend as much time outdoors as possible — exploring{' '}
+            <a href="https://www.conservationhalton.ca/parks">Halton's conservation areas</a>, watching
+            Carson tear around the neighbourhood, or finding some other ridiculous activity to fill the
+            weekend.
+          </li>
+          <li>When the weather doesn't cooperate, you'll find us in the basement playing <strong>Axe Ball</strong>.</li>
+        </ul>
 
-    <h2>Golfer</h2>
-    <ul>
-      <li>A baseball kid who didn't pick up a club until his mid-twenties — some habits are hard to break.</li>
-      <li>Nearly two decades in and I'm still hovering around a 14 handicap. Progress is progress.</li>
-      <li>I try to get out twice a week, with a bonus round whenever the stars align.</li>
-      <li>Always up for loonie skins with fellow bogey golfers around the GTA — don't be shy.</li>
-      <li>Current bag: Callaway Rogue Driver &amp; 3 Wood, Cobra King Max 4i–GW, 56°, 60°</li>
-    </ul>
+        <h2>Golfer</h2>
+        <ul>
+          <li>A baseball kid who didn't pick up a club until his mid-twenties — some habits are hard to break.</li>
+          <li>Nearly two decades in and I'm still hovering around a 14 handicap. Progress is progress.</li>
+          <li>I try to get out twice a week, with a bonus round whenever the stars align.</li>
+          <li>Always up for loonie skins with fellow bogey golfers around the GTA — don't be shy.</li>
+          <li>Current bag: Callaway Rogue Driver &amp; 3 Wood, Cobra King Max 4i–GW, 56°, 60°</li>
+        </ul>
 
-    <h2>Developer</h2>
-    <ul>
-      <li>
-        Computer Science graduate from <a href="https://ryerson.ca">Ryerson University</a> (now{' '}
-        <a href="https://torontomu.ca">Toronto Metropolitan University</a>).
-      </li>
-      <li>
-        Spent several years in support, implementation, and product roles before making the full
-        switch to software development — turns out working close to the customer teaches you a lot
-        about building things people actually want to use.
-      </li>
-      <li>
-        Currently working as a Senior Software Engineer, primarily with <code>Java</code>,{' '}
-        <code>Kotlin</code>, and <code>React</code> on Spring Boot.
-      </li>
-      <li>
-        A side project exploring React Native led to building and open-sourcing{' '}
-        <a href="https://kenjdavidson.com/react-native-bluetooth-classic">React Native Bluetooth Classic</a>,
-        which turned into something far bigger than expected.
-      </li>
-      <li>
-        Always tinkering with new languages, frameworks, or whatever rabbit hole seems interesting
-        at the time.
-      </li>
-    </ul>
-  </div>
+        <h2>Developer</h2>
+        <ul>
+          <li>
+            Computer Science graduate from <a href="https://ryerson.ca">Ryerson University</a> (now{' '}
+            <a href="https://torontomu.ca">Toronto Metropolitan University</a>).
+          </li>
+          <li>
+            Spent several years in support, implementation, and product roles before making the full
+            switch to software development — turns out working close to the customer teaches you a lot
+            about building things people actually want to use.
+          </li>
+          <li>
+            Currently working as a Senior Software Engineer, primarily with <code>Java</code>,{' '}
+            <code>Kotlin</code>, and <code>React</code> on Spring Boot.
+          </li>
+          <li>
+            A side project exploring React Native led to building and open-sourcing{' '}
+            <a href="https://kenjdavidson.com/react-native-bluetooth-classic">React Native Bluetooth Classic</a>,
+            which turned into something far bigger than expected.
+          </li>
+          <li>
+            Always tinkering with new languages, frameworks, or whatever rabbit hole seems interesting
+            at the time.
+          </li>
+        </ul>
+      </div>
 
-  <!-- Contact -->
-  <section class="mb-16 p-6 rounded-xl bg-gray-50 border border-gray-100">
-    <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
-    <p class="text-gray-600 mb-6">
-      Thanks for stopping by! Whether you have questions about{' '}
-      <a href="https://kenjdavidson.com/react-native-bluetooth-classic" class="text-brand-600 hover:underline">Bluetooth Classic</a>,
-      a role you think I'd be a good fit for, or a project you'd like to collaborate on — feel free
-      to reach out through any of the links below.
-    </p>
-    <ul class="space-y-3 text-sm">
-      <li>
-        <span class="text-gray-500 font-medium">GitHub:</span>{' '}
-        <a
-          href="https://github.com/kenjdavidson"
-          class="text-brand-600 hover:underline ml-1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          github.com/kenjdavidson
-        </a>
-      </li>
-      <li>
-        <span class="text-gray-500 font-medium">LinkedIn:</span>{' '}
-        <a
-          href="https://linkedin.com/in/kenjdavidson"
-          class="text-brand-600 hover:underline ml-1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          linkedin.com/in/kenjdavidson
-        </a>
-      </li>
-      <li>
-        <span class="text-gray-500 font-medium">Instagram:</span>{' '}
-        <a
-          href="https://instagram.com/kenjdavidson.golf"
-          class="text-brand-600 hover:underline ml-1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          @kenjdavidson.golf
-        </a>
-      </li>
-    </ul>
-  </section>
-
-  <!-- Work History -->
-  {
-    timeline.length > 0 && (
-      <section>
-        <h2 class="text-2xl font-bold text-gray-900 mb-8">Work History</h2>
-        <ol class="relative border-l border-gray-200 space-y-8 ml-3">
-          {timeline.map((item) => (
-            <li class="ml-6">
-              <span class="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 ring-8 ring-white">
-                <span class="h-2 w-2 rounded-full bg-brand-500" />
-              </span>
-              <div class="flex flex-wrap items-center gap-2 mb-1">
-                <h3 class="text-base font-semibold text-gray-900">{item.data.title}</h3>
-              </div>
-              {item.data.subtitle && (
-                <p class="text-sm text-gray-500 mb-1">{item.data.subtitle}</p>
-              )}
-              <time class="text-xs text-gray-400">
-                {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(
-                  item.data.date
-                )}
-              </time>
-              {item.data.website && (
-                <p class="mt-1">
-                  <a
-                    href={item.data.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-xs text-brand-600 hover:underline"
-                  >
-                    {item.data.website}
-                  </a>
-                </p>
-              )}
-            </li>
-          ))}
-        </ol>
+      <!-- Contact -->
+      <section class="p-6 rounded-xl bg-gray-50 border border-gray-100">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+        <p class="text-gray-600 mb-6">
+          Thanks for stopping by! Whether you have questions about{' '}
+          <a href="https://kenjdavidson.com/react-native-bluetooth-classic" class="text-brand-600 hover:underline">Bluetooth Classic</a>,
+          a role you think I'd be a good fit for, or a project you'd like to collaborate on — feel free
+          to reach out through any of the links below.
+        </p>
+        <ul class="space-y-3 text-sm">
+          <li>
+            <span class="text-gray-500 font-medium">GitHub:</span>{' '}
+            <a
+              href="https://github.com/kenjdavidson"
+              class="text-brand-600 hover:underline ml-1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/kenjdavidson
+            </a>
+          </li>
+          <li>
+            <span class="text-gray-500 font-medium">LinkedIn:</span>{' '}
+            <a
+              href="https://linkedin.com/in/kenjdavidson"
+              class="text-brand-600 hover:underline ml-1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              linkedin.com/in/kenjdavidson
+            </a>
+          </li>
+          <li>
+            <span class="text-gray-500 font-medium">Instagram:</span>{' '}
+            <a
+              href="https://instagram.com/kenjdavidson.golf"
+              class="text-brand-600 hover:underline ml-1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @kenjdavidson.golf
+            </a>
+          </li>
+        </ul>
       </section>
-    )
-  }
+    </div>
+
+    <!-- Work History (sidebar, appears below main on mobile) -->
+    {
+      timeline.length > 0 && (
+        <section slot="sidebar">
+          <h2 class="text-lg font-bold text-gray-900 mb-6">Work History</h2>
+          <ol class="relative border-l border-gray-200 space-y-8 ml-3">
+            {timeline.map((item) => (
+              <li class="ml-6">
+                <span class="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 ring-8 ring-white">
+                  <span class="h-2 w-2 rounded-full bg-brand-500" />
+                </span>
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <h3 class="text-base font-semibold text-gray-900">{item.data.title}</h3>
+                </div>
+                {item.data.subtitle && (
+                  <p class="text-sm text-gray-500 mb-1">{item.data.subtitle}</p>
+                )}
+                <time class="text-xs text-gray-400">
+                  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(
+                    item.data.date
+                  )}
+                </time>
+                {item.data.website && (
+                  <p class="mt-1">
+                    <a
+                      href={item.data.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-xs text-brand-600 hover:underline"
+                    >
+                      {item.data.website}
+                    </a>
+                  </p>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
+  </TwoColumnLayout>
 </BaseLayout>

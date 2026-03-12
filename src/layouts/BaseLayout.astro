@@ -34,6 +34,17 @@ const pageTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} — Husbandi
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Prevent flash of incorrect theme -->
+    <script is:inline>
+      (function () {
+        var theme = localStorage.getItem('theme-preference');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark) || (theme === 'device' && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
 

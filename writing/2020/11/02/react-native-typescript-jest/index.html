@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="generator" content="Astro v5.18.1"><title>Typescript React Native with Jest | Ken Davidson</title><meta name="description" content="Still going down the Typescript conversion of React Native Bluetooth Classic it was time to get the library setup with actual unit testing.  Follow along with another few days of failures and successes."><!-- Open Graph --><meta property="og:title" content="Typescript React Native with Jest | Ken Davidson"><meta property="og:description" content="Still going down the Typescript conversion of React Native Bluetooth Classic it was time to get the library setup with actual unit testing.  Follow along with another few days of failures and successes."><meta property="og:image" content="https://kenjdavidson.com/glorious.png"><meta property="og:type" content="website"><meta property="og:url" content="https://kenjdavidson.com/writing/2020/11/02/react-native-typescript-jest/"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kenjdavidson"><meta name="twitter:title" content="Typescript React Native with Jest | Ken Davidson"><meta name="twitter:description" content="Still going down the Typescript conversion of React Native Bluetooth Classic it was time to get the library setup with actual unit testing.  Follow along with another few days of failures and successes."><meta name="twitter:image" content="https://kenjdavidson.com/glorious.png"><link rel="stylesheet" href="/_astro/about.CQ7zffCo.css">
+<link rel="stylesheet" href="/_astro/_slug_.RND3Bnrf.css"></head> <body> <header class="border-b border-gray-200 bg-white sticky top-0 z-10"> <nav class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between"> <a href="/" class="text-xl font-bold text-brand-600 hover:text-brand-700">
+Ken Davidson
+</a> <ul class="flex gap-6"> <li> <a href="/writing" class="text-sm font-medium transition-colors text-brand-600"> Writing </a> </li><li> <a href="/projects" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> Projects </a> </li><li> <a href="/about" class="text-sm font-medium transition-colors text-gray-600 hover:text-brand-600"> About </a> </li> </ul> </nav> </header> <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-10">  <article> <header class="mb-10"> <h1 class="text-4xl font-bold text-gray-900 mb-4">Typescript React Native with Jest</h1> <div class="flex flex-wrap items-center gap-4 text-gray-500 text-sm"> <time datetime="2020-11-02T00:00:00.000Z" class="text-gray-500 text-sm"> November 2, 2020 </time> <ul class="flex flex-wrap gap-2 list-none p-0 m-0"> <li> <a href="/writing/tags/react-native" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> React Native </a> </li><li> <a href="/writing/tags/typescript" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Typescript </a> </li><li> <a href="/writing/tags/jest" class="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors"> Jest </a> </li> </ul> </div> <p class="mt-4 text-lg text-gray-600">Still going down the Typescript conversion of React Native Bluetooth Classic it was time to get the library setup with actual unit testing.  Follow along with another few days of failures and successes.</p> </header> <div class="prose prose-lg max-w-none">  <p>So I’ve been slowly converting <a href="https://kenjdavidson.com/react-native-bluetooth-classic">react-native-bluetooth-classic</a> to Typescript, which went off fairly well, and decided it would be a good idea to start adding tests. Figured it would get me some experience working with <a href="https://jestjs.io/">Jest</a> and getting a better product available for everyone.</p>
+<blockquote>
+<p>I think I’ve made a huge mistake!!</p>
+</blockquote>
+<p>Although I don’t actually regret the decision, it’s defintely been more of a process than I had originally anticipated. This post isn’t going to be anything original, it’s just going to be the process that was required in order to get things working.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>Following the treasure trail of internet posts documenting how to get Typescript, Jest and React Native working together, it was apparent that it would be a little bit of work, but generally fairly straight forward. The consensus is that the following libraries are required:</p>
+<ul>
+<li><a href="https://jestjs.io/">Jest</a> obviously as the testing framework. Since it’s developed by Facebook and baked into React Native it makes sense.</li>
+<li><a href="https://kulshekhar.github.io/ts-jest/">ts-jest</a> which from Medium and other sites is the best Typescript/Jest library. It also provides a pretty decide guide on setting things up.</li>
+</ul>
+<h2 id="installing-the-things">Installing the Things</h2>
+<p>First thing first, lets follow <a href="https://kulshekhar.github.io/ts-jest/user/install">ts-jest/install</a> and get all our ducks in a row. First we’ll install all the</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --save-dev</span><span style="color:#9ECBFF"> jest</span><span style="color:#9ECBFF"> ts-jest</span><span style="color:#9ECBFF"> @types/jest</span></span></code></pre>
+<ul>
+<li>Install all the libraries required (Typescript was already installed)</li>
+</ul>
+<h2 id="configuring-the-things">Configuring the Things</h2>
+<p>Once we’ve got things installed, we can get to configuring, here’s another instance of following the internet treasure trail. We take a look at the available documentation on <strong>ts-jest</strong> there is a page specific to <a href="https://kulshekhar.github.io/ts-jest/user/react-native/">ts-config/react-native</a>. The first thing we come to when we get there, is that we should check out another post on <a href="http://reactnative.dev/blog/2018/05/07/using-typescript-with-react-native">react-native Typescript</a>.</p>
+<h3 id="using-typescript-with-react-native">Using TypeScript with React Native</h3>
+<p><a href="http://reactnative.dev/blog/2018/05/07/using-typescript-with-react-native">Using TypeScript with React Native</a></p>
+<p>Jumping down the page the first section of importance is <a href="http://reactnative.dev/blog/2018/05/07/using-typescript-with-react-native#adding-typescript">adding typescript</a>, the key parts being the added typescript transformer and the <strong>react native config</strong> file:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --save-dev</span><span style="color:#9ECBFF"> react-native-typescript-transformer</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --save-dev</span><span style="color:#9ECBFF"> @types/jest</span><span style="color:#9ECBFF"> @types/react</span><span style="color:#9ECBFF"> @types/react-native</span><span style="color:#9ECBFF"> @types/react-test-renderer</span></span>
+<span class="line"><span style="color:#B392F0">touch</span><span style="color:#9ECBFF"> rn-cli.config.js</span></span></code></pre>
+<p>uncommenting the appropriate lines in <code>tsconfig.json</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#6A737D">  /* Search the config file for the following line and uncomment it. */</span></span>
+<span class="line"><span style="color:#79B8FF">  "allowSyntheticDefaultImports"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#6A737D"> /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>and finally adding the <code>rn-cli.config.js</code> configuration:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// rn-cli.config.js</span></span>
+<span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  getTransformModulePath</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> require.</span><span style="color:#B392F0">resolve</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'react-native-typescript-transformer'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#B392F0">  getSourceExts</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">'ts'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'tsx'</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<p>The next key spot is <a href="http://reactnative.dev/blog/2018/05/07/using-typescript-with-react-native#adding-typescript-testing-infrastructure">adding typescript testing infrastrucure</a> where it says to add the configuration to <code>package.json</code>, which clearly went against most of the other configuration places. After trying both ways, I can confirm that having the Jest configuration inside <code>package.json</code> does not work.</p>
+<p>So we’ll just stick with the same content in <code>jest.config.js</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">  "jest"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "preset"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"react-native"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "moduleFileExtensions"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">      "ts"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      "tsx"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      "js"</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#9ECBFF">    "transform"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      "^.+</span><span style="color:#79B8FF">\\</span><span style="color:#9ECBFF">.(js)$"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"&#x3C;rootDir>/node_modules/babel-jest"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      "</span><span style="color:#79B8FF">\\</span><span style="color:#9ECBFF">.(ts|tsx)$"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"&#x3C;rootDir>/node_modules/ts-jest/preprocessor.js"</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#9ECBFF">    "testRegex"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"(/__tests__/.*|</span><span style="color:#79B8FF">\\</span><span style="color:#9ECBFF">.(test|spec))</span><span style="color:#79B8FF">\\</span><span style="color:#9ECBFF">.(ts|tsx|js)$"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "testPathIgnorePatterns"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">      "</span><span style="color:#79B8FF">\\</span><span style="color:#9ECBFF">.snap$"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      "&#x3C;rootDir>/node_modules/"</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#9ECBFF">    "cacheDirectory"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">".jest/cache"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>So this is where the first issue happens, because this is a library it has <code>react</code> and <code>react-native</code> set as peer dependencies.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> react-native-bluetooth-classic@1.0.0-rc.2 test /Users/kendavidson/git/react-native-bluetooth-classic</span></span>
+<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> jest</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">●</span><span style="color:#9ECBFF"> Validation</span><span style="color:#9ECBFF"> Error:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  Preset</span><span style="color:#9ECBFF"> react-native</span><span style="color:#9ECBFF"> is</span><span style="color:#9ECBFF"> invalid:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  The</span><span style="color:#9ECBFF"> "id"</span><span style="color:#9ECBFF"> argument</span><span style="color:#9ECBFF"> must</span><span style="color:#9ECBFF"> be</span><span style="color:#9ECBFF"> of</span><span style="color:#9ECBFF"> type</span><span style="color:#9ECBFF"> string.</span><span style="color:#9ECBFF"> Received</span><span style="color:#9ECBFF"> type</span><span style="color:#9ECBFF"> object</span></span>
+<span class="line"><span style="color:#B392F0">  TypeError</span><span style="color:#E1E4E8"> [ERR_INVALID_ARG_TYPE]: The </span><span style="color:#9ECBFF">"id"</span><span style="color:#E1E4E8"> argument must be of type string. Received type object</span></span></code></pre>
+<p>Installing <code>react</code> and <code>react-native</code> (following the lowest version requirements in the peer dependencies) as dev dependencies cleared this issue up.</p>
+<h3 id="ts-config-react-native">ts-config React Native</h3>
+<p>Now that we’ve followed that doc, we can go back to the <a href="https://kulshekhar.github.io/ts-jest/user/react-native/">ts-config/react-native</a> page and continue to follow along. First we need to create the Babel configuration:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// babel.config.js</span></span>
+<span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  presets: [</span><span style="color:#9ECBFF">'module:metro-react-native-babel-preset'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<p>and then we need to modify the Jest configuration:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// jest.config.js</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">defaults</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">tsjPreset</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'ts-jest/presets'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  ...</span><span style="color:#E1E4E8">tsjPreset,</span></span>
+<span class="line"><span style="color:#E1E4E8">  preset: </span><span style="color:#9ECBFF">'react-native'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  transform: {</span></span>
+<span class="line"><span style="color:#F97583">    ...</span><span style="color:#E1E4E8">tsjPreset.transform,</span></span>
+<span class="line"><span style="color:#9ECBFF">    '</span><span style="color:#79B8FF">\\</span><span style="color:#9ECBFF">.js$'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'&#x3C;rootDir>/node_modules/react-native/jest/preprocessor.js'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">  globals: {</span></span>
+<span class="line"><span style="color:#9ECBFF">    'ts-jest'</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      babelConfig: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#6A737D">  // This is the only part which you can keep</span></span>
+<span class="line"><span style="color:#6A737D">  // from the above linked tutorial's config:</span></span>
+<span class="line"><span style="color:#E1E4E8">  cacheDirectory: </span><span style="color:#9ECBFF">'.jest/cache'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<p>Which essentially rewrites the original file, pretty much we’re just adding the <code>react-native/jest/preprocessor.js</code> so that the imported React Native modules are <em>compiled</em> correctly during testing.</p>
+<h2 id="writing-a-test">Writing a Test</h2>
+<p>The first thing that I wanted to do, was move the validation of IOS and Android logic to Javascript, instead of bothing to call IOS Native for things that don’t exist. To do this it made sense to test things based on <code>Platform</code> (mocking Platform):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">/// __tests__/BluetoothClassicModule.ios.test.js</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Platform } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'react-native'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// No dice</span></span>
+<span class="line"><span style="color:#E1E4E8">jest.</span><span style="color:#B392F0">mock</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Platform'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  ...</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// No dice</span></span>
+<span class="line"><span style="color:#E1E4E8">jest.</span><span style="color:#B392F0">mock</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/react-native/Libraries/Utilities/Platform'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  ...</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<p>This one took a bunch of Googling. While attempting to mock the <code>Platform</code> module directly, would continually throw errors that <code>Platform could not be found in /react-native/Libraries/Utlities/react-native-implementation.js</code>. The key here is <a href="https://github.com/facebook/react-native/issues/26579#issuecomment-535244001">https://github.com/facebook/react-native/issues/26579#issuecomment-535244001</a> which explains:</p>
+<blockquote>
+<p>This is intentional and you need to mock modules the same way as any other JS module now. You could in theory specify the path to the TextInput module, but the path is a private implementation detail that could change between releases. The logically correct approach is to code to the interface and mock out react-native.</p>
+</blockquote>
+<p>which makes complete sense. The resulting mock becomes:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">/// __tests__/BluetoothClassicModule.ios.test.js</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Platform } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'react-native'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">jest.</span><span style="color:#B392F0">mock</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'react-native'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> ({</span></span>
+<span class="line"><span style="color:#E1E4E8">  Platform: { OS: </span><span style="color:#9ECBFF">'ios'</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">}));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">describe</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'React Native Platform'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Platform.OS should be 'ios'"</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    expect</span><span style="color:#E1E4E8">(Platform.</span><span style="color:#79B8FF">OS</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">toBe</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'ios'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<p>which finally results in a successful test:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> react-native-bluetooth-classic@1.0.0-rc.2 test /Users/kendavidson/git/react-native-bluetooth-classic</span></span>
+<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> jest</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0"> PASS</span><span style="color:#9ECBFF">  __tests__/BluetoothModule.ios.test.ts</span></span>
+<span class="line"><span style="color:#B392F0">  React</span><span style="color:#9ECBFF"> Native</span><span style="color:#9ECBFF"> Platform</span></span>
+<span class="line"><span style="color:#B392F0">    ✓</span><span style="color:#9ECBFF"> Platform.OS</span><span style="color:#9ECBFF"> should</span><span style="color:#9ECBFF"> be</span><span style="color:#9ECBFF"> 'ios'</span><span style="color:#E1E4E8"> (2 </span><span style="color:#9ECBFF">ms</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">Test</span><span style="color:#9ECBFF"> Suites:</span><span style="color:#79B8FF"> 1</span><span style="color:#9ECBFF"> passed,</span><span style="color:#79B8FF"> 1</span><span style="color:#9ECBFF"> total</span></span>
+<span class="line"><span style="color:#B392F0">Tests:</span><span style="color:#79B8FF">       1</span><span style="color:#9ECBFF"> passed,</span><span style="color:#79B8FF"> 1</span><span style="color:#9ECBFF"> total</span></span>
+<span class="line"><span style="color:#B392F0">Snapshots:</span><span style="color:#79B8FF">   0</span><span style="color:#9ECBFF"> total</span></span>
+<span class="line"><span style="color:#B392F0">Time:</span><span style="color:#79B8FF">        2.03</span><span style="color:#9ECBFF"> s,</span><span style="color:#9ECBFF"> estimated</span><span style="color:#79B8FF"> 7</span><span style="color:#9ECBFF"> s</span></span>
+<span class="line"><span style="color:#B392F0">Ran</span><span style="color:#9ECBFF"> all</span><span style="color:#9ECBFF"> test</span><span style="color:#9ECBFF"> suites.</span></span></code></pre>
+<h2 id="sadly-a-waste-of-time">Sadly a Waste of Time</h2>
+<p>And just as I thought, you take one step forward and two steps back. Since I’m working on a library I want to be able to test said library without having to push changes to Git/Npm in order to test. For this reason I have the following structure:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#F97583">|</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> react-native-bluetooth-classic</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> BluetoothClassciExample</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#F97583"> |</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> node_modules</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> node_modules</span></span></code></pre>
+<p>and I run <code>react-native start</code> out of <code>BluetoothClassciExample</code>. To get this working I have a customized <code>metro.config.js</code> which pulls in my <code>react-native-bluetooth-classic</code> module from <code>../</code>. The sad thing here is that I’m unaware of a way to make it NOT use the now required local node_modules dependency of <code>react-native</code>.</p>
+<p>Now because <code>react-native</code> is being loaded twice:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#B392F0">┌──────────────────────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">                                                                              │</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">  Running</span><span style="color:#9ECBFF"> Metro</span><span style="color:#9ECBFF"> Bundler</span><span style="color:#9ECBFF"> on</span><span style="color:#9ECBFF"> port</span><span style="color:#9ECBFF"> 8081.</span><span style="color:#9ECBFF">                                         │</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">                                                                              │</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">  Keep</span><span style="color:#9ECBFF"> Metro</span><span style="color:#9ECBFF"> running</span><span style="color:#9ECBFF"> while</span><span style="color:#9ECBFF"> developing</span><span style="color:#9ECBFF"> on</span><span style="color:#9ECBFF"> any</span><span style="color:#9ECBFF"> JS</span><span style="color:#9ECBFF"> projects.</span><span style="color:#9ECBFF"> Feel</span><span style="color:#9ECBFF"> free</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF">        │</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">  close</span><span style="color:#9ECBFF"> this</span><span style="color:#9ECBFF"> tab</span><span style="color:#9ECBFF"> and</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> your</span><span style="color:#9ECBFF"> own</span><span style="color:#9ECBFF"> Metro</span><span style="color:#9ECBFF"> instance</span><span style="color:#9ECBFF"> if</span><span style="color:#9ECBFF"> you</span><span style="color:#9ECBFF"> prefer.</span><span style="color:#9ECBFF">               │</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">                                                                              │</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">  https://github.com/facebook/react-native</span><span style="color:#9ECBFF">                                    │</span></span>
+<span class="line"><span style="color:#B392F0">│</span><span style="color:#9ECBFF">                                                                              │</span></span>
+<span class="line"><span style="color:#B392F0">└──────────────────────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">Looking</span><span style="color:#9ECBFF"> for</span><span style="color:#9ECBFF"> JS</span><span style="color:#9ECBFF"> files</span><span style="color:#9ECBFF"> in</span></span>
+<span class="line"><span style="color:#B392F0">   /Users/kendavidson/git/react-native-bluetooth-classic/BluetoothClassicExample</span></span>
+<span class="line"><span style="color:#B392F0">   /Users/kendavidson/git/react-native-bluetooth-classic</span></span></code></pre>
+<p>There are a large number of conflicts and issues which which cause a bunch of crazy errors:</p>
+<ul>
+<li><a href="https://github.com/expo/expo/issues/916">https://github.com/expo/expo/issues/916</a></li>
+<li><a href="https://stackoverflow.com/questions/46312103/react-native-module-hmrclient-is-not-a-registered-callable-module-calling-enabl">https://stackoverflow.com/questions/46312103/react-native-module-hmrclient-is-not-a-registered-callable-module-calling-enabl</a></li>
+</ul>
+<p>which all seem to point to things like <strong>hot reloading</strong>, <strong>dev mode</strong>, resetting cache, adb reverse, etc. None of which work, so sadly at this point it looks like I either get:</p>
+<ol>
+<li>to run tests</li>
+<li>to run dev apps easier</li>
+</ol>
+<p>and at this point I’m going with option 2. Sorry testing!</p>
+<p><s>If you’ve got a way for me to load <code>../</code> but ignore <code>../node_modules</code> during development, shoot me an email. But until then I’ll have to put this on the back burner.</s></p>
+<h3 id="edit-nov-02-2020">Edit Nov 02 2020</h3>
+<p>After some late night and early morning Googling, I came across a customization of Metro that seems to fit better with my example <a href="https://medium.com/@charpeni/setting-up-an-example-app-for-your-react-native-library-d940c5cf31e4">https://medium.com/@charpeni/setting-up-an-example-app-for-your-react-native-library-d940c5cf31e4</a> which makes the following changes:</p>
+<ul>
+<li>Replace <code>resolver.extraNodeModules</code> with <code>watchFolders</code> in the <strong>metro</strong> configuration.</li>
+<li>Adds in <code>resolver.blacklist</code></li>
+</ul>
+<p>Which doesn’t even exist on the <a href="https://facebook.github.io/metro/docs/configuration/#blocklist">Metro config</a> where it’s called <code>resolver.blockList</code>. The issue here is that it specifically says:</p>
+<blockquote>
+<p>A RegEx defining which paths to ignore, however if a blocklisted file is required it will be brought into the dependency graph.</p>
+</blockquote>
+<p>But it’s worth a shot!!</p>
+<h2 id="edits">Edits</h2>
+<h3 id="nov-03-2020-kinda">Nov 03 2020… Kinda</h3>
+<p>After following the previous posts information, there are still errors that revolve around <code>lib/node_modules/react-native</code> being installed. When attempting to run, it’s still attempting to load the <code>react-native</code> from the <code>../node_modules</code> lib folder instead of from the <code>/example/node_modules/</code> folder causing all those wonderful duplicate React Native issues.</p>
+<p>So at this point, I can write my tests with <code>react</code> and <code>react-native</code> installed, then uninstall them when I want to start doing more live testing within the <strong>BluetoothClassicExample</strong> app.</p>
+<p>Since this seems to work for this post (and others) I’m starting to think that the issue is the introduction of Typescript during the build process. But at this point I’d rather keep Typescript (and deal with the [un]installing) rather than go back to plain JavaScript or do the half way kludge of <code>babel-typescript</code> at this point.</p>
+<h3 id="nov-20-2020-kindaer">Nov 20 2020… Kindaer</h3>
+<p>This edit was a little late, but things are finally working. Using the same <code>metro-config</code> above, but changing the strcuture of the projects, I’m able to finally:</p>
+<ul>
+<li>Run the development application</li>
+<li>Have <code>react</code> and <code>react-native</code> devDependencies for testing</li>
+</ul>
+<p>using the following structure:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#F97583">|</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> git</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> react-native-bluetooth-classic</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> react-native-bluetooth-classic-apps</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> BluetoothClassicExample</span></span></code></pre>
+<p>I know it might be a little much, but I chose the extra layer in case I needed to provide sample apps for things like: different versions, bug fixes, etc. This also cleans up the <code>react-native-bluetooth-classic</code> project in that only tests are required.</p>
+<p>Now I just have to write them :(</p>  </div> <footer class="mt-16 pt-8 border-t border-gray-200"> <a href="/writing" class="text-brand-600 hover:text-brand-700 font-medium">
+&larr; Back to Writing
+</a> </footer> </article>  </main> <footer class="border-t border-gray-200 mt-auto"> <div class="max-w-3xl mx-auto px-4 py-8"> <div class="flex justify-center gap-5 mb-6 text-2xl text-gray-500"> <a href="https://github.com/kenjdavidson" aria-label="GitHub" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path> </svg> </a> <a href="https://linkedin.com/in/kenjdavidson" aria-label="LinkedIn" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg> </a> <a href="https://instagram.com/kenjdavidson.golf" aria-label="Instagram" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path> </svg> </a> <a href="https://stackoverflow.com/users/4196620/kendavidson" aria-label="Stack Overflow" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.95zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.36 1.618zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.751 0z"></path> </svg> </a> <a href="mailto:hello@kenjdavidson.com" aria-label="Email" class="hover:text-brand-600 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" aria-hidden="true"> <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"></path> <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"></path> </svg> </a> </div> <div class="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500 gap-2"> <p>&copy; 2026 Ken Davidson. All rights reserved.</p> <p>Built with <a href="https://astro.build" class="text-brand-600 hover:underline">Astro</a></p> </div> </div> </footer> </body></html>

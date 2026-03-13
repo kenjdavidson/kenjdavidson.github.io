@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import PostCard from '../../../../components/PostCard.astro';
+import WritingCard from '../../../../components/WritingCard.astro';
 import { getPostSlug } from '../../../../utils/writing';
 
 const MONTH_NAMES = [
@@ -46,5 +46,7 @@ const monthName = monthIndex >= 1 && monthIndex <= 12 ? MONTH_NAMES[monthIndex -
     </a>
   </div>
   <p class="text-gray-500 mb-8">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
-  {posts.map((post) => <PostCard post={post} />)}
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    {posts.map((post, i) => <WritingCard post={post} index={i} />)}
+  </div>
 </BaseLayout>

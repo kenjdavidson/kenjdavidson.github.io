@@ -15,10 +15,10 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
 <BaseLayout>
   <!-- Hero -->
   <section class="mb-16">
-    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
       Husbanding, Fathering, Golfing and Developing
     </h1>
-    <p class="text-xl text-gray-600 leading-relaxed">
+    <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
       <strong>…my way to retirement!!</strong> Since I've obviously got a ways to go, I do my best to
       keep busy. When I'm not out on the course or <em>playing axeball in the other room</em> I'm
       generally reading about some new (to me) languages and frameworks that have piqued my interest.
@@ -28,7 +28,7 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
   <!-- Latest Posts -->
   <section class="mb-16">
     <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-bold text-gray-900">Latest Writing</h2>
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Latest Writing</h2>
       <a href="/writing" class="text-brand-600 hover:text-brand-700 text-sm font-medium">
         Read all posts &rarr;
       </a>
@@ -39,7 +39,7 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
   <!-- Projects -->
   <section class="mb-16">
     <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-bold text-gray-900">Projects</h2>
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Projects</h2>
       <a href="/projects" class="text-brand-600 hover:text-brand-700 text-sm font-medium">
         All projects &rarr;
       </a>
@@ -51,11 +51,11 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
           return (
             <li>
               <a href={slug} class="group block">
-                <h3 class="text-lg font-semibold text-gray-900 group-hover:text-brand-600 transition-colors">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                   {project.data.title}
                 </h3>
                 {project.data.description && (
-                  <p class="text-gray-600 text-sm mt-1">{project.data.description}</p>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">{project.data.description}</p>
                 )}
               </a>
             </li>

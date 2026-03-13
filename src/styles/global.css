@@ -20,4 +20,8 @@
   .prose a {
     @apply text-brand-600 hover:text-brand-700 underline;
   }
+
+  .dark .prose a {
+    @apply text-brand-400 hover:text-brand-300;
+  }
 }

@@ -19,14 +19,14 @@ const { title, description } = entry.data;
 <BaseLayout title={title} description={description}>
   <article>
     <header class="mb-10">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">{title}</h1>
-      {description && <p class="text-lg text-gray-600">{description}</p>}
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">{title}</h1>
+      {description && <p class="text-lg text-gray-600 dark:text-gray-300">{description}</p>}
     </header>
-    <div class="prose prose-lg max-w-none">
+    <div class="prose prose-lg dark:prose-invert max-w-none">
       <Content />
     </div>
-    <footer class="mt-16 pt-8 border-t border-gray-200">
-      <a href="/projects" class="text-brand-600 hover:text-brand-700 font-medium">
+    <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <a href="/projects" class="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium">
         &larr; Back to Projects
       </a>
     </footer>

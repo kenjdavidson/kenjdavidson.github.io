@@ -12,6 +12,6 @@ const formatted = new Intl.DateTimeFormat('en-US', {
 }).format(date);
 ---
 
-<time datetime={date.toISOString()} class="text-gray-500 text-sm">
+<time datetime={date.toISOString()} class="text-gray-500 dark:text-gray-400 text-sm">
   {formatted}
 </time>

@@ -5,13 +5,11 @@ import { getPostUrl } from '../utils/writing';
 
 interface Props {
   post: CollectionEntry<'writing'>;
-  index?: number;
 }
 
-const { post, index } = Astro.props;
+const { post } = Astro.props;
 const { title, description, date, tags, featureImage } = post.data;
 const postUrl = getPostUrl(post);
-const cardNumber = index !== undefined ? String(index + 1).padStart(2, '0') : undefined;
 
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
@@ -21,11 +19,8 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
 ---
 
 <div class="flex flex-col">
-  {cardNumber && (
-    <p class="text-2xl font-bold text-gray-300 dark:text-gray-600 mb-2 select-none">{cardNumber}</p>
-  )}
   <a href={postUrl} class="group flex-1">
-    <article class="relative h-56 rounded-xl overflow-hidden bg-gray-900 dark:bg-gray-800">
+    <article class="relative h-56 rounded-xl overflow-hidden bg-gray-500 dark:bg-gray-800">
       {featureImage && (
         <Image
           src={featureImage}
@@ -43,7 +38,7 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
           </time>
         </div>
         <div>
-          <h2 class="text-white font-bold text-base leading-snug mb-1 group-hover:text-brand-300 transition-colors duration-200">
+          <h2 class="text-white font-bold text-lg leading-snug mb-1 group-hover:text-brand-300 transition-colors duration-200">
             {title}
           </h2>
           {description && (

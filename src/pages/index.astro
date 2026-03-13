@@ -34,7 +34,7 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
       </a>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {recentPosts.map((post, i) => <WritingCard post={post} index={i} />)}
+      {recentPosts.map((post) => <WritingCard post={post} />)}
     </div>
   </section>
 

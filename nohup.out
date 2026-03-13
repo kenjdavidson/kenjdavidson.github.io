@@ -20,3 +20,17 @@
 127.0.0.1 - - [13/Mar/2026 14:58:14] "GET /_astro/client.km8eLHr3.js HTTP/1.1" 200 -
 127.0.0.1 - - [13/Mar/2026 14:58:14] "GET /_astro/index.BX2CdW4Z.js HTTP/1.1" 200 -
 127.0.0.1 - - [13/Mar/2026 14:58:14] "GET /favicon.png HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:09] "GET /_astro/_slug_.C18cZLFh.css HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:09] "GET /_astro/about.Dw6XYg0F.css HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/ThemeToggle.DJK9tHXj.js HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/client.km8eLHr3.js HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/index.BX2CdW4Z.js HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /favicon.png HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /writing/ HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/about.Dw6XYg0F.css HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/_slug_.C18cZLFh.css HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/client.km8eLHr3.js HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/ThemeToggle.DJK9tHXj.js HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /_astro/index.BX2CdW4Z.js HTTP/1.1" 200 -
+127.0.0.1 - - [13/Mar/2026 15:04:10] "GET /favicon.png HTTP/1.1" 200 -

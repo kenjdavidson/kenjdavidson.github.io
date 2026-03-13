@@ -47,6 +47,6 @@ const monthName = monthIndex >= 1 && monthIndex <= 12 ? MONTH_NAMES[monthIndex -
   </div>
   <p class="text-gray-500 mb-8">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    {posts.map((post, i) => <WritingCard post={post} index={i} />)}
+    {posts.map((post) => <WritingCard post={post} />)}
   </div>
 </BaseLayout>

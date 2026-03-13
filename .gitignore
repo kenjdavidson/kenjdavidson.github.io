@@ -37,3 +37,6 @@ dist/
 .idea
 .vscode
 .DS_Store
+
+# Shell output
+nohup.out

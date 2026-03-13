@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import PostCard from '../../../components/PostCard.astro';
+import WritingCard from '../../../components/WritingCard.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('writing', ({ data }) => !data.draft);
@@ -36,5 +36,7 @@ const { tag, posts } = Astro.props;
     </a>
   </div>
   <p class="text-gray-500 dark:text-gray-400 mb-8">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
-  {posts.map((post) => <PostCard post={post} />)}
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    {posts.map((post) => <WritingCard post={post} />)}
+  </div>
 </BaseLayout>

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostCard from '../components/PostCard.astro';
+import WritingCard from '../components/WritingCard.astro';
 
 const allPosts = await getCollection('writing', ({ data }) => !data.draft);
 const recentPosts = allPosts
@@ -33,7 +33,9 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
         Read all posts &rarr;
       </a>
     </div>
-    {recentPosts.map((post) => <PostCard post={post} />)}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {recentPosts.map((post) => <WritingCard post={post} />)}
+    </div>
   </section>
 
   <!-- Projects -->

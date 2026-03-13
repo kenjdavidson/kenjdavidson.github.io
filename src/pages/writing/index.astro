@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostCard from '../../components/PostCard.astro';
+import WritingCard from '../../components/WritingCard.astro';
 import TwoColumnLayout from '../../components/TwoColumnLayout.astro';
 
 const allPosts = await getCollection('writing', ({ data }) => !data.draft);
@@ -16,7 +16,9 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))].sort
 
   <TwoColumnLayout secondaryFirst={true}>
     <div slot="main">
-      {posts.map((post) => <PostCard post={post} />)}
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {posts.map((post) => <WritingCard post={post} />)}
+      </div>
     </div>
 
     <div slot="secondary">

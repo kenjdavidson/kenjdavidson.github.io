@@ -4,7 +4,15 @@
 
 ### UI Changes
 
-Any pull request that includes UI-related changes must include screenshots demonstrating the before and after states of the affected components or pages.
+Any pull request that includes UI-related changes **must** include screenshots demonstrating the before and after states of the affected components or pages.
+
+**This is mandatory, not optional.** Screenshots must be:
+- Embedded directly in the PR description (not linked externally)
+- Showing both the **before** state (from the base branch) and the **after** state (from the PR branch)
+- Captured by building the site (`npm run build`) and rendering the relevant page(s)
+- Labelled clearly, e.g. "**Before**" / "**After**"
+
+To generate screenshots in this environment, build the project with `npm run build`, then use Python playwright (`python3 -m playwright`) to render the built HTML files via `file://` paths and save `.png` files, then embed them in the PR description.
 
 ### Commit Messages
 

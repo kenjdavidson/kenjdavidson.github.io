@@ -1,9 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const allProjects = await getCollection('projects', ({ data }) => !data.draft);
 const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const renderedProjects = await Promise.all(
+  projects.map(async (project) => {
+    const { Content } = await render(project);
+    return { project, Content };
+  })
+);
 ---
 
 <BaseLayout title="Projects" description="A selection of open source and personal projects.">
@@ -12,25 +19,36 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
 
   <div class="space-y-12">
     {
-      projects.map((project) => {
-        const slug = project.data.slug ?? `/projects/${project.id.replace(/\/index\.mdx?$/, '')}`;
+      renderedProjects.map(({ project, Content }) => {
+        const learnMoreUrl = project.data.website ?? project.data.github;
         return (
           <article class="border-b border-gray-100 dark:border-gray-800 pb-12 last:border-0">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-              <a href={slug} class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
-                {project.data.title}
-              </a>
+              {learnMoreUrl ? (
+                <a href={learnMoreUrl} target="_blank" rel="noopener noreferrer" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                  {project.data.title}
+                </a>
+              ) : (
+                project.data.title
+              )}
             </h2>
             {project.data.description && (
               <p class="text-gray-600 dark:text-gray-300 mb-4">{project.data.description}</p>
             )}
+            <div class="prose prose-lg dark:prose-invert max-w-none mb-6">
+              <Content />
+            </div>
             <div class="flex gap-4">
-              <a
-                href={slug}
-                class="inline-flex items-center px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 transition-colors"
-              >
-                Learn more
-              </a>
+              {learnMoreUrl && (
+                <a
+                  href={learnMoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 transition-colors"
+                >
+                  Learn more &rarr;
+                </a>
+              )}
               {project.data.github && (
                 <a
                   href={project.data.github}

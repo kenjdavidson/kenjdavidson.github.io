@@ -4,17 +4,22 @@ import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 import { getPostSlug } from '../../utils/writing';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('writing', ({ data }) => !data.draft);
-  return posts.map((entry) => ({
+  const allPosts = await getCollection('writing', ({ data }) => !data.draft);
+  const posts = allPosts.toSorted((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+  return posts.map((entry, index) => ({
     params: { slug: getPostSlug(entry) },
-    props: { entry },
+    props: {
+      entry,
+      prev: index > 0 ? posts[index - 1] : null,
+      next: index < posts.length - 1 ? posts[index + 1] : null,
+    },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, prev, next } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<BlogPostLayout entry={entry}>
+<BlogPostLayout entry={entry} prev={prev} next={next}>
   <Content />
 </BlogPostLayout>

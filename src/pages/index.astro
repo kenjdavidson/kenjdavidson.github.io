@@ -6,7 +6,7 @@ import WritingCard from '../components/WritingCard.astro';
 const allPosts = await getCollection('writing', ({ data }) => !data.draft);
 const recentPosts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 5);
+  .slice(0, 6);
 
 const allProjects = await getCollection('projects', ({ data }) => !data.draft);
 const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));

@@ -27,6 +27,7 @@ const { year, posts } = Astro.props;
   title={`Writing — ${year}`}
   description={`Articles and notes from ${year}.`}
 >
+  <div class="max-w-5xl mx-auto w-full px-4">
   <div class="flex items-center justify-between mb-8">
     <h1 class="text-4xl font-bold text-gray-900">Writing — {year}</h1>
     <a href="/writing" class="text-brand-600 hover:text-brand-700 text-sm font-medium">
@@ -35,4 +36,5 @@ const { year, posts } = Astro.props;
   </div>
   <p class="text-gray-500 mb-8">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
   {posts.map((post) => <PostCard post={post} />)}
+  </div>
 </BaseLayout>

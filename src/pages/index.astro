@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WritingCard from '../components/WritingCard.astro';
+import { getProjectUrl } from '../utils/projects';
 
 const allPosts = await getCollection('writing', ({ data }) => !data.draft);
 const recentPosts = allPosts
@@ -49,10 +50,9 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
     <ul class="space-y-4">
       {
         projects.map((project) => {
-          const slug = project.data.slug ?? `/projects/${project.id.replace(/\/index\.mdx?$/, '')}`;
           return (
             <li>
-              <a href={slug} class="group block">
+              <a href={getProjectUrl(project)} class="group block">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                   {project.data.title}
                 </h3>

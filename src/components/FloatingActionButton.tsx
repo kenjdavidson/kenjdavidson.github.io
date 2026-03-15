@@ -72,7 +72,7 @@ const CLOCK_ANGLES: Record<ClockPosition, number> = {
 
 const FAB_SIZE = 56; // w-14 = 56 px — main button diameter
 const SUB_SIZE = 36; // w-9  = 36 px — sub-button diameter
-const ORBIT_RADIUS = 72; // px — distance between button centres
+const ORBIT_RADIUS = 58; // px — distance between button centres
 
 // ---------------------------------------------------------------------------
 // Helper: compute absolute positioning for a sub-button

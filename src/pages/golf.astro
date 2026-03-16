@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TwoColumnLayout from '../components/TwoColumnLayout.astro';
+import GolfBagSection from '../components/GolfBagSection.astro';
 import { getGolfCanadaProfile } from '../utils/golf-canada';
+import bagData from '../data/golf-bag.json';
 
 const profile = await getGolfCanadaProfile();
 
@@ -129,6 +131,8 @@ const yearFormatter = new Intl.DateTimeFormat('en-CA', { year: 'numeric' });
               Last updated at build time on {new Intl.DateTimeFormat('en-CA', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(profile.fetchedAt))}.
             </p>
           </section>
+
+          <GolfBagSection clubs={bagData.clubs} />
         </div>
       </TwoColumnLayout>
     ) : (
@@ -215,6 +219,8 @@ const yearFormatter = new Intl.DateTimeFormat('en-CA', { year: 'numeric' });
                 Data sourced from <a href="https://golfcanada.ca" class="underline hover:text-brand-600 dark:hover:text-brand-400" target="_blank" rel="noopener noreferrer">Golf Canada</a>.
               </p>
             </section>
+
+            <GolfBagSection clubs={bagData.clubs} />
           </div>
         </TwoColumnLayout>
       </div>

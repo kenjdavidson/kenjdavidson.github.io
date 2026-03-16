@@ -1,0 +1,64 @@
+---
+interface Club {
+  type: string;
+  name: string;
+  model: string;
+  avgDistance: number | null;
+}
+
+interface Props {
+  clubs: Club[];
+}
+
+const { clubs } = Astro.props;
+
+const clubTypes = ['Wood', 'Iron', 'Wedge', 'Putter'] as const;
+
+const typeLabels: Record<string, string> = {
+  Wood: 'Woods',
+  Iron: 'Irons',
+  Wedge: 'Wedges',
+  Putter: 'Putters',
+};
+---
+
+{clubs.length > 0 && (
+  <section class="mt-10">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">My Bag</h2>
+    <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Club</th>
+            <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Model</th>
+            <th class="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Avg Distance</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+          {clubTypes.map((type) => {
+            const typeClubs = clubs.filter((c) => c.type === type);
+            if (typeClubs.length === 0) return null;
+            return (
+              <>
+                <tr class="bg-gray-50 dark:bg-gray-800/60">
+                  <td colspan="3" class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                    {typeLabels[type] ?? type}
+                  </td>
+                </tr>
+                {typeClubs.map((club, i) => (
+                  <tr class={`transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 ${i % 2 === 0 ? '' : 'bg-gray-50/50 dark:bg-gray-800/20'}`}>
+                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200 font-medium">{club.name}</td>
+                    <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{club.model}</td>
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-400">
+                      {club.avgDistance != null ? `${club.avgDistance} yds` : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </section>
+)}

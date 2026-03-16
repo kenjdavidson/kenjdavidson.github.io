@@ -1,0 +1,17 @@
+{
+  "clubs": [
+    { "type": "Wood", "name": "Driver", "model": "Callaway Rogue ST LS", "avgDistance": 260 },
+    { "type": "Wood", "name": "3 Wood", "model": "Callaway Rogue", "avgDistance": 240 },
+    { "type": "Iron", "name": "2 Iron", "model": "KZG", "avgDistance": 220 },
+    { "type": "Iron", "name": "4 Iron", "model": "Cobra King Tec", "avgDistance": 200 },
+    { "type": "Iron", "name": "5 Iron", "model": "Cobra King Tec", "avgDistance": 185 },
+    { "type": "Iron", "name": "6 Iron", "model": "Cobra King Tec", "avgDistance": 170 },
+    { "type": "Iron", "name": "7 Iron", "model": "Cobra King Tec", "avgDistance": 155 },
+    { "type": "Iron", "name": "8 Iron", "model": "Cobra King Tec", "avgDistance": 140 },
+    { "type": "Iron", "name": "9 Iron", "model": "Cobra King Tec", "avgDistance": 125 },
+    { "type": "Iron", "name": "GW", "model": "Cobra King Tec", "avgDistance": 110 },
+    { "type": "Wedge", "name": "54°", "model": "KZG", "avgDistance": null },
+    { "type": "Wedge", "name": "58°", "model": "KZG", "avgDistance": null },
+    { "type": "Putter", "name": "Putter", "model": "Odyssey Two Ball", "avgDistance": null }
+  ]
+}

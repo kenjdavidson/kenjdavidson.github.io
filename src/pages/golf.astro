@@ -46,20 +46,6 @@ const yearFormatter = new Intl.DateTimeFormat('en-CA', { year: 'numeric' });
 
             <!-- Membership details -->
             <dl class="space-y-3 text-sm">
-              <div class="flex justify-between items-center">
-                <dt class="text-gray-500 dark:text-gray-400 font-medium">Membership</dt>
-                <dd>
-                  <span class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300">
-                    {profile.snapshot.membershipType}
-                  </span>
-                </dd>
-              </div>
-              <div class="flex justify-between">
-                <dt class="text-gray-500 dark:text-gray-400 font-medium">Expires</dt>
-                <dd class="text-gray-800 dark:text-gray-200">
-                  {dateFormatter.format(new Date(profile.snapshot.expirationDate))}
-                </dd>
-              </div>
               <div class="flex justify-between">
                 <dt class="text-gray-500 dark:text-gray-400 font-medium">Career Low</dt>
                 <dd class="text-gray-800 dark:text-gray-200 font-semibold">

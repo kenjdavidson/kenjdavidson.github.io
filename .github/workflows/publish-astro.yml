@@ -17,28 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    outputs:
-      should_deploy: ${{ steps.month-check.outputs.should_deploy }}
-    steps:
-      - name: Check deployment window (April–October for scheduled runs)
-        id: month-check
-        run: |
-          MONTH=$(date +%-m)
-          SHOULD_DEPLOY=true
-          if [[ "${{ github.event_name }}" == "schedule" ]]; then
-            if [[ $MONTH -lt 4 || $MONTH -gt 10 ]]; then
-              echo "Scheduled run is outside the April–October window (month=$MONTH), skipping deployment."
-              SHOULD_DEPLOY=false
-            fi
-          fi
-          echo "Deployment decision: should_deploy=$SHOULD_DEPLOY (event=${{ github.event_name }}, month=$MONTH)"
-          echo "should_deploy=$SHOULD_DEPLOY" >> $GITHUB_OUTPUT
-
   build:
-    needs: check
-    if: needs.check.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project

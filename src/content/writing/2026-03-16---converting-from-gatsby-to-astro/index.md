@@ -31,7 +31,7 @@ The idea was simple: use [GitHub Copilot](https://github.com/features/copilot) a
 
 The first PR was the big one.  Start from scratch: rip out everything Gatsby, build up a new Astro project.  119 files changed.  10,239 additions, 50,613 deletions.  That ratio is a pretty good summary of why I wanted to leave Gatsby behind.
 
-![The initial Astro site — homepage after migration](https://github.com/user-attachments/assets/f3f84613-bbd2-44b7-9abd-4d8465f9d58c)
+![The initial Astro site — homepage after migration](./astro-homepage-migration.png)
 
 The content collections setup was clean.  Astro makes it straightforward to define schemas for your different content types:
 
@@ -146,9 +146,9 @@ Three rounds of feedback, but the end result is clean:
 - Recent writing + projects in the middle  
 - Bitmoji + stacked social icons flush right
 
-![Footer — light mode desktop](https://github.com/user-attachments/assets/ef9110ed-7e5c-4b57-a48a-643ace0636fb)
+![Footer — light mode desktop](./footer-light.png)
 
-![Footer — dark mode desktop](https://github.com/user-attachments/assets/fc9666c2-131f-402e-8e0e-53b437d9a5b5)
+![Footer — dark mode desktop](./footer-dark.png)
 
 The footer also prompted the extraction of a `getProjectUrl(entry)` utility (mirroring the existing `getPostUrl`) to clean up the duplicated slug logic.
 
@@ -172,9 +172,9 @@ A hover delay (100ms) means you can actually move your cursor to the sub-buttons
 
 One thing I had to remind Copilot about: screenshots.  The initial PR description had no before/after.  After a nudge it added them, then I asked for the orbit radius to be smaller (72px → 58px) so the sub-buttons sat closer to the main button.  Iterating on pixel values through PR comments is a strange but functional workflow.
 
-![FAB — expanded on hover, light mode](https://github.com/user-attachments/assets/1fd2c847-3309-4e65-8279-39cec2fc4d15)
+![FAB — expanded on hover, light mode](./fab-light.png)
 
-![FAB — expanded on hover, dark mode](https://github.com/user-attachments/assets/b7ac102d-1b65-47ef-8b28-c86b64affb5b)
+![FAB — expanded on hover, dark mode](./fab-dark.png)
 
 ## The Golf Page (PRs #99, #101, #103)
 
@@ -205,7 +205,7 @@ The secrets fix (PR #103) was a bit embarrassing in retrospect — the Golf Cana
 
 The golf page also got a "My Bag" section (PR #105) sourced from a static JSON file, which lists clubs by type with average distances.  That data doesn't change often enough to warrant an API call, so a `src/data/golf-bag.json` file is exactly the right level of complexity.
 
-![Golf page with handicap, recent scores, and bag](https://github.com/user-attachments/assets/7834e7a7-3f1a-437d-975a-bb3082771383)
+![Golf page with handicap, recent scores, and bag](./golf-page.png)
 
 ## What I Learned
 

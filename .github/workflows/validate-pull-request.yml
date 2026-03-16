@@ -24,3 +24,6 @@ jobs:
         run: npm ci
       - name: Build Site
         run: npm run build
+        env:
+          GOLFCANADA_USERNAME: ${{ secrets.GOLFCANADA_USERNAME }}
+          GOLFCANADA_PASSWORD: ${{ secrets.GOLFCANADA_PASSWORD }}

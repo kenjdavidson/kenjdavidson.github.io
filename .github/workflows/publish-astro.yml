@@ -29,6 +29,9 @@ jobs:
         run: npm ci
       - name: Build Site
         run: npm run build
+        env:
+          GOLFCANADA_USERNAME: ${{ secrets.GOLFCANADA_USERNAME }}
+          GOLFCANADA_PASSWORD: ${{ secrets.GOLFCANADA_PASSWORD }}
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

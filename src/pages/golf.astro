@@ -132,14 +132,91 @@ const yearFormatter = new Intl.DateTimeFormat('en-CA', { year: 'numeric' });
         </div>
       </TwoColumnLayout>
     ) : (
-      <!-- Fallback when credentials are not configured -->
-      <div class="prose prose-lg dark:prose-invert max-w-none">
-        <p>Golf Canada data is only available in the production build when credentials are configured.</p>
-        <p>
-          To enable this page locally, set the <code>GOLFCANADA_USERNAME</code> and{' '}
-          <code>GOLFCANADA_PASSWORD</code> environment variables before running{' '}
-          <code>npm run build</code>.
-        </p>
+      <!-- Fallback when profile could not be loaded -->
+      <div>
+        <div class="mb-6 rounded-lg border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 px-4 py-3 text-sm text-yellow-800 dark:text-yellow-300">
+          Golf Canada profile could not be loaded at this time.
+        </div>
+
+        <TwoColumnLayout secondaryFirst={true}>
+          <!-- ─── Secondary column: skeleton profile card ────────────────── -->
+          <div slot="secondary" class="space-y-6 animate-pulse">
+
+            <!-- Skeleton profile card -->
+            <section class="p-6 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 shrink-0" />
+                <div class="flex-1 space-y-2">
+                  <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                </div>
+              </div>
+
+              <div class="text-center py-5 mb-5 rounded-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
+                <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-24 mx-auto mb-2" />
+                <div class="h-12 bg-gray-200 dark:bg-gray-700 rounded w-20 mx-auto" />
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex justify-between">
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-20" />
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16" />
+                </div>
+              </div>
+            </section>
+
+            <!-- Skeleton YTD stats card -->
+            <section class="p-6 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-28 mb-4" />
+              <div class="grid grid-cols-2 gap-4">
+                <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
+                  <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-10 mx-auto mb-1" />
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-14 mx-auto mt-1" />
+                </div>
+                <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
+                  <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-10 mx-auto mb-1" />
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-14 mx-auto mt-1" />
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- ─── Main column: skeleton recent scores ─────────────────────── -->
+          <div slot="main" class="animate-pulse">
+            <section>
+              <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-40 mb-6" />
+
+              <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Course</th>
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Date Played</th>
+                      <th class="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Holes</th>
+                      <th class="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Score</th>
+                      <th class="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Used in Calc</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                    {[...Array(5)].map((_, rowIndex) => (
+                      <tr class={rowIndex % 2 === 0 ? '' : 'bg-gray-50/50 dark:bg-gray-800/20'}>
+                        <td class="px-4 py-3"><div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-40" /></td>
+                        <td class="px-4 py-3"><div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-24" /></td>
+                        <td class="px-4 py-3 text-center"><div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-6 mx-auto" /></td>
+                        <td class="px-4 py-3 text-center"><div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-8 mx-auto" /></td>
+                        <td class="px-4 py-3 text-center"><div class="inline-block w-2 h-2 rounded-full bg-gray-200 dark:bg-gray-700" /></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <p class="mt-4 text-xs text-gray-400 dark:text-gray-500">
+                Data sourced from <a href="https://golfcanada.ca" class="underline hover:text-brand-600 dark:hover:text-brand-400" target="_blank" rel="noopener noreferrer">Golf Canada</a>.
+              </p>
+            </section>
+          </div>
+        </TwoColumnLayout>
       </div>
     )}
   </div>

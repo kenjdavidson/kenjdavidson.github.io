@@ -7,7 +7,7 @@ tags: [Astro, Gatsby, GitHub Copilot, React, Tailwind]
 slug: "/2026/03/16/converting-from-gatsby-to-astro"
 ---
 
-A while back I wrote about [switching from Jekyll to Gatsby](/writing/2020/03/01/here-comes-gatsby).  That went... ok.  Gatsby was fun for about the first year, mostly because I was learning React and React Native at the same time, and the two complimented each other nicely.  But over time Gatsby became a bit of a burden — plugin compatibility issues, the GraphQL requirement for *everything*, and a build process that got slower and heavier as the ecosystem evolved.
+A while back I wrote about [switching from Jekyll to Gatsby](/writing/2020/03/01/here-comes-gatsby).  That went... ok.  Gatsby was fun for about the first year, mostly because I was learning React and React Native at the same time, and the two complemented each other nicely.  But over time Gatsby became a bit of a burden — plugin compatibility issues, the GraphQL requirement for *everything*, and a build process that got slower and heavier as the ecosystem evolved.
 
 My personal site is, at its core, a bunch of markdown files, a few React components, and some static data.  It doesn't need GraphQL.  It doesn't need a plugin for every little thing.  It just needs to be simple.
 

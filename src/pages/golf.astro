@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TwoColumnLayout from '../components/TwoColumnLayout.astro';
+import { getGolfCanadaProfile } from '../utils/golf-canada';
+
+const profile = await getGolfCanadaProfile();
+
+const dateFormatter = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
+const monthYearFormatter = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long' });
+const yearFormatter = new Intl.DateTimeFormat('en-CA', { year: 'numeric' });
+---
+
+<BaseLayout
+  title="Golf"
+  description="Ken Davidson's Golf Canada handicap index, recent scores, and membership overview."
+>
+  <div class="max-w-5xl mx-auto w-full px-4">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">Golf</h1>
+    <p class="text-gray-500 dark:text-gray-400 mb-8">
+      Live Golf Canada handicap index, recent scores, and membership overview.
+    </p>
+
+    {profile ? (
+      <TwoColumnLayout secondaryFirst={true}>
+        <!-- ─── Secondary column: profile card ─────────────────────────── -->
+        <div slot="secondary" class="space-y-6">
+
+          <!-- Profile card -->
+          <section class="p-6 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <!-- Avatar placeholder with initials -->
+            <div class="flex items-center gap-4 mb-5">
+              <div class="w-16 h-16 rounded-full bg-brand-600 dark:bg-brand-500 flex items-center justify-center shrink-0 text-white text-xl font-bold select-none">
+                {profile.user.firstName.charAt(0)}{profile.user.lastName.charAt(0)}
+              </div>
+              <div>
+                <p class="text-xl font-bold text-gray-900 dark:text-gray-100">{profile.user.fullName}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{profile.snapshot.club}</p>
+              </div>
+            </div>
+
+            <!-- Handicap index — hero number -->
+            <div class="text-center py-5 mb-5 rounded-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
+              <p class="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1">Handicap Index</p>
+              <p class="text-5xl font-extrabold text-brand-600 dark:text-brand-400">{profile.user.handicap}</p>
+            </div>
+
+            <!-- Membership details -->
+            <dl class="space-y-3 text-sm">
+              <div class="flex justify-between">
+                <dt class="text-gray-500 dark:text-gray-400 font-medium">Career Low</dt>
+                <dd class="text-gray-800 dark:text-gray-200 font-semibold">
+                  {profile.snapshot.displayLowHandicap}
+                  {profile.snapshot.lowHandicapOn && (
+                    <span class="text-xs text-gray-400 dark:text-gray-500 font-normal ml-1">
+                      ({monthYearFormatter.format(new Date(profile.snapshot.lowHandicapOn))})
+                    </span>
+                  )}
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <!-- YTD Stats card -->
+          <section class="p-6 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h2 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-4">
+              {profile.snapshot.ytdYear} Season
+            </h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
+                <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">{profile.snapshot.ytdScoreCount}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Rounds</p>
+              </div>
+              <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
+                <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  {profile.snapshot.ytdScoreAverage > 0
+                    ? profile.snapshot.ytdScoreAverage.toFixed(1)
+                    : '—'}
+                </p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Avg Score</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ─── Main column: recent scores ─────────────────────────────── -->
+        <div slot="main">
+          <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Recent Scores</h2>
+
+            {profile.snapshot.scores.length === 0 ? (
+              <p class="text-gray-500 dark:text-gray-400 italic">No scores on record yet this season.</p>
+            ) : (
+              <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Course</th>
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Date Played</th>
+                      <th class="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Holes</th>
+                      <th class="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Score</th>
+                      <th class="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Used in Calc</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                    {profile.snapshot.scores.map((score, i) => (
+                      <tr class={`transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 ${i % 2 === 0 ? '' : 'bg-gray-50/50 dark:bg-gray-800/20'}`}>
+                        <td class="px-4 py-3 text-gray-800 dark:text-gray-200 font-medium">{score.course}</td>
+                        <td class="px-4 py-3 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                          {dateFormatter.format(new Date(score.datePlayed))}
+                        </td>
+                        <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-400">{score.holesPlayed}</td>
+                        <td class="px-4 py-3 text-center font-semibold text-gray-900 dark:text-gray-100">{score.score}</td>
+                        <td class="px-4 py-3 text-center">
+                          {score.isUsedInCalc ? (
+                            <span class="inline-block w-2 h-2 rounded-full bg-brand-500" title="Used in handicap calculation" />
+                          ) : (
+                            <span class="inline-block w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600" title="Not used in calculation" />
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <p class="mt-4 text-xs text-gray-400 dark:text-gray-500">
+              Data sourced from <a href="https://golfcanada.ca" class="underline hover:text-brand-600 dark:hover:text-brand-400" target="_blank" rel="noopener noreferrer">Golf Canada</a>.
+              Last updated at build time on {new Intl.DateTimeFormat('en-CA', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(profile.fetchedAt))}.
+            </p>
+          </section>
+        </div>
+      </TwoColumnLayout>
+    ) : (
+      <!-- Fallback when credentials are not configured -->
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <p>Golf Canada data is only available in the production build when credentials are configured.</p>
+        <p>
+          To enable this page locally, set the <code>GOLFCANADA_USERNAME</code> and{' '}
+          <code>GOLFCANADA_PASSWORD</code> environment variables before running{' '}
+          <code>npm run build</code>.
+        </p>
+      </div>
+    )}
+  </div>
+</BaseLayout>

@@ -7,6 +7,7 @@ import {
   FiBookOpen,
   FiMail,
   FiFileText,
+  FiDisc,
 } from 'react-icons/fi';
 import type { IconType } from 'react-icons';
 
@@ -20,7 +21,8 @@ export type FabIconName =
   | 'FiInfo'
   | 'FiBookOpen'
   | 'FiMail'
-  | 'FiFileText';
+  | 'FiFileText'
+  | 'FiDisc';
 
 /** A secondary action displayed around the main FAB on hover. */
 export interface FabAction {
@@ -58,6 +60,7 @@ const ICON_MAP: Record<FabIconName, IconType> = {
   FiBookOpen,
   FiMail,
   FiFileText,
+  FiDisc,
 };
 
 /** Degrees clockwise from 12 o'clock for each supported clock position. */

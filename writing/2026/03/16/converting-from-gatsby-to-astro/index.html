@@ -31,7 +31,7 @@ Ken Davidson
 </blockquote>
 <h2 id="the-migration-pr-54">The Migration (PR #54)</h2>
 <p>The first PR was the big one.  Start from scratch: rip out everything Gatsby, build up a new Astro project.  119 files changed.  10,239 additions, 50,613 deletions.  That ratio is a pretty good summary of why I wanted to leave Gatsby behind.</p>
-<p><img src="https://github.com/user-attachments/assets/f3f84613-bbd2-44b7-9abd-4d8465f9d58c" alt="The initial Astro site — homepage after migration"></p>
+<p><img alt="The initial Astro site — homepage after migration" loading="lazy" decoding="async" fetchpriority="auto" width="1280" height="900" src="/_astro/astro-homepage-migration.Cm27fYHb_Z1VC2Dl.webp" ></p>
 <p>The content collections setup was clean.  Astro makes it straightforward to define schemas for your different content types:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> writing</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> defineCollection</span><span style="color:#E1E4E8">({</span></span>
 <span class="line"><span style="color:#E1E4E8">  type: </span><span style="color:#9ECBFF">'content'</span><span style="color:#E1E4E8">,</span></span>
@@ -106,8 +106,8 @@ Ken Davidson
 <li>Recent writing + projects in the middle</li>
 <li>Bitmoji + stacked social icons flush right</li>
 </ul>
-<p><img src="https://github.com/user-attachments/assets/ef9110ed-7e5c-4b57-a48a-643ace0636fb" alt="Footer — light mode desktop"></p>
-<p><img src="https://github.com/user-attachments/assets/fc9666c2-131f-402e-8e0e-53b437d9a5b5" alt="Footer — dark mode desktop"></p>
+<p><img alt="Footer — light mode desktop" loading="lazy" decoding="async" fetchpriority="auto" width="1280" height="900" src="/_astro/footer-light.Lj9eSnb6_5Gtxr.webp" ></p>
+<p><img alt="Footer — dark mode desktop" loading="lazy" decoding="async" fetchpriority="auto" width="1280" height="900" src="/_astro/footer-dark.BRyJhcof_2d4eqj.webp" ></p>
 <p>The footer also prompted the extraction of a <code>getProjectUrl(entry)</code> utility (mirroring the existing <code>getPostUrl</code>) to clean up the duplicated slug logic.</p>
 <h2 id="the-fab-pr-98">The FAB (PR #98)</h2>
 <p>The floating action button was one of the more interesting implementation challenges.  The requirements were: a scroll-to-top button that appears once you’ve scrolled down, with the ability to expand into sub-buttons arranged at clock positions around the main button.</p>
@@ -121,8 +121,8 @@ Ken Davidson
 <span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> y</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Math.</span><span style="color:#B392F0">round</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">ORBIT_RADIUS</span><span style="color:#F97583"> *</span><span style="color:#E1E4E8"> Math.</span><span style="color:#B392F0">sin</span><span style="color:#E1E4E8">(angleRad));</span></span></code></pre>
 <p>A hover delay (100ms) means you can actually move your cursor to the sub-buttons without them collapsing immediately, which is a subtle UX detail that makes the whole thing usable.</p>
 <p>One thing I had to remind Copilot about: screenshots.  The initial PR description had no before/after.  After a nudge it added them, then I asked for the orbit radius to be smaller (72px → 58px) so the sub-buttons sat closer to the main button.  Iterating on pixel values through PR comments is a strange but functional workflow.</p>
-<p><img src="https://github.com/user-attachments/assets/1fd2c847-3309-4e65-8279-39cec2fc4d15" alt="FAB — expanded on hover, light mode"></p>
-<p><img src="https://github.com/user-attachments/assets/b7ac102d-1b65-47ef-8b28-c86b64affb5b" alt="FAB — expanded on hover, dark mode"></p>
+<p><img alt="FAB — expanded on hover, light mode" loading="lazy" decoding="async" fetchpriority="auto" width="1280" height="900" src="/_astro/fab-light.Bnu1ReZf_1jKpwH.webp" ></p>
+<p><img alt="FAB — expanded on hover, dark mode" loading="lazy" decoding="async" fetchpriority="auto" width="1280" height="900" src="/_astro/fab-dark.Cfh4TFgu_246oKY.webp" ></p>
 <h2 id="the-golf-page-prs-99-101-103">The Golf Page (PRs #99, #101, #103)</h2>
 <p>This was one of the features I had wanted in Gatsby and never got around to properly implementing.  The Golf Canada integration authenticates at build time using credentials stored as GitHub Secrets, fetches the member snapshot (handicap index, recent scores, season stats), and bakes it all into the static HTML.</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getGolfCanadaProfile</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">GolfProfile</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">> {</span></span>
@@ -141,7 +141,7 @@ Ken Davidson
 <span class="line"><span style="color:#85E89D">    GOLFCANADA_USERNAME</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.GOLFCANADA_USERNAME }}</span></span>
 <span class="line"><span style="color:#85E89D">    GOLFCANADA_PASSWORD</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.GOLFCANADA_PASSWORD }}</span></span></code></pre>
 <p>The golf page also got a “My Bag” section (PR #105) sourced from a static JSON file, which lists clubs by type with average distances.  That data doesn’t change often enough to warrant an API call, so a <code>src/data/golf-bag.json</code> file is exactly the right level of complexity.</p>
-<p><img src="https://github.com/user-attachments/assets/7834e7a7-3f1a-437d-975a-bb3082771383" alt="Golf page with handicap, recent scores, and bag"></p>
+<p><img alt="Golf page with handicap, recent scores, and bag" loading="lazy" decoding="async" fetchpriority="auto" width="1280" height="1883" src="/_astro/golf-page.CUXGbRKw_Z1uumj4.webp" ></p>
 <h2 id="what-i-learned">What I Learned</h2>
 <p>This wasn’t just a tech migration — it was also an experiment in what GitHub Copilot as an agent is actually capable of for a real-world project.</p>
 <p>The short version: it’s genuinely useful, and genuinely imperfect.</p>
